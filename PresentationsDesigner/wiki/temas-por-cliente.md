@@ -187,6 +187,27 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 
 ---
 
+### Colbeef — rojo del wordmark → verde del isotipo (cárnica: producto → campo)
+> Derivado del logo real: **rojo** (`#D93A2E`/`#B8341F`, wordmark "Colbeef") hacia **verde**
+> (`#2E8B4F`/`#1B5E33`, isotipo). Marca **cálida** (rojo) → el punto "Confidencial" se pone en
+> verde profundo (acento frío frente al rojo, por la regla de seguridad). Fondo gris claro +
+> `--bg-wash` (estándar desde 2026-07-10). Usado en `presentaciones/colbeef-plan-trabajo/`.
+> **Nota técnica:** evitar `background-clip:text` (gradiente) en números/labels grandes con
+> `white-space:nowrap` — Chrome headless puede pintar un recuadro visible alrededor del texto
+> al exportar a PDF (ver `.stat-card .big` en `presentaciones/colbeef-plan-trabajo/styles.css`,
+> resuelto usando color sólido `--cyan`/`--violet` en vez de gradiente para esos elementos).
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(217,58,46,.09); --bg-glow-b:rgba(27,94,51,.09);
+--bg-wash:linear-gradient(135deg, rgba(224,74,58,.07) 0%, rgba(184,52,31,.05) 32%, rgba(46,139,79,.05) 66%, rgba(27,94,51,.07) 100%);
+--cyan:#8A1F1F; --blue:#D93A2E; --violet:#2E8B4F; --magenta:#1B5E33;
+--grad-brand:linear-gradient(100deg,#E2543F 0%,#D93A2E 34%,#4CAA6A 68%,#1B5E33 100%);
+--grad-cyan:linear-gradient(120deg,#E2543F,#B8341F);
+--grad-violet:linear-gradient(120deg,#4CAA6A,#1B5E33);
+--card-border:1px solid rgba(20,25,35,.10);
+--dot-confidential:#1B7A4A; --dot-confidential-glow:rgba(27,122,74,.45);
+```
+
 ## 4. Aplicación
 
 - **Decks nuevos:** derivar la paleta del logo en el paso de plan (ver [[flujo-trabajo]] y

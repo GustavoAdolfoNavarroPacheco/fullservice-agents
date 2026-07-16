@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"C:\\\\Users\\\\Full Service\\\\Downloads\\\\FullService Agents - Gustavo Navarro\" && ls -la && echo \"---IntelligenceCommercial---\" && ls -la IntelligenceCommercial 2>/dev/null && echo \"---sibling structure PresentationsDesigner---\" && ls -la PresentationsDesigner 2>/dev/null | head -30 && echo \"---sibling QuoteDeveloper---\" && ls -la QuoteDeveloper 2>/dev/null | head -30)"
+    ]
+  }
+}

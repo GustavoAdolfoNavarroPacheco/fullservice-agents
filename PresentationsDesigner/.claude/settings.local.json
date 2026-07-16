@@ -31,7 +31,17 @@
       "Bash(mkdir -p \"presentaciones/multinal-escenario-c/assets/fonts\" *)",
       "Bash(cp \"presentaciones/multinal-escenario-b/assets/logo-cliente.png\" \"presentaciones/multinal-escenario-b-demo/docs/assets/logo-cliente.png\" *)",
       "Bash(python3 -)",
-      "Bash(echo \"style.css diff exit: $?\")"
+      "Bash(echo \"style.css diff exit: $?\")",
+      "Bash(markitdown \"C:\\\\Users\\\\Full Service\\\\Downloads\\\\FullServices NAL 2026 - ColBeef.xlsx\")",
+      "Bash(export PYTHONIOENCODING=utf-8)",
+      "Read(//c/Users/Full Service/**)",
+      "Bash(cp \"recursos/ColBeef S.A.S\" \"/tmp/colbeef_logo_preview.png\" 2>/dev/null || cp \"recursos/ColBeef S.A.S\" \"recursos/colbeef_logo_preview_tmp.png\" *)",
+      "Bash(cp \"../../../../recursos/fonts/PlayfairDisplay-Regular.ttf\" .)",
+      "Bash(cp \"../../../../recursos/fonts/PlayfairDisplay-Bold.ttf\" .)",
+      "Bash(cp \"../../../../recursos/fonts/PlayfairDisplay-Black.ttf\" .)",
+      "Bash(cp \"../../../../recursos/fonts/PlayfairDisplay-Italic.ttf\" .)",
+      "Bash(cp \"../../../../recursos/fonts/PlayfairDisplay-BlackItalic.ttf\")",
+      "Bash(python3 -c \"import fitz; print\\('ok', fitz.__doc__\\)\")"
     ]
   }
 }
