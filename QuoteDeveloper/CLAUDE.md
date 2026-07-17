@@ -66,40 +66,68 @@ con precisión, pregunto directamente al usuario en vez de asumir.
    dato necesario para cotizar, **pregunto directamente al usuario** antes de
    continuar. No invento ni completo huecos por mi cuenta.
 3. Genero el **PDF de cotización de alcance** siguiendo la plantilla visual
-   (ver `wiki/diseno-pdf-cotizacion.md`), organizado por módulos.
+   (ver `wiki/marca-campuslands.md` §5), organizado por módulos.
 4. Con el PDF ya validado por el usuario, lleno el **XLSX** (ver reglas exactas
    abajo) usando el desglose de módulos/submódulos/detalles técnicos del PDF.
-5. **Verifico** que:
+5. Recalculo el XLSX y, con los precios ya calculados y verificados, **actualizo
+   el PDF para reemplazar "Pendiente de costear" por los precios reales**
+   (ver "Precios en el PDF" más abajo), incluida la doble verificación de
+   contenido antes de entregar.
+6. **Verifico** que:
    - Los archivos (PDF y XLSX) reflejan el mismo alcance, sin omitir ni
      agregar módulos.
    - El XLSX recalcula sin errores de fórmula (`#REF!`, `#DIV/0!`, etc.) — uso
      `scripts/recalc.py` de la skill de xlsx.
    - Ningún día estimado es menor a 0.5 ni está en una celda equivocada.
-6. Entrego ambos archivos al usuario (PDF + XLSX) en `cotizaciones/<slug>/`.
-7. Actualizo `wiki/index.md` y agrego entrada a `wiki/log.md`.
+   - Los precios del PDF coinciden exactamente con el XLSX (doble verificación).
+7. Entrego ambos archivos al usuario (PDF + XLSX) en `cotizaciones/<slug>/`.
+8. Actualizo `wiki/index.md` y agrego entrada a `wiki/log.md`.
 
 ---
 
 ## Reglas del PDF
 
-- **Estilo visual**: clonado del ejemplo de referencia (`Miami Aqua Tours —
-  Cotización de Alcance.pdf`) — logo de Campuslands arriba a la izquierda,
-  paleta de azules, tipografía y layout de tabla. Este sistema de diseño vive
-  documentado en `wiki/diseno-pdf-cotizacion.md` para reutilizarlo en cada
-  cliente sin volver a extraerlo del PDF de ejemplo.
+- **Estilo visual (vigente desde 2026-07-17)**: paleta clara de marca Campus —
+  Azul `#152F5E`, Azul Cielo `#418BF3`, Blanco `#FFFFFF` — con el apartado de
+  módulos y contenido en **grid**: líneas delgadas grises tanto horizontales
+  como verticales entre celdas, no solo separadores de fila. Logo de
+  Campuslands arriba a la izquierda (`Horizontal Azul.png` sobre este fondo
+  claro). Este sistema de diseño vive documentado en
+  `wiki/marca-campuslands.md` §5 (colores exactos, layout de grid, uso de
+  logotipo) para reutilizarlo en cada cliente sin rehacer el diseño desde
+  cero. Reemplaza tanto la paleta oscura con gradiente (uso de marca general,
+  no para cotizaciones) como cualquier variante clara anterior sin grid
+  completo.
 - **Estructura de tabla**: 3 columnas — `Módulo / Funcionalidad` | `Detalle
   técnico` | `Valor (COP)`.
   - Cada módulo (`M1. NOMBRE DEL MÓDULO`) lleva su descripción corta y luego
     sus bullets (`• Funcionalidad`) cada uno con su detalle técnico en la fila
     correspondiente.
-  - La columna `Valor (COP)` **siempre** dice **"Pendiente de costear"** — en
-    la fila de cada módulo y en la fila de TOTAL. Nunca se calculan ni
-    inventan valores en COP en el PDF.
-- **Orden fijo**: Módulo/Funcionalidad → Detalle técnico → (Pendiente de costear).
+  - La columna `Valor (COP)` lleva el **precio real por fila y por módulo**
+    (ver "Precios en el PDF" abajo). Solo se usa "Pendiente de costear" si el
+    XLSX correspondiente todavía no existe o no está recalculado.
+- **Orden fijo**: Módulo/Funcionalidad → Detalle técnico → Valor (COP).
 - **Contenido 100% verídico**: solo lo que el usuario compartió o confirmó
   explícitamente. Cero relleno genérico de IA.
 - El número de módulos y de bullets por módulo es libre — depende del alcance
   real del proyecto, no hay un conteo fijo.
+
+### Precios en el PDF (vigente desde 2026-07-17)
+
+Después de generar la cotización y llenar el XLSX, **agrego los precios reales
+al PDF** en vez de dejar "Pendiente de costear":
+
+1. Recalculo el XLSX con `scripts/recalc.py` (cero errores fuera de
+   `A140:A144`, ver Reglas del XLSX §5).
+2. Leo los precios por fila desde la columna `A` del XLSX ya recalculado
+   (`data_only=True`) — nunca los calculo ni los transcribo a mano en el PDF.
+3. **Doble verificación de contenido** antes de entregar:
+   - Cada precio de línea en el PDF coincide exactamente con su celda de
+     origen en el XLSX.
+   - La suma de los ítems de cada módulo coincide con el subtotal mostrado en
+     la banda de ese módulo, y la suma de todos los módulos (incluidas las
+     filas transversales 2-5) coincide exactamente con el TOTAL general del
+     XLSX.
 
 ---
 
