@@ -208,6 +208,32 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 --dot-confidential:#1B7A4A; --dot-confidential-glow:rgba(27,122,74,.45);
 ```
 
+### Avicampo — sol amarillo → naranja de marca → verde "frescura" (avícola)
+> Derivado del logo real: **amarillo** del sol (`#FDB913`) → **naranja** vivo del wordmark
+> "avicampo" (`#FF8A00`) → **verde** de la línea "El sabor de la frescura" (`#4CAF50`/`#1B5E33`).
+> Narrativa de marca completa (sol/calor → campo/frescura), distinta de Multinal (naranja→índigo)
+> y Colbeef (rojo→verde). Marca **cálida** (naranja) → el punto "Confidencial" se pone en verde
+> profundo (acento frío frente al naranja, por la regla de seguridad). Fondo gris claro +
+> `--bg-wash` (estándar desde 2026-07-10). Usado en `presentaciones/avicampo/`.
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(255,140,0,.09); --bg-glow-b:rgba(30,155,77,.09);
+--bg-wash:linear-gradient(135deg, rgba(253,185,19,.07) 0%, rgba(255,138,0,.06) 30%, rgba(46,157,68,.05) 65%, rgba(27,94,51,.07) 100%);
+--cyan:#A85A0E; --blue:#FF8A00; --violet:#2E9D44; --magenta:#1B5E33;
+--grad-brand:linear-gradient(100deg,#FDB913 0%,#FF8A00 34%,#4CAF50 68%,#1B5E33 100%);
+--grad-cyan:linear-gradient(120deg,#FDB913,#FF8A00);
+--grad-violet:linear-gradient(120deg,#66BB6A,#1B5E33);
+--card-border:1px solid rgba(20,25,35,.10);
+--dot-confidential:#1B7A4A; --dot-confidential-glow:rgba(27,122,74,.45);
+```
+> **Nota técnica (2026-07-22):** en títulos internos (`.s-title`) donde el `<em>` en gradiente
+> queda mezclado en la misma línea que texto negro normal, Chrome headless dibuja un hairline
+> sutil bajo el gradiente al exportar a PDF (mismo bug ya documentado para Colbeef). Se resolvió
+> con dos clases de acento **sólido** (`.title-accent` / `.title-accent--green`, alternando
+> naranja/verde) en vez de `.gradient-text` para esos `<em>` mezclados — el gradiente se conserva
+> en la portada (línea propia) y en la cifra de inversión (corrida corta aislada), donde no
+> presentó el defecto.
+
 ## 4. Aplicación
 
 - **Decks nuevos:** derivar la paleta del logo en el paso de plan (ver [[flujo-trabajo]] y

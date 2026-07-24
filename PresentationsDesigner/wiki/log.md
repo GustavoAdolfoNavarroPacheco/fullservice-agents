@@ -4,6 +4,24 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-07-22] ajuste | Avicampo S.A.S. — cambio de precio + corrección de errores de diseño (`presentaciones/avicampo/`)
+
+* **Cambio de precio:** inversión total actualizada de $30.531.552 a **$43.616.503 COP** (indicado por el usuario). El desglose por módulo se escaló proporcionalmente para mantener consistencia matemática con el nuevo total; pago 40/40/20 recalculado ($17.446.601 / $17.446.601 / $8.723.301).
+* **Sobreposición en lámina de Inversión:** la tarjeta de pago "20% Cierre" invadía visualmente el pie de página (el `.pay-plan` apilado verticalmente con 3 tarjetas + textos largos excedía el alto disponible de `.s-body`, sin que el chequeo de gap superficial lo detectara — el desborde ocurría *dentro* de la caja, no en su borde exterior). Se rediseñó `.pay-plan` de columna vertical a **fila horizontal de 3 tarjetas compactas** debajo de `.invest-modules`, liberando suficiente alto.
+* **Recorte de texto en lámina Equipo:** la tarjeta "Líder / Arquitecto / Scrum" (3 líneas) se recortaba ~18px contra el `overflow:hidden` de `.team-card` — un bug de sizing de CSS Grid con hijos flex-column y texto que envuelve (el auto-row no reservó la altura real necesaria). Se acortó el título a "Líder / Arquitecto" y se cambió `.team-grid` a `grid-auto-rows:1fr` con `justify-content:center` en la tarjeta, dando más aire de forma uniforme.
+* **Caja blanca detrás de las etiquetas "MOD-XX · 0X":** mismo bug de hairline/caja de `background-clip:text` ya documentado (esta vez un rectángulo blanco opaco, no solo una línea) en el `<span class="rf gradient-text">` de cada `.feat-card` — el elemento es `display:block`, el caso exacto que dispara el bug. Se quitó `gradient-text` de las 12 etiquetas `.rf` y se fijó color sólido (`var(--cyan)`, el naranja quemado de marca) en la regla base de `.feat-card .rf`.
+* **Aire vacío en Módulo 3 (Chats y Clientes):** 3 tarjetas con texto corto dejaban ~35% de la lámina en blanco. Se añadió la variante `.feat-card--lg` (padding, tipografía y line-height mayores) y se aplicó a esas 3 tarjetas, redistribuyendo el contenido para llenar el espacio disponible (regla de Balance de Espacio §5.1 de [[sistema-diseno]]).
+* **Verificación:** export a PDF (Chrome headless, 9 páginas) + inspección visual completa de las 9 láminas a 130dpi y crops a 300dpi de las zonas corregidas, confirmando ausencia de sobreposición, recorte y aire vacío.
+
+## [2026-07-22] build | Avicampo S.A.S. — Evolución del Agente de IA en WhatsApp (`presentaciones/avicampo/`)
+
+* **Alcance leído de** `FullServices NAL 2026 - Avicampo 2.0.xlsx` (hoja "Avicampo 2.0"): 4 módulos de mejora al agente conversacional — Ajustes de Dashboard ($5.259.643), Seguimiento / Informes ($8.834.245), Chats y Clientes ($4.431.805) y Campañas Automatizadas ($7.789.502) — más estructura/UX/implementación ($4.216.356). **Total $30.531.552 COP**, pago 40/40/20 (esquema no especificado en el Excel; confirmado con el usuario).
+* **Paleta propia derivada del logo:** sol amarillo (`#FDB913`) → naranja de marca (`#FF8A00`) → verde "frescura" (`#4CAF50`/`#1B5E33`), registrada en [[temas-por-cliente]] y en el tile `.t-avc` de `presentaciones/_temas-demo/index.html`. Fondo gris claro + `--bg-wash` (estándar vigente).
+* **9 láminas:** Portada · Contexto y objetivo · Módulo 1 Dashboard (grid) · Módulo 2 Seguimiento (embudo de 5 pasos, layout nuevo `.funnel`) · Módulo 3 Chats y Clientes (grid) · Módulo 4 Campañas (grid) · Equipo y metodología (layout nuevo `.team-grid`) · Inversión (tabla por módulo + pago) · Cierre/CTA.
+* **Logo del cliente** recortado a su bbox visible + padding 6% (`assets/logo-cliente.png`); Campuslands azul horizontal recortado igual para fondo claro.
+* **Bug de hairline en PDF** (mismo ya documentado para Colbeef): los `<em class="gradient-text">` mezclados en la misma línea que texto negro en `.s-title` dejaban una línea sutil bajo el gradiente al exportar con Chrome headless. Resuelto con dos clases nuevas de acento sólido `.title-accent`/`.title-accent--green` (alternando naranja/verde) para esos 8 títulos internos; se conservó el gradiente en la portada y en la cifra de inversión (verificado limpio ahí a 300dpi).
+* **Verificación:** preview en Browser pane (9 láminas, balance de espacio ok) + export a PDF (Chrome headless, 9 páginas = 9 láminas) + inspección a 300dpi con PyMuPDF confirmando ausencia de hairline tras el fix.
+
 ## [2026-07-16] ajuste | Multinal S.A.S. — Escenario B, quitar título superior + rediseño de las 3 láminas de agentes (`multinal-escenario-b/` y `multinal-escenario-b-demo/`)
 
 * **Título superior eliminado** (láminas 9, 10, 11): se quitó el `<h2 class="s-title">` ("Agentes de X y Y") que quedaba debajo del indicador `PRY-...`, dejando solo el `s-eyebrow`. Libera ~0.35–0.4in de alto por lámina.
