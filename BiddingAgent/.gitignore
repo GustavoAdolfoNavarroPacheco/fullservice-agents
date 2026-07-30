@@ -1,0 +1,15 @@
+# Artefactos temporales de inspección/conversión — nunca insumos ni entregables
+scratch/
+scratch_inspect/
+*.pyc
+__pycache__/
+
+# Archivos de bloqueo y temporales de Office / LibreOffice
+~$*
+.~lock.*#
+
+# Conversiones intermedias (LibreOffice, pdftoppm, etc.) generadas al verificar diseño
+*.docx.pdf
+*.xlsx.pdf
+page-*.jpg
+page-*.png

@@ -234,6 +234,34 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > en la portada (línea propia) y en la cifra de inversión (corrida corta aislada), donde no
 > presentó el defecto.
 
+### Gas País — amarillo → verde → azul (blend real del isotipo, Oil & Gas)
+> Derivado del logo real: el isotipo funde un pétalo **amarillo** (`#FFD400`) y uno **azul**
+> (`#0161B8`) en **verde** (`#4FA647`) donde se superponen; el wordmark "GasPaís" es un **verde
+> bosque** sólido (`#0B5E2B`). El `--grad-brand` seguí literalmente esa transición
+> amarillo→verde→azul en vez de forzar solo 2 colores. Marca **mixta** (cálido+frío) → el punto
+> "Confidencial" se pone en **dorado** (`--cyan` profundizado) para contrastar sobre el fondo
+> verde/azul-dominante. Fondo gris claro + `--bg-wash` (estándar desde 2026-07-10). Usado en
+> `presentaciones/gaspais-chilco/`.
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(255,212,0,.09); --bg-glow-b:rgba(1,97,184,.09);
+--bg-wash:linear-gradient(135deg, rgba(255,212,0,.06) 0%, rgba(79,166,71,.05) 34%, rgba(11,90,39,.05) 68%, rgba(1,97,184,.07) 100%);
+--cyan:#A87A00; --blue:#2F8F3E; --violet:#0E7A3E; --magenta:#0A5CA8;
+--grad-brand:linear-gradient(100deg,#FFD400 0%,#4FA647 34%,#0E7A3E 68%,#0161B8 100%);
+--grad-cyan:linear-gradient(120deg,#FFD400,#4FA647);
+--grad-violet:linear-gradient(120deg,#0E7A3E,#0161B8);
+--card-border:1px solid rgba(20,25,35,.10);
+--dot-confidential:#C98A00; --dot-confidential-glow:rgba(201,138,0,.45);
+```
+> **Nota técnica (2026-07-29):** se confirmó que el bug de hairline de `background-clip:text`
+> (ver §5 [[sistema-diseno]]) persiste **incluso con el elemento en `display:inline`** — se
+> probó también sin itálica, sin `color:transparent` redundante, con `background-size:112%`
+> (mitigación de Colbeef) y con `line-height:1`; ninguna variante lo eliminó. Se confirmó que el
+> mismo artefacto ya existe, más sutil, en el PDF ya entregado de `presentaciones/avicampo/`
+> (portada). Es un bug sistémico de Chrome headless con este patrón CSS en export a PDF, no
+> específico de este deck — pendiente de investigación de fondo (posible solución: renderizar el
+> texto en gradiente como SVG en vez de `background-clip:text`).
+
 ## 4. Aplicación
 
 - **Decks nuevos:** derivar la paleta del logo en el paso de plan (ver [[flujo-trabajo]] y

@@ -231,12 +231,37 @@ plantilla):
   que las fórmulas de las columnas A/X/Y/AB/AC se hayan propagado correctamente
   en las filas nuevas antes de recalcular.
 
-### 5. Verificación obligatoria
+### 5. Celda obligatoria de la fórmula del Agente IA (vigente desde 2026-07-28)
+
+En **todo** XLSX de cotización que desarrolle, debo escribir la fórmula
+`=Y1/0,6` (interno: `=Y1/0.6`) en la columna **Y**, en la fila que está
+**2 posiciones debajo de la "barra gris"** — la fila con relleno gris sólido
+en la columna L que marca el cierre de la tabla de alcance (en la plantilla
+maestra esa barra está en la fila 120, así que la celda destino ahí es
+`Y122`, pero **no es una fila fija**: si el alcance del cliente es grande y
+se insertaron filas, la barra gris se desplaza y la celda destino se mueve
+con ella — siempre `barra_gris + 2`, siempre columna Y).
+
+- Para ubicar la barra gris: es la fila con `fill` gris sólido (`#999999`)
+  en la columna L, justo antes del bloque de fórmulas fijas de costeo
+  (P:AC, filas 121+ en la plantilla original).
+- Antes de escribir, confirmo que esa celda esté vacía. Si ya contiene una
+  fórmula (porque la tabla de alcance se extendió y esa fila pasó a ser una
+  fila real de datos), **no la sobrescribo** — reporto el conflicto al
+  usuario en vez de asumir.
+- Esta celda cae dentro de la zona normalmente "intocable" (columnas O:AC,
+  §4) — es la única excepción explícita a esa regla.
+
+### 6. Verificación obligatoria
 
 - Recalculo con `scripts/recalc.py` (skill de xlsx) y confirmo **cero errores**
-  de fórmula.
+  de fórmula (fuera de defectos preexistentes conocidos de la plantilla, ver
+  fila `A140:A144` — `#NAME?`/`#ERR520` de un `UNIQUE()` no soportado por
+  LibreOffice, no relacionado con mi llenado).
 - Reviso que ningún ítem del PDF quedó sin su fila correspondiente en el XLSX
   y viceversa.
+- Confirmo que la celda `Y{barra_gris+2}` tiene la fórmula `=Y1/0.6` y que
+  recalcula a un valor numérico (no error).
 
 ---
 

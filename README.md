@@ -31,6 +31,19 @@ Agente **desarrollador de cotizaciones**. A partir de los alcances de un proyect
 
 ---
 
+### [BiddingAgent](BiddingAgent/)
+
+Agente **licitatorio**: especialista en licitaciones, preventa técnica, arquitectura de soluciones y estimación de proyectos de software. A partir de los cuatro documentos oficiales de un proceso (RFP, aclaraciones/preguntas y respuestas, modelo de costos oficial de la empresa y modelo de costos de cotización), analiza el proceso de forma integral y construye la propuesta completa.
+
+- **Entregables:** propuesta técnica + estimación de horas de desarrollo + consideraciones técnicas + análisis de IA con estimación de tokens y costo. Como soporte: análisis documental, matriz de cumplimiento y los dos modelos de costos llenados y conciliados.
+- **Estructura interna:**
+  - `licitaciones/` — Carpeta por licitación con los entregables generados.
+  - `recursos/` — Los cuatro documentos oficiales por licitación, más marca y brief (solo lectura).
+  - `habilidades/` — Skills: ingesta documental, matriz de cumplimiento, estimación de horas, modelos de costos, análisis de IA/tokens.
+  - `wiki/` — Método de estimación, checklist de consideraciones técnicas, costeo de tokens, bitácora.
+
+---
+
 ### [ContractPerfectionist](ContractPerfectionist/)
 
 Agente de **redacción de contratos**. Toma los alcances, la cotización y un contrato madre (plantilla estructural con cláusulas estándar de la empresa) para generar el contrato final listo para firma.
@@ -56,6 +69,12 @@ FullService-Agents/
 ├── QuoteDeveloper/
 │   ├── CLAUDE.md
 │   ├── cotizaciones/
+│   ├── recursos/
+│   └── wiki/
+├── BiddingAgent/
+│   ├── CLAUDE.md
+│   ├── licitaciones/
+│   ├── habilidades/
 │   ├── recursos/
 │   └── wiki/
 └── ContractPerfectionist/
@@ -122,7 +141,7 @@ git remote -v
 | **Slug de cliente** | Minúsculas, sin espacios ni tildes, separado por guiones (ej. `casa-blanca`). |
 | **`recursos/`** | Solo lectura — fuentes de verdad provistas por el usuario. |
 | **`wiki/`** | Conocimiento acumulado por el agente: bitácora (`log.md`), catálogo (`index.md`), guías de diseño. |
-| **Salidas por cliente** | Cada cliente tiene su subcarpeta autocontenida dentro de `presentaciones/`, `cotizaciones/` o `contratos/`. |
+| **Salidas por cliente** | Cada cliente tiene su subcarpeta autocontenida dentro de `presentaciones/`, `cotizaciones/`, `licitaciones/` o `contratos/`. |
 | **Veracidad** | Los agentes nunca inventan información. Datos faltantes se marcan como `[PENDIENTE]` y se consultan al usuario. |
 
 ---
@@ -132,10 +151,20 @@ git remote -v
 ```mermaid
 graph LR
     A["PresentationsDesigner"] -->|Presentacion aprobada| B["QuoteDeveloper"]
+    L["BiddingAgent"] -->|Propuesta adjudicada| C["ContractPerfectionist"]
     B -->|Cotizacion aprobada| C["ContractPerfectionist"]
     C --> D["Contrato listo para firma"]
 ```
 
+Hay dos vias de entrada al pipeline:
+
+**Via comercial directa**
+
 1. **Presentacion** — Se construye el deck comercial para el cliente.
 2. **Cotizacion** — Con los alcances definidos, se genera el PDF de alcance y el XLSX de costos.
 3. **Contrato** — Se redacta el contrato final a partir de los alcances, la cotizacion y el contrato madre.
+
+**Via licitatoria**
+
+1. **Propuesta licitatoria** — A partir de los cuatro documentos oficiales del proceso, se construyen la propuesta tecnica, la estimacion de horas, las consideraciones tecnicas y el analisis de IA/tokens, con los dos modelos de costos conciliados.
+2. **Contrato** — Si el proceso se adjudica, se redacta el contrato a partir de la propuesta y el modelo de costos radicado.
