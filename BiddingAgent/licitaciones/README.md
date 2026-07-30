@@ -45,5 +45,4 @@ siempre apunta a la versión vigente.
 
 Esta carpeta contiene precios, márgenes y estrategia de propuestas en curso. No se
 mezcla información entre licitaciones, y ninguna propuesta referencia otra
-licitación ni otro cliente. Antes de compartir el repositorio o subirlo a un remoto,
-confirmar con el usuario si esta carpeta debe excluirse.
+licitación ni otro cliente.

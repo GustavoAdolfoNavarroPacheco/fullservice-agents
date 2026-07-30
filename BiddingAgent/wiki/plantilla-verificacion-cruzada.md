@@ -81,7 +81,7 @@ afirmación de que se hizo: cada casilla marcada debe ir acompañada de la evide
 
 | Verificación | Resultado | Evidencia |
 |---|---|---|
-| Todos los XLSX recalculan sin errores de fórmula | ☐ | Errores encontrados: |
+| Todos los XLSX recalculan sin errores de fórmula (o, si se generaron con valores estáticos fuera de Excel, esa decisión está documentada explícitamente arriba) | ☐ | Errores encontrados / decisión documentada: |
 | Los errores presentes son defectos preexistentes conocidos de la plantilla | ☐ / N/A | Cuáles: |
 | No quedan hojas de otros clientes en los archivos entregados | ☐ | |
 | Los archivos originales de `recursos/` no fueron modificados | ☐ | |

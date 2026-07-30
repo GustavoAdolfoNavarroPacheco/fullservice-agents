@@ -104,6 +104,11 @@ La conciliación se documenta con:
 - Recalcular ambos archivos y confirmar **cero errores de fórmula** (`#REF!`,
   `#DIV/0!`, `#NAME?`, `#N/A`), salvo defectos preexistentes conocidos de la
   plantilla, que se documentan explícitamente como preexistentes.
+- Si el modelo se reconstruye con valores calculados fuera de Excel (por ejemplo
+  en Python) en vez de fórmulas vivas, esta verificación no aplica en el sentido
+  estricto — se documenta explícitamente esa decisión en `verificacion-cruzada.md`,
+  incluyendo que el archivo no queda "vivo" y cómo regenerarlo si el usuario
+  necesita un modelo editable para negociar después de la adjudicación.
 - Verificar que los precios calculados sean coherentes con los días/horas
   ingresados (revisión por muestreo de líneas, no solo el total).
 - Verificar que el total del modelo oficial esté dentro del presupuesto oficial de

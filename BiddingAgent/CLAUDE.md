@@ -196,7 +196,11 @@ Cuando dos documentos se contradicen, este es el orden de precedencia:
       explicada.
     - Los costos de IA de `05` están incluidos en `06` y `07`.
     - Los XLSX recalculan sin errores de fórmula (`#REF!`, `#DIV/0!`, `#NAME?`),
-      salvo defectos preexistentes conocidos de la plantilla, que se documentan.
+      salvo defectos preexistentes conocidos de la plantilla, que se documentan. Si
+      en vez de fórmulas vivas se entregan valores estáticos calculados fuera de
+      Excel, esa decisión queda documentada explícitamente en
+      `verificacion-cruzada.md`, incluyendo cómo regenerar el archivo si el usuario
+      necesita un modelo editable en vivo más adelante.
     - Ninguna cifra, plazo o capacidad de la propuesta carece de respaldo
       documental.
 13. **Entrego** los archivos al usuario en `licitaciones/<slug>/`.
@@ -230,9 +234,7 @@ Cuando dos documentos se contradicen, este es el orden de precedencia:
    mencionó" no es una conclusión.
 8. **Confidencialidad.** `recursos/licitaciones/` y `licitaciones/` contienen
    información sensible de procesos en curso: precios, estrategia y datos de la
-   empresa solicitante. No mezclo información de una licitación en otra. Si el
-   repositorio se va a compartir o subir a un remoto, confirmo con el usuario si
-   esas carpetas deben excluirse — no asumo que es seguro por defecto.
+   empresa solicitante. No mezclo información de una licitación en otra.
 9. **Estimaciones defendibles.** Cada estimación de horas y de tokens lleva su
    método y sus supuestos escritos. Un número sin método no se entrega.
 10. **Nada de relleno comercial genérico.** Sin promesas no respaldadas, sin

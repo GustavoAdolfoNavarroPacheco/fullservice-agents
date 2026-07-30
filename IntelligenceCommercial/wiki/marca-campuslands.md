@@ -1,101 +1,50 @@
-# Marca Campuslands Full Service
+# Marca Campuslands — Tono para mensajes de LinkedIn
 
-Este documento establece las directrices de identidad visual, el tono editorial y las
-normas de aplicación de marca para todas las presentaciones. **Reemplaza a la versión
-anterior (paleta plana violeta + Cambria/Calibri).** El nuevo lenguaje visual es
-*premium, con gradientes y tipografía de carácter*. Ver también [[sistema-diseno]].
-
----
-
-## 1. Tono y Estilo Editorial (Voz de Marca)
-
-Corporativo, sofisticado y persuasivo. Tecnología enterprise que resuelve problemas reales.
-
-* **Data-driven:** cada afirmación respaldada por métricas (*"ahorro de 4 h manuales"*, *"ROI en 6 meses"*).
-* **Orientación al ROI:** la narrativa destaca valor comercial/financiero, no solo el logro técnico.
-* **Agilidad:** metodologías modernas, despliegue continuo e IA aplicada.
+Este documento define el **tono de voz** que debe mantener
+`habilidades/generacion-mensajes-personalizados` al redactar solicitudes de conexión de
+LinkedIn. **No es una guía de identidad visual** (paleta, tipografía, logos para
+diapositivas) — este agente no diseña presentaciones ni genera PDFs; esa guía existe
+en `PresentationsDesigner`, que es un agente distinto con audiencia y entregable
+distintos (ver [[perfil-usuario]] §4).
 
 ---
 
-## 2. Paleta de Colores (v2 — con gradientes protagonistas)
+## 1. Tono y estilo del mensaje de conexión
 
-El acabado ya **no** es violeta plano. La base sigue siendo oscura, pero el color vive
-en **gradientes** y en un acento ámbar puntual.
+- **Breve, directo, entre pares (peer-to-peer), consultivo.**
+- Nunca lenguaje de venta agresiva, signos de exclamación excesivos, ni superlativos.
+- Se adapta al **idioma real del contacto** (detectado por `deteccion-idioma`, EN o ES)
+  — nunca se traduce mecánicamente la plantilla base.
+- Cabe dentro del límite de caracteres de una nota de conexión de LinkedIn.
 
-> **Importante (2026-07-07):** la paleta cian→azul→violeta→magenta de abajo es el **tema
-> *default* de Campuslands**, no la de todos los decks. Cada presentación deriva su **propia
-> paleta del logo del cliente** —**incluido el fondo oscuro teñido**— manteniendo este mismo
-> lenguaje visual. Ver receta y catálogo en [[temas-por-cliente]].
+## 2. Gancho central del mensaje
 
-### Fondos
-| Token | Hex | Uso |
-| :--- | :--- | :--- |
-| `--bg-0` | `#05070F` | Base más profunda (esquinas, viñeteado). |
-| `--bg-1` | `#0A0E1A` | Base estándar de lámina. Prohibido negro puro `#000000`. |
-| `--bg-2` | `#0D1424` | Superficies elevadas (tarjetas, paneles). |
+- Escalar equipos de desarrollo con talento técnico, específicamente para llevar
+  iniciativas de IA de piloto a producción.
+- Diferenciador real que sostiene ese gancho (ver `wiki/perfil-usuario.md` §1): el
+  talento proviene del programa de formación propio de Campuslands, no de un banco de
+  hojas de vida genérico. No es obligatorio mencionarlo en cada mensaje, pero es el
+  respaldo real detrás de la promesa si el contacto pregunta.
 
-### Texto
-| Token | Hex | Uso |
-| :--- | :--- | :--- |
-| `--text-hi` | `#FFFFFF` | Títulos, números de métrica. |
-| `--text-mid` | `#C3CBDA` | Cuerpo destacado, subtítulos. |
-| `--text-lo` | `#7A8699` | Descripciones, kickers, viñetas. |
-| `--text-faint`| `#4A5468` | Detalles, líneas guía. |
+## 3. Plantillas base
 
-### Acentos y gradientes
-| Token | Valor | Uso |
-| :--- | :--- | :--- |
-| `--cyan` | `#35D0F0` | Eyebrows, labels, brackets, íconos. |
-| `--blue` | `#4A7DFF` | Paso medio del gradiente, enlaces. |
-| `--violet` | `#8B5CF6` | Paso alto del gradiente, acentos. |
-| `--magenta` | `#C05CF6` | Cierre del gradiente, highlights. |
-| `--amber` | `#F5A623` | **Único acento cálido.** Punto "Confidencial", alertas, dato clave. |
-| `--lime` | `#A6E22E` | Uso muy puntual (éxito / check positivo). |
-| `--grad-brand` | `linear-gradient(100deg,#35D0F0,#4A7DFF,#8B5CF6,#C05CF6)` | **Gradiente insignia.** Palabra clave del título, barras, bordes activos. |
-| `--grad-cyan` | `linear-gradient(120deg,#35D0F0,#4A7DFF)` | Acentos fríos, líneas divisorias. |
-| `--grad-violet`| `linear-gradient(120deg,#6E8BFF,#C05CF6)` | Alternativa cálida-fría para variar entre láminas. |
+Las plantillas EN/ES vigentes viven en
+`habilidades/generacion-mensajes-personalizados/SKILL.md` (fuente única — no se
+duplican aquí para evitar que un ajuste a la plantilla quede desincronizado entre dos
+archivos).
 
-> **Regla de gradiente:** cada lámina debe usar al menos un gradiente (texto, borde,
-> figura o glow de fondo). Rota entre `--grad-brand`, `--grad-cyan` y `--grad-violet`
-> para que no todas se vean iguales (ver dinamismo en [[sistema-diseno]]).
+## 4. Qué no se debe hacer
 
----
+- No usar paleta de colores, tipografía ni logos de diapositivas — no aplican a un
+  mensaje de texto plano de LinkedIn.
+- No prometer plazos, precios ni resultados no verificados.
+- No inventar contexto sobre la persona o la empresa que no esté verificado en el
+  perfil o sus publicaciones recientes.
+- No enviar el mensaje en un idioma distinto al detectado por `deteccion-idioma`.
 
-## 3. Tipografía Oficial (v2 — fuentes locales reales)
+## 5. Assets disponibles en `recursos/`
 
-Se retiran Cambria/Calibri. El sistema usa tres familias cargadas por `@font-face`
-desde `recursos/fonts/`:
-
-| Rol | Familia | Pesos usados |
-| :--- | :--- | :--- |
-| **Display / Títulos** | **Playfair Display** (serif alto contraste; la itálica Black es la firma de marca) | 700, 900, italic 400/900 |
-| **Display alterno** | **DM Serif Display** (para variar portadas o cierres) | 400, italic |
-| **Labels / Eyebrows** | **Montserrat** (geométrica; siempre MAYÚSCULAS con tracking amplio) | 500, 600, 700 |
-| **Cuerpo / Viñetas** | **Poppins** (sans humanista legible) | 300, 400, 500, 600 |
-
-* El **título grande** combina una línea en blanco (`--text-hi`) + una línea clave en
-  **gradiente** e **itálica** (`.gradient-text`).
-* Eyebrows y labels: Montserrat 600, `letter-spacing: 0.22em–0.34em`, `text-transform: uppercase`, color `--cyan`.
-* El bloque `@font-face` canónico está en [[sistema-diseno]] y en `recursos/fonts/`.
-
----
-
-## 4. Uso de Logotipos (verificación obligatoria)
-
-Assets en `recursos/`:
-* `Logo Campuslands  Horizontal Blanco.png` — **el correcto para fondo oscuro** (PNG transparente, blanco). Se copia como `assets/logo-campuslands.png`.
-* `Logo Campuslands Horizontal Azul.png` — solo para fondos claros (no usar en estos decks).
-* Logo del cliente: PNG transparente que provee el usuario → `assets/logo-cliente.png`.
-
-### Reglas verificadas
-1. **Portada:** Campuslands (blanco) en la esquina superior izquierda; el cliente va
-   **inline junto a "PARA"** dentro del cuerpo. (Se elimina la antigua regla de "portada
-   sin logos".)
-2. **Láminas internas:** Campuslands arriba-izquierda, cliente arriba-derecha, ambos
-   flotando sobre el fondo (sin cajas ni barras).
-3. **Transparencia:** verificar que el PNG del cliente tenga alfa (fondo transparente).
-   Si viniera con fondo blanco, recortarlo antes de usar.
-4. **Proporción:** nunca deformar. Fijar solo `height` y `width:auto`. Campuslands ~26px
-   en portada / ~24px interno; cliente ~58–66px en portada / ~34px interno.
-5. **Contraste:** el logo del cliente debe leerse sobre el fondo oscuro; si es muy oscuro,
-   colocarlo sobre un chip `--bg-2` con leve padding.
+Logos, isotipo, favicon y brandbook de Campuslands están en `recursos/` como material
+de identidad/referencia, pero **no se usan en el flujo actual** de este agente (que no
+genera ningún entregable visual). Quedan disponibles por si en el futuro se agrega un
+entregable que sí los necesite.

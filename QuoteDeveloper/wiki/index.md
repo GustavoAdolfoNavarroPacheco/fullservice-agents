@@ -7,9 +7,11 @@ Este es el índice de la documentación que mantengo para desarrollar cotizacion
 *   [Flujo de Trabajo](flujo-trabajo.md): Paso a paso para la creación de PDF de alcance y XLSX de cotización.
 *   [Perfil de Usuario](perfil-usuario.md): Rol, reglas fundacionales y expectativas del agente.
 *   [Marca Campuslands](marca-campuslands.md): Directrices de identidad visual, estilo editorial y uso de marca en las cotizaciones (PDF).
+*   [Diseño del PDF de Cotización](diseno-pdf-cotizacion.md): Paleta, layout de grid, logotipo y reglas de precios del PDF vigente (espejo de `CLAUDE.md` y de `marca-campuslands.md` §5).
+*   [Plantilla XLSX](plantilla-xlsx.md): Mapeo exacto de celdas/columnas/filas de la plantilla de costeo (espejo de `CLAUDE.md` § Reglas del XLSX).
 *   [Bitácora (Log)](log.md): Registro cronológico de todas las cotizaciones creadas o modificadas.
 
-*(Nota: Adicionalmente, el agente debe seguir el mapeo de la plantilla XLSX y la estructura base tal como se define en `CLAUDE.md` de la raíz del proyecto).*
+*(`CLAUDE.md` en la raíz del proyecto sigue siendo la fuente canónica y operativa que el agente lee cada sesión; las páginas de wiki de diseño y plantilla XLSX son espejos para el catálogo — se actualizan juntas.)*
 
 ## Cotizaciones y estimaciones generadas
 

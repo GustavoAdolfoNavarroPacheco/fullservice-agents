@@ -94,4 +94,4 @@ A partir de ahora, **todo PDF de cotización lleva los precios reales en COP** (
 1. Cada precio de línea en el PDF coincide exactamente con la celda de origen en el XLSX recalculado.
 2. La suma de los ítems de cada módulo coincide con el subtotal mostrado en la banda de ese módulo, y la suma de todos los módulos (incluyendo las filas transversales 2-5) coincide exactamente con el TOTAL general del XLSX.
 
-Ver [[project-quotedeveloper-xlsx-workflow]] para la mecánica de recalculo con LibreOffice.
+La mecánica de recálculo con LibreOffice está en `wiki/plantilla-xlsx.md` § Verificación obligatoria.

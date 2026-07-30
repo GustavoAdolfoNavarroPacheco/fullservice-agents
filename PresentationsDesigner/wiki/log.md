@@ -4,6 +4,43 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-07-30] lint | Auditoría del monorepo — 5 correcciones a pedido del usuario
+
+1. **`wiki/index.md`:** se eliminó la entrada duplicada/obsoleta de "Ve a la Segura"
+   ("paleta temporal ámbar, valores pendientes de costear") que coexistía con la entrada
+   vigente y confirmada (paleta "concierto", inversión $21.808.295 COP).
+2. **Entrega obligatoria PDF + Vercel:** se corrigió `CLAUDE.md` (tabla de decisiones
+   fundacionales) y `presentaciones/README.md`, que enmarcaban a Vercel como reemplazado
+   por el PDF (2026-06-17). Ahora ambos quedan explícitos como obligatorios en toda
+   presentación, sin que uno reemplace al otro — el PDF es el archivo final para el
+   cliente, el link de Vercel es la versión interactiva que se comparte en el chat.
+3. **Reorganización y documentación de 3 carpetas huérfanas** en `presentaciones/`, sin
+   README y sin entrada en `wiki/index.md`: resultaron ser variantes intencionales, no
+   duplicados accidentales. `multinal-escenario-c-demo/` es la demo original de 26
+   láminas del Escenario C (nunca indexada); `multinal-escenario-demo/` y
+   `colbeef-demo-f/` son forks "solo simulador" (sin el apartado Presentación) usados
+   como destino de los links "Demo Multinal" / "Demo Colbeef" desde
+   `fullservice-campuslands/`. Se creó `README.md` en las 3 y se agregaron a
+   `wiki/index.md`.
+4. **Bug de hairline en texto con gradiente (`background-clip:text` en print) — solución
+   de fondo:** se adoptó SVG `<text fill="url(#...)">` como técnica estándar en vez de
+   `background-clip:text`, documentada con snippet en §5.2 de `wiki/sistema-diseno.md`.
+   Se armó una reproducción fiel del caso que falló en Gas País (mismo título, misma
+   fuente Playfair Display Black Italic vía `@font-face` local, mismo comando de export)
+   comparando ambas técnicas a 8x/~576dpi con PyMuPDF; **no se logró reproducir el
+   hairline en ninguna de las dos versiones** en esta sesión (posible diferencia de
+   versión de Chrome), por lo que no hay confirmación 100% empírica de que esto elimina
+   el bug original — pero el SVG es estructuralmente inmune a esa clase de artefacto y da
+   resultado visual idéntico, así que se adopta igual como estándar para decks nuevos. No
+   se regeneraron los PDFs ya entregados (Avicampo, Gas País) con el artefacto conocido.
+5. **Logos de cliente faltantes en `recursos/`:** se copiaron desde los `assets/` de cada
+   deck ya construido (no fue necesario buscarlos en internet): `Green Metal.png`,
+   `Mchaileh.png`, `Miami Aqua Tours.png`. **Compumax queda pendiente** — su logo nunca
+   existió como imagen en el repo, ambos decks de Compumax lo recrean como wordmark CSS
+   (Poppins, "Compu" gris + "max" azul); conseguir un logo real requeriría buscarlo fuera
+   del repo, lo cual requiere permiso explícito del usuario antes de descargar cualquier
+   archivo.
+
 ## [2026-07-29] ajuste | Gas País Chilco S.A.S. — fix de diagrama de capas + rediseño de Inversión (`presentaciones/gaspais-chilco/`)
 
 * **Lámina 4 (La solución) — texto superpuesto y flechas recortadas:** el `.l-tag` de cada capa (p. ej. "CAPA 2 · CUMPLIMIENTO Y TRAZABILIDAD") tenía `white-space:nowrap` con `letter-spacing:.18em` dentro de una columna de solo 1.5in — el texto desbordaba horizontalmente la columna y se montaba sobre las chips de la columna vecina. Se ensanchó la columna de `.l-head` a 2.15in y se redujo el `letter-spacing` a `.1em`. Las flechas `.arch-conn` (SVG de 13px) vivían en un contenedor de solo 5px de alto, quedando recortadas/apretadas contra las tarjetas vecinas; se subió el contenedor a 16px. Para compensar el espacio adicional se recortó ligeramente el padding de `.layer` y el `gap` de `.arch` — reverificado sin overflow contra el footer (gap de 15px, igual que el resto de láminas).

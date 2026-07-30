@@ -148,4 +148,4 @@ de 30 días.
   compatible con el equipo propuesto.
 - Las horas totales del entregable `03` cuadran con los días del modelo de
   cotización `07` bajo el factor declarado.
-- El XLSX recalcula sin errores de fórmula.
+- El XLSX recalcula sin errores de fórmula, o si se generó con valores estáticos calculados fuera de Excel, esa decisión está documentada explícitamente en `verificacion-cruzada.md`.

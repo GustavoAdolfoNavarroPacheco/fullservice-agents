@@ -1,5 +1,13 @@
 # Estrategia de Prospección y Filtros LinkedIn - Campuslands
 
+Filtros y categorías de búsqueda que usa `habilidades/control-navegador-linkedin` para
+aplicar la búsqueda en LinkedIn/Sales Navigator (Fase 2 y 3 del flujo en
+`Perplexity.md`). Ver también [[perfiles-objetivo]] para los buyer personas
+válidos y [[perfil-usuario]] para la propuesta de valor detrás de estos filtros.
+
+*(Reubicado el 2026-07-30 desde la raíz del repositorio a `wiki/`, donde
+`control-navegador-linkedin/SKILL.md` ya lo esperaba con este nombre.)*
+
 ## Objetivo Principal
 Prospectar startups y scaleups SaaS/software en EE. UU. (California, Texas, New York, Florida y Washington), priorizando contactos de Talento/HR para vender Staffing de desarrolladores de software y perfiles con capacidades de IA.
 

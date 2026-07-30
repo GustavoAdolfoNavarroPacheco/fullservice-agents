@@ -19,7 +19,7 @@ el trabajo de construcción, despliegue y mantenimiento de esta wiki.
 | Tema | Decisión | Por qué |
 |------|----------|---------|
 | Stack | **HTML/CSS puro, estático, autocontenido** | Control total del diseño, sin dependencias. |
-| Entrega | **PDF exportado del HTML** (Chrome headless) → archivo al cliente | Archivo portable, idéntico siempre, offline, imprimible. Es el flujo de las referencias que le gustan al usuario (HTML→PDF). Antes era Vercel (2026-06-17). |
+| Entrega | **PDF exportado del HTML** (Chrome headless) + **despliegue en Vercel con link compartido** — ambos son obligatorios en toda presentación, ninguno reemplaza al otro | El PDF es el archivo portable que recibe el cliente (idéntico siempre, offline, imprimible). El link de Vercel es la versión interactiva que se comparte en el chat al terminar cada build/ajuste (ver regla 10 más abajo). |
 | Quién exporta | **Yo (Claude) corro el comando** de export a PDF | El usuario quiere los mínimos pasos posibles. |
 | Flujo | **Borrador completo → luego ajustes** | El usuario revisa el resultado entero y después iteramos. |
 | Idioma | **Español** | Toda comunicación y contenido en español. |

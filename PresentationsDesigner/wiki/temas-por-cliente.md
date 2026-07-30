@@ -259,8 +259,13 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > (mitigación de Colbeef) y con `line-height:1`; ninguna variante lo eliminó. Se confirmó que el
 > mismo artefacto ya existe, más sutil, en el PDF ya entregado de `presentaciones/avicampo/`
 > (portada). Es un bug sistémico de Chrome headless con este patrón CSS en export a PDF, no
-> específico de este deck — pendiente de investigación de fondo (posible solución: renderizar el
-> texto en gradiente como SVG en vez de `background-clip:text`).
+> específico de este deck.
+>
+> **Resuelto (2026-07-30):** se adoptó como estándar el texto en gradiente vía SVG
+> (`<text fill="url(#...)">`) en vez de `background-clip:text` — ver §5.2 de
+> [[sistema-diseno]] para el snippet y la nota de verificación. Todo deck nuevo debe usar
+> esta técnica para títulos/portadas en gradiente; los decks ya entregados con el artefacto
+> conocido (Avicampo, Gas País) no se regeneran retroactivamente salvo pedido explícito.
 
 ## 4. Aplicación
 

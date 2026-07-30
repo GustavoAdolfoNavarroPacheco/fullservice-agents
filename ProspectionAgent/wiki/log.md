@@ -34,3 +34,13 @@ formulario; la trazabilidad de fuente se mantiene como pie de tabla, no
 como columna). Se agrega en `wiki/enlaces-utiles.md` la Superintendencia de
 Sociedades (SIREM) como fuente primaria para Facturación Anual y Utilidad
 Neta de empresas colombianas.
+
+## [2026-07-30] setup | Recursos de marca Campuslands copiados de IntelligenceCommercial
+
+`recursos/` solo tenía un `.gitkeep`, sin propósito definido. Se copian de
+`IntelligenceCommercial/recursos/` los mismos 8 archivos de marca Campuslands
+(Brief Fullservice, brandbook, 4 variantes de logo, isotipo, favicon) para
+que este agente quede autocontenido como el resto del monorepo, y se retira
+el `.gitkeep`. No cambia el flujo de trabajo del agente (no busca contactos
+ni redacta mensajes, así que estos archivos son de referencia/identidad, no
+insumo directo de ninguna skill actual).

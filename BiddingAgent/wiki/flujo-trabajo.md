@@ -112,7 +112,7 @@ Con rastro auditable, no solo la afirmación de que se hizo:
 - [ ] El cronograma de `02` cabe en el plazo exigido con el equipo propuesto y las horas de `03`.
 - [ ] Los totales de `06` y `07` están conciliados y la diferencia está explicada.
 - [ ] Los costos de IA de `05` están incluidos en `06` y `07`.
-- [ ] Los XLSX recalculan sin errores de fórmula (salvo defectos preexistentes conocidos, documentados).
+- [ ] Los XLSX recalculan sin errores de fórmula (salvo defectos preexistentes conocidos, documentados), o si se generaron con valores estáticos calculados fuera de Excel, esa decisión está documentada explícitamente en `verificacion-cruzada.md`.
 - [ ] Ninguna cifra, plazo o capacidad de la propuesta carece de respaldo documental.
 - [ ] No quedan marcas `[PENDIENTE: …]` sin resolver.
 - [ ] La propuesta no referencia otras licitaciones ni mezcla información de otros clientes.

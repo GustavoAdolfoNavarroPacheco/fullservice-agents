@@ -39,14 +39,27 @@ con precisión, pregunto directamente al usuario en vez de asumir.
 ├── wiki/                      # Conocimiento que YO mantengo
 │   ├── index.md               # Catálogo de toda la wiki
 │   ├── log.md                 # Bitácora cronológica (append-only)
-│   ├── diseno-pdf-cotizacion.md   # Sistema de diseño del PDF (colores, tipografía, layout)
-│   └── plantilla-xlsx.md      # Mapeo exacto de celdas/columnas de la plantilla XLSX
+│   ├── flujo-trabajo.md       # Paso a paso del build (espejo de la sección de abajo)
+│   ├── perfil-usuario.md      # Rol del agente y reglas fundacionales (espejo)
+│   ├── marca-campuslands.md   # Identidad de marca general + §5 diseño de PDF vigente
+│   ├── diseno-pdf-cotizacion.md   # Sistema de diseño del PDF (colores, tipografía, layout) — espejo de §5 de marca-campuslands.md
+│   └── plantilla-xlsx.md      # Mapeo exacto de celdas/columnas de la plantilla XLSX — espejo de "Reglas del XLSX" de este archivo
 ├── cotizaciones/               # Cada cotización = una subcarpeta autocontenida
 │   └── <slug-cliente>/
 │       ├── <Cliente> - Cotizacion de Alcance.pdf
-│       └── <Cliente> - Cotizacion.xlsx
+│       ├── <Cliente> - Cotizacion.xlsx
+│       └── (opcional, según lo pida el proyecto) otros soportes como
+│           certificación de experiencia técnica, comparación de alcances,
+│           o el logo del cliente — no todos los clientes los necesitan
 └── recursos/                  # Fuentes inmutables provistas por el usuario (solo lectura)
-    ├── logo-campuslands.png
+    ├── Logo Campuslands Horizontal Azul.png       # el que se usa en el PDF (fondo claro)
+    ├── Logo Campuslands  Horizontal Blanco.png
+    ├── Logo Campuslands Vertical Azul.png
+    ├── Logo Campuslands Vertical Blanco.png
+    ├── isotipo-campuslands.png
+    ├── favicon-campuslands.png
+    ├── Brief Fullservice.pdf
+    ├── Campuslands_Brandbook2023V2._compressed (1).pdf
     └── FullServices - Plantilla Cotizaciones.xlsx   # Plantilla maestra, NUNCA se edita directamente
 ```
 
@@ -139,10 +152,10 @@ equipo Campus (columnas A, P:AC, fila 121 en adelante, etc.). **Yo solo lleno
 dos tipos de celda; todo lo demás queda intacto, tal cual viene en la
 plantilla.**
 
-> **Referencia de verdad**: `FullServices NAL 2026 - Compumax.xlsx` (hoja
-> `Compumax`) es un ejemplo ya llenado y aprobado por el usuario como correcto.
-> Las reglas de abajo están calcadas de ese archivo — ante cualquier duda,
-> reviso ese ejemplo antes que mi propia memoria de esta sección.
+> **Referencia de verdad**: `cotizaciones/compumax/Compumax Computer S.A.S -
+> Cotizacion.xlsx` es un ejemplo ya llenado y aprobado por el usuario como
+> correcto. Las reglas de abajo están calcadas de ese archivo — ante cualquier
+> duda, reviso ese ejemplo antes que mi propia memoria de esta sección.
 
 ### 1. Filas fijas 2-5: categorías transversales (SIEMPRE llenar)
 

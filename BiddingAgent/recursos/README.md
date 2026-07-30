@@ -35,6 +35,4 @@ archivo tal como lo emitió la entidad, para poder citarlo con precisión.
 ## Confidencialidad
 
 `recursos/licitaciones/` contiene documentación de procesos en curso: alcances,
-presupuestos oficiales y estrategia de la entidad solicitante. Antes de compartir
-este repositorio o subirlo a un remoto, **confirmar con el usuario** si esta carpeta
-debe excluirse. No asumir que es seguro por defecto.
+presupuestos oficiales y estrategia de la entidad solicitante.

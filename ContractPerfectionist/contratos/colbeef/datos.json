@@ -1,0 +1,245 @@
+{
+  "_nota": "Reconstrucción retroactiva del contenido de 'Contrato - Colbeef - 2026-07-09.docx' para dejar registro de qué se generó (regla 8/CHANGELOG: el contrato original se construyó con scripts ad hoc anteriores a build_contract.py). No fue usado para regenerar el .docx entregado — el archivo firmado/vigente sigue siendo el .docx existente en esta carpeta.",
+  "titulo": "CONTRATO DE PRESTACIÓN DE SERVICIOS DE DESARROLLO E IMPLEMENTACIÓN DE UN SISTEMA DE AUTOMATIZACIÓN OPERATIVA CON INTELIGENCIA ARTIFICIAL, CELEBRADO ENTRE CAMPUSLANDS S.A.S. BIC Y COLBEEF S.A.S.",
+  "secciones": [
+    {
+      "encabezado": "PREÁMBULO",
+      "nivel": 1,
+      "parrafos": [
+        "Entre los suscritos, por una parte, CAMPUSLANDS S.A.S. BIC, sociedad legalmente constituida conforme a las leyes de la República de Colombia, identificada con NIT 901.628.406-1, con domicilio en Floridablanca, Santander, representada legalmente por YESENIA MERCHÁN PINZÓN, mayor de edad, identificada con cédula de ciudadanía No. 1.065.866.676, expedida en Aguachica, Cesar, quien para efectos del presente contrato se denominará \"CAMPUSLANDS\" o \"EL CONTRATISTA\"; y, por la otra, COLBEEF S.A.S., persona jurídica con domicilio en Bucaramanga, Santander, identificada con NIT No. 900.087.044-2, representada legalmente por DIEGO SIGIFREDO ARDILA JIMÉNEZ, mayor de edad, identificado con cédula de ciudadanía No. 79.249.780, expedida en Bogotá D.C., quien para efectos del presente contrato se denominará \"COLBEEF\" o \"EL CLIENTE\"; conjuntamente denominadas LAS PARTES, hemos acordado celebrar el presente Contrato de Prestación de Servicios de Desarrollo e Implementación de un Sistema de Automatización Operativa con Inteligencia Artificial, previas las siguientes:"
+      ]
+    },
+    {
+      "encabezado": "CONSIDERACIONES",
+      "nivel": 1,
+      "parrafos": [
+        "Que CAMPUSLANDS S.A.S. BIC cuenta con la capacidad técnica, operativa y tecnológica para desarrollar, implementar y acompañar soluciones de software con inteligencia artificial aplicadas a procesos empresariales.",
+        "Que EL CLIENTE requiere la implementación de un sistema integral de automatización y analítica avanzada para su operación de faena, que permita optimizar el procesamiento de la información proveniente de proveedores, automatizar el planillaje, gestionar los inventarios de cava, mejorar la trazabilidad operativa, facilitar la facturación inteligente y generar reportes y análisis predictivos, incorporando componentes basados en inteligencia artificial.",
+        "Que CAMPUSLANDS presentó a EL CLIENTE el alcance funcional, fases, cronograma, inversión y forma de pago del proyecto, los cuales se incorporan de manera íntegra al presente contrato en la Cláusula Tercera y en la Cláusula Quinta.",
+        "Que LAS PARTES reconocen que el presente contrato corresponde a un desarrollo de software con inteligencia artificial a la medida, conforme a las necesidades informadas por EL CLIENTE y a los alcances expresamente pactados, bajo un esquema de cesión de derechos patrimoniales a favor de EL CLIENTE en los términos de la Cláusula Novena.",
+        "Que, con fundamento en lo anterior, LAS PARTES celebran el presente contrato.",
+        "En virtud de lo anterior, LAS PARTES acuerdan las siguientes:"
+      ]
+    },
+    {
+      "encabezado": "PRIMERA. OBJETO",
+      "nivel": 1,
+      "parrafos": [
+        "CAMPUSLANDS se compromete a desarrollar, configurar, implementar, poner en producción y entregar a EL CLIENTE un sistema integral de automatización operativa basado en inteligencia artificial, orientado a optimizar los procesos de recepción de información de proveedores, procesamiento, planillaje, gestión de cava, facturación inteligente, gestión de casos, reportes avanzados y analítica basada en inteligencia artificial, dentro de la operación productiva de EL CLIENTE.",
+        "PARÁGRAFO. El proyecto incluye la Fase 0 de levantamiento, identificación de procesos y definición técnica, previa al inicio de las fases de desarrollo, cuyo costo forma parte del valor total pactado en la Cláusula Quinta."
+      ]
+    },
+    {
+      "encabezado": "SEGUNDA. NATURALEZA JURÍDICA",
+      "nivel": 1,
+      "parrafos": [
+        "El presente contrato es de naturaleza comercial y tecnológica. Su finalidad es regular el desarrollo del sistema a la medida, así como los servicios de implementación, configuración, capacitación, soporte y garantía asociados. LAS PARTES entienden que la solución funcionará como una herramienta de apoyo, automatización, análisis y gestión, por lo que CAMPUSLANDS asume una obligación de medio calificado y no garantiza un resultado empresarial específico ni reemplaza el criterio o la decisión final de EL CLIENTE en sus procesos internos."
+      ]
+    },
+    {
+      "encabezado": "TERCERA. ALCANCE FUNCIONAL DEL DESARROLLO",
+      "nivel": 1,
+      "parrafos": [
+        "El desarrollo objeto del presente contrato comprenderá los siguientes módulos y funcionalidades principales:",
+        "• Agente de inteligencia artificial (voz y WhatsApp): configuración general del agente de voz y del agente de WhatsApp, configuración de horarios de atención 24/7, mensajes y respuestas predeterminadas, builder/editor de flujos conversacionales, base de conocimiento para entrenamiento del agente, reglas de clasificación automática de casos, reglas de escalamiento, recepción por WhatsApp (texto, fotos y documentos), recepción por llamada telefónica (voz) y respuesta automática al cliente.",
+        "• Gestión de casos: listado de casos con paginación, filtros (tipo, estado, fecha, cliente, responsable, producto), búsqueda general, vista detalle del caso, creación y edición manual de casos, cambio de estado mediante flujo configurable, historial de actividad/timeline, visualización de transcripción de llamada o chat de WhatsApp, adjuntos y evidencias, comentarios internos del equipo y respuesta al cliente desde la plataforma.",
+        "• Tipificación de casos: tipos de caso (petición, queja, reclamo, solicitud, felicitación, sugerencia, devolución), subtipos por cada tipo, motivos asociados por subtipo, categorías de producto vinculadas, motivos de cierre por tipo y prioridad automática por tipo de caso.",
+        "• Asignación y escalamiento: asignación manual de responsable, asignación automática por reglas (tipo → departamento), reasignación de caso, escalamiento automático por tiempo sin respuesta, por reincidencia del cliente y por tipo de caso, notificaciones en plataforma y por correo electrónico.",
+        "• Departamentos / áreas: listado, creación y edición de departamentos, asignación de usuarios a departamentos y reglas de ruteo (tipo de caso → departamento).",
+        "• Clientes: listado, creación y edición, detalle con historial de casos y contacto, segmentación (VIP, exportación, nacional, mayorista) e importación de clientes desde base de datos existente.",
+        "• Encuestas de satisfacción: configuración de encuesta con escala numérica, campo de comentarios abiertos, envío automático post-cierre de caso, envío manual o masivo, resultados por caso y resultados agregados (promedios y tendencias).",
+        "• Dashboard y reportes: dashboard general con KPIs principales (casos abiertos vs. cerrados, tiempo promedio de resolución, casos por tipo, casos por departamento/responsable, satisfacción promedio) y reportes exportables por tipo de caso, tiempos de resolución y cliente (PDF/Excel).",
+        "• Usuarios y roles: listado y gestión de usuarios, roles y permisos, y asignación de roles a usuarios.",
+        "• Integraciones: WhatsApp Business API, telefonía/agente de voz, integración con ERP o sistema de pedidos (consulta de estados), integración de correo electrónico y API propia / webhooks.",
+        "• Configuración general: configuración de SLAs (tiempos máximos por tipo de caso), configuración de notificaciones, logs del sistema/auditoría y personalización (logo, colores, nombre de la empresa).",
+        "PARÁGRAFO PRIMERO. Las funcionalidades descritas constituyen el alcance contratado. Cualquier módulo, integración, flujo, automatización, reporte, conexión con sistemas externos, ajuste estructural o funcionalidad adicional no prevista expresamente en este contrato será considerada mejora evolutiva y deberá ser cotizada, aprobada y contratada por separado.",
+        "PARÁGRAFO SEGUNDO. La solución dependerá de servicios de terceros, tales como WhatsApp Business API, Meta Business Suite, servicios de telefonía/voz, el ERP o sistema de pedidos de EL CLIENTE, servicios cloud, APIs de inteligencia artificial y demás herramientas tecnológicas requeridas. CAMPUSLANDS no será responsable por fallas, suspensiones, bloqueos, cambios de tarifa, restricciones, políticas, indisponibilidades o modificaciones imputables a dichos terceros."
+      ]
+    },
+    {
+      "encabezado": "CUARTA. CRONOGRAMA Y FASES DE EJECUCIÓN",
+      "nivel": 1,
+      "parrafos": [
+        "El presente Contrato tendrá una duración de cinco (5) meses calendario, contados a partir de la fecha de su suscripción, el pago inicial y la entrega completa de la información requerida por EL CLIENTE. Dentro de dicho término, CAMPUSLANDS ejecutará las siguientes fases:",
+        "• Fase 0 – Levantamiento: identificación de procesos, análisis y definición técnica, previa al inicio del desarrollo.",
+        "• Fase 1 – Estructura y diseño: estructura del proyecto, UX y esquema general, y estructura base del agente de inteligencia artificial.",
+        "• Fase 2 – Desarrollo e integración: desarrollo de los módulos funcionales descritos en la Cláusula Tercera y de las integraciones con los sistemas y canales de EL CLIENTE.",
+        "• Fase 3 – Pruebas, capacitación y puesta en marcha: pruebas de aceptación, capacitación al equipo designado por EL CLIENTE, documentación y habilitación del sistema en ambiente de producción.",
+        "PARÁGRAFO. Los plazos podrán ajustarse de común entendimiento cuando se presenten retrasos asociados a la entrega de información o accesos por parte de EL CLIENTE, cambios de alcance, eventos de fuerza mayor o cualquier circunstancia razonable que afecte el desarrollo normal del proyecto, sin que ello constituya incumplimiento de CAMPUSLANDS."
+      ]
+    },
+    {
+      "encabezado": "QUINTA. VALOR DEL CONTRATO",
+      "nivel": 1,
+      "parrafos": [
+        "EL CLIENTE pagará a CAMPUSLANDS, por concepto de la Fase 0, desarrollo, implementación, integración, puesta en funcionamiento y entrega operativa del sistema objeto del presente contrato, la suma total de OCHENTA MILLONES DE PESOS MONEDA LEGAL COLOMBIANA ($80.000.000 COP) MÁS IVA."
+      ]
+    },
+    {
+      "encabezado": "SEXTA. FORMA DE PAGO",
+      "nivel": 1,
+      "parrafos": [
+        "EL CLIENTE pagará el valor total del proyecto de la siguiente manera:",
+        "• Primer pago: CUARENTA MILLONES DE PESOS ($40.000.000 COP), facturados por CAMPUSLANDS al inicio del proyecto. El pago deberá efectuarse dentro de los quince (15) días calendario siguientes a la recepción de la factura.",
+        "• Segundo pago: VEINTE MILLONES DE PESOS ($20.000.000 COP), facturados al cumplirse el avance correspondiente a la mitad del proyecto. El pago deberá efectuarse dentro de los quince (15) días calendario siguientes a la recepción de la factura.",
+        "• Tercer pago: VEINTE MILLONES DE PESOS ($20.000.000 COP), facturados una vez se realice la entrega final del sistema y su validación técnica y funcional mediante acta de aceptación. El pago deberá efectuarse dentro de los diez (10) días calendario siguientes a la recepción de la factura.",
+        "PARÁGRAFO PRIMERO. Los pagos deberán efectuarse mediante transferencia electrónica a la cuenta bancaria que designe CAMPUSLANDS en la respectiva factura.",
+        "PARÁGRAFO SEGUNDO. Ningún pago realizado por EL CLIENTE antes de la entrega final y suscripción del acta de aceptación generará la cesión de derechos patrimoniales prevista en la Cláusula Novena, la cual se perfecciona en los términos allí establecidos."
+      ],
+      "tabla": {
+        "encabezados": ["Hito", "Valor", "Condición de pago"],
+        "filas": [
+          ["Primer pago", "$40.000.000 COP", "Al inicio del proyecto, 15 días calendario tras factura"],
+          ["Segundo pago", "$20.000.000 COP", "Al 50% de avance, 15 días calendario tras factura"],
+          ["Tercer pago", "$20.000.000 COP", "Entrega final + acta de aceptación, 10 días calendario tras factura"]
+        ]
+      }
+    },
+    {
+      "encabezado": "SÉPTIMA. ACEPTACIÓN DE ENTREGABLES",
+      "nivel": 1,
+      "parrafos": [
+        "EL CLIENTE dispondrá de un plazo máximo de diez (10) días hábiles contados a partir de la entrega de cada hito para formular por escrito observaciones técnicas debidamente justificadas. Si transcurre dicho plazo sin observaciones, el entregable se entenderá aceptado tácitamente. En caso de presentarse observaciones dentro del plazo anterior, el cronograma del proyecto se ajustará razonablemente, sin que ello constituya incumplimiento de CAMPUSLANDS."
+      ]
+    },
+    {
+      "encabezado": "OCTAVA. GARANTÍA",
+      "nivel": 1,
+      "parrafos": [
+        "CAMPUSLANDS otorgará una garantía de noventa (90) días calendario posteriores a la entrega y aceptación del sistema mediante acta, limitada a la corrección de errores o fallas técnicas imputables directamente al desarrollo realizado por CAMPUSLANDS. La garantía no cubrirá fallas derivadas de:",
+        "• Cambios realizados por EL CLIENTE o terceros no autorizados.",
+        "• Uso indebido, negligente, irregular o por fuera del alcance contratado.",
+        "• Fallas de internet, dispositivos, cuentas, APIs, servicios cloud, WhatsApp, telefonía, ERP o proveedores externos.",
+        "• Cambios de políticas, restricciones o condiciones de terceros.",
+        "• Carga, calidad, legalidad o suficiencia de la información suministrada por EL CLIENTE.",
+        "• Nuevos requerimientos, mejoras, ampliaciones o cambios de alcance.",
+        "PARÁGRAFO. Las correcciones cubiertas por la garantía se limitan a restablecer el correcto funcionamiento del sistema entregado y no comprenden ajustes evolutivos, nuevas funcionalidades o ampliaciones de alcance."
+      ]
+    },
+    {
+      "encabezado": "NOVENA. PROPIEDAD INTELECTUAL Y CESIÓN DE CÓDIGO FUENTE",
+      "nivel": 1,
+      "parrafos": [
+        "En relación con los derechos de propiedad intelectual derivados del presente contrato, LAS PARTES acuerdan lo siguiente:",
+        "• El código fuente desarrollado específicamente para EL CLIENTE en el marco del presente contrato será de propiedad de EL CLIENTE. CAMPUSLANDS se obliga a entregarlo completo, actualizado, funcional y documentado, junto con los manuales técnicos y funcionales necesarios para su operación, mantenimiento y evolución, sin restricciones técnicas, dependencias ocultas ni llaves de acceso no reveladas.",
+        "• CAMPUSLANDS podrá conservar y reutilizar librerías, frameworks, módulos genéricos y componentes preexistentes o reutilizables que no contengan información de EL CLIENTE y que puedan operar de forma independiente del sistema entregado.",
+        "• EL CLIENTE podrá usar, modificar y evolucionar el código sin restricción, directamente o por medio de terceros.",
+        "PARÁGRAFO PRIMERO. CAMPUSLANDS cede a favor de EL CLIENTE, quien acepta, de manera total, exclusiva, irrevocable y definitiva, todos los derechos patrimoniales de autor sobre el sistema desarrollado, incluyendo los derechos de reproducción, transformación, adaptación, distribución, comunicación pública, comercialización, puesta a disposición e integración con otros sistemas, para todo el territorio y por el término máximo de protección legal, conforme a la Ley 23 de 1982, la Decisión Andina 351 de 1993 y demás normas concordantes. La cesión se perfecciona a la suscripción del acta de entrega y aceptación final del sistema.",
+        "PARÁGRAFO SEGUNDO. CAMPUSLANDS garantiza que el sistema y sus componentes son originales o cuentan con las licencias necesarias para su uso y cesión, y que no infringen derechos de autor, secretos empresariales, licencias de software de terceros ni derechos de propiedad intelectual de ninguna naturaleza, incluyendo el uso de herramientas de inteligencia artificial como instrumento de apoyo técnico. CAMPUSLANDS mantendrá indemne a EL CLIENTE frente a cualquier reclamación derivada de la infracción de derechos de terceros relacionada con el sistema."
+      ]
+    },
+    {
+      "encabezado": "DÉCIMA. CONFIDENCIALIDAD",
+      "nivel": 1,
+      "parrafos": [
+        "Toda la información técnica, operativa, comercial y estratégica intercambiada, generada, accedida o utilizada durante la ejecución del presente contrato será tratada como estrictamente confidencial por ambas partes, quienes se obligan a no divulgarla a terceros ni utilizarla para fines distintos a la ejecución del presente contrato, y a adoptar las medidas técnicas y organizativas necesarias para protegerla.",
+        "PARÁGRAFO. La obligación de confidencialidad permanecerá vigente durante la ejecución del contrato y por un término de cinco (5) años contados desde su terminación, sin perjuicio de que la información que constituya secreto empresarial conserve reserva mientras mantenga tal naturaleza."
+      ]
+    },
+    {
+      "encabezado": "DÉCIMA PRIMERA. OBLIGACIONES DE CAMPUSLANDS",
+      "nivel": 1,
+      "parrafos": [
+        "En desarrollo del presente contrato, CAMPUSLANDS se obliga a:",
+        "• Ejecutar el proyecto conforme al alcance, fases y cronograma descritos en este contrato.",
+        "• Realizar la Fase 0 de levantamiento, análisis y documentación técnica, asegurando la correcta parametrización del sistema.",
+        "• Desarrollar, integrar y entregar el sistema en estado operativo y funcional, conforme a los criterios de aceptación de la Cláusula Séptima.",
+        "• Designar un líder técnico o Project Manager responsable de coordinar las actividades del proyecto, comunicar avances y riesgos, y actuar como interlocutor principal ante EL CLIENTE.",
+        "• Capacitar al personal designado por EL CLIENTE en el uso del sistema.",
+        "• Entregar los manuales técnicos y operativos y la documentación funcional básica del sistema.",
+        "• Prestar la garantía prevista en la Cláusula Octava.",
+        "• Guardar confidencialidad sobre la información de EL CLIENTE conforme a la Cláusula Décima."
+      ]
+    },
+    {
+      "encabezado": "DÉCIMA SEGUNDA. OBLIGACIONES DE EL CLIENTE",
+      "nivel": 1,
+      "parrafos": [
+        "En desarrollo del presente contrato, EL CLIENTE se obliga a:",
+        "• Proporcionar a CAMPUSLANDS, de manera completa, veraz y oportuna, la información técnica, operativa y comercial necesaria para el desarrollo del sistema, incluyendo los procesos internos de faena, recepción de información de proveedores, planillaje, gestión de cava y facturación, así como las credenciales de acceso y parámetros de integración requeridos.",
+        "• Colaborar de manera diligente y continua durante todas las fases del proyecto, incluyendo la Fase 0, atendiendo oportunamente los requerimientos de aclaración, revisión, validación y pruebas funcionales.",
+        "• Efectuar los pagos en los términos y plazos pactados en la Cláusula Sexta.",
+        "• Designar un interlocutor responsable con capacidad de decisión, que actúe como canal oficial de comunicación con CAMPUSLANDS.",
+        "• Asegurar la disponibilidad y operatividad de los recursos tecnológicos bajo su control necesarios para la integración e implementación del sistema, tales como conectividad, accesos, infraestructura y licencias de software de terceros.",
+        "• Designar al personal que participará en los procesos de capacitación, garantizando su disponibilidad en las fechas programadas."
+      ]
+    },
+    {
+      "encabezado": "DÉCIMA TERCERA. INDEPENDENCIA DE LAS PARTES",
+      "nivel": 1,
+      "parrafos": [
+        "El presente contrato tiene carácter estrictamente civil y comercial, y en ningún caso se entenderá que genera vínculo laboral alguno entre EL CLIENTE y CAMPUSLANDS, ni entre EL CLIENTE y el personal, subcontratistas, colaboradores o terceros vinculados por CAMPUSLANDS para la ejecución del objeto contractual."
+      ]
+    },
+    {
+      "encabezado": "DÉCIMA CUARTA. TRATAMIENTO DE DATOS PERSONALES",
+      "nivel": 1,
+      "parrafos": [
+        "Ambas partes se comprometen a cumplir las disposiciones de la Ley 1581 de 2012 y el Decreto 1377 de 2013 en materia de protección de datos personales. EL CLIENTE actuará como Responsable del Tratamiento de los datos personales tratados en el marco de su operación. Cuando CAMPUSLANDS acceda o procese datos personales por cuenta de EL CLIENTE, lo hará en calidad de Encargado del Tratamiento, comprometiéndose a implementar las medidas técnicas, humanas y administrativas necesarias para garantizar su seguridad, confidencialidad e integridad, y a utilizarlos únicamente para los fines autorizados por EL CLIENTE."
+      ]
+    },
+    {
+      "encabezado": "DÉCIMA QUINTA. TERMINACIÓN",
+      "nivel": 1,
+      "parrafos": [
+        "El presente contrato podrá terminarse anticipadamente por:",
+        "• Mutuo acuerdo entre las partes, mediante acta suscrita por sus representantes legales.",
+        "• Incumplimiento grave de las obligaciones esenciales de cualquiera de las partes, no subsanado dentro de los diez (10) días hábiles siguientes al requerimiento escrito.",
+        "• Mora superior a treinta (30) días calendario en el pago de las obligaciones económicas a cargo de EL CLIENTE.",
+        "• Imposibilidad legal o técnica sobreviniente para cumplir con el objeto del contrato.",
+        "• Orden de autoridad competente.",
+        "PARÁGRAFO. La terminación no afectará las sumas causadas, los pagos pendientes ni las obligaciones de confidencialidad y propiedad intelectual, las cuales permanecerán vigentes conforme a lo pactado en este contrato."
+      ]
+    },
+    {
+      "encabezado": "DÉCIMA SEXTA. FUERZA MAYOR Y CASO FORTUITO",
+      "nivel": 1,
+      "parrafos": [
+        "Ninguna de LAS PARTES será responsable por incumplimientos derivados de fuerza mayor, caso fortuito, fallas generalizadas de internet, ataques informáticos, bloqueos de proveedores tecnológicos, cambios regulatorios o cualquier hecho externo, irresistible e imprevisible que impida total o parcialmente la ejecución del contrato. La parte afectada deberá informar a la otra dentro de los cinco (5) días calendario siguientes a la ocurrencia del evento y adoptar medidas razonables para mitigar sus efectos. Las obligaciones quedarán suspendidas mientras dure el evento, sin que ello constituya incumplimiento para ninguna de las partes."
+      ]
+    },
+    {
+      "encabezado": "DÉCIMA SÉPTIMA. CLÁUSULA PENAL",
+      "nivel": 1,
+      "parrafos": [
+        "En caso de incumplimiento grave de cualquiera de LAS PARTES, la parte incumplida deberá pagar a la parte cumplida, a título de cláusula penal, una suma equivalente al diez por ciento (10%) del valor total del contrato, sin perjuicio de que la parte cumplida pueda exigir el cumplimiento de la obligación principal o la terminación del contrato. La cláusula penal solo procederá frente a incumplimientos graves, materiales y directamente atribuibles a la parte incumplida, previa notificación escrita y oportunidad razonable de subsanación."
+      ]
+    },
+    {
+      "encabezado": "DÉCIMA OCTAVA. VIGENCIA",
+      "nivel": 1,
+      "parrafos": [
+        "El presente contrato tendrá una vigencia igual al término requerido para la ejecución de las fases descritas en la Cláusula Cuarta, más el período de garantía previsto en la Cláusula Octava."
+      ]
+    },
+    {
+      "encabezado": "DÉCIMA NOVENA. LEY APLICABLE Y SOLUCIÓN DE CONTROVERSIAS",
+      "nivel": 1,
+      "parrafos": [
+        "El presente contrato se regirá por las leyes de la República de Colombia. LAS PARTES procurarán resolver cualquier diferencia mediante arreglo directo dentro de los diez (10) días hábiles siguientes a la notificación escrita de la controversia. Si no fuere posible llegar a un acuerdo, LAS PARTES podrán acudir a conciliación extrajudicial en derecho ante un centro de conciliación autorizado. De persistir la controversia, será competente la jurisdicción ordinaria colombiana."
+      ]
+    },
+    {
+      "encabezado": "VIGÉSIMA. DECLARACIÓN FINAL",
+      "nivel": 1,
+      "parrafos": [
+        "LAS PARTES manifiestan haber leído detenidamente, comprendido y aceptado en su integridad el contenido del presente contrato, encontrándolo conforme a su voluntad y libre manifestación de consentimiento. Para todos los efectos legales, LAS PARTES reconocen como válidas y plenamente vinculantes las firmas digitales, electrónicas y/o escaneadas que se incorporen al presente documento, conforme a la legislación vigente.",
+        "En constancia de lo anterior, se firma en dos (2) ejemplares del mismo tenor, en la ciudad de Floridablanca, Santander, a los ____ días del mes de ____________ de 2026."
+      ]
+    }
+  ],
+  "firmantes": [
+    {
+      "rol": "EL CONTRATISTA",
+      "nombre": "YESENIA MERCHÁN PINZÓN",
+      "cargo": "Representante Legal",
+      "identificacion": "C.C. No. 1.065.866.676"
+    },
+    {
+      "rol": "EL CLIENTE",
+      "nombre": "DIEGO SIGIFREDO ARDILA JIMÉNEZ",
+      "cargo": "Representante Legal",
+      "identificacion": "C.C. No. 79.249.780"
+    }
+  ]
+}

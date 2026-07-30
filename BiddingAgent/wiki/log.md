@@ -121,3 +121,29 @@ para mantener la conciliación (diferencia COP 0) y se actualizaron las cifras e
 
 **Nuevo precio total: COP 149.062.748 (≈ USD 44.496)**, antes COP 177.384.670
 con el IVA que ya no aplica.
+
+## [2026-07-30] lint | Ajustes de documentación tras auditoría del monorepo.
+
+Dos correcciones pedidas explícitamente por el usuario:
+
+1. **Confidencialidad de `recursos/licitaciones/` y `licitaciones/`.** Se retiró
+   de `CLAUDE.md`, `licitaciones/README.md` y `recursos/README.md` la cláusula
+   que pedía confirmar con el usuario si estas carpetas debían excluirse antes de
+   compartir el repositorio o subirlo a un remoto. El usuario confirmó que este
+   repositorio ya se maneja con el máximo nivel de confidencialidad posible, por
+   lo que esa pregunta ya no aplica. Se conserva la advertencia de que el
+   contenido es sensible y la regla de no mezclar información entre licitaciones.
+2. **"Los XLSX recalculan sin errores de fórmula" asumía fórmulas vivas por
+   defecto**, lo que contradecía la práctica real usada en `ipa-pr10598` (valores
+   estáticos calculados en Python, sin fórmulas de Excel). Se corrigió en
+   `CLAUDE.md`, `wiki/flujo-trabajo.md`, `wiki/estimacion-horas.md`,
+   `wiki/plantilla-verificacion-cruzada.md`, `habilidades/estimacion-horas/SKILL.md`
+   y `habilidades/modelos-costos/SKILL.md` para reconocer explícitamente esta
+   alternativa como válida, siempre que quede documentada en
+   `verificacion-cruzada.md` (incluyendo que el archivo no queda "vivo" y cómo
+   regenerarlo si el usuario necesita un modelo editable más adelante).
+
+Pendiente sin resolver (el usuario no entendió el hallazgo, queda para
+aclaración en una próxima sesión): los datos `[SUPUESTO]`/`[PENDIENTE]` de
+tarifas de retención en `06 - Modelo de Costos Oficial.xlsx` de `ipa-pr10598`
+(ver entrada de ajuste anterior) siguen sin confirmar con el contador.

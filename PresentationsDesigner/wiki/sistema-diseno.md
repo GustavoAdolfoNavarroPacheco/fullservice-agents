@@ -72,7 +72,7 @@ background:
 
 ## 3. Utilidades de marca (copiar tal cual)
 
-* **Texto en gradiente** — `background:var(--grad-brand); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;`
+* **Texto en gradiente — usar SVG, no `background-clip:text`** (estándar desde 2026-07-30, ver §5.2 "Solución del hairline"): `<svg><text fill="url(#grad-brand-svg)">...</text></svg>` con el `<linearGradient>` definido una vez en el `<svg>`. El viejo método CSS (`background:var(--grad-brand); -webkit-background-clip:text; ...`) queda como legado — no usar en piezas nuevas.
 * **Eyebrow** — `font-family:var(--font-label); font-weight:600; font-size:9.5pt; letter-spacing:.34em; text-transform:uppercase; color:var(--cyan);`
 * **Marco de brackets** — 4 `<span class="corner tl/tr/bl/br">` con `border` en 2 lados, color `rgba(74,125,255,.55)`.
 * **Anillos concéntricos** — contenedor `.deco-rings` con 3–4 `<span>` circulares de `border rgba(120,150,220,.06–.20)` para profundidad.
@@ -142,11 +142,57 @@ simplemente "quepa". Dos fallas opuestas, igual de graves:
    anti-patrón de desbordamiento — pero repartido de forma intencional (respiración entre bloques),
    nunca como una franja residual sin diseñar al final o al costado.
 
-### Trampa técnica verificada (print)
-El texto en gradiente con `background-clip:text` debe ir en un elemento **`inline`**
-(p. ej. `<em>` con `display:inline` y salto con `<br>`). Si el elemento es `display:block`,
-Chrome headless dibuja un **hairline** del gradiente en el borde de la caja al exportar a
-PDF. Confirmado en la portada de Miami Aqua Tours.
+### 5.2 Texto en gradiente para print — usar SVG, no `background-clip:text` (solución de fondo, 2026-07-30)
+
+**Historial del bug:** el texto en gradiente con `background-clip:text` dibuja un
+**hairline** (o, en casos peores, una caja/línea de color sólido) alrededor del texto al
+exportar a PDF con Chrome headless. Se intentaron varias mitigaciones a lo largo del
+tiempo — elemento `inline` en vez de `block` (portada de Miami Aqua Tours),
+`display:inline-block; width:fit-content` (Miami Aqua Tours v2),
+`background-size:112% 100%; background-position:0 0` (Colbeef) — pero el defecto **persistió
+incluso combinando todas ellas** en el título interno de Gas País Chilco (2026-07-29), y ya
+existía de forma más sutil en el PDF entregado de Avicampo. Quedó documentado como "bug
+sistémico de Chrome headless, no de un deck en particular", pendiente de una solución de
+fondo.
+
+**Solución adoptada:** renderizar el texto en gradiente como **SVG `<text>` con
+`fill="url(#id)"` apuntando a un `<linearGradient>`**, en vez de aplicar
+`background-clip:text` sobre una caja HTML. El SVG no pasa por el mismo pipeline de
+compositing/máscara que produce el hairline en el exportador de PDF de Chrome — es una capa
+de pintura distinta (paint server de SVG sobre los propios contornos del glifo).
+
+```html
+<svg class="grad-svg" viewBox="0 0 W H" style="height:1em; display:inline; vertical-align:baseline; overflow:visible;">
+  <defs>
+    <linearGradient id="gradBrand" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--cyan)"/>
+      <stop offset="33%" stop-color="var(--blue)"/>
+      <stop offset="66%" stop-color="var(--violet)"/>
+      <stop offset="100%" stop-color="var(--magenta)"/>
+    </linearGradient>
+  </defs>
+  <text x="0" y="0.8em" fill="url(#gradBrand)" style="font: italic 900 1em 'Playfair Display', serif;">texto en gradiente</text>
+</svg>
+```
+
+Ajustar el `viewBox` (ancho `W` aproximado al texto, alto `H` = tamaño de fuente) y el
+tamaño en `font:` del `<text>` para que calce con el resto de la línea; `stop-color` puede
+usar los tokens CSS de marca directamente (los custom properties se heredan dentro del SVG
+inline).
+
+**Verificación hecha esta sesión (2026-07-30):** se armó una reproducción fiel del caso que
+falló en Gas País (título `.s-title` real, Playfair Display Black Italic vía `@font-face`
+local, gradiente mezclado en la misma línea que texto negro, exportado con el mismo comando
+de Chrome headless de `wiki/despliegue.md`) comparando la versión CSS actual contra la
+versión SVG propuesta, inspeccionando el PDF resultante a 8x/~576dpi con PyMuPDF y un barrido
+de píxeles buscando líneas horizontales finas. **No se logró reproducir el hairline en
+ninguna de las dos versiones en esta sesión** (posible diferencia de versión de Chrome u otra
+condición no replicada) — así que no hay una comparación "antes roto / después arreglado" 100%
+concluyente. Aun así, se adopta el SVG como estándar desde ahora porque (a) da un resultado
+visualmente idéntico al CSS en la prueba, (b) es estructuralmente inmune a esta clase de bug
+por no usar `background-clip:text`, y (c) es la solución que la propia wiki venía señalando
+como pendiente. Si el hairline reaparece en un deck nuevo pese a usar SVG, reportarlo — sería
+evidencia de que la causa real es otra.
 
 ---
 

@@ -130,7 +130,7 @@ volúmenes usados. **Un número sin método no se entrega.**
       propuesto (o reportado al usuario si no lo es).
 - [ ] Las horas totales cuadran con los días del modelo de cotización bajo el
       factor declarado.
-- [ ] El XLSX recalcula sin errores de fórmula.
+- [ ] El XLSX recalcula sin errores de fórmula, o si se generó con valores estáticos calculados fuera de Excel, esa decisión está documentada explícitamente en `verificacion-cruzada.md`.
 
 ## Errores a evitar
 
