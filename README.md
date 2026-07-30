@@ -6,6 +6,33 @@ Monorepo de **agentes de IA** para el flujo comercial de **Campuslands — Full 
 
 ## Agentes
 
+### [ProspectionAgent](ProspectionAgent/)
+
+Agente de **prospección de empresas** ("Radar de Campus"). Al iniciar cada conversación pide un formulario fijo de 6 datos (sector, ubicación, tamaño, número de empleados, facturación anual, cantidad de empresas) y busca en la web abierta —nunca LinkedIn— empresas que califican como prospectos, entregando un listado enriquecido con datos públicos verificables. Es el primer eslabón del pipeline de prospección; su salida alimenta a `IntelligenceCommercial`.
+
+- **Stack:** Agente Perplexity (usa `Perplexity.md` en vez de `CLAUDE.md`), búsqueda en web abierta.
+- **Entregable:** Listado de empresas en tabla + CSV (`01-empresas-encontradas.csv`).
+- **Estructura interna:**
+  - `prospeccion/` — Lotes de búsqueda por criterio.
+  - `habilidades/` — Skills: formulario de intake, búsqueda web de empresas, enriquecimiento de datos, generación de listado de resultados.
+  - `wiki/` — Perfil de usuario / ICP, enlaces útiles de búsqueda, bitácora.
+
+---
+
+### [IntelligenceCommercial](IntelligenceCommercial/)
+
+Agente de **inteligencia comercial B2B y prospección en LinkedIn** ("Explorador de Campus"). Recibe el listado de empresas de `ProspectionAgent`, identifica contactos clave dentro de cada una (CTO, VP de Ingeniería, reclutadores técnicos, líderes de IA), detecta el idioma real del perfil objetivo y redacta y envía —de forma autónoma— solicitudes de conexión personalizadas en LinkedIn.
+
+- **Stack:** Agente Perplexity (`Perplexity.md`), control de navegador para LinkedIn.
+- **Entregable:** `04-informe-divulgacion.csv` con contactos clasificados y mensajes enviados.
+- **Estructura interna:**
+  - `prospeccion/` — Lotes con CSVs de empresas enriquecidas, contactos clasificados y mensajes.
+  - `habilidades/` — Skills: detección de idioma, control de navegador LinkedIn, generación de mensajes personalizados, generación de tabla de registro.
+  - `recursos/` — Marca Campuslands y brief (solo lectura).
+  - `wiki/` — Perfil de usuario, marca Campuslands, buyer personas objetivo, bitácora.
+
+---
+
 ### [PresentationsDesigner](PresentationsDesigner/)
 
 Agente de **presentaciones HTML/CSS** comerciales. Construye decks de venta personalizados por cliente (paleta derivada del logo, tipografías locales, diseño premium) y los exporta a PDF.
@@ -61,6 +88,17 @@ Agente de **redacción de contratos**. Toma los alcances, la cotización y un co
 ```
 FullService-Agents/
 ├── README.md
+├── ProspectionAgent/
+│   ├── Perplexity.md
+│   ├── prospeccion/
+│   ├── habilidades/
+│   └── wiki/
+├── IntelligenceCommercial/
+│   ├── Perplexity.md
+│   ├── prospeccion/
+│   ├── habilidades/
+│   ├── recursos/
+│   └── wiki/
 ├── PresentationsDesigner/
 │   ├── CLAUDE.md
 │   ├── presentaciones/        ← Repo independiente (Presentaciones)
@@ -141,8 +179,9 @@ git remote -v
 | **Slug de cliente** | Minúsculas, sin espacios ni tildes, separado por guiones (ej. `casa-blanca`). |
 | **`recursos/`** | Solo lectura — fuentes de verdad provistas por el usuario. |
 | **`wiki/`** | Conocimiento acumulado por el agente: bitácora (`log.md`), catálogo (`index.md`), guías de diseño. |
-| **Salidas por cliente** | Cada cliente tiene su subcarpeta autocontenida dentro de `presentaciones/`, `cotizaciones/`, `licitaciones/` o `contratos/`. |
-| **Veracidad** | Los agentes nunca inventan información. Datos faltantes se marcan como `[PENDIENTE]` y se consultan al usuario. |
+| **Salidas por cliente/lote** | Cada cliente o lote tiene su subcarpeta autocontenida dentro de `presentaciones/`, `cotizaciones/`, `licitaciones/`, `contratos/` o `prospeccion/`. |
+| **Veracidad** | Los agentes nunca inventan información. Datos faltantes se marcan como `[PENDIENTE]` (o se dejan en blanco con la fuente consultada, en los agentes de prospección) y se consultan al usuario. |
+| **Agentes Perplexity** | `ProspectionAgent` e `IntelligenceCommercial` usan `Perplexity.md` en vez de `CLAUDE.md` — mismo rol de archivo de configuración co-evolucionado con el usuario, pero pensado para ejecutarse como agente/Space en Perplexity. |
 
 ---
 
@@ -150,13 +189,20 @@ git remote -v
 
 ```mermaid
 graph LR
-    A["PresentationsDesigner"] -->|Presentacion aprobada| B["QuoteDeveloper"]
+    P["ProspectionAgent"] -->|Listado de empresas| I["IntelligenceCommercial"]
+    I -->|Contacto interesado| A["PresentationsDesigner"]
+    A -->|Presentacion aprobada| B["QuoteDeveloper"]
     L["BiddingAgent"] -->|Propuesta adjudicada| C["ContractPerfectionist"]
     B -->|Cotizacion aprobada| C["ContractPerfectionist"]
     C --> D["Contrato listo para firma"]
 ```
 
-Hay dos vias de entrada al pipeline:
+Hay tres vias de entrada al pipeline:
+
+**Via de prospeccion (origen del lead)**
+
+1. **Prospeccion de empresas** — Se buscan en la web abierta empresas que califican como prospecto segun el ICP.
+2. **Inteligencia comercial** — Se identifican contactos clave dentro de esas empresas y se les escribe en LinkedIn para iniciar la conversacion comercial.
 
 **Via comercial directa**
 
