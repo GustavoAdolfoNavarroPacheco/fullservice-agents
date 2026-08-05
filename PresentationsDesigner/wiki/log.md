@@ -4,6 +4,54 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-08-05] build | Financiera Comultrasan — Asistente Conversacional con IA (Orbit)
+
+Construcción del deck completo (**14 láminas**) en `presentaciones/comultrasan-orbit/`, a partir
+de `Propuesta_Comultrasan_Campuslands_v4.pdf` (propuesta comercial y técnica de 13 páginas para
+un asistente conversacional con IA Generativa orquestado por Orbit sobre WhatsApp y el botón
+"Canales Digitales"). Mapeo: Portada → Resumen Ejecutivo (statement + 4 resultados esperados) →
+Diagnóstico (cita de Angela Latorre + 4 hallazgos) → Propuesta de Valor (grid 2×2) → Funnel
+Antes/Después (tabla comparativa 5 filas) → Alineación de Objetivos (Captación/Colocación/
+Retención) → Diagrama del orquestador Orbit (3 líneas de negocio) → 2 mockups de flujo
+conversacional (Transferencia Bre-B, Precalificación de crédito) → Arquitectura Técnica (tabla
+de 8 integraciones) → Métricas Clave (5 KPIs) → Roadmap (timeline de 6 fases) → Esquema Comercial
+y SLA → Cierre. Paleta propia derivada del logo (teal `#0B6667` del banner → verde `#3FAA46` →
+lima `#8DC63F` del swoosh), registrada en [[temas-por-cliente]] y en el tile de
+`presentaciones/_temas-demo/`. El logo del cliente traía el fondo "blanco" con alfa uniforme ~50%
+en vez de transparencia real; se reconstruyó el canal alfa por umbral de blancura antes de
+recortar (nuevo caso, documentado en [[temas-por-cliente]] por si se repite con otro cliente).
+
+**Balance de espacio — 2 rondas de corrección tras el primer export a PDF:** (1) el diagrama del
+orquestador (lámina 7) se renderizó más alto que su caja disponible y, al estar centrado
+verticalmente, invadió el título de la lámina — se redujo el diagrama y se cambió a alineación
+superior. (2) los dos mockups de chat (láminas 8-9, 6 mensajes cada uno) se desbordaban por debajo
+del pie de página — se acortó el texto de los mensajes más largos y se redujo sustancialmente el
+padding/gap/tipografía del componente `.chat-mock`. (3) las láminas de grid de una sola fila
+(Propuesta de Valor, Alineación de Objetivos, Métricas) dejaban ~40% de aire vacío arriba y abajo
+de las tarjetas — se pasó Propuesta de Valor a grid 2×2, Métricas a 3+2, y se agrandaron las
+tarjetas de Alineación de Objetivos (con número decorativo grande), siguiendo la regla de balance
+de espacio de `wiki/sistema-diseno.md` §5.1. Verificado leyendo las 14 páginas del PDF exportado
+con PyMuPDF tras cada ronda.
+
+**Pendiente de confirmación del usuario:** el `<title>` usa "Financiera Comultrasan" — ni el PDF
+fuente ni el logo traen el sufijo legal completo de la razón social (S.A.S., Compañía de
+Financiamiento, etc.) requerido por la regla obligatoria de `<head>` en `CLAUDE.md`; actualizar
+cuando el usuario lo confirme. La fecha de portada ("Agosto 2026") también es un valor por defecto
+propuesto, no confirmado explícitamente.
+
+---
+
+## [2026-08-04] ajuste | Gas País Chilco — adición del precio en lámina 11 (Inversión)
+
+Se agregó el valor de inversión, antes marcado "Por definir": **$90.000.000 COP**
+(noventa millones de pesos colombianos), en `presentaciones/gaspais-chilco/index.html`
+(lámina 11 · "10 · Inversión"). Se ajustó el título de la lámina ("El alcance y la
+inversión, definidos") y la nota de pago para reflejar el valor confirmado; la forma
+de pago queda pendiente de definir. Se verificó visualmente en navegador y se
+regeneró `gaspais-chilco.pdf`.
+
+---
+
 ## [2026-07-30] lint | Auditoría del monorepo — 5 correcciones a pedido del usuario
 
 1. **`wiki/index.md`:** se eliminó la entrada duplicada/obsoleta de "Ve a la Segura"

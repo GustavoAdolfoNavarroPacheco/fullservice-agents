@@ -267,6 +267,29 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > esta técnica para títulos/portadas en gradiente; los decks ya entregados con el artefacto
 > conocido (Avicampo, Gas País) no se regeneran retroactivamente salvo pedido explícito.
 
+### Comultrasan — teal del banner → verde→lima del swoosh (financiera cooperativa)
+> Derivado del logo real: **teal** (`#0B6667`, banda "Financiera") funde hacia el **verde→lima**
+> del swoosh bajo el wordmark "COMULTRASAN" (`#3FAA46`→`#8DC63F`). Marca **fría** (teal+verde) →
+> el punto "Confidencial" se queda en el **ámbar** por defecto (regla de seguridad). Fondo gris
+> claro + `--bg-wash` (estándar desde 2026-07-10). Usado en `presentaciones/comultrasan-orbit/`.
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(20,140,135,.10); --bg-glow-b:rgba(76,170,62,.10);
+--bg-wash:linear-gradient(135deg, rgba(11,102,103,.07) 0%, rgba(20,130,114,.05) 32%, rgba(63,170,70,.05) 66%, rgba(141,198,63,.07) 100%);
+--cyan:#0B6667; --blue:#14826E; --violet:#3FAA46; --magenta:#8DC63F;
+--grad-brand:linear-gradient(100deg,#0B6667 0%,#14826E 34%,#3FAA46 68%,#8DC63F 100%);
+--grad-cyan:linear-gradient(120deg,#0B6667,#14826E);
+--grad-violet:linear-gradient(120deg,#3FAA46,#8DC63F);
+--card-border:1px solid rgba(20,25,35,.10);
+--dot-confidential:#F5A623; --dot-confidential-glow:rgba(245,166,35,.45);
+```
+> **Nota técnica:** el PNG del logo del cliente traía el fondo "blanco" con alfa uniforme ~50%
+> (`rgba(255,255,255,128)`) en vez de transparencia real — un patrón nuevo, distinto del "fondo
+> blanco opaco" ya documentado. Se reconstruyó el canal alfa por umbral de blancura (pixels cercanos
+> a `#FFFFFF` → alfa 0; contenido de color/negro → alfa 255, con rampa lineal para el antialiasing)
+> antes de recortar al bbox + padding simétrico ~8%. Si aparece este mismo patrón en otro logo,
+> aplicar la misma reconstrucción de alfa en vez de solo recortar al bbox.
+
 ## 4. Aplicación
 
 - **Decks nuevos:** derivar la paleta del logo en el paso de plan (ver [[flujo-trabajo]] y
