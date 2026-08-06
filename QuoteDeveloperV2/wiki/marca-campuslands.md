@@ -93,6 +93,24 @@ No usar la paleta oscura (`--bg-0/1/2`, cian/violeta/magenta de la sección 2) e
 
 **Módulo → Submódulo → Funcionalidad(es)**, con cardinalidad libre en cada nivel — un submódulo puede tener una o varias funcionalidades, según lo que el alcance real necesite. Queda prohibido forzar el patrón antiguo de "1 submódulo = 1 funcionalidad". Ver el mapeo exacto en `wiki/plantilla-xlsx.md` §2 (espejo 1:1 con el XLSX).
 
+**Criterio de atomicidad para bullets compuestos (vigente desde 2026-08-06, a pedido del
+usuario):** cuando un bullet de la fuente une varias cosas con "y"/comas, se divide en
+funcionalidades separadas **si cada una es una capacidad genuinamente distinta** (verbos/acciones
+diferentes — ej. "Trazabilidad, versionamiento, permisos y auditoría" → 4 funcionalidades). **No**
+se divide cuando el bullet enumera dimensiones/niveles de una sola capacidad (ej. "Clasificación
+por series, subseries, expedientes y dependencias" se mantiene como una sola funcionalidad, porque
+son niveles de una misma taxonomía, no funcionalidades independientes). El objetivo es maximizar la
+granularidad real sin fragmentar artificialmente ni inventar — sigue aplicando la regla de
+veracidad de `wiki/perfil-usuario.md`.
+
+### Nota de contexto técnico (vigente desde 2026-08-06)
+
+Cuando el documento fuente trae, por producto, una línea de "Componente tecnológico principal"
+y/o "Clasificación" (ej. "Producto especializado", "Plataforma transversal"), se agrega como una
+nota informativa en cursiva gris bajo el objetivo del PDF (sin precio asociado, fuera de la tabla
+de alcance) — da contexto técnico al lector sin mezclarse con las filas de funcionalidades
+cotizadas. Si el documento fuente no trae esos datos, se omite la nota.
+
 ### Tipografía del PDF de cotización (vigente desde 2026-08-05)
 
 Fuente **Arial** en toda la tabla de alcance (distinta de la tipografía de marca general de la sección 3, que no aplica a cotizaciones):

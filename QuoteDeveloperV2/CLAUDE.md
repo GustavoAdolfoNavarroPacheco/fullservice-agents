@@ -68,6 +68,16 @@ con precisión, pregunto directamente al usuario en vez de asumir.
 - Para cada cliente nuevo, **copio** la plantilla maestra a
   `cotizaciones/<slug>/<Cliente> - Cotizacion.xlsx` y trabajo sobre la copia.
   Nunca modifico `recursos/FullServices - Plantilla Cotizaciones.xlsx`.
+- **Nomenclatura corta (vigente desde 2026-08-06)**: Excel tiene un límite de
+  ruta propio más estricto que el de Windows (260) — confirmado con Excel real
+  vía COM, una ruta de ~236 caracteres falla con "no hemos encontrado el
+  archivo" aunque el archivo sea válido. Nombres de archivo/carpeta cortos y
+  sin tildes (el contenido interno sigue en español con tildes normales). Para
+  un cliente con **múltiples proyectos** (cotizaciones separadas por
+  proyecto): `cotizaciones/<slug-cliente>/<slug-proyecto>/` con archivos
+  simplemente `Cotizacion.xlsx` y `Cotizacion de Alcance.pdf` (sin repetir
+  cliente/proyecto en el nombre — ya está en la ruta). Mantener la ruta
+  completa bajo ~180 caracteres.
 
 ---
 
@@ -153,6 +163,18 @@ con precisión, pregunto directamente al usuario en vez de asumir.
 - El número de módulos, de submódulos por módulo, y de funcionalidades por
   submódulo es libre — depende del alcance real del proyecto, no hay un
   conteo fijo ni un patrón repetido artificialmente.
+- **Atomicidad de bullets compuestos (vigente desde 2026-08-06)**: un bullet
+  de la fuente que une varias cosas con "y"/comas se divide en funcionalidades
+  separadas solo si cada una es una capacidad genuinamente distinta
+  (verbos/acciones diferentes). No se divide cuando el bullet enumera
+  dimensiones/niveles de una sola capacidad (ej. "por series, subseries,
+  expedientes y dependencias" = una taxonomía, una funcionalidad). Ver
+  `wiki/marca-campuslands.md` §5.
+- **Nota de contexto técnico (vigente desde 2026-08-06)**: si el documento
+  fuente trae "Componente tecnológico principal" y/o "Clasificación" por
+  producto, se agrega como nota informativa en cursiva gris bajo el objetivo
+  del PDF (sin precio, fuera de la tabla de alcance). Se omite si la fuente
+  no trae esos datos.
 
 ### Precios en el PDF (vigente desde 2026-07-17)
 

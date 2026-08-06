@@ -145,6 +145,17 @@ insertaron filas por un alcance grande).
 - Ambas celdas caen dentro de la zona normalmente "intocable" (§4) — son las
   únicas excepciones explícitas a esa regla.
 
+## 5b. Aclaraciones/condiciones sin celda propia (vigente desde 2026-08-06)
+
+Cuando el usuario pide dejar una aclaración o condición comercial sobre una fila o módulo (ej.
+"este cobro aplica solo si...") y no hay una celda de texto libre apropiada para eso (y la fila
+cae en zona intocable o simplemente no hay dónde escribirlo sin tocar valores/fórmulas), se usa
+un **comentario de celda de Excel** (`openpyxl.comments.Comment`) sobre la celda L/M relevante
+(módulo o submódulo) — no cambia ningún valor ni fórmula, es metadato adjunto a la celda,
+visible al pasar el cursor en Excel. Verificar después de esto que el archivo sigue
+recalculando sin errores nuevos y que el comentario sobrevive el recálculo con LibreOffice
+(confirmado que sí, en la práctica).
+
 ## 6. Verificación obligatoria
 
 - Recalcular con `scripts/recalc.py` (skill de xlsx) y confirmar **cero

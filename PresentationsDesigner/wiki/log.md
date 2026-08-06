@@ -4,6 +4,46 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-08-06] ajuste | Financiera Comultrasan — corrección pixel-perfect de las 14 láminas
+
+Ronda de correcciones a pedido explícito del usuario ("verificado visualmente pixel por pixel,
+sin errores") sobre `presentaciones/comultrasan-orbit/`:
+
+1. **Causa raíz de casi todos los títulos en gradiente mal posicionados/mal dimensionados:**
+   la técnica SVG original (`viewBox` con ancho estimado a ojo por conteo de caracteres) producía
+   desalineación de línea base y proporciones incorrectas en las 14 láminas. Se probó volver a
+   `background-clip:text` (CSS), pero **reprodujo el bug de caja/hairline documentado en
+   `wiki/sistema-diseno.md` §5.2** (visible como un recuadro fino alrededor del texto en el PDF
+   exportado) — confirmando que el bug sí existe en este Chrome/sesión, a diferencia de lo
+   reportado en la verificación de 2026-07-30. **Solución de fondo:** se midieron las métricas
+   reales de `PlayfairDisplay-BlackItalic.ttf` con PIL (`ImageFont.getmetrics()` / `getlength()`)
+   para cada frase en gradiente, y se construyó el `viewBox` del SVG con el ancho exacto y
+   `height = ascent` (texto ubicado en `y = ascent`), de forma que el borde inferior del SVG
+   —que es la línea base de un elemento reemplazado inline— coincida matemáticamente con la
+   línea base del texto circundante. Resultado: alineación pixel-perfect en las 14 láminas, sin
+   caja ni hairline. Documentado como nuevo método de referencia (superior al de §5.2, que sigue
+   siendo válido pero con estimación manual de ancho).
+2. **Logos:** aumentados en las 14 láminas — Campuslands portada 26→36px, cliente portada
+   40→58px; Campuslands interno 20→27px, cliente interno 28→38px (con ajuste de la fila de
+   header de `.internal` para acomodarlos).
+3. **Portada:** eliminadas las 4 figuras `.corner` (esquinas) a pedido del usuario.
+4. **Legibilidad:** oscurecido/agrandado el texto de la columna "Antes" (lámina 5), toda la
+   tabla técnica (lámina 10), tarjetas de Propuesta de Valor/Alineación/Métricas (láminas 4, 6,
+   7, 11) y el contenido de la mitad inferior de Esquema Comercial y SLA (lámina 13).
+5. **Lámina 11 (Métricas):** el grid 3+2 con CSS Grid dejaba la segunda fila de 2 tarjetas
+   desalineada a la izquierda; se cambió a `flex-wrap` centrado (`.qc-grid.wrap`).
+6. **Lámina 14 (Cierre):** los números dentro de los círculos verdes no quedaban centrados
+   (glifos de Playfair Display con métricas irregulares dentro de una fuente serif); se cambió
+   la tipografía del dígito a Montserrat. Se retiraron "Liderazgo Expansión Global & Full
+   Service", "Campuslands S.A.S. BIC" y "Km.4, Anillo Vial..." de la tarjeta de contacto, y se
+   agregó "Directora Full Service Global" + correo (gabriela.pedraza@campuslands.com) + teléfono
+   (+57 300 302 8555), cada uno con su ícono.
+
+Verificado renderizando las 14 páginas del PDF exportado a 2.2x con PyMuPDF y revisando cada una
+contra la lista de mejoras entregada por el usuario.
+
+---
+
 ## [2026-08-05] build | Financiera Comultrasan — Asistente Conversacional con IA (Orbit)
 
 Construcción del deck completo (**14 láminas**) en `presentaciones/comultrasan-orbit/`, a partir
