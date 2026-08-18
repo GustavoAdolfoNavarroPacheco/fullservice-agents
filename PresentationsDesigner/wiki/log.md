@@ -4,6 +4,133 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-08-18] build | Marval S.A.S. — Ecosistema de Agentes de IA (switch Escenario A/B)
+
+Deck nuevo (10 láminas) construido a partir de dos cotizaciones XLSX del usuario
+(`Cotizacion (1).xlsx` = Escenario A, `Cotizacion (2).xlsx` = Escenario B). Extracción con
+`openpyxl` de la estructura por secciones/subsecciones/ítems (columnas L/M/N + totales Y por
+grupo X) confirmó que **la única diferencia real entre escenarios es el Motor de IA** (API
+externa vs. modelo propio self-hosted + MLOps) — el resto del alcance (Orquestador, Agente de
+Gestión Humana, Agente de Soporte TI, capa de datos/intranet/infraestructura, Canal Teams,
+Agente de Entregas Digitales, expansión a 5 agentes) es idéntico. Los totales que dio el
+usuario ($103.049.261,2 / $118.924.607,4 COP) se verificaron exactamente como costo base ÷ 0.7
+de margen.
+
+**Primer deck con shell de switch interactivo** (barra superior con selector de Escenario A/B
+tipo píldora, barra inferior con anterior/siguiente + barra de progreso + play-pause de
+autoplay), adaptado de la mecánica de `multinal-escenario-b-demo/` pero construido como página
+única autocontenida (no una app de 3 vistas). Para minimizar duplicación, las 7 láminas
+idénticas entre escenarios llevan `data-scenario="both"` y las cifras que sí cambian (badge de
+escenario, 2 chips de precio en el mapa del ecosistema, total e hitos de pago) se actualizan
+por JS (`applyScenarioContent()`) en vez de duplicar el DOM; solo la lámina 5 (Motor de IA)
+tiene dos variantes completas (`data-scenario="a"` / `"b"`) por diferir en estructura de
+contenido, no solo en cifras.
+
+**Exportación a PDF (obligatoria, dos documentos):** dado que la interactividad de una sola
+lámina visible a la vez no es imprimible directamente, se añadió soporte de
+`index.html?escenario=a|b` (leído en `DOMContentLoaded`) + `@media print` que ignora el estado
+de navegación y apila las láminas de `data-scenario="both"` más las del escenario activo,
+generando `marval-escenario-a.pdf` y `marval-escenario-b.pdf` (10 páginas cada uno, verificado
+con PyMuPDF) desde el mismo `index.html`.
+
+Paleta derivada por muestreo de píxeles reales del logo (`recursos/Marval.jpg`, procesado con
+PIL: fondo blanco→transparente por umbral + recorte a bbox visible + padding ~6%): azul claro
+`#4888C8` → azul del wordmark `#1068B0` → azul marino profundo `#062A4F`, sobre el estándar de
+fondo gris claro + `--bg-wash`. Marca fría → punto "Confidencial" en ámbar por defecto. `<title>`
+usa razón social completa **Marval S.A.S.**, confirmada por el usuario vía pregunta directa (no
+se asumió el sufijo legal). Registrado en el catálogo de [[temas-por-cliente]] y como tile en
+`presentaciones/_temas-demo/index.html`.
+
+---
+
+## [2026-08-10] ajuste | Financiera Comultrasan — Jerarquía visual del precio en Esquema Comercial
+
+A pedido del usuario, en `presentaciones/comultrasan-orbit/` lámina 13: se extrajo la cifra de
+inversión del subtítulo ("Pagos por hitos, sin sorpresas" queda solo) y se promovió a un bloque
+`.price-hero` propio — etiqueta "INVERSIÓN TOTAL" + cifra grande en Playfair Black Italic
+(27pt) — ubicado entre el subtítulo y las 3 tarjetas de hitos (40%/40%/20%), que se
+desplazaron hacia abajo para darle espacio. Se limpiaron las dos tarjetas inferiores
+("01. Proyecto por Fases" / "02. Acompañamiento Continuo"), quitando el párrafo descriptivo y
+reduciendo su padding vertical (.2in→.14in) para que la tarjeta se ajuste al título corto sin
+espacio sobrante. Verificado sin desbordamiento con `getBoundingClientRect()` (gap positivo
+entre `.commercial-v2` y el footer) y visualmente en el PDF exportado.
+
+---
+
+## [2026-08-09] rediseño | Financiera Comultrasan — Retícula de Portada y contenido de Esquema Comercial
+
+Dos ajustes a pedido explícito del usuario, con rol de "Diseñador UI/UX y Maquetador Senior":
+
+1. **Lámina 1 (Portada):** se reajustó la retícula vertical manteniendo intacto todo el texto,
+   los logos y la paleta. Título y subtítulo se movieron hacia arriba, y se amplió el espacio
+   entre el logo de Financiera Comultrasan ("PARA") y la franja de datos de contacto. **Nota
+   técnica:** el primer intento (solo agregar `margin-top` a `.cover__meta`) produjo un
+   **desbordamiento real** — el contenido total superaba los 4.7475in disponibles dentro de
+   `.cover` (`.slide` con `overflow:hidden`), cortando literalmente el texto de la franja de
+   contacto a la mitad. Se verificó con `getBoundingClientRect()` vía JavaScript en el navegador
+   (más preciso que medir a mano o por captura) y se iteró reduciendo el tamaño del título
+   (36pt→28pt) y los márgenes/interlineado del bloque hasta lograr **15.49% de margen inferior
+   visible** (cumple el ≥15% pedido) con el título subiendo de ~34% a ~29% de la altura de la
+   lámina. Método de verificación (medir con `getBoundingClientRect` en vez de solo inspección
+   visual) documentado aquí para reutilizar en futuros ajustes de retícula.
+2. **Lámina 13 (Esquema Comercial y SLA):** se migró contenido de una lámina de referencia
+   externa (deck "Unidrogas", "Forma de Pago y Garantía") que el usuario compartió como
+   inspiración de **estructura, no de colores**. Cambios: subtítulo nuevo "Pagos por hitos, sin
+   sorpresas — inversión total $85.630.624,33 COP." debajo del título; las 3 tarjetas pequeñas
+   ahora muestran el esquema de pago **40% Anticipo de Inicio / 40% A Mitad del Proyecto / 20% A
+   la Entrega (Go-Live)**; el panel lateral derecho pasa de "SLA y Soporte" (3 ítems) a
+   **"Garantía y soporte"** con los 4 bullets migrados tal cual de la referencia (2 semanas de
+   pruebas y estabilización, soporte post go-live, control de cambios documentado, transparencia
+   total); y los bloques "01. Proyecto por Fases" / "02. Acompañamiento Continuo" (antes las
+   tarjetas de modalidad) se reubicaron debajo de las 3 tarjetas de hitos. Se mantuvo la paleta
+   teal→verde y la tipografía Playfair/Montserrat propias del deck — la referencia solo aportó
+   el esqueleto de layout (fila de 3 tarjetas + panel lateral).
+
+---
+
+## [2026-08-08] rediseño | Financiera Comultrasan — Arquitectura Técnica y Esquema Comercial
+
+Dos rediseños estructurales completos a pedido del usuario (el ajuste puntual de padding del
+2026-08-07 en la lámina 10 no fue suficiente):
+
+1. **Lámina 10 (Arquitectura Técnica):** se abandonó el layout de tabla de una sola tarjeta
+   (`.tech-table`/`.tech-row`, donde el texto seguía quedando pegado al borde redondeado) y se
+   reemplazó por un **grid de 8 tarjetas independientes 2×4** (`.tech-grid`/`.tech-item`, mismo
+   patrón de tarjeta con barra de acento izquierda que el resto del deck). Cada tarjeta tiene su
+   propio padding completo por los 4 lados, eliminando de raíz cualquier posibilidad de texto
+   tocando o saliéndose del borde.
+2. **Lámina 13 (Esquema Comercial y SLA):** rediseño total de la estructura (no de la paleta),
+   adaptando el esqueleto de una referencia visual que el usuario compartió (deck "Unidrogas",
+   lámina "Forma de Pago y Garantía": fila de 3 tarjetas grandes + panel lateral de checklist con
+   checks verdes). Se mapeó el contenido propio de Comultrasan sobre ese esqueleto: 3 tarjetas
+   (`.stat-row-3`/`.stat-box`) — Proyecto por Fases (01), Acompañamiento Continuo (02) e
+   **Inversión Total $85.630.624,33 COP** como tercera tarjeta con la cifra como elemento
+   protagonista — más una leyenda en cursiva debajo, y un panel lateral `.sla-panel` ("SLA y
+   Soporte") con los 3 puntos de SLA en checklist con ícono de check. Se mantuvo el sistema
+   tipográfico y la paleta teal→verde propios del deck — la referencia solo aportó la
+   distribución (fila de tarjetas + panel lateral), no los colores ni la tipografía sans-serif
+   del original.
+
+Verificado renderizando ambas láminas a 2.4x con PyMuPDF tras el cambio.
+
+---
+
+## [2026-08-07] ajuste | Financiera Comultrasan — tabla técnica e inversión confirmada
+
+Dos ajustes puntuales a `presentaciones/comultrasan-orbit/` a pedido del usuario:
+1. **Lámina 10 (Arquitectura Técnica):** el texto de la primera y última fila quedaba pegado al
+   borde redondeado de la tarjeta (`.tech-table` no tenía padding propio, solo las filas). Se
+   agregó `padding:.14in 0` al contenedor.
+2. **Lámina 13 (Esquema Comercial y SLA):** se unificaron las dos tarjetas de modalidad
+   ("Modalidad A · Proyecto por Fases" / "Modalidad B · Acompañamiento Continuo") en una sola
+   tarjeta con divisor interno, quitando las palabras "Modalidad A" / "Modalidad B" (quedan solo
+   "Proyecto por Fases" y "Acompañamiento Continuo"). Se ajustó el texto de acompañamiento
+   continuo a "Posterior al despliegue se puede adquirir soporte...". **Inversión confirmada:**
+   reemplazado el texto de rango pendiente por la cifra real **$85.630.624,33 COP**, destacada en
+   tamaño grande dentro del mismo banner "Inversión" (ya no es un valor por definir).
+
+---
+
 ## [2026-08-06] ajuste | Financiera Comultrasan — corrección pixel-perfect de las 14 láminas
 
 Ronda de correcciones a pedido explícito del usuario ("verificado visualmente pixel por pixel,

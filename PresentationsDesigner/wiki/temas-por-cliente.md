@@ -290,6 +290,27 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > antes de recortar al bbox + padding simétrico ~8%. Si aparece este mismo patrón en otro logo,
 > aplicar la misma reconstrucción de alfa en vez de solo recortar al bbox.
 
+### Marval — azul claro del ícono → azul del wordmark → azul marino profundo
+> Derivado del logo real: el isotipo "M/W" degrada de **azul claro** (`#4888C8`, trazo exterior)
+> a **azul marino profundo** (`#003058`, punta), con relleno plateado/metálico; el wordmark
+> "MARVAL" es un **azul vívido sólido** (`#1068B0`). Marca monocromática **fría** (azul) →
+> el punto "Confidencial" se pone en **ámbar** por defecto (regla de seguridad). Fondo gris
+> claro + `--bg-wash` (estándar desde 2026-07-10). Usado en `presentaciones/marval/`, deck con
+> **switch de Escenario A / Escenario B** en la barra superior (API externa vs. modelo propio
+> de IA) — primer deck con este patrón de shell interactivo con navegación de láminas y
+> exportación a **dos PDFs** (uno por escenario) desde el mismo `index.html`.
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(72,136,200,.09); --bg-glow-b:rgba(6,42,79,.09);
+--bg-wash:linear-gradient(135deg, rgba(111,168,220,.07) 0%, rgba(72,136,200,.06) 32%, rgba(16,104,176,.05) 66%, rgba(6,42,79,.07) 100%);
+--cyan:#0B3A6B; --blue:#1068B0; --violet:#2E6FA8; --magenta:#062A4F; --steel:#5B7A99;
+--grad-brand:linear-gradient(100deg,#6FA8DC 0%,#4888C8 34%,#1068B0 68%,#062A4F 100%);
+--grad-cyan:linear-gradient(120deg,#6FA8DC,#1068B0);
+--grad-violet:linear-gradient(120deg,#4888C8,#062A4F);
+--card-border:1px solid rgba(20,25,35,.10);
+--dot-confidential:#C2570A; --dot-confidential-glow:rgba(194,87,10,.45);
+```
+
 ## 4. Aplicación
 
 - **Decks nuevos:** derivar la paleta del logo en el paso de plan (ver [[flujo-trabajo]] y
