@@ -4,6 +4,35 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-08-19] ajuste | Marval S.A.S. — responsividad de la lámina + recorte de contenido
+
+Dos ajustes a pedido del usuario en `presentaciones/marval/`:
+
+1. **Responsividad (el usuario tenía que hacer zoom-out al 75% para ver todo):** causa raíz —
+   la lámina usaba unidades físicas fijas (pt/in, igual que el PDF) dentro de una caja que solo
+   se dimensionaba por porcentaje del contenedor (`width:min(90%,1200px)` + `aspect-ratio` +
+   `max-height:82%`), así que en ventanas más chicas la caja se achicaba pero el contenido en
+   pt/in no, y se recortaba por el `overflow:hidden`. Fix: la lámina ahora se dibuja siempre a
+   su tamaño nativo (1056×594px = 11in×6.1875in a 96dpi, igual que el PDF) y se reescala como un
+   todo según el espacio disponible (`resizeSlideStage()` en `script.js`, recalculado en
+   `resize`). **Nota técnica:** el primer intento uso `transform:scale()`, pero combinado con el
+   texto SVG en gradiente producía **recortes de renderizado silenciosos en Chrome headless**
+   (reproducido de forma determinística con capturas reales a varios tamaños de ventana — el
+   texto se cortaba a mitad de palabra pese a que `getBoundingClientRect()` no mostraba ningún
+   desborde real, es decir, era un bug de *paint*, no de *layout*). Se resolvió cambiando a
+   `zoom` en vez de `transform:scale()`: `zoom` reflowa el layout real (como si el usuario
+   cambiara el zoom del navegador) en lugar de componer una capa transformada, y el bug
+   desapareció por completo, verificado en 700×600, 963×990, 1366×768 y 1920×1080. `@media
+   print` fuerza `zoom:1` explícito para no afectar el PDF.
+2. **Recorte de contenido:** se eliminó la lámina "Inversión y Forma de Pago" de ambos
+   escenarios (antes lámina 9 de 10); "Mapa del Ecosistema" pasa directamente a "¿Cuándo
+   empezamos?". Deck queda en **9 láminas** por escenario. Se limpió el bloque CSS `.invest`
+   (ya sin uso) y los campos de `SCENARIO_DATA` asociados en `script.js`.
+
+PDFs regenerados (9 páginas cada uno, verificado con PyMuPDF).
+
+---
+
 ## [2026-08-18] build | Marval S.A.S. — Ecosistema de Agentes de IA (switch Escenario A/B)
 
 Deck nuevo (10 láminas) construido a partir de dos cotizaciones XLSX del usuario
