@@ -4,6 +4,43 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-08-26] marca | Shell interactivo obligatorio (Web) — una lámina a la vez + retematizado de FCV
+
+* **Regla nueva, a pedido del usuario:** toda presentación **web** se entrega desde ahora dentro
+  de un shell de navegación de una sola lámina a la vez (no scroll vertical apilado), calcado del
+  patrón ya usado en `presentaciones/marval/`: barra superior (logos Campuslands+cliente ·
+  switch de escenario solo si hay 2+ · badge Confidencial coloreado al cliente), lámina centrada
+  con sombra que la separa del fondo, barra inferior (flecha atrás · indicador N/total + barra de
+  progreso + play/pausa de autoplay · flecha adelante). **No afecta el PDF** — `@media print`
+  oculta el shell por completo y cada `.slide` vuelve a su tamaño físico secuencial, igual que
+  antes de tenerlo. Documentado en `CLAUDE.md` (nueva sección "Shell interactivo obligatorio")
+  y en `wiki/sistema-diseno.md` §6 (snippets HTML/CSS/JS reutilizables, con y sin switch).
+* **Bug de nombres de clase evitado:** el `.badge-confidential` de la portada (texto+punto,
+  sin fondo) y el nuevo `.badge-confidential` de la barra superior (pill con fondo/borde) NO
+  pueden compartir nombre — el de portada se renombró a `.cover-badge-confidential` en el CSS y
+  el HTML de FCV para no chocar. Aplicar el mismo renombrado en cualquier deck existente al que
+  se le agregue el shell.
+* **Confidencial con el color del cliente sin token nuevo:** el badge de la barra superior usa
+  `color-mix(in srgb, var(--dot-confidential) 10%/28%, transparent)` para el fondo/borde del
+  pill, en vez de un `rgba(...)` hardcodeado por cliente (como hacía `presentaciones/marval/`)
+  — generaliza a cualquier paleta sin tocar el contrato de tokens de [[temas-por-cliente]].
+* **Retematizado de `presentaciones/fcv/`** (deck registrado ayer) al nuevo shell: HTML
+  reestructurado (`<section class="slide …">` → `<div class="slide" data-slide="N"><div
+  class="slide-inner …">`, envuelto en `.app-header`/`.app-content`/`.slides-footer-controls`),
+  `script.js` nuevo (30 líneas, sin lógica de escenario — FCV tiene uno solo) y ajustes de CSS
+  (`.slide`/`.glow-a/b` originales pasan a `.slide-inner`/`.slide-inner.glow-a/b`; `.slide` nuevo
+  es el wrapper de paginación con `zoom`/`display:none↔active`).
+* **Verificación:** sin captura de navegador disponible esta sesión (Browser pane no desplegado),
+  se verificó por DOM/JS — 1 sola `.slide` visible a la vez, gaps simétricos (295px) entre
+  header/lámina y lámina/footer, lámina centrada (offset 0px), `navigateSlide`/`toggleAutoplay`
+  funcionando — y por PDF: reexportado, **8 páginas** (idéntico conteo), comparación visual
+  página por página contra la versión previa **sin diferencias** (sin rastro del shell).
+* **Comportamiento nuevo, también a pedido del usuario:** de ahora en adelante, terminado el
+  build/ajuste de un deck, se corre `git add . && git commit -m "feat: <Nombre Comercial>" &&
+  git push` dentro de `presentaciones/` (su propio repo Git — seguro para `add .` ahí, ya que ese
+  repo no contiene nada de `QuoteDeveloperV2/`). Para el repo raíz (`wiki/*.md`, `CLAUDE.md`)
+  se mantiene `git add` de archivos puntuales, nunca `.`/`-A` — ver `wiki/despliegue.md` §4.
+
 ## [2026-08-26] build | Fundación Cardiovascular de Colombia (FCV) — Desarrollo de Software Especializado (8 láminas)
 
 * **Cliente nuevo, deck atípico a propósito.** El usuario pidió construir una propuesta a partir de

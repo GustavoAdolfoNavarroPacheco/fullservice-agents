@@ -118,7 +118,20 @@ el trabajo de construcción, despliegue y mantenimiento de esta wiki.
    >     FCV en su build inicial y hubo que agregarlo después a pedido del usuario.
    > Las tres actualizaciones se commitean+pushean junto con el resto (ver `wiki/despliegue.md`
    > §4 sobre los dos repos Git involucrados — `presentaciones/` es uno separado del raíz).
-10. 🔗 **REGLA OBLIGATORIA — Compartir link:** al terminar de crear (o modificar) cualquier
+10. 🔀 **REGLA OBLIGATORIA — Commit y push automáticos (2026-08-26):** terminado el build/ajuste
+    y el registro del paso 9, corro — dentro de `presentaciones/` (el repo Git propio de los
+    decks, distinto del raíz; ver arquitectura arriba y `wiki/despliegue.md` §4) —:
+    ```
+    git add .
+    git commit -m "feat: <Nombre Comercial de la Empresa>"
+    git push
+    ```
+    Esto dispara el deploy automático en Vercel, sin esperar a que me lo pidan.
+    > **Excepción — repo raíz:** para cambios que solo tocan `wiki/*.md` o `CLAUDE.md` (repo
+    > `FullService-Agents`, no `presentaciones/`), sigo usando `git add <archivos puntuales>`
+    > en vez de `git add .` — ese repo raíz también versiona el proyecto hermano no relacionado
+    > `QuoteDeveloperV2/`, y un `add` amplio arrastraría sus cambios pendientes sin querer.
+11. 🔗 **REGLA OBLIGATORIA — Compartir link:** al terminar de crear (o modificar) cualquier
     presentación, **comparto en el chat el link actualizado de Vercel**, con la forma
     `https://fullservice-presentaciones.vercel.app/<slug>/index.html`
     (reemplazando `<slug>` por la carpeta real de la presentación; también accesible como URL
@@ -177,6 +190,41 @@ Cada deck debe demostrar:
 
 Animar solo `transform`, `opacity`, `clip-path`. Definir tokens en CSS custom properties,
 no hardcodear. Lámina de referencia: `presentaciones/miami-aqua-tours-ampliado/`.
+
+---
+
+## Shell interactivo obligatorio (Web) — v3
+
+⛔ **REGLA OBLIGATORIA (2026-08-26):** toda presentación **web** se entrega dentro de un shell de
+navegación de **una sola lámina a la vez**, no como scroll vertical de láminas apiladas. **Esto
+no afecta al PDF exportado** (ver abajo). Referencia canónica: `presentaciones/marval/`
+(primer deck con este shell); implementación de un solo escenario en `presentaciones/fcv/`.
+
+**Barra superior** (`.app-header`):
+- Esquina izquierda: logo Campuslands + divisor + logo del cliente.
+- Centro: el switch de escenario **solo si el deck tiene 2 o más escenarios** (como Marval);
+  con un único escenario, el centro queda **vacío**.
+- Esquina derecha: badge "Confidencial" coloreado con `--dot-confidential` del cliente vía
+  `color-mix()` — nunca un `rgba(...)` hardcodeado por deck.
+
+**Centro** (`.slides-container`): una sola lámina visible (`.slide.active`), **centrada**, con
+**sombra** (`box-shadow`) que la separe del fondo de la app. Se dibuja a su tamaño físico real
+(1056×594px = 11in×6.1875in a 96dpi, igual que el PDF) y se reescala como un todo con `zoom`
+—nunca `transform:scale()`, rompe el texto SVG en gradiente— según el espacio disponible.
+
+**Barra inferior** (`.slides-footer-controls`):
+- Esquina izquierda: flecha funcional a la lámina anterior.
+- Centro: indicador "N / total" + barra de progreso + botón Play/Pausa de autoplay (5s).
+- Esquina derecha: flecha funcional a la lámina siguiente.
+- También navegable con `←`/`→` del teclado; el conteo da la vuelta (última → primera y viceversa).
+
+**El PDF no se ve afectado:** el shell es solo de pantalla. `@media print` lo oculta por completo
+y devuelve cada `.slide` a su `display:block` secuencial de tamaño físico real — el PDF sigue
+siendo una página por lámina, sin ningún elemento de navegación, igual que antes de este shell.
+Verificar (número de páginas + lectura visual) cada vez que se agrega a un deck existente.
+
+Snippets de HTML/CSS/JS reutilizables (con y sin switch de escenario) en
+`wiki/sistema-diseno.md` §6.
 
 ---
 

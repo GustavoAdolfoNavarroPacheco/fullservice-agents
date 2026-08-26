@@ -196,7 +196,158 @@ evidencia de que la causa real es otra.
 
 ---
 
-## 6. Grilla base e impresión
+## 6. Shell interactivo obligatorio (Web) — una lámina a la vez
+
+> **Obligatorio desde 2026-08-26** (ver CLAUDE.md raíz). Reemplaza el scroll vertical de láminas
+> apiladas: la web ahora navega **una lámina a la vez**, con barra superior, viewport centrado y
+> barra inferior con controles. Referencia canónica **con** switch de escenario:
+> `presentaciones/marval/`. Referencia **sin** switch (un solo escenario):
+> `presentaciones/fcv/`. **No afecta el PDF** — ver §7.
+
+### 6.1 Esqueleto HTML
+
+Cada lámina que antes era `<section class="slide cover">…</section>` /
+`<section class="slide internal glow-a">…</section>` pasa a ser un **wrapper de paginación**
+(`.slide`, con `data-slide="N"`) que envuelve el contenido original ahora bajo `.slide-inner`
+(que conserva las clases `cover` / `internal glow-a` / etc. tal cual):
+
+```html
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">…defs de gradBrand…</svg>
+
+  <!-- ===== BARRA SUPERIOR ===== -->
+  <header class="app-header">
+    <div class="header-left">
+      <img src="assets/logo-campuslands.png" alt="Campuslands Full Service">
+      <div class="logo-divider"></div>
+      <img src="assets/logo-cliente.png" alt="[Cliente]" class="logo-client">
+    </div>
+    <div class="header-center">
+      <!-- SOLO si hay 2+ escenarios: .scenario-selector con .scenario-pill + N .scenario-btn
+           (ver presentaciones/marval/index.html líneas 31-37 y script.js switchScenario()).
+           Con un único escenario, este div queda vacío. -->
+    </div>
+    <div class="header-right">
+      <span class="badge-confidential">Confidencial</span>
+    </div>
+  </header>
+
+  <!-- ===== CONTENIDO ===== -->
+  <main class="app-content">
+    <section class="slides-viewport">
+      <div class="slides-container" id="slides-container">
+
+        <div class="slide active" data-slide="1">
+          <div class="slide-inner cover"> <!-- contenido original de la portada, sin cambios --> </div>
+        </div>
+
+        <div class="slide" data-slide="2">
+          <div class="slide-inner internal glow-a"> <!-- contenido original de la lámina, sin cambios --> </div>
+        </div>
+        <!-- … resto de láminas … -->
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== BARRA INFERIOR ===== -->
+  <footer class="slides-footer-controls">
+    <button id="btn-prev-slide" class="control-btn" onclick="navigateSlide(-1)" aria-label="Lámina anterior">…svg flecha izq…</button>
+    <div class="slide-indicator">
+      <span id="slide-number-display">1 / N</span>
+      <div class="progress-bar-bg"><div id="slide-progress" class="progress-bar-fill"></div></div>
+      <div class="playback-controls">
+        <button id="btn-autoplay" class="control-btn mini" onclick="toggleAutoplay()">…svg play/pausa…</button>
+      </div>
+    </div>
+    <button id="btn-next-slide" class="control-btn" onclick="navigateSlide(1)" aria-label="Lámina siguiente">…svg flecha der…</button>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+```
+
+### 6.2 CSS reutilizable (adaptar solo los tokens de color del cliente)
+
+```css
+:root{ --header-h:68px; --footer-h:68px; /* … resto de tokens del cliente … */ }
+
+html{ height:100%; }
+body{
+  height:100vh; overflow:hidden; background:var(--bg-0); color:var(--text-hi);
+  display:flex; flex-direction:column;
+  background-image:
+    radial-gradient(120% 90% at 82% 0%, var(--bg-glow-a) 0%, transparent 45%),
+    radial-gradient(120% 90% at 8% 100%, var(--bg-glow-b) 0%, transparent 50%),
+    var(--bg-wash);
+  background-attachment:fixed;
+}
+
+.app-header{ flex:none; height:var(--header-h); padding:0 34px; display:flex; align-items:center;
+  justify-content:space-between; background:rgba(255,255,255,.86); backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(20,25,35,.10); position:relative; z-index:50; }
+.header-left{ display:flex; align-items:center; gap:16px; }
+.header-left img{ height:24px; width:auto; object-fit:contain; }
+.header-left img.logo-client{ height:30px; }
+.logo-divider{ width:1px; height:26px; background:rgba(20,25,35,.14); }
+
+/* Badge "Confidencial" — color-mix() deriva el pill directo del token del cliente,
+   sin necesitar un rgba() hardcodeado nuevo por deck */
+.badge-confidential{ display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:10px;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--dot-confidential);
+  background:color-mix(in srgb, var(--dot-confidential) 10%, transparent);
+  border:1px solid color-mix(in srgb, var(--dot-confidential) 28%, transparent);
+  border-radius:99px; padding:7px 16px; }
+.badge-confidential::before{ content:""; width:7px; height:7px; border-radius:50%;
+  background:var(--dot-confidential); box-shadow:0 0 8px 1px var(--dot-confidential-glow); }
+
+.app-content{ flex:1; min-height:0; display:flex; }
+.slides-viewport{ flex:1; display:flex; }
+.slides-container{ flex:1; position:relative; display:flex; align-items:center;
+  justify-content:center; padding:22px 40px; min-width:0; }
+
+/* La lámina se dibuja a su tamaño físico real (11in×6.1875in = 1056×594px a 96dpi, igual que
+   el PDF) y se reescala con zoom — NUNCA transform:scale(), que combinado con el texto SVG en
+   gradiente produce recortes de renderizado en Chrome headless (ver §5.2). */
+.slide{ position:absolute; width:1056px; height:594px; zoom:var(--slide-scale,1); display:none;
+  opacity:0; transform:translateY(16px); transition:opacity .45s ease, transform .45s ease;
+  border-radius:var(--radius); overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.22); }
+.slide.active{ display:block; opacity:1; transform:translateY(0); }
+.slide-inner{ width:100%; height:100%; overflow:hidden; position:relative; /* + el fondo con
+  glows/wash que antes vivía directo en .slide */ }
+
+.slides-footer-controls{ flex:none; height:var(--footer-h); padding:0 34px; display:flex;
+  align-items:center; justify-content:space-between; background:rgba(255,255,255,.86);
+  backdrop-filter:blur(12px); border-top:1px solid rgba(20,25,35,.10); position:relative; z-index:50; }
+.control-btn{ background:none; border:1px solid rgba(20,25,35,.14); color:var(--text-hi);
+  width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.control-btn:hover{ background:var(--blue); border-color:var(--blue); color:#fff; }
+.control-btn.mini{ width:34px; height:34px; }
+.control-btn.active{ background:var(--grad-brand); border-color:transparent; color:#fff; }
+.slide-indicator{ display:flex; align-items:center; gap:18px; flex:1; max-width:520px; margin:0 26px; }
+.progress-bar-bg{ flex:1; height:6px; background:rgba(20,25,35,.07); border-radius:3px; overflow:hidden; }
+.progress-bar-fill{ height:100%; width:10%; background:var(--grad-brand); transition:width .3s ease; }
+```
+
+### 6.3 JS reutilizable (sin switch de escenario)
+
+Para un deck de **un solo escenario**, el estado es mínimo — sin `SCENARIO_DATA`, sin clases
+`body.scenario-x`, sin parámetro `?escenario=`. Copiar tal cual desde
+`presentaciones/fcv/script.js` (30 líneas): `resizeSlideStage()` (calcula `--slide-scale` según
+el tamaño de `#slides-container`), `updateSlideDisplay()` (toggle de `.active` + número + barra
+de progreso), `navigateSlide(dir)` (da la vuelta en los extremos), `toggleAutoplay()` (interval
+de 5s, alterna ícono play/pausa), listener de teclado `←`/`→`, y el `resize`/`DOMContentLoaded`
+inicial. Para un deck **con 2+ escenarios**, partir en cambio de
+`presentaciones/marval/script.js`, que además trae `switchScenario()`, `applyScenarioContent()`,
+`moveScenarioPill()` y el filtro por `data-scenario` en `isSlideVisible()`.
+
+---
+
+## 7. Grilla base e impresión (PDF — no lo toca el shell)
+
+El shell del §6 es **solo de pantalla**. `@media print` lo oculta por completo y cada `.slide`
+recupera su tamaño físico real en secuencia — el PDF exportado queda idéntico a como se veía
+antes de tener shell (una página por lámina, sin barra superior/inferior).
 
 ```css
 .slide{
@@ -205,16 +356,25 @@ evidencia de que la causa real es otra.
 }
 @page{ size:11in 6.1875in; margin:0; }
 @media print{
-  html,body{ width:11in; background:none; padding:0;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .slide{ width:11in; height:6.1875in; margin:0; border-radius:0; box-shadow:none;
-    page-break-after:always; break-after:page; }
+  html,body{ width:11in; height:auto; overflow:visible; background:none; background-image:none;
+    padding:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .app-header, .slides-footer-controls{ display:none !important; }
+  .app-content, .slides-viewport{ display:block; height:auto; }
+  .slides-container{ display:block; padding:0; }
+  .slide{ display:block !important; position:relative; width:11in; height:6.1875in; zoom:1;
+    opacity:1; transform:none; margin:0 auto; border-radius:0; box-shadow:none;
+    page-break-after:always; break-after:page; overflow:hidden; }
+  .slide:last-child{ page-break-after:auto; break-after:auto; }
 }
 ```
 
+> Si el deck tiene 2+ escenarios (como Marval), agregar además el filtro por `data-scenario` y
+> la clase `body.scenario-a`/`body.scenario-b` para que cada export a PDF incluya solo las
+> láminas de su escenario — ver `presentaciones/marval/styles.css` §17.
+
 ---
 
-## 7. Verificación obligatoria antes de entregar
+## 8. Verificación obligatoria antes de entregar
 
 1. **Preview en navegador** (`preview_start` + servidor estático) y captura de cada lámina.
 2. **Export a PDF** con Chrome headless (ver [[despliegue]]) y **leer el PDF** para revisar
@@ -229,3 +389,7 @@ evidencia de que la causa real es otra.
    lámina interna, el **gap entre el último elemento de `.s-body` y el `top` de `.s-footer`**
    (debe ser positivo, no solo ≥0 en el borde exterior). Caso real: `presentaciones/ve-a-la-segura/`
    tenía una lámina de cierre con -367px de colisión con el footer que este chequeo adicional detectó.
+6. **Shell interactivo (§6) no debe filtrarse al PDF:** tras agregar o tocar el shell, reexportar
+   y releer el PDF — debe verse **idéntico** a como se veía sin shell (sin barra superior/inferior,
+   sin controles, cada lámina a tamaño completo). Comparar visualmente contra la versión anterior
+   si existe. Caso real: `presentaciones/fcv/` (2026-08-26), verificado sin diferencias.
