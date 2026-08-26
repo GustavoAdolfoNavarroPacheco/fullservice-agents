@@ -40,8 +40,16 @@ el trabajo de construcción, despliegue y mantenimiento de esta wiki.
 │   ├── marca-campuslands.md   # Colores, tipografías, logo, tono
 │   ├── sistema-diseno.md      # Tokens CSS, componentes, convenciones
 │   └── plantilla-base.md      # Análisis de la estructura base del usuario
-├── presentaciones/      # Cada presentación = una subcarpeta autocontenida
-│   └── <slug-cliente>/
+├── presentaciones/      # Repo Git PROPIO y distinto del raíz (github.com/.../Presentaciones)
+│   │                    # — es la carpeta que Vercel despliega. Detalle completo de esta
+│   │                    # arquitectura (2 repos Git anidados + auto-commit) en despliegue.md §4.
+│   ├── index.html       # Portal principal: catálogo con login/buscador/filtros. Arreglo JS
+│   │                    # `decksData` — TODA presentación nueva necesita su entrada aquí (ver
+│   │                    # Regla 3 más abajo), o no aparece en el catálogo aunque funcione sola.
+│   ├── assets/logos/    # Copia SIN procesar del logo de cada cliente (recursos/<Cliente>.png)
+│   │                    # para las tarjetas del portal — distinta del logo recortado del deck.
+│   ├── _temas-demo/     # Catálogo visual de paletas por cliente
+│   └── <slug-cliente>/  # Cada presentación = una subcarpeta autocontenida (slug = URL /<slug>)
 │       ├── index.html
 │       ├── styles.css
 │       └── assets/
@@ -53,6 +61,10 @@ el trabajo de construcción, despliegue y mantenimiento de esta wiki.
   (fuente de verdad que el usuario provee).
 - Cada presentación vive en `presentaciones/<slug>/` y es **autocontenida y
   desplegable por sí sola**.
+- **El `<slug>` es también la URL pública** (`/<slug>`, resuelta por Vercel sin rewrite si el
+  nombre de carpeta coincide exacto con el `cleanSlug` del portal) — elegirlo **corto y limpio**
+  desde el plan inicial (ej. `fcv`, `marval`), no una frase larga. Si cambia después, renombrar
+  con `git mv` (no copiar) y actualizar el portal + `wiki/*.md` en el mismo cambio.
 
 ---
 
@@ -84,21 +96,33 @@ el trabajo de construcción, despliegue y mantenimiento de esta wiki.
 4. ⛔ **REGLA OBLIGATORIA — Plan antes de diseñar:** ANTES de escribir una sola línea
    de HTML/CSS, le presento al usuario **qué va a tener cada diapositiva** (contenido
    + tratamiento visual + **paleta propuesta**, slide por slide). **NO construyo hasta que el usuario confirme.**
-5. Con el plan confirmado, construyo el **borrador completo** en `presentaciones/<slug>/`.
+5. Con el plan confirmado, elijo un **slug corto y limpio** (ver Reglas de carpetas arriba) y
+   construyo el **borrador completo** en `presentaciones/<slug>/`.
    Aplico los **requisitos obligatorios de `<head>`** (ver regla abajo): favicon + título.
 6. Lo previsualizo y se lo muestro al usuario.
 7. Iteramos sobre ajustes.
 8. Exporto a **PDF** (ver `wiki/despliegue.md`) y entrego el archivo.
 9. Actualizo `index.md` y agrego entrada a `log.md`.
-   > ⛔ **Regla 3 (2026-07-08) — Registro del tema:** cada vez que diseño (o re-tematizo) una
-   > empresa, su paleta **debe** quedar registrada en **dos lugares**, sin excepción:
-   > (a) la presentación listada/actualizada en `wiki/index.md`, y
-   > (b) un **tile con su gradiente y fondo** en `presentaciones/_temas-demo/index.html`
-   > (más su bloque de tokens en el catálogo de `wiki/temas-por-cliente.md`).
+   > ⛔ **Regla 3 (2026-08-26, reemplaza la de 2026-07-08) — Registro en TRES lugares, sin
+   > excepción:** cada vez que agrego una presentación nueva (o re-temátizo una existente):
+   > (a) la listo/actualizo en `wiki/index.md`;
+   > (b) agrego un **tile con su gradiente y fondo** en `presentaciones/_temas-demo/index.html`
+   >     más su bloque de tokens en el catálogo de `wiki/temas-por-cliente.md`;
+   > (c) 🆕 **la doy de alta en el portal principal** `presentaciones/index.html` — una entrada
+   >     nueva en el arreglo JS `decksData` (`id`, `company`, `title`, `desc`, `category`,
+   >     `categoryLabel`, `slides`, `investment`, `cleanSlug`, `directPath`, `pdfPath`,
+   >     `pdfLabel`, `logo`, `monogram`, `accentGrad`, `glow`, `dotColor`, `keywords`) siguiendo
+   >     el patrón de las entradas existentes, más la copia del logo del cliente **sin procesar**
+   >     (tal cual llega en `recursos/`) en `presentaciones/assets/logos/`. Sin este paso el deck
+   >     funciona por su cuenta pero no aparece en el catálogo — se le pasó por alto al deck de
+   >     FCV en su build inicial y hubo que agregarlo después a pedido del usuario.
+   > Las tres actualizaciones se commitean+pushean junto con el resto (ver `wiki/despliegue.md`
+   > §4 sobre los dos repos Git involucrados — `presentaciones/` es uno separado del raíz).
 10. 🔗 **REGLA OBLIGATORIA — Compartir link:** al terminar de crear (o modificar) cualquier
     presentación, **comparto en el chat el link actualizado de Vercel**, con la forma
     `https://fullservice-presentaciones.vercel.app/<slug>/index.html`
-    (reemplazando `<slug>` por la carpeta real de la presentación).
+    (reemplazando `<slug>` por la carpeta real de la presentación; también accesible como URL
+    limpia `.../<slug>` sin el `/index.html`).
 
 > El flujo de trabajo es: **alcances → paleta del logo → plan de slides → confirmación → diseño → export PDF → compartir link.**
 > Mapeo los datos sobre la biblioteca narrativa **flexible** de `wiki/plantilla-base.md`
