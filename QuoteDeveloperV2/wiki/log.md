@@ -348,3 +348,110 @@ Todas las carpetas viven bajo `cotizaciones/giron/<slug-proyecto>/` con `Cotizac
 `Cotizacion de Alcance.pdf`. Pendiente para el usuario: validar días estimados por
 especialidad (no vienen de levantamiento con la Alcaldía, sino de criterio de desarrollador
 sobre el documento preliminar); decidir si se agrega un logo de la Alcaldía a los PDF.
+
+## [2026-08-14] build | Marval — Módulo de Agente de IA (2 escenarios: Opción A y Opción B)
+
+Fuente: `Propuesta_Arquitectura_Agente_IA_Marval.pdf`, un documento de **arquitectura de
+referencia** (no un levantamiento funcional cerrado) — trae decisiones explícitamente
+abiertas (motor de IA vía API externa vs. self-hosted) y marca como pendiente/bloqueante el
+diccionario de datos de Marval. Antes de cotizar se confirmó con el usuario, vía
+`AskUserQuestion`: (1) cotizar las 4 fases sugeridas del documento, (2) cotizar ambas
+alternativas de motor de IA como cotizaciones separadas, (3) cotizar solo con el nivel de
+detalle del documento de arquitectura, sin esperar el diccionario de datos.
+
+- **Estructura de carpetas**: cliente con dos proyectos paralelos (mismo alcance base,
+  motor de IA distinto) →
+  `cotizaciones/marval/opcion-a-api/` y `cotizaciones/marval/opcion-b-selfhosted/`, cada una
+  con `Cotizacion.xlsx` y `Cotizacion de Alcance.pdf` (nomenclatura corta, sin repetir
+  cliente/proyecto en el nombre). Rutas completas bajo 152 caracteres.
+- **Confidencialidad**: la plantilla maestra trae, además de la hoja `Plantilla`, hojas ya
+  llenadas de otros clientes reales — incluidas dos hojas de un proyecto **anterior y
+  distinto** de Marval mismo (`Marval - Ajustado`, `Marval Alcance Com`). Se descartaron sin
+  abrir su contenido como fuente de alcance (regla de veracidad: el alcance de esta
+  cotización sale únicamente del documento de arquitectura compartido, no de cotizaciones
+  previas del mismo cliente) y se eliminaron junto con el resto de hojas ajenas antes de
+  entregar.
+- **Alcance**: 4 módulos (mismos en A y B) — M1 Cimientos del Módulo de IA (agente
+  orquestador, agentes de Gestión Humana y Soporte de Proyectos de Tecnología, capa de datos
+  y conocimiento, integración con la intranet, infraestructura base, y el motor de IA que
+  varía por opción), M2 Canal Microsoft Teams, M3 Agente de Entregas Digitales, M4 Expansión
+  del Ecosistema de Agentes (5 nuevos agentes de dominio). Opción A añade un submódulo
+  "Motor de IA" (prompts/function calling + RAG contra proveedor externo); Opción B añade dos
+  submódulos ("Despliegue del modelo propio" + "Operación del Modelo / MLOps") — refleja el
+  mayor esfuerzo real de self-hosted (GPU, versionado, monitoreo, afinamiento).
+- **XLSX**: Opción A filas 8-51, Opción B filas 8-57, sin insertar filas. Excepciones
+  `Y122`/`R123` escritas (la plantilla las trae vacías/en default, no pre-llenadas). 0 errores
+  fuera de `A140:A144` en ambas. TOTAL Opción A: **$72.134.483 COP**; TOTAL Opción B:
+  **$83.247.225 COP** (self-hosted más caro, esperado por el trabajo adicional de MLOps).
+  Verificado que cada subtotal de módulo (`Y` en la fila de módulo) coincide exactamente con
+  la suma de sus funcionalidades.
+- **PDF**: precios reales insertados directamente (no "Pendiente de costear"), leídos de los
+  XLSX ya recalculados. Doble verificación automatizada línea por línea: 38 precios (Opción A)
+  y 43 precios (Opción B) comparados uno a uno contra el XLSX — 0 discrepancias en ambos.
+  Incluye nota de transparencia sobre los insumos que el documento fuente marca como
+  pendientes (diccionario de datos, contratos de API, volúmenes de usuarios/contenido).
+- **Gotcha nuevo**: el contenido de alcance (`marval_scope.py`) se escribió inicialmente sin
+  tildes por error, arrastrando por descuido la convención de *nombres de archivo* cortos y
+  sin tildes hacia el *contenido* — CLAUDE.md solo pide eso para rutas/nombres de archivo, el
+  contenido interno siempre lleva tildes normales. Corregido antes de entregar; ambos XLSX y
+  PDF se reconstruyeron desde cero con el texto correcto.
+- **Entregables**: `cotizaciones/marval/opcion-a-api/` y
+  `cotizaciones/marval/opcion-b-selfhosted/`, cada una con su `Cotizacion.xlsx` y
+  `Cotizacion de Alcance.pdf`. Pendiente para el usuario: decidir cuál escenario de motor de
+  IA presentar a Marval (o ambos), y confirmar los días estimados por especialidad (criterio
+  de desarrollador sobre un documento de arquitectura, no de un levantamiento funcional
+  detallado con Marval).
+
+## [2026-08-19] build | Dos cotizaciones sin nombre de cliente — plataforma territorial Bucaramanga y Relia (cartera)
+
+- **Origen**: el usuario adjuntó dos archivos fuente para una sola solicitud de cotización
+  ("sin nombre de Cliente") — un PDF de propuesta técnica (`Propuesta Plataforma de Gestión
+  Territorial y WhatsApp – Bucaramanga.pdf`) y un Excel de toma de requerimientos
+  (`Relia_Toma_de_Requerimientos.xlsx`). Al leer ambos se detectó que describen **alcances
+  completamente distintos y no relacionados**: el PDF es una plataforma de gestión territorial
+  de líderes/registro de personas para una campaña en Bucaramanga (sin nombre de cliente en el
+  documento); el Excel es un levantamiento de requerimientos de **gestión de cartera y
+  cobranza** para el cliente Campuslands (contacto Diana Naranjo), sin relación temática con el
+  PDF. Se consultó al usuario antes de continuar (regla de veracidad/ambigüedad) — confirmó
+  **dos cotizaciones separadas**, ambas sin nombre de cliente en el contenido. Nombres de
+  carpeta elegidos por el usuario: `cotizacion_1` (plataforma territorial) y `relia` (cartera),
+  ninguno referencia al cliente real.
+- **RF excluidos en Relia**: RF-010 (Perfilamiento del cliente), RF-011 (Informe de estado de
+  cartera) y RF-012 (Paz y salvo) llegaban marcados por el propio equipo de negocio como
+  "Pendiente definir contexto" / "PENDIENTE DETALLE" / "PENDIENTE MODELO", sin alcance cerrado
+  ni estimado de días — a pedido del usuario se excluyeron de la cotización (no inventar
+  alcance) en vez de cotizarse con supuestos genéricos.
+- **Cotizacion_1 (plataforma territorial Bucaramanga)**: 14 módulos (Autenticación y
+  seguridad, Administración de líderes, Registro de personas, Control de duplicados,
+  Validación de correo, Validación territorial, Metas, Dashboard, Mapa, Referidos, WhatsApp,
+  Cumpleaños, Reportes, Auditoría), tomados directamente de la sección "27. Alcance funcional
+  incluido" del PDF y enriquecidos con el detalle de las secciones 3-26. 44 funcionalidades
+  atómicas, filas 8-84 del XLSX (sin insertar filas). **TOTAL: $53.093.652 COP.**
+- **Relia (cartera y cobranza)**: 6 módulos agrupando los RF-001 a RF-009 y RF-013 del Excel
+  (Cartera y Deudores, Acuerdos y Gestión de Pagos, Seguimiento y Relacionamiento con
+  Deudores, Campañas de Cobro, Parametrización General, Portal del Cliente). Los días de cada
+  RF ya venían estimados por el cliente en el Excel (RF-001 a RF-009) y se usaron como ancla,
+  distribuidos entre las funcionalidades atómicas y las columnas de especialidad sin alterar
+  el total por RF; RF-013 (Portal del cliente) no traía estimado del cliente y se estimó con
+  criterio de desarrollador (4 funcionalidades: plan de pagos, historial de facturas, registro
+  de pagos con comprobante, calificación del servicio). Filas 8-39 del XLSX (sin insertar
+  filas). **TOTAL: $14.347.697 COP.**
+- **Gotcha nuevo — piso de 0.5 días por celda, no solo por funcionalidad**: al anclar los
+  días de Relia a los totales ya dados por el cliente por RF, la primera distribución entre
+  columnas B:K generó varias celdas individuales por debajo de 0.5 (ej. `E=0.3`, `G=0.2`) para
+  mantener el total exacto del RF. La regla "piso mínimo 0.5" de `wiki/plantilla-xlsx.md` §3
+  aplica **por celda rellenada, no por el total de la fila** — detectado con un script de
+  verificación antes de recalcular. Corregido consolidando cada funcionalidad pequeña en menos
+  columnas (ej. una sola especialidad en vez de repartir entre dos) en lugar de fragmentar en
+  decimales por debajo del piso; el total por funcionalidad se mantuvo idéntico al dado por el
+  cliente en todos los casos. Vale la pena verificar esto con un script (no a ojo) en cualquier
+  cotización futura donde los días vengan anclados a un total pequeño ya dado por el cliente.
+- **Verificación**: ambos XLSX recalculados con `scripts/recalc.py` — 0 errores fuera de
+  `A140:A144` (defecto preexistente de la plantilla). Fuentes Arial 11/10/10 verificadas por
+  script en L/M/N de ambos archivos. Precios del PDF leídos directamente de la columna A del
+  XLSX recalculado (mismo recorrido de filas que el llenado, sin transcripción manual);
+  subtotal de módulo = suma de sus funcionalidades (fórmula `Y` del propio XLSX) y TOTAL del
+  PDF = `Y1`/`AC1` del XLSX, verificado exacto en ambas cotizaciones. Solo hojas `Plantilla`
+  (se eliminaron las hojas de otros clientes de la copia de la plantilla maestra).
+- **Entregables**: `cotizaciones/cotizacion_1/` y `cotizaciones/relia/`, cada una con su
+  `Cotizacion.xlsx` y `Cotizacion de Alcance.pdf`.

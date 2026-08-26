@@ -20,3 +20,11 @@ en cada ingest/ajuste (ver "Mantener la wiki (Lint)" en `CLAUDE.md`).
 
 - [log.md](log.md) — Registro cronológico de builds, ajustes y lint de la wiki.
 - [entrada-log-sugerida.md](entrada-log-sugerida.md) — Borrador histórico de la entrada de log del ajuste de jerarquía flexible (2026-08-05), incorporado como primera entrada de `log.md`.
+
+## Cotizaciones entregadas (resumen)
+
+- **Marval — Módulo de Agente de IA** (2026-08-14): arquitectura de orquestador + agentes de dominio (Gestión Humana, Soporte de Proyectos, Entregas Digitales, expansión a 5 agentes futuros) + canal Teams, cotizada en dos escenarios paralelos de motor de IA. Ver entrada de log para detalle. `cotizaciones/marval/opcion-a-api/` (API externa, $72.134.483 COP) y `cotizaciones/marval/opcion-b-selfhosted/` (self-hosted, $83.247.225 COP).
+- **Financiera Comultrasan** (2026-08-05): asistente conversacional Orbit, Canales Digitales. `cotizaciones/comultrasan/`.
+- **Alcaldía Municipal de Girón** (2026-08-06): portafolio de 13 proyectos independientes bajo `cotizaciones/giron/<slug-proyecto>/` — ver resumen con TOTAL por proyecto en `log.md`.
+- **Cotizacion_1 — Plataforma de Gestión Territorial (Bucaramanga)** (2026-08-19): registro de líderes y personas, control de duplicados, mapa territorial, dashboard, WhatsApp; sin nombre de cliente. `cotizaciones/cotizacion_1/`, $53.093.652 COP.
+- **Relia — Gestión de Cartera y Cobranza** (2026-08-19): saldo a favor, acuerdos de pago, notas crédito Siigo, campañas de cobro, portal del deudor; sin nombre de cliente (fuente menciona a Campuslands, omitido a pedido del usuario). `cotizaciones/relia/`, $14.347.697 COP.
