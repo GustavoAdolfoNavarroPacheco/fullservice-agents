@@ -4,6 +4,79 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-08-26] build | Fundación Cardiovascular de Colombia (FCV) — Desarrollo de Software Especializado (8 láminas)
+
+* **Cliente nuevo, deck atípico a propósito.** El usuario pidió construir una propuesta a partir de
+  un brief de 3 secciones (Resumen Ejecutivo, Perfil del Desarrollador, Modalidad de Contratación)
+  para una **bolsa de horas de desarrollo con perfiles mixtos** (Full-Stack + Ciberseguridad + IA)
+  aplicados a proyectos del sector cardiovascular — señalando explícitamente que "se sale de los
+  estándares/reglas que tenemos estipulados" (sin módulos con precio, sin cronograma, sin cifras
+  de tarifa pese a que la sección 3 se titulaba "...y Tarifas"). Se construyó **fiel al contenido
+  dado, sin inventar cifras**: la lámina 6 quedó titulada solo "Modalidad de Contratación" (se quitó
+  el "y Tarifas" del título) y desarrollada de forma cualitativa, con una nota transparente
+  ("Tarifas: la tarifa por hora y el tope mensual de la bolsa se definen junto con FCV, según el
+  perfil y el alcance") en vez de simular una cifra o dejar la sección vacía. El resto del flujo
+  obligatorio del `CLAUDE.md` (paleta del logo, plan confirmado antes de construir, `<head>`
+  obligatorio, PDF + Vercel) sí se siguió sin excepción.
+* **Cliente y logo:** el usuario proveyó el nombre (Fundación Cardiovascular de Colombia) y el
+  logo (`recursos/FCV.png`, isotipo de árbol/corazón multicolor) en un mensaje posterior de
+  interrupción, antes de que se presentara el plan. `<title>` = razón social completa tal como la
+  dio el usuario (sin sufijo legal adicional, es una Fundación).
+* **Paleta propia — la más diversa tematizada hasta ahora:** el logo trae **6 colores reales**
+  (teal `#009CB4`, verde `#78B448`, dorado `#F0A830`, magenta `#E43084`, burdeos `#901830`, navy
+  `#243078`, extraídos por muestreo de píxeles con Pillow, no a ojo). En vez de usarlos como
+  arcoíris plano (rompería el tono "sofisticado" de marca), se narraron como **"cuidado clínico →
+  vida → energía → corazón"**: `--grad-brand` recorre teal→verde→dorado→magenta; el burdeos quedó
+  como ancla oscura del token `--magenta` (ya AA-seguro sin profundizar, 8.9:1 de contraste). Punto
+  confidencial en dorado (marca mixta fría/cálida, mismo criterio que Gas País). Registrada en
+  [[temas-por-cliente]] (catálogo + nota técnica) y en `presentaciones/_temas-demo/index.html`
+  (tile `.t-fcv`), como exige la regla de registro obligatorio.
+* **Fix de logo — wordmark demasiado claro sobre fondo claro:** el PNG del cliente trae el
+  wordmark "fcv" y "Cuidamos Vidas" en gris neutro `#A4A7AD`, que sobre el estándar de fondo claro
+  medía solo **2.17:1 de contraste** (se veía lavado). Se oscureció selectivamente solo los píxeles
+  de baja saturación (`max(r,g,b)-min(r,g,b) < 20`) × 0.66, dejando intactas las hojas de color →
+  gris `#6C6E72`, **5.1:1**, AA-seguro. Verificado leyendo los píxeles del `<img>` ya renderizado en
+  el navegador (canvas + `getImageData`), no solo el archivo fuente.
+* **Bug encontrado y corregido — ancho incorrecto en texto SVG en gradiente:** al calcular el
+  `viewBox` de los títulos en gradiente (técnica SVG de [[sistema-diseno]] §5.2), se reescaló por
+  error el ancho medido (`getBBox()`) por la proporción alto-real/1083, asumiendo que 1083 era una
+  medida por-string en vez de una **constante de la fuente** (Playfair Display Black Italic a
+  1000px) independiente del ancho. Eso produjo cajas más angostas que el glifo real; con
+  `overflow:visible` el glifo se pintaba igual pero **se montaba sobre el texto siguiente en la
+  misma línea** — visible solo en láminas donde el SVG no es el último elemento inline. Detectado
+  leyendo el PDF exportado (lámina 3 renderizaba "Un enfoque du,ain mismo desarrollador" en vez de
+  "Un enfoque dual, un mismo desarrollador"). Corregido usando el `getBBox().width` real medido
+  para las 8 láminas (sin reescalar), re-exportado y reverificado — las 4 láminas con texto después
+  del SVG (3, 6, 7, 8) quedaron correctas. Nota técnica completa en [[temas-por-cliente]] para no
+  repetir el error en el próximo deck.
+* **Verificación:** el Browser pane no pudo tomar screenshots en esta sesión (pane no desplegado),
+  así que la verificación visual se hizo por: (a) DOM — `getBoundingClientRect` para overflow y gap
+  contra el footer en las 7 láminas internas (todos positivos, 15–31px), sin overflow no intencional
+  fuera de `.deco-rings` (decorativo, clip por diseño); (b) export a PDF (8 páginas exactas) leído
+  con PyMuPDF a 150dpi por lámina + crops a 600dpi de 3 títulos en gradiente sin hairlines. Sin
+  errores de consola; las 11 fuentes usadas cargan 200 OK (se retiraron `PlayfairDisplay-Regular` y
+  `Montserrat-Regular` del `@font-face` y de `assets/fonts/` por no usarse en ningún selector).
+* **Archivos:** `presentaciones/fcv-desarrollo-especializado/` (`index.html`, `styles.css`,
+  `assets/` con logo recortado, favicon recortado del isotipo maestro, y las fuentes locales
+  usadas) + `fcv-desarrollo-especializado.pdf` (8 págs). Contacto de cierre reutilizado
+  (Gabriela Pedraza Rueda / Directora Full Service Global), igual que en decks anteriores.
+
+## [2026-08-21] ajuste | Marval S.A.S. — eliminación de precios en ambos escenarios
+
+A pedido del usuario, se retiraron todos los valores/precios de `presentaciones/marval/`,
+que solo aparecían en la lámina 8 (Mapa del Ecosistema, `.eco-chip` / `.eco-agent-chip`):
+
+- `index.html`: se quitaron los 8 `<span class="price">` (7 módulos + fila de 5 agentes de
+  expansión) y los `id="eco-agente-ia"` / `id="eco-cimientos"` que el switch de escenario usaba
+  para sustituir cifras.
+- `script.js`: `SCENARIO_DATA` y `applyScenarioContent()` ya no cargan/sustituyen precios;
+  solo mantienen badge y versión de escenario.
+- `styles.css`: se eliminaron las reglas `.eco-chip .price` y `.eco-agent-chip .price`
+  (huérfanas tras el cambio).
+- Verificado en navegador (Escenario A y B) que la lámina 8 no deja espacio vacío ni texto de
+  precio; regenerados `marval-escenario-a.pdf` y `marval-escenario-b.pdf` (9 páginas cada uno,
+  confirmado sin `$` en el texto extraído).
+
 ## [2026-08-19] ajuste | Marval S.A.S. — responsividad de la lámina + recorte de contenido
 
 Dos ajustes a pedido del usuario en `presentaciones/marval/`:

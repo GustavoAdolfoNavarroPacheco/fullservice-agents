@@ -311,6 +311,48 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 --dot-confidential:#C2570A; --dot-confidential-glow:rgba(194,87,10,.45);
 ```
 
+### FCV — teal clínico → verde vital → dorado energía → magenta/burdeos cardio
+> Derivado del logo real: el isotipo (árbol/corazón de hojas) trae **6 colores** — el más diverso
+> tematizado hasta ahora (teal `#009CB4`, verde `#78B448`, dorado `#F0A830`, magenta `#E43084`,
+> burdeos `#901830`, navy `#243078`, extraídos por muestreo de píxeles del PNG). En vez de usarlos
+> como arcoíris plano, se narran como **"cuidado clínico → vida → energía → corazón"**: el
+> `--grad-brand` recorre teal→verde→dorado→magenta; el burdeos queda como ancla oscura para el
+> token `--magenta` (texto/bordes, ya de por sí muy oscuro y AA-seguro sin profundizar más); navy
+> queda sin usar (reserva). Marca **mixta** (fría: teal/verde + cálida: dorado/magenta) → punto
+> confidencial en **dorado** (mismo criterio que Gas País). Fondo gris claro + `--bg-wash`
+> (estándar desde 2026-07-10). Usado en `presentaciones/fcv-desarrollo-especializado/`.
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(0,156,180,.09); --bg-glow-b:rgba(228,48,132,.09);
+--bg-wash:linear-gradient(135deg, rgba(0,156,180,.06) 0%, rgba(120,180,72,.05) 32%, rgba(240,168,48,.05) 66%, rgba(228,48,132,.07) 100%);
+--cyan:#00707F; --blue:#4C7A2E; --violet:#8F5F08; --magenta:#901830;
+--grad-brand:linear-gradient(100deg,#009CB4 0%,#78B448 36%,#F0A830 68%,#E43084 100%);
+--grad-cyan:linear-gradient(120deg,#009CB4,#78B448);
+--grad-violet:linear-gradient(120deg,#F0A830,#E43084);
+--card-border:1px solid rgba(20,25,35,.10);
+--dot-confidential:#C98A00; --dot-confidential-glow:rgba(201,138,0,.45);
+```
+> **Nota técnica — wordmark del cliente demasiado claro para fondo claro (nueva, 2026-08-26):**
+> el logo trae un wordmark/tagline en gris neutro `#A4A7AD` que, sobre el estándar de fondo claro
+> (`#F2F3F5→#FFFFFF`), medía solo **2.17:1 de contraste** (por debajo del piso AA de 3:1) — se veía
+> lavado. Se oscureció **solo** los píxeles de baja saturación (`max(r,g,b)-min(r,g,b) < 20`, es
+> decir el gris neutro, dejando intactas las hojas de color) multiplicando RGB × 0.66 antes de
+> recortar al bbox + padding. Resultado: gris `#6C6E72`, **5.1:1 de contraste**, AA-seguro. Si otro
+> logo trae un wordmark/tagline gris claro sobre este estándar de fondo, aplicar la misma
+> corrección dirigida por saturación en vez de solo recortar al bbox.
+> **Nota técnica — bug de ancho en texto SVG en gradiente (nueva, 2026-08-26):** al calcular el
+> `viewBox` de un `<svg class="gt"><text>` (ver §5.2 de [[sistema-diseno]]), el **alto** (1083) es
+> una constante de la fuente (Playfair Display Black Italic a 1000px) y es independiente del
+> **ancho** — el ancho debe ser el `getBBox().width` **real** medido en el navegador, sin
+> reescalarlo por la proporción alto-medido/1083. Reescalar el ancho (como se hizo por error en
+> el primer intento de este deck) produce una caja más angosta que el glifo real; con
+> `overflow:visible` el glifo se pinta igual pero **se monta sobre el texto siguiente en la misma
+> línea** (bug visible solo cuando hay texto después del SVG en el mismo elemento — passthrough
+> silencioso si el SVG es lo último antes de cerrar la etiqueta). Caso real: la lámina "Perfil del
+> Desarrollador" renderizaba "Un enfoque du,ain mismo desarrollador" en vez de "Un enfoque dual,
+> un mismo desarrollador". Verificar siempre exportando a PDF y leyendo el resultado, no solo el
+> HTML en el navegador.
+
 ## 4. Aplicación
 
 - **Decks nuevos:** derivar la paleta del logo en el paso de plan (ver [[flujo-trabajo]] y
