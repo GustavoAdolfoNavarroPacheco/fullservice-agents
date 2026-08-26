@@ -56,9 +56,9 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
   con PyMuPDF a 150dpi por lámina + crops a 600dpi de 3 títulos en gradiente sin hairlines. Sin
   errores de consola; las 11 fuentes usadas cargan 200 OK (se retiraron `PlayfairDisplay-Regular` y
   `Montserrat-Regular` del `@font-face` y de `assets/fonts/` por no usarse en ningún selector).
-* **Archivos:** `presentaciones/fcv-desarrollo-especializado/` (`index.html`, `styles.css`,
+* **Archivos:** `presentaciones/fcv/` (`index.html`, `styles.css`,
   `assets/` con logo recortado, favicon recortado del isotipo maestro, y las fuentes locales
-  usadas) + `fcv-desarrollo-especializado.pdf` (8 págs). Contacto de cierre reutilizado
+  usadas) + `fcv.pdf` (8 págs). Contacto de cierre reutilizado
   (Gabriela Pedraza Rueda / Directora Full Service Global), igual que en decks anteriores.
 
 ## [2026-08-21] ajuste | Marval S.A.S. — eliminación de precios en ambos escenarios

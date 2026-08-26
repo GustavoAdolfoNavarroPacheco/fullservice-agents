@@ -320,7 +320,7 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > token `--magenta` (texto/bordes, ya de por sí muy oscuro y AA-seguro sin profundizar más); navy
 > queda sin usar (reserva). Marca **mixta** (fría: teal/verde + cálida: dorado/magenta) → punto
 > confidencial en **dorado** (mismo criterio que Gas País). Fondo gris claro + `--bg-wash`
-> (estándar desde 2026-07-10). Usado en `presentaciones/fcv-desarrollo-especializado/`.
+> (estándar desde 2026-07-10). Usado en `presentaciones/fcv/`.
 ```css
 --bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
 --bg-glow-a:rgba(0,156,180,.09); --bg-glow-b:rgba(228,48,132,.09);
