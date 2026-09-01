@@ -455,3 +455,50 @@ detalle del documento de arquitectura, sin esperar el diccionario de datos.
   (se eliminaron las hojas de otros clientes de la copia de la plantilla maestra).
 - **Entregables**: `cotizaciones/cotizacion_1/` y `cotizaciones/relia/`, cada una con su
   `Cotizacion.xlsx` y `Cotizacion de Alcance.pdf`.
+
+## [2026-08-31] build | La Esmeralda — Sistema de gestión de planta de producción láctea/alimentos
+
+- **Origen**: el usuario compartió un XLSX ya lleno (`La Esmeralda - Cotizacion.xlsx`, planta
+  de producción láctea/alimentos), pidiendo generar su PDF de alcance, con la condición previa
+  de verificar que fuera distinto a una cotización anterior del mismo cliente. Se descartó
+  `cotizaciones/cotizacion_1/` como candidato (dominio de campaña política/registro de líderes
+  territoriales, cliente no relacionado). La versión anterior real se localizó, a pedido del
+  usuario, en el repo predecesor `QuoteDeveloper/cotizaciones/la-esmeralda/` (no en
+  `QuoteDeveloperV2`).
+- **Comparación con la versión anterior**: alcance idéntico (mismos módulos/submódulos/
+  funcionalidades/días en B:K, sin cambios). La única diferencia es el **AIU**: bajó de 40%
+  (versión anterior, default de plantilla maestra ya superado) a 10% (versión nueva, estándar
+  vigente desde 2026-08-05). TOTAL bajó de $113.327.295,33 a **$89.042.874,90 COP**
+  (-$24.284.420,43, -21,43%) — confirma que sí hay actualización de precio real, no una
+  cotización duplicada.
+- **Y149 dejada intacta a pedido explícito del usuario**: se detectó que la celda `Y{barra_gris+2}`
+  (barra gris en fila 147 de este archivo — no 120 como en la plantilla maestra — por lo que
+  la celda es `Y149`, no `Y122`) venía vacía en el archivo nuevo, a diferencia de la versión
+  anterior que sí traía `=Y1/0.6`. Se iba a aplicar la excepción obligatoria de
+  `wiki/plantilla-xlsx.md` §5, pero el usuario pidió explícitamente NO modificar esa celda y
+  mantener el archivo igual a como lo compartió — se respetó, dejando `Y149` vacía sin escribir
+  nada ahí. Excepción registrada aquí para no repetir el intento en un futuro ajuste sobre este
+  mismo archivo sin confirmar antes con el usuario.
+- **Estructura L/M/N no estándar detectada**: a diferencia del patrón vigente desde 2026-08-05
+  (L=Módulo, M=Submódulo sin precio, N=Funcionalidad con precio), este archivo trae el precio
+  en la fila **M** y **N** como el detalle/descripción de esa misma línea, en relación estricta
+  1 M → 1 N en todo el archivo (patrón anterior al ajuste de jerarquía flexible). Se respetó tal
+  cual venía (regla de "editar un archivo existente: coincidir con sus convenciones exactas"),
+  sin reinterpretar ni reagrupar — cada par M+N se mapeó a una fila del PDF (bullet = M,
+  detalle técnico = N, precio real de la celda A de la fila M). 11 módulos, 64 pares
+  submódulo/funcionalidad, más las 4 filas transversales fijas.
+- **XLSX**: recalculado con `scripts/recalc.py` (LibreOffice) sin ninguna celda modificada
+  (según instrucción del usuario). `status: errors_found` con exactamente 5 errores `#NAME?` en
+  `A167:A171` — mismo defecto preexistente conocido de `UNIQUE()`, aquí desplazado de
+  `A140:A144` porque este archivo tiene más filas de alcance que la plantilla maestra. `R150 =
+  0.1` (AIU 10%) ya confirmado correcto sin necesidad de escribirlo.
+- **PDF**: generado con reportlab siguiendo `wiki/diseno-pdf-cotizacion.md` (paleta clara, grid
+  completo, Arial). Doble verificación automatizada: suma de las 64 líneas de módulos
+  ($80.476.573,16) + suma de las 4 filas transversales ($8.566.301,74) = $89.042.874,90 = `Y1`
+  exacto. Verificación visual con capturas PyMuPDF (primera, intermedia, última página): grid,
+  colores, logo y tipografía correctos, sin overflow.
+- **Entregables**: `cotizaciones/la-esmeralda/Cotizacion.xlsx` (copia recalculada del archivo
+  del usuario, sin modificar) y `cotizaciones/la-esmeralda/Cotizacion de Alcance.pdf`.
+- **Pendiente para el usuario**: si más adelante se decide sí completar `Y149` con `=Y1/0.6`
+  (celda obligatoria según `CLAUDE.md` §5), habría que pedir confirmación explícita otra vez,
+  ya que esta entrega la dejó vacía por instrucción directa.
