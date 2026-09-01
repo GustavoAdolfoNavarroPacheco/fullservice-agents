@@ -4,6 +4,32 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-01] build | Marval S.A.S. — Fase 1 (Proyecto A: Agente de IA · Proyecto B: Intranet Corporativa)
+
+* **Nuevo deck** `presentaciones/marval-fase1/` (**9+9 láminas**), construido a partir de dos
+  propuestas técnicas fuente distintas (`Propuesta_Tecnica_Agente_de_IA_Marval_Fase_1.pdf` y
+  `Propuesta_Tecnica_Intranet_Corporativa_Marval.pdf`) que documentan **dos proyectos
+  independientes** confirmados en sesión técnica del 21 de agosto de 2026 (arquitectura,
+  infraestructura y cronograma propios, cotizados por separado) — distinto del deck ya existente
+  `presentaciones/marval/` (Ecosistema de Agentes de IA con Escenario A/B = motor externo vs.
+  self-hosted, con precios). Este deck nuevo usa el mismo shell con switch, mapeando
+  **Proyecto A = Agente de IA "Marvia"** (Fase 1, alcance acotado a Entregas Digitales en
+  Microsoft Teams: OTP, actas/novedades en CRM, RAG sobre Zoho Learn + Oracle/SOHO CRM,
+  comparativa Azure OpenAI vs. modelos locales) y **Proyecto B = Intranet Corporativa** (MVP,
+  SSO obligatorio con Microsoft Entra ID, 7 módulos informativos, CMS por dominios, sin
+  trámites transaccionales en esta fase). **A pedido explícito del usuario, el selector de la
+  barra superior se llama "Proyecto A/B" en vez de "Escenario A/B"** (los identificadores
+  internos `data-scenario`/`switchScenario()` no cambiaron, solo el texto visible). **Sin
+  ninguna cifra de inversión en ninguna lámina** (instrucción explícita del usuario). Reutiliza
+  la paleta Marval ya derivada del logo en [[temas-por-cliente]] (azul claro → corporativo →
+  marino), sin retematizar. **Nota técnica:** se detectó el hairline de `background-clip:text`
+  (bug documentado en [[sistema-diseno]] §5.2) en el título de portada pese a estar en línea
+  aislada; se corrigió con la técnica SVG estándar (texto medido vía `getBBox()` en el navegador
+  en vez de valores hardcodeados). Exportado a **dos PDFs** (`marval-fase1-proyecto-a.pdf`,
+  `marval-fase1-proyecto-b.pdf`, 9 páginas cada uno) vía `?escenario=a|b`.
+
+---
+
 ## [2026-08-26] marca | Shell interactivo obligatorio (Web) — una lámina a la vez + retematizado de FCV
 
 * **Regla nueva, a pedido del usuario:** toda presentación **web** se entrega desde ahora dentro
