@@ -4,6 +4,38 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-04] build | Miami Aqua Tours — Tracking, Atribución y Optimización del Sitio (10 láminas)
+
+* **Nuevo deck** `presentaciones/miami-aqua-tracking/` (**10 láminas**, comprimido desde un plan
+  inicial de 13 a pedido explícito del usuario), construido a partir de un documento de análisis
+  técnico (`analisis-miami-aqua-tours (1).pdf`) sobre tracking, atribución de campañas, rendimiento,
+  seguridad y frontend del sitio estático de Miami Aqua Tours (Cloudflare Pages + widget embebido de
+  Bókun, GA4 directo sin GTM, viabilidad de AnyTrack) — **deck nuevo, sin relación temática** con
+  `presentaciones/miami-aqua-tours/` y `miami-aqua-tours-ampliado/` (propuestas de reservas ya
+  existentes, tematizadas con la paleta cian/violeta *default* de Campuslands por ser previas a la
+  regla de paleta-por-cliente).
+* Precios tomados de una segunda fuente aparte (`Cotizacion.xlsx`, hoja "Plantilla" de la herramienta
+  de cotización): **5 módulos específicos del proyecto** (Auditoría Técnica y Unificación de
+  Arquitectura, Mejoras de Frontend y UX, Rendimiento y Velocidad, Seguridad y Buenas Prácticas,
+  Analítica y Tracking de Conversiones) más una categoría genérica de "Estructura y Coordinación del
+  Proyecto" que la herramienta agrega a todo proyecto — **inversión $30.744.516,44 COP**, verificada
+  exactamente sumando los 9 renglones de módulo contra el total de la hoja. Forma de pago 40/40/20 a
+  pedido del usuario (la hoja no la traía).
+* Paleta propia **naranja del isotipo/script "Miami" → azul aqua del wordmark "AQUA"/olas**, extraída
+  por muestreo de píxeles del PNG (`#E0780A`→`#3C96C8`, anclas `#FFA94D`→`#1B4F6E`) — narrativa
+  "atardecer de Miami → océano aqua". Marca mixta (cálido+frío) → punto confidencial en azul
+  profundo. Ver bloque completo en [[temas-por-cliente]].
+* **Bug de gradiente SVG detectado y corregido en vivo:** las estimaciones iniciales de `viewBox`
+  width (heurística ~500–535px/carácter) dejaron uno de los títulos ("cinco frentes") sin llegar al
+  tono azul final del gradiente — el viewBox estaba sobredimensionado ~700px respecto al ancho real
+  del glifo, así el degradado (0–100% del viewBox) se cortaba antes de tiempo. Se corrigió midiendo
+  `getBBox().width` real de las 10 láminas en el navegador (con `document.fonts.ready` y las láminas
+  temporalmente visibles) y reemplazando cada `viewBox` por el ancho medido — confirma que la regla ya
+  documentada para FCV (medir siempre en vivo, nunca estimar a ojo) aplica también al build inicial,
+  no solo a la depuración de un bug ya detectado.
+* Registrado en los tres lugares obligatorios: [[index]], catálogo de [[temas-por-cliente]] +
+  `presentaciones/_temas-demo/index.html`, y el portal `presentaciones/index.html` (`decksData`).
+
 ## [2026-09-01] build | Marval S.A.S. — Fase 1 (Proyecto A: Agente de IA · Proyecto B: Intranet Corporativa)
 
 * **Nuevo deck** `presentaciones/marval-fase1/` (**9+9 láminas**), construido a partir de dos

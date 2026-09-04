@@ -353,6 +353,39 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > un mismo desarrollador". Verificar siempre exportando a PDF y leyendo el resultado, no solo el
 > HTML en el navegador.
 
+### Miami Aqua Tours — naranja del isotipo → azul aqua del wordmark/olas (tracking y optimización)
+> Derivado del logo real (muestreo de píxeles del PNG): **naranja** (`#E0780A`, círculo/script "Miami")
+> hacia el **azul aqua** (`#3C96C8`, texto "AQUA"/olas), con anclas `#FFA94D`→`#1B4F6E`. Narrativa de
+> marca: **atardecer de Miami → océano aqua**. Es un deck nuevo (tracking/atribución/optimización del
+> sitio, no la propuesta de reservas ya tematizada en `miami-aqua-tours-ampliado/` con la paleta
+> cian/violeta *default* de Campuslands, previa a esta regla) — por eso deriva su propia paleta en
+> vez de reutilizar la existente. Marca **mixta** (cálido: naranja + frío: azul) → el punto
+> "Confidencial" se pone en **azul profundo** (mismo criterio que Multinal/Colbeef/Avicampo: el lado
+> frío del par gana el acento). Fondo gris claro + `--bg-wash` (estándar desde 2026-07-10). Usado en
+> `presentaciones/miami-aqua-tracking/`.
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(224,120,10,.09); --bg-glow-b:rgba(45,130,180,.09);
+--bg-wash:linear-gradient(135deg, rgba(255,169,77,.07) 0%, rgba(224,120,10,.05) 32%, rgba(60,150,200,.05) 66%, rgba(27,79,110,.07) 100%);
+--cyan:#A85A06; --blue:#E0780A; --violet:#2C7BA6; --magenta:#1B4F6E;
+--grad-brand:linear-gradient(100deg,#FFA94D 0%,#E0780A 34%,#3C96C8 68%,#1B4F6E 100%);
+--grad-cyan:linear-gradient(120deg,#FFA94D,#E0780A);
+--grad-violet:linear-gradient(120deg,#3C96C8,#1B4F6E);
+--card-border:1px solid rgba(20,25,35,.10);
+--dot-confidential:#1B4F6E; --dot-confidential-glow:rgba(27,79,110,.45);
+```
+> **Nota técnica — SVG en gradiente por muestreo real, no estimado (2026-09-04):** para las 10
+> láminas de este deck se estimó primero el `viewBox` width de cada `<svg class="gt"><text>` por una
+> heurística de píxeles/carácter (~500–535px/car a 1000px de fuente), y se confirmó visualmente en
+> Chrome headless (export a PDF) que la estimación para "cinco frentes" quedó **~700px sobredimensionada**
+> — el texto real terminaba antes del borde derecho del viewBox, así que el gradiente (que va de 0% a
+> 100% del viewBox) solo alcanzaba a mostrarse hasta un tono intermedio, sin llegar al azul final.
+> Se corrigió midiendo `getBBox().width` real de cada `<text>` en el navegador (con
+> `document.fonts.ready` esperado y las láminas temporalmente visibles vía `display:block` para que
+> el layout no diera 0) y reemplazando cada `viewBox` por el ancho medido exacto. Confirma la regla ya
+> documentada para FCV: **nunca estimar el `viewBox` a ojo para el build final** — medir siempre en
+> vivo antes de exportar a PDF, no solo para depurar un bug ya detectado.
+
 ## 4. Aplicación
 
 - **Decks nuevos:** derivar la paleta del logo en el paso de plan (ver [[flujo-trabajo]] y
