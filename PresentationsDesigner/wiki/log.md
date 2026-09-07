@@ -4,6 +4,34 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-07] ajuste | Alcaldía Municipal de Girón — portada del resumen, sidebar reordenado, indicador animado (28 láminas)
+
+* Tras el build inicial de 27 láminas (ver entrada anterior), el usuario pidió 4 ajustes:
+  (1) que la lámina de apertura fuera una **portada real** con los logos Campuslands y Girón
+  en grande (antes el resumen y la portada compartían una sola lámina, sin lockup de logos);
+  (2) **reordenar el sidebar** para que siga el orden real de navegación (se abandonó el
+  agrupado por 3 categorías temáticas, que saltaba de la lámina 8 a la 12 a la 24 dentro de un
+  mismo grupo — confuso al navegar); (3) **agrandar el logo de Girón** en las 13 portadas de
+  cotización (`.cover__client-logo` de 38px a 66px de alto); (4) **animar el indicador de
+  selección** del sidebar con una pastilla deslizante en vez de un cambio de fondo instantáneo
+  por clase.
+* Se separó la lámina 1 en dos: **portada pura** (`.cover--main`, lockup de logos Campuslands ×
+  Girón a distinta altura — 42px vs 84px, porque el escudo de Girón es vertical y necesita más
+  alto para pesar visualmente igual que el wordmark horizontal de Campuslands) y **resumen/índice**
+  (`.cover--index`, con footer de página en vez de la fila de metadatos, que se mudó a la portada).
+  Deck completo ahora en **28 láminas**; todos los `data-slide`/`data-nav`/`goToSlide()`/números
+  de página del footer se renumeraron +1 con un script (no a mano, para evitar errores).
+* **Indicador deslizante:** `#navIndicator`, un `div` `position:absolute` dentro de
+  `.sidebar-nav` con `transition` en `transform`/`height`/`opacity`, reposicionado por
+  `moveNavIndicator()` en cada navegación y también al expandir/colapsar el sidebar (el colapso
+  oculta las etiquetas de grupo y reacomoda los items de inmediato, sin transición propia, así
+  que la pastilla se recalcula sin esperar). Patrón adaptado del `.scenario-pill` horizontal de
+  Marval a una lista vertical.
+* Reverificado sin superposiciones de texto en las 28 láminas (chequeo automatizado) y lectura
+  visual del PDF de 28 páginas.
+
+---
+
 ## [2026-09-07] build | Alcaldía Municipal de Girón, Santander — 13 Soluciones de IA (27 láminas)
 
 * **Nuevo deck** `presentaciones/giron/` construido a partir de un Excel de cotización con

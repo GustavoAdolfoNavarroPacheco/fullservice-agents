@@ -417,16 +417,29 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > cambios**: Playfair Display (display, con la técnica de texto en gradiente por SVG de §5.2 de
 > [[sistema-diseno]]) + Montserrat (labels/eyebrows) + Poppins (cuerpo). No se adopta ningún
 > cambio de fuente por defecto a partir de este deck — quedó como un experimento descartado.
-> **Nota de estructura (2026-09-07, revisada):** el usuario aclaró que **cada una de las 13
-> cotizaciones es una presentación individual y debe tener su propia portada** — el primer build
-> las trataba como una sola lámina de contenido cada una, sin portada, lo cual fue una lectura
-> incorrecta del encargo. Estructura final: **27 láminas** = 1 resumen + 13 pares
-> (portada + contenido) por cotización, navegadas con el **sidebar izquierdo retráctil** (salta a
-> la portada de cada solución, agrupada en 3 bloques temáticos: Gobierno y Justicia · Atención
-> Ciudadana y Trámites · Salud y Bienestar) más una **barra inferior de prev/next + progreso**
-> para moverse entre la portada y el contenido de una misma solución (o a la portada de la
-> siguiente). El PDF exportado son 27 páginas físicas (sidebar/header/barra inferior ocultos en
-> `@media print`, igual que el resto de la familia de shells).
+> **Nota de estructura (2026-09-07, revisada dos veces):** el usuario aclaró que **cada una de
+> las 13 cotizaciones es una presentación individual y debe tener su propia portada** — el primer
+> build las trataba como una sola lámina de contenido cada una, sin portada. Una segunda ronda de
+> ajustes agregó además una **portada dedicada para el Resumen General** (antes el resumen y la
+> portada general compartían una sola lámina): la lámina 1 es ahora una portada pura con el
+> **lockup grande de logos Campuslands × Girón** (`.cover--main`, alturas desiguales — 42px vs
+> 84px — porque el escudo de Girón es vertical y necesita más alto para verse con el mismo peso
+> visual que el wordmark horizontal de Campuslands) y el título/kicker/meta; la lámina 2 pasa a
+> ser el índice de 3 columnas (`.cover--index`, con footer en vez de meta). Estructura final:
+> **28 láminas** = portada + resumen + 13 pares (portada + contenido) por cotización, navegadas
+> con el **sidebar izquierdo retráctil** (una sola lista en el orden real de las láminas, sin
+> subgrupos temáticos — se abandonó el agrupado por categoría porque no coincidía con el orden
+> de navegación y el usuario pidió "reordenar en orden las slides") más una **barra inferior de
+> prev/next + progreso** para moverse entre la portada y el contenido de una misma solución. El
+> PDF exportado son 28 páginas físicas (sidebar/header/barra inferior ocultos en `@media print`,
+> igual que el resto de la familia de shells).
+> **Indicador de sidebar animado:** el nav-item activo ya no cambia de fondo instantáneamente —
+> una pastilla (`#navIndicator`, `position:absolute` dentro de `.sidebar-nav`) se desliza hasta
+> la posición del item activo vía `transform:translateY()` con `transition` (patrón ya usado en
+> el `.scenario-pill` de Marval, adaptado aquí a una lista vertical en vez de un switch
+> horizontal). Se recalcula en cada navegación y también al expandir/colapsar el sidebar (el
+> colapso oculta las etiquetas de grupo y reacomoda los items verticalmente sin transición
+> propia, así que la pastilla se reposiciona de inmediato, no con delay).
 > **Sin ninguna cifra de inversión/precio** en ninguna lámina, a pedido explícito del usuario —
 > el Excel fuente traía 13 cotizaciones con costeo completo por especialidad/hora, del cual solo
 > se usó la jerarquía de alcance (módulo → submódulo → funcionalidad), nunca las cifras.
