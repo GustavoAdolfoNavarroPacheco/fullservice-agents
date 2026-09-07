@@ -35,6 +35,13 @@ Bloque canónico (cargar solo los pesos que se usen):
 @font-face { font-family:'Poppins';          src:url('assets/fonts/Poppins-SemiBold.ttf')           format('truetype'); font-weight:600; font-style:normal; font-display:swap; }
 ```
 
+> **Nota histórica (2026-09-07):** durante el build del deck de la Alcaldía de Girón se probó
+> brevemente **Poppins como fuente única** (display, labels y cuerpo) a pedido del usuario, pero
+> el mismo usuario pidió revertirlo poco después ("volvamos a las fuentes usadas en las
+> anteriores presentaciones"). El estándar sigue siendo el de arriba (Playfair Display + Montserrat
+> + Poppins) — Girón quedó construido con este mismo estándar, sin excepción. Ver
+> [[temas-por-cliente]] (paleta Girón) para el detalle completo.
+
 ---
 
 ## 2. Tokens (`:root`)

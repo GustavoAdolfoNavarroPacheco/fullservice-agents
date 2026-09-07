@@ -386,6 +386,51 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > documentada para FCV: **nunca estimar el `viewBox` a ojo para el build final** — medir siempre en
 > vivo antes de exportar a PDF, no solo para depurar un bug ya detectado.
 
+### Alcaldía de Girón — oro brillante → oro → bronce → bronce oscuro (escudo heráldico monocromático)
+> Derivado del logo real: el escudo del municipio (corona, cuarteles con castillos/leones,
+> laurel) es **monocromático dorado/bronce** (`#B8903A` dominante, H≈41° por muestreo de
+> píxeles) — no hay un segundo color de marca real que extraer. Se sigue el patrón ya usado en
+> Marval (mono-azul): el `--grad-brand` recorre solo tonalidad/luminosidad dentro del mismo hue
+> (oro brillante → bronce oscuro), sin inventar un segundo hue. Marca **cálida** (oro) → el punto
+> "Confidencial" se pone en **azul institucional frío** `#0E5C8A` (regla de seguridad; también
+> nace de la asociación con "gobierno/institucional", igual que el resto de acentos fríos usados
+> para gobierno). Fondo gris claro + `--bg-wash` (estándar desde 2026-07-10). Primer deck con
+> **shell de barra lateral retráctil** en vez del switch de escenarios en la barra superior — ver
+> nota en [[sistema-diseno]] §6 y `presentaciones/giron/`. Tipografía: estándar v2 (Playfair
+> Display + Montserrat + Poppins) — se probó Poppins como fuente única a pedido inicial del
+> usuario, pero se revirtió minutos después a pedido del mismo usuario; ver nota abajo.
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(217,163,46,.10); --bg-glow-b:rgba(14,92,138,.08);
+--bg-wash:linear-gradient(135deg, rgba(240,194,78,.07) 0%, rgba(217,163,46,.05) 32%, rgba(122,85,16,.05) 66%, rgba(74,54,8,.07) 100%);
+--cyan:#8A5A0E; --blue:#A9781A; --violet:#7A5510; --magenta:#4A3608;
+--grad-brand:linear-gradient(100deg,#F0C24E 0%,#D9A32E 36%,#A9781A 68%,#7A5510 100%);
+--grad-cyan:linear-gradient(120deg,#F0C24E,#D9A32E);
+--grad-violet:linear-gradient(120deg,#A9781A,#7A5510);
+--card-border:1px solid rgba(20,25,35,.10);
+--dot-confidential:#0E5C8A; --dot-confidential-glow:rgba(14,92,138,.45);
+```
+> **Nota de tipografía (2026-09-07, revertida el mismo día):** el usuario pidió primero cambiar a
+> **Poppins como fuente única** (display + labels + cuerpo) para este deck; minutos después, tras
+> ver el resultado, pidió explícitamente volver a las fuentes de siempre ("volvamos a las fuentes
+> usadas en las anteriores presentaciones"). El deck final de Girón usa el **estándar v2 sin
+> cambios**: Playfair Display (display, con la técnica de texto en gradiente por SVG de §5.2 de
+> [[sistema-diseno]]) + Montserrat (labels/eyebrows) + Poppins (cuerpo). No se adopta ningún
+> cambio de fuente por defecto a partir de este deck — quedó como un experimento descartado.
+> **Nota de estructura (2026-09-07, revisada):** el usuario aclaró que **cada una de las 13
+> cotizaciones es una presentación individual y debe tener su propia portada** — el primer build
+> las trataba como una sola lámina de contenido cada una, sin portada, lo cual fue una lectura
+> incorrecta del encargo. Estructura final: **27 láminas** = 1 resumen + 13 pares
+> (portada + contenido) por cotización, navegadas con el **sidebar izquierdo retráctil** (salta a
+> la portada de cada solución, agrupada en 3 bloques temáticos: Gobierno y Justicia · Atención
+> Ciudadana y Trámites · Salud y Bienestar) más una **barra inferior de prev/next + progreso**
+> para moverse entre la portada y el contenido de una misma solución (o a la portada de la
+> siguiente). El PDF exportado son 27 páginas físicas (sidebar/header/barra inferior ocultos en
+> `@media print`, igual que el resto de la familia de shells).
+> **Sin ninguna cifra de inversión/precio** en ninguna lámina, a pedido explícito del usuario —
+> el Excel fuente traía 13 cotizaciones con costeo completo por especialidad/hora, del cual solo
+> se usó la jerarquía de alcance (módulo → submódulo → funcionalidad), nunca las cifras.
+
 ## 4. Aplicación
 
 - **Decks nuevos:** derivar la paleta del logo en el paso de plan (ver [[flujo-trabajo]] y

@@ -4,6 +4,62 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-07] build | Alcaldía Municipal de Girón, Santander — 13 Soluciones de IA (27 láminas)
+
+* **Nuevo deck** `presentaciones/giron/` construido a partir de un Excel de cotización con
+  **13 hojas** (una por proyecto), del que se extrajo únicamente la jerarquía de alcance
+  (módulo → submódulo → funcionalidad) de cada hoja — **sin ninguna cifra de inversión, hora o
+  tarifa** en toda la presentación, a pedido explícito del usuario. 13 proyectos: Agentes IA de
+  Correo + parametrización por 7 secretarías, Archivo de Tránsito + Notificación de Comparendos,
+  Auditoría EPS/IPS, Cobro Coactivo + Alertas de Prescripción, Comités/Actas + Comités Sociales,
+  Disciplinarios + Audiencias Virtuales, Estampillas + Actos Administrativos, Gestión Documental,
+  IVC Sanitario, Mesa de Víctimas, Ordenamiento + Asistente Normativo IA, Reparto de Querellas +
+  Orientación Comisarías de Familia, Salud Pública.
+* **Rumbo nuevo pedido por el usuario:** shell de **barra lateral izquierda retráctil** (icon-rail
+  ↔ expandida, con transición de ancho animada) en vez del switch de escenarios en la barra
+  superior — agrupa las 13 propuestas en 3 bloques temáticos (Gobierno y Justicia · Atención
+  Ciudadana y Trámites · Salud y Bienestar) más "Resumen General", saltando a la **portada** de
+  cada una. Se sumó una **barra inferior de prev/next + progreso** para moverse entre la portada y
+  el contenido de una misma solución. El PDF exporta las 27 láminas a tamaño físico completo, con
+  sidebar/header/barra inferior ocultos en `@media print`, igual que el resto de la familia de
+  shells (ver [[sistema-diseno]] §6).
+* **Corrección de estructura pedida por el usuario a mitad del build:** el primer borrador trataba
+  cada una de las 13 cotizaciones como **una sola lámina de contenido, sin portada** — el usuario
+  señaló que "cada cotización es una presentación individual" y "como se sabe cada una debe tener
+  portada". Se rehizo la estructura a **27 láminas** = 1 resumen + 13 pares (portada + contenido),
+  cada portada con su propio título en gradiente, kicker, cliente y meta de 3 columnas
+  (Dependencia · Sistemas incluidos · Módulos cubiertos) — variante `.cover--sol` en
+  `styles.css`. Todos los enlaces del sidebar y de los chips del resumen se renumeraron a la
+  portada de cada solución.
+* **Experimento de tipografía descartado el mismo día:** se probó **Poppins como fuente única**
+  (display + labels + cuerpo) a pedido inicial del usuario; minutos después el mismo usuario pidió
+  volver a las fuentes de siempre. El deck final usa el **estándar v2 sin cambios**: Playfair
+  Display (títulos, con texto en gradiente vía SVG) + Montserrat (labels/eyebrows) + Poppins
+  (cuerpo) — ver nota en [[sistema-diseno]] §1. Los 27 `viewBox` de los títulos en gradiente se
+  remidieron con `getBBox()` real dos veces (una por cada cambio de fuente), nunca estimados.
+* **Paleta propia oro brillante → bronce oscuro**, derivada del escudo heráldico monocromático del
+  municipio (`#B8903A` dominante); acento "Confidencial" en azul institucional frío `#0E5C8A` por
+  ser marca cálida. Registrada en [[temas-por-cliente]] y en el tile de `_temas-demo/index.html`.
+* **Bug de balance de espacio corregido antes de entregar** (ver §5.1 de [[sistema-diseno]]): la
+  lámina de Mesa de Víctimas (3 módulos, una sola fila) dejaba ~40% de la lámina vacía debajo de
+  las tarjetas — se agrandaron tarjetas/íconos/tipografía y se añadieron tags de resumen por
+  tarjeta (clase `.mod-card--lg`, modificador `.roomy`) en vez de dejar el espacio sin diseñar.
+* **Bug de superposición de texto corregido antes de entregar:** en la lámina de Resumen, la
+  columna de 5 cotizaciones (Atención Ciudadana y Trámites, la más larga de las 3) desbordaba
+  ~68px sobre la fila de metadatos inferior ("Preparado por"/"Fecha"), y las columnas de 4
+  desbordaban ~21px — invisible al ojo en una revisión rápida pero confirmado por
+  `getBoundingClientRect()`. Se corrigió reduciendo tipografía/padding de los chips y del
+  encabezado de categoría, y liberando espacio vertical en el título/kicker/padding de la
+  portada, hasta que las 3 columnas terminan exactamente alineadas con aire limpio antes del
+  footer. Verificado con un chequeo automatizado de colisión de cajas de texto sobre las 27
+  láminas (0 solapamientos, repetido tras el cambio de portadas y tras el cambio de fuente) además
+  de la lectura visual del PDF completo.
+* Registrado en `wiki/index.md`, `wiki/temas-por-cliente.md`, `presentaciones/_temas-demo/` y el
+  portal `presentaciones/index.html` (`decksData`, id `giron`), más el logo sin procesar en
+  `presentaciones/assets/logos/Alcaldia de Giron.png`.
+
+---
+
 ## [2026-09-04] build | Miami Aqua Tours — Tracking, Atribución y Optimización del Sitio (10 láminas)
 
 * **Nuevo deck** `presentaciones/miami-aqua-tracking/` (**10 láminas**, comprimido desde un plan
