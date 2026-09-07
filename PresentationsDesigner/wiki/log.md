@@ -4,6 +4,44 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-07] ajuste | Alcaldía Municipal de Girón — optimización a 15 láminas (portada+contenido fusionados)
+
+* El usuario pidió reducir el conteo de láminas ("28 puede ser un número exagerado para el
+  alcalde"): cada una de las 13 propuestas pasa de 2 láminas (portada + contenido) a **1
+  sola**, excepto el apartado 1 "Resumen General" que se deja intacto con sus 2 láminas.
+  Reglas aplicadas a las 13: (1) se parte de la Hoja 1 (portada) como base; (2) se quitan las
+  4 esquinas decorativas (`.corner`) para ganar espacio; (3) el título se sube (ya no
+  centrado verticalmente, ahora anclado arriba); (4) el contenido real de la Hoja 2
+  (`sys-split`/`mod-grid`, con su explicación corta por ítem) se inserta bajo el kicker; (5)
+  se quita el bloque "Para [logo Girón]"; (6) se compacta todo (título 16.5pt, badge/kicker
+  más chicos) para que quepa junto al contenido sin sobreposición.
+* Renumeración de 28→15 láminas hecha con un **script Python** (no a mano): extrae cada
+  bloque `<div class="slide">` vía regex por indentación exacta (cuidado: el primer slide
+  tenía `class="slide active"`, no `class="slide"` a secas — el patrón inicial lo saltaba y
+  fusionaba por error los slides 1 y 2 en un solo bloque; se corrigió a
+  `class="slide[^"]*"`), fusiona cada par portada+contenido, y remapea `data-nav`/`goToSlide()`
+  restantes con la fórmula `nuevo = (viejo+3)/2`.
+* **Vacío de espacio en 2 secciones (Agentes de Correo, Comités y Actas):** ambas tienen una
+  columna con una sola tarjeta/panel (`sect-panel`/`highlight-card`) frente a una lista de 3-4
+  tarjetas en la columna vecina. El patrón usual (`flex:1`+`justify-content:center` para
+  centrar el panel dentro de la altura estirada de la columna) se probó, con `margin:auto`
+  como alternativa, y con `grid-template-rows:auto auto auto 1fr` en vez de flex anidado — las
+  tres variantes se veían bien en el navegador (pantalla) pero el **PDF exportado con Chrome
+  headless seguía mostrando el contenido pegado arriba con un vacío grande abajo**: se
+  confirmó que el motor de layout de impresión resuelve el alto disponible de una cadena
+  `flex:1` anidada en 3-4 niveles distinto que en pantalla. Se resolvió con un **`min-height`
+  fijo** (2.3in) en `.highlight-card`/`.sect-panel` dentro del scope `.cover--unified` — un
+  cálculo autocontenido que no depende de que el ancestro reparta espacio sobrante, y por
+  tanto es igual en pantalla y en PDF. **Lección para futuros decks:** si una lámina se ve
+  bien en el navegador pero mal en el PDF exportado (o viceversa), sospechar de cadenas largas
+  de `flex:1`/`margin:auto` anidadas — Chrome headless en modo impresión no siempre las
+  resuelve igual que en pantalla.
+* Reverificado sin superposiciones ni desbordes de texto en las 15 láminas (chequeo
+  automatizado) y lectura visual completa del PDF de 15 páginas (3 rondas de export/revisión
+  hasta confirmar el fix del min-height).
+
+---
+
 ## [2026-09-07] ajuste | Alcaldía Municipal de Girón — portada del resumen, sidebar reordenado, indicador animado (28 láminas)
 
 * Tras el build inicial de 27 láminas (ver entrada anterior), el usuario pidió 4 ajustes:
