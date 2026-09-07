@@ -502,3 +502,86 @@ detalle del documento de arquitectura, sin esperar el diccionario de datos.
 - **Pendiente para el usuario**: si más adelante se decide sí completar `Y149` con `=Y1/0.6`
   (celda obligatoria según `CLAUDE.md` §5), habría que pedir confirmación explícita otra vez,
   ya que esta entrega la dejó vacía por instrucción directa.
+
+## [2026-09-04] build | Miami Aqua Tours — Auditoría técnica, mejoras de sitio y tracking de conversiones
+
+- **Origen**: brief compartido en `NUEVOS REQUERIMIENTOS.docx` (sin nombre de cliente ni
+  contacto nombrado en el propio documento; nombre de cliente confirmado por el usuario en
+  chat). Describe, en lenguaje de alto nivel, dos frentes: (1) revisión técnica/de rendimiento/
+  seguridad de un sitio estático servido en Cloudflare Pages (sin servidor ni base de datos,
+  reservas vía widgets embebidos de Bókun) y (2) evaluación e implementación de tracking de
+  conversiones (Google Tag Manager, Google Analytics, AnyTrack) para atribuir reservas
+  confirmadas en Bókun a campañas con UTM.
+- **Ambigüedades resueltas con el usuario antes de cotizar** (regla de cero invención,
+  `perfil-usuario.md`): (a) el brief mezclaba auditoría/diagnóstico ("determinar si es viable")
+  con implementación real — el usuario confirmó que el alcance cubre **ambas** cosas; (b) el
+  brief pedía "mejoras en la implementación actual de WordPress" pese a decir en el mismo
+  párrafo que el sitio no usa WordPress — el usuario confirmó que sí existe un WordPress
+  aparte, en un subdominio/sitio separado del principal, y se cotizó como módulo propio (M3);
+  (c) sin más contexto técnico disponible (stack exacto, número de páginas, estado actual de
+  GTM/GA), el usuario pidió cotizar igual con criterio de desarrollador senior, dejando el
+  detalle fino para el kickoff.
+- **Sin bloque de contacto nombrado**: a diferencia de Comultrasan, no hay un contacto
+  individual del lado del cliente en el brief — se omitió el bloque "PREPARADO PARA/POR" en
+  el PDF (mismo criterio que Relia) en vez de inventar un nombre.
+- **Estructura**: 4 módulos bajo jerarquía flexible L/M/N — M1 Auditoría técnica y de
+  rendimiento del sitio principal, M2 Mejoras de diseño front-end, M3 Auditoría y mejoras del
+  sitio WordPress, M4 Analítica y tracking de conversiones (el más grande, con 5 submódulos:
+  GTM/GA, evaluación e integración de AnyTrack, persistencia de atribución UTM durante el
+  flujo de reserva, tracking de conversión en Bókun, y arquitectura de tracking). 32 filas de
+  alcance (filas 8-39), muy por debajo de la barra gris (fila 120) — no fue necesario insertar
+  filas.
+- **Verificación**: `scripts/recalc.py` (LibreOffice, con los fixes de PATH y guard de
+  `socket.AF_UNIX` de `project-quotedeveloper-xlsx-workflow`) — `status: errors_found` con
+  exactamente los 5 `#NAME?` preexistentes en `A140:A144` (defecto conocido de `UNIQUE()`),
+  cero errores nuevos. `Y122 = =Y1/0.6` y `R123 = 0.1` (AIU 10%) confirmados. Precios del PDF
+  leídos directamente de la columna A del XLSX recalculado (`data_only=True`); subtotal de
+  módulo = suma de sus funcionalidades, verificado a mano contra `AC1` (coincide exacto:
+  $15.560.762,93). Solo queda la hoja `Plantilla` (se eliminaron las hojas de otros clientes de
+  la copia de la plantilla maestra). Verificación visual con capturas PyMuPDF de las 3 páginas.
+- **Entregables**: `cotizaciones/miami-aqua-tours/Cotizacion.xlsx` y
+  `cotizaciones/miami-aqua-tours/Cotizacion de Alcance.pdf` — TOTAL **$15.560.763 COP**.
+
+## [2026-09-04] build | Miami Aqua Tours v2 — Cotización XLSX en base al análisis técnico detallado
+
+- **Origen**: el usuario compartió `analisis-miami-aqua-tours (1).pdf`, un documento técnico mucho más
+  detallado que el brief de la v1 (`NUEVOS REQUERIMIENTOS.docx`) — trae evidencia concreta (líneas de
+  `gen.py`, capturas de consola con 404, nombres de archivos como `deploy.sh`/`verify.sh`/`transform.sh`,
+  tablas de hallazgos con "por qué" y "cómo se identificó") sobre: arquitectura en dos capas (WordPress
+  heredado vs. `gen.py` generado), optimizaciones técnicas, frontend/diseño, rendimiento, seguridad,
+  configuración de GTM/GA4, viabilidad de AnyTrack, conservación de atribución UTM, registro de reserva
+  completada, limitaciones del widget de Bókun y arquitectura de tracking recomendada.
+- **Primer turno — solo información, sin documentos**: el usuario pidió primero un estimado conversacional
+  de duración (sin generar ningún archivo) para validar alcance antes de cotizar formalmente; se respondió
+  con un desglose por frente de trabajo y el riesgo principal (dependencia de que Bókun confirme soporte de
+  webhook/API), sin tocar `cotizaciones/`.
+- **Segundo turno — cotización real, ambigüedad resuelta por instrucción explícita del usuario**: pidió
+  proceder con la cotización de este documento, **solo XLSX (sin PDF)**, en una carpeta nueva
+  `cotizaciones/miami-aqua-tours-v2/` — no es una edición de `cotizaciones/miami-aqua-tours/` (v1), es un
+  alcance nuevo e independiente centrado en implementar los hallazgos del análisis técnico (la v1 era a
+  nivel de auditoría/evaluación general; este documento ya es la auditoría, así que se cotizó su
+  implementación con criterio de desarrollador senior, siguiendo el mismo precedente registrado en la
+  entrada de la v1 sobre cotizar sin bloquear por falta de detalle).
+- **Estructura**: 5 módulos bajo jerarquía flexible L/M/N — M1 Auditoría técnica y unificación de
+  arquitectura (8 funcionalidades en 2 submódulos), M2 Mejoras de frontend y experiencia de usuario (7 en
+  3), M3 Rendimiento y velocidad del sitio (7 en 3), M4 Seguridad y buenas prácticas (7 en 2), M5 Analítica
+  y tracking de conversiones (19 en 5: GTM/GA4, plan de eventos del embudo, persistencia de atribución UTM,
+  integración de conversión con Bókun vía webhook/API, integración y validación de AnyTrack). 68 filas de
+  alcance (filas 8-75), muy por debajo de la barra gris (fila 120) — no fue necesario insertar filas.
+- **Comentario de celda (regla §5b de `plantilla-xlsx.md`)**: el submódulo "Integración de conversión con
+  Bókun (webhook/API)" (`M67`) lleva un comentario de Excel advirtiendo que ese submódulo depende de que
+  Bókun confirme, con acceso administrativo a la cuenta, que su plan/canal soporta webhook, API o un
+  mecanismo de referencia externa — el propio documento fuente (secciones 7.1, 7.4 y 11) lo deja
+  explícitamente como pendiente de validar, no es una suposición del agente.
+- **Verificación**: hojas de otros clientes eliminadas de la copia de la plantilla maestra (solo queda
+  `Plantilla`). Fuentes de columnas L/M/N aplicadas explícitamente (Arial 11 negrita / 10 negrita / 10
+  regular — no se puede asumir del template, ver `feedback-xlsx-fonts`). `scripts/recalc.py` (LibreOffice,
+  con los fixes de PATH y guard de `socket.AF_UNIX`) — `status: errors_found` con exactamente los 5
+  `#NAME?` preexistentes en `A140:A144`, cero errores nuevos, ejecutado dos veces (antes y después de
+  aplicar fuentes/comentario) para confirmar que el comentario sobrevive el recálculo. `Y122 = =Y1/0.6` y
+  `R123 = 0.1` (AIU 10%, confirmando que `R123` estaba en el default 0.4 de la plantilla antes de escribir).
+  Ningún submódulo (fila M) quedó con días cargados por error; las 48 filas de funcionalidad (N) tienen al
+  menos una columna de especialidad con días (piso 0.5 respetado). Suma de los 5 módulos + las 4 filas
+  transversales verificada a mano contra `AC1`: coincide exacto ($30.744.516,44).
+- **Entregable**: `cotizaciones/miami-aqua-tours-v2/Cotizacion.xlsx` — TOTAL **$30.744.516 COP**. Sin PDF
+  a pedido explícito del usuario.

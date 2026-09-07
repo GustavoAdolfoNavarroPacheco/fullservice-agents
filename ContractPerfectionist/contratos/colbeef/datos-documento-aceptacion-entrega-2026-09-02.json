@@ -1,0 +1,88 @@
+{
+  "titulo": "DOCUMENTO DE ACEPTACIÓN Y ENTREGA DE DESARROLLO CELEBRADO ENTRE COLBEEF S.A.S. Y CAMPUSLANDS S.A.S. BIC",
+  "secciones": [
+    {
+      "encabezado": "PREÁMBULO",
+      "nivel": 1,
+      "parrafos": [
+        "Entre los suscritos, por una parte, COLBEEF S.A.S., persona jurídica con domicilio en Bucaramanga, Santander, identificada con NIT No. 900.087.044-2, representada legalmente por DIEGO SIGIFREDO ARDILA JIMÉNEZ, identificado con cédula de ciudadanía No. 79.249.780, expedida en Bogotá D.C., quien para los efectos del presente documento se denominará \"EL CONTRATANTE\"; y por la otra, CAMPUSLANDS S.A.S. BIC, persona jurídica domiciliada en Floridablanca, Santander, identificada con el NIT 901.628.406-1, representada legalmente por YESENIA MERCHÁN PINZÓN, identificada con cédula de ciudadanía No. 1.065.866.676, expedida en Aguachica, Cesar, quien para los efectos del presente documento se denominará \"EL CONTRATISTA\", y en conjunto \"LAS PARTES\", suscriben el presente DOCUMENTO DE ACEPTACIÓN Y ENTREGA DE DESARROLLO, previas las siguientes:"
+      ]
+    },
+    {
+      "encabezado": "CONSIDERACIONES",
+      "nivel": 1,
+      "parrafos": [
+        "1. Que LAS PARTES suscribieron, el 14 de enero de 2026, el Contrato de Prestación de Servicios celebrado entre COLBEEF S.A.S. y CAMPUSLANDS S.A.S. BIC (en adelante, \"el Contrato\", identificado con el número de documento ZapSign bb67660d-2a4d-4cf7-acdb-61f3525aa887), cuyo objeto, conforme a su Cláusula Primera, es la prestación de servicios profesionales por parte de EL CONTRATISTA consistentes en el desarrollo, implementación, integración, puesta en marcha y entrega de un sistema integral de automatización operativa orientado a optimizar los procesos de recepción de información, procesamiento, planillaje, gestión de cava, facturación inteligente, reportes avanzados y analítica basada en inteligencia artificial, dentro de la operación productiva de EL CONTRATANTE.",
+        "2. Que el desarrollo del sistema se ejecutó conforme a las fases, especificaciones técnicas, alcances funcionales, entregables y criterios de aceptación descritos en el documento técnico \"Alcances y Requerimientos Técnicos\" del proyecto \"Agente IA para Automatización de Gestión de Faena – Colbeef\", empleado por EL CONTRATISTA como referencia de ejecución del proyecto.",
+        "3. Que, conforme a la Cláusula Cuarta del Contrato, la culminación del proyecto se entiende cumplida con la suscripción del acta o documento de entrega y aceptación del sistema por parte de EL CONTRATANTE.",
+        "4. Que EL CONTRATISTA hizo entrega formal a EL CONTRATANTE del sistema desarrollado en la totalidad de sus fases, y EL CONTRATANTE realizó la validación técnica y funcional correspondiente, sin formular observaciones pendientes sobre los entregables descritos en este documento.",
+        "Que, como consecuencia de lo anterior, LAS PARTES acuerdan las siguientes:"
+      ]
+    },
+    {
+      "encabezado": "PRIMERA. ENTREGA DEL DESARROLLO",
+      "nivel": 1,
+      "parrafos": [
+        "EL CONTRATISTA hace entrega formal a EL CONTRATANTE del sistema integral de automatización operativa desarrollado en ejecución del Contrato, en su totalidad, comprendiendo las siguientes fases y su respectivo alcance funcional:"
+      ],
+      "tabla": {
+        "encabezados": ["Fase", "Alcance funcional entregado"],
+        "filas": [
+          ["Fase 1 – Recepción y Procesamiento Automático", "Recepción multicanal vía WhatsApp Business API, motor de OCR de documentos de faena, validación automática de datos extraídos, respuestas automáticas contextuales y dashboard de monitoreo operacional."],
+          ["Fase 2 – Planillaje Automático Inteligente", "Integración bidireccional con el sistema de planillaje existente, registro automático de animales, validación cruzada de pesajes, motor de asignación a planes de faena y gestión de observaciones y destinos."],
+          ["Fase 3 – Gestión de Cava Automatizada", "Inventario de cava en tiempo real, generación automática de reportes diarios, semanales y mensuales, procesamiento de formatos de entrada/salida, programación inteligente de despachos y alertas de vencimiento."],
+          ["Fase 4 – Facturación Inteligente", "Facturación automática con validaciones de negocio, gestión dinámica de tarifas por cliente/producto, control automático de transporte y descuentos, reportes financieros automatizados y sistema de conciliación."],
+          ["Fase 5 – Reportes y Análisis Avanzados", "Reportes de rendimiento operativo, dashboards ejecutivos interactivos, sistema de alertas proactivas configurables, análisis de eficiencia por área/proceso y trazabilidad completa de operaciones."],
+          ["Fase 6 – Inteligencia Artificial Avanzada", "Modelos de machine learning para identificación de patrones operativos, predicción de demanda, optimización automática de planes de faena, detección de anomalías y asistente virtual con procesamiento de lenguaje natural."]
+        ]
+      }
+    },
+    {
+      "encabezado": "SEGUNDA. DOCUMENTACIÓN Y CAPACITACIÓN ENTREGADAS",
+      "nivel": 1,
+      "parrafos": [
+        "Junto con el sistema, EL CONTRATISTA hace entrega a EL CONTRATANTE de los manuales de usuario por módulo, la documentación técnica y funcional del proyecto, y el material de las sesiones de capacitación impartidas al personal designado por EL CONTRATANTE, conforme a lo previsto en la Cláusula Tercera, numeral 8, del Contrato."
+      ]
+    },
+    {
+      "encabezado": "TERCERA. VALIDACIÓN Y ACEPTACIÓN",
+      "nivel": 1,
+      "parrafos": [
+        "EL CONTRATANTE, a través de su interlocutor designado, verificó el funcionamiento del sistema entregado frente a los criterios de aceptación aplicables, sin formular observaciones técnicas pendientes dentro del plazo previsto en el Parágrafo Primero de la Cláusula Quinta del Contrato. En consecuencia, EL CONTRATANTE declara aceptado, en su totalidad, el sistema entregado por EL CONTRATISTA, en el estado en que se encuentra a la fecha de suscripción del presente documento."
+      ]
+    },
+    {
+      "encabezado": "CUARTA. EFECTOS DE LA ACEPTACIÓN",
+      "nivel": 1,
+      "parrafos": [
+        "1. Pago final. De conformidad con la Cláusula Quinta, numeral 1, literal c) del Contrato, la suscripción del presente documento habilita a EL CONTRATISTA para facturar a EL CONTRATANTE el tercer y último pago del Contrato, por valor de VEINTE MILLONES DE PESOS MONEDA LEGAL COLOMBIANA ($20.000.000 COP) más IVA, el cual EL CONTRATANTE deberá pagar dentro de los diez (10) días calendario siguientes a la recepción de la factura correspondiente.",
+        "2. Soporte técnico y garantía. De conformidad con la Cláusula Tercera, numeral 7, del Contrato, a partir de la fecha de suscripción del presente documento inicia el período de soporte técnico y mantenimiento correctivo de un (1) año a cargo de EL CONTRATISTA, en los términos y condiciones allí previstos.",
+        "3. Culminación del proyecto. De conformidad con la Cláusula Cuarta del Contrato, la suscripción del presente documento determina la culminación del proyecto para todos los efectos contractuales, sin perjuicio de las obligaciones de soporte, garantía, confidencialidad y propiedad intelectual que permanecen vigentes en los términos allí pactados.",
+        "4. Propiedad intelectual. EL CONTRATISTA hace entrega a EL CONTRATANTE del código fuente completo, actualizado, funcional y documentado del sistema, junto con los manuales técnicos y funcionales correspondientes, en los términos de la Cláusula Sexta del Contrato, cuya cesión de derechos patrimoniales a favor de EL CONTRATANTE opera conforme a lo allí pactado.",
+        "5. Mantenimiento posterior. LAS PARTES dejan constancia de que, conforme al Parágrafo Tercero de la Cláusula Quinta del Contrato, EL CONTRATANTE podrá contratar con EL CONTRATISTA el servicio de mantenimiento mensual del sistema, mediante la suscripción de un contrato de prestación de servicios de mantenimiento independiente para tal efecto."
+      ]
+    },
+    {
+      "encabezado": "QUINTA. DECLARACIÓN FINAL",
+      "nivel": 1,
+      "parrafos": [
+        "LAS PARTES manifiestan haber leído detenidamente, comprendido y aceptado en su integridad el contenido del presente documento, encontrándolo conforme a su voluntad y libre manifestación de consentimiento. Para todos los efectos legales, LAS PARTES reconocen como válidas y plenamente vinculantes las firmas digitales, electrónicas y/o escaneadas que se incorporen al presente documento, conforme a la legislación vigente.",
+        "En constancia de lo anterior, se firma en la ciudad de Floridablanca, Santander, el 2 de septiembre de 2026."
+      ]
+    }
+  ],
+  "firmantes": [
+    {
+      "rol": "EL CONTRATISTA",
+      "nombre": "YESENIA MERCHÁN PINZÓN",
+      "cargo": "Representante Legal – CAMPUSLANDS S.A.S. BIC",
+      "identificacion": "C.C. No. 1.065.866.676"
+    },
+    {
+      "rol": "EL CONTRATANTE",
+      "nombre": "DIEGO SIGIFREDO ARDILA JIMÉNEZ",
+      "cargo": "Representante Legal – COLBEEF S.A.S.",
+      "identificacion": "C.C. No. 79.249.780"
+    }
+  ]
+}
