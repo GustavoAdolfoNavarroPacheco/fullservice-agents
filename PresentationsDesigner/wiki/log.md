@@ -16,6 +16,14 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
   **USD $9.000** (cifra nueva provista por el usuario, sin desglose por módulo visible).
 * Verificado en navegador (shell de una lámina) y en el PDF reexportado (10 páginas, sin cambio
   de conteo) — el `@media print` no se tocó.
+* **Follow-up mismo día:** el usuario pidió mejorar el color del total (`.invest__num .big`,
+  naranja plano `var(--blue)`, poco visible sobre la tarjeta clara) y agrandarlo. Se reemplazó el
+  `<div>` de texto plano por un `<svg class="gt">` con `fill="url(#gradBrand)"` — mismo patrón ya
+  usado en los títulos de este deck (ver §5.2 de [[sistema-diseno]], SVG en vez de
+  `background-clip:text` para evitar el hairline al exportar a PDF) — con el ancho del `viewBox`
+  medido en vivo vía `getBBox()` (5832px para "USD $9,000" a `font:900 1000px 'Playfair
+  Display'`), y se subió el tamaño de `.big` de `26pt` a `36pt`. Verificado sin overflow ni
+  colisión con el resto de la tarjeta, en navegador y en el PDF reexportado.
 
 * El usuario pidió 3 láminas nuevas al final del deck de Girón, combinando el contenido de 4
   imágenes de referencia de una propuesta antigua de **otro cliente** (Unidrogas): Equipo del
