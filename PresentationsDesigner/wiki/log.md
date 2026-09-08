@@ -4,7 +4,18 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
-## [2026-09-08] ajuste | Alcaldía Municipal de Girón — 3 láminas de cierre (15→18 láminas)
+## [2026-09-08] ajuste | Miami Aqua Tours (Tracking) — lámina de Inversión simplificada a USD 9.000
+
+* A pedido del usuario, se ajustó la lámina "06 · Inversión" (página 7) de
+  `presentaciones/miami-aqua-tracking/`: se retiró el precio individual de cada uno de los 6
+  módulos/renglones (`.mc-value`) dejando solo el nombre; se retiró el monto en dólares de cada
+  una de las 3 tarjetas del plan de pago 40/40/20 (`.plan-card .info b`) dejando solo el
+  porcentaje y la descripción, y se redujo su padding vertical (`.14in`→`.1in`) para compensar
+  la altura sobrante; se agregó espacio entre el título y el primer renglón
+  (`.invest-wrap{margin-top:.06in→.3in}`); y el total pasó de **$30.744.516,44 COP** a
+  **USD $9.000** (cifra nueva provista por el usuario, sin desglose por módulo visible).
+* Verificado en navegador (shell de una lámina) y en el PDF reexportado (10 páginas, sin cambio
+  de conteo) — el `@media print` no se tocó.
 
 * El usuario pidió 3 láminas nuevas al final del deck de Girón, combinando el contenido de 4
   imágenes de referencia de una propuesta antigua de **otro cliente** (Unidrogas): Equipo del
