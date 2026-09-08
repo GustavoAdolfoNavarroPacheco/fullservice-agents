@@ -4,6 +4,62 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-08] ajuste | Alcaldía Municipal de Girón — auditoría visual y de consistencia integral (12 láminas)
+
+* El usuario pidió una auditoría profesional completa del deck (no solo corregir lo evidentemente
+  roto): revisar las 12 láminas una por una contra el lenguaje visual establecido, y mejorar
+  cualquier oportunidad de composición/jerarquía/espaciado aunque la lámina "funcionara" a simple
+  vista — sin inventar contenido, cifras ni cambiar el alcance.
+* **Metodología:** lectura completa de `index.html`/`styles.css`, recorrido interactivo en
+  navegador con medición programática (`getBoundingClientRect`, `getComputedStyle`) de cada
+  lámina — porcentaje de llenado de cada columna/mitad, gaps antes del footer, conteo de ítems
+  por par fusionado — en vez de solo juicio visual, para detectar asimetrías que no siempre saltan
+  a la vista en una lámina aislada. Export a PDF (Chrome headless) y render a PNG (PyMuPDF) para
+  la verificación final página por página.
+* **Hallazgo principal — inconsistencia entre láminas antiguas y nuevas:** las 6 láminas
+  fusionadas (`cover--merge`, láminas 4-9, agregadas en el pase de fusión del 2026-09-09) usaban
+  un `<h1 class="merge-title">` de color sólido plano, mientras que **todas** las demás láminas de
+  contenido del deck (Portada, Agentes de Correo, Equipo/Cronograma, Inversión, Cierre) destacan
+  una palabra o frase clave del título con el gradiente de marca (`.gt` + SVG). Las 6 fusionadas
+  eran las únicas que rompían ese lenguaje — se sentían "de otra presentación". Corregido:
+  se agregó el mismo tratamiento de gradiente a la palabra/frase principal de cada título fusionado
+  ("Salud", "IVC Sanitario", "Cobro Coactivo", "Comités y Actas", "Procesos Disciplinarios",
+  "Trámites de Ordenamiento"), midiendo el ancho real del texto con `SVGTextElement.getBBox()`
+  (mismo método ya documentado para este deck) antes de fijar el `viewBox`.
+* **Hallazgo — espacio vacío desbalanceado:** medido el % de llenado de cada mitad de las 6
+  láminas fusionadas, la lámina "Comités y Actas · Mesa de Víctimas" tenía el peor desbalance del
+  deck (60% vs. 31% de llenado entre sus dos mitades, por la diferencia de 5 vs. 3 ítems — el
+  `align-items:stretch` de `.merge-split` iguala el ALTO del contenedor pero no el peso visual del
+  contenido). Y la lámina "Secretaría de Salud" (4 vs. 4 ítems) tenía ambas mitades parejas pero
+  igual de vacías (~42%), la segunda peor densidad del deck. Se agregó un modificador
+  `.merge-half--roomy` (tarjetas más grandes: padding, tipografía y separación mayores) aplicado
+  a las mitades con pocos ítems — Mesa de Víctimas quedó en 68% de llenado (ahora más lleno que su
+  vecina) y ambas mitades de Secretaría de Salud subieron a niveles pareja al resto del deck.
+* **Hallazgo — chips del Resumen General con relleno interno excesivo:** cada tarjeta de
+  navegación de la lámina 2 tenía solo 32px de contenido real (icono+texto) dentro de una fila de
+  93px (~65% de espacio vacío), porque `grid-auto-rows:1fr` estira las filas para llenar la
+  lámina pero no el contenido de cada una. Se agrandó el ícono, la tipografía y el padding del
+  chip para que su propio contenido pese más dentro de la fila, en vez de dejarlo flotando.
+* **Hallazgo — grid de equipo con ítem huérfano:** 9 roles en un grid de 2 columnas dejaban el 9º
+  chip ("Implementación & Capacitación") solo en la última fila, con la mitad derecha vacía —
+  se sentía colocado arbitrariamente. Cambiado a grid de 3 columnas (3×3 exacto, sin huecos) con
+  las tarjetas reformateadas a ícono-arriba/texto-abajo para que quepan cómodas en el ancho menor.
+* **Hallazgo — lámina de Inversión y Forma de Pago subllenada:** checklist y tiles de pago 40/40/20
+  ocupaban solo ~31-35% del alto de columna disponible (la más vacía del deck junto con Mesa de
+  Víctimas antes de su fix). Se agrandaron los íconos de check, la tipografía del checklist y los
+  números de los tiles de pago — quedó en ~50-59% de llenado, en línea con el resto del cierre.
+* **Sin hallazgos en:** logos/proporciones (sin deformación en ninguna lámina), z-index/overflow
+  (0 elementos desbordando el borde de lámina fuera de la decoración de anillos, que está pensada
+  para clip parcial), consola sin errores, numeración de páginas y footers consistentes en las 12
+  láminas, contraste de color, y el bookend de esquinas (`.corner`) en Portada/Cierre — confirmado
+  intencional (no aplica a las láminas interiores) tras revisar el HTML de las 12 láminas.
+* **Verificación final:** export a PDF (12 páginas) renderizado a PNG a 300dpi (PyMuPDF) y
+  revisado lámina por lámina — sin desbordes, sin colisiones, gradientes correctos, balance visual
+  parejo entre columnas en las 6 láminas fusionadas. Segunda pasada tras los fixes confirmó que
+  ningún ajuste introdujo una regresión en las láminas ya correctas (1, 3, 5, 6, 8, 9, 12).
+
+---
+
 ## [2026-09-09] ajuste | Alcaldía Municipal de Girón — fusión de 12 propuestas en 6 láminas (18→12 láminas)
 
 * El usuario pidió una unificación grande y estricta: (1) eliminar 3 frases/ítems puntuales del
