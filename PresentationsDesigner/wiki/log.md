@@ -4,6 +4,80 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-08] ajuste | Alcaldía Municipal de Girón — láminas 4-9 alineadas al lenguaje visual de la lámina 3
+
+* El usuario pidió, con instrucciones muy puntuales, que las 6 láminas fusionadas (4-9)
+  adoptaran el mismo lenguaje visual que la lámina 3 "Agentes IA de Correo" (su referencia
+  explícita), y que se corrigiera un desbalance de tamaño entre el texto en itálica/gradiente
+  de los títulos y el texto en negrita que lo rodea — en todo el deck, no solo en 4-9.
+* **Insignia "Propuesta Técnica N de 07" sin estilo en 4-9:** medido con
+  `getBoundingClientRect()`, en la lámina 3 el badge mide el 100% del ancho de columna (es
+  hijo directo del grid `.cover__body`, que por defecto estira sus hijos — `justify-items:
+  stretch` de CSS Grid); en las láminas 4-9 el mismo `<span class="sol-index">` está envuelto
+  en `.merge-topline` (un div normal, sin estirar), y encima la regla que le daba fondo en
+  gradiente/píldora estaba **scopeada a `.cover--sol`**, clase que esas 6 láminas no tienen —
+  por eso el badge se veía como texto plano sin ningún fondo. Corregido en dos partes: (1) la
+  regla base de `.sol-index` se quitó del scope de `.cover--sol` (ahora aplica a cualquier
+  lámina que use la insignia); (2) se agregó `width:100%` a `.merge-topline .sol-index` para
+  replicar el mismo banner de ancho completo que la lámina 3 logra por el stretch del grid.
+* **Título más chico que la lámina 3:** `.merge-title` estaba en 17pt vs. los 19pt de
+  `.cover--unified .cover__title` (el tamaño real de la lámina 3, no los 29pt de
+  `.cover--sol` a secas — ese valor queda sobrescrito por la cascada). Igualado a 19pt.
+  Verificado que ningún título fusionado (incluido el más largo, "Trámites de Ordenamiento ·
+  Reparto de Querellas") pasa a 2 líneas con el tamaño nuevo (`getClientRects().length` de
+  cada `<h1>` en las 12 láminas, todas en 1).
+* **Subtítulos sin color:** en la lámina 3, "PLATAFORMA BASE DE AGENTES IA DE CORREO" /
+  "PARAMETRIZACIÓN..." (`.sys-col-head`) llevan el acento ámbar `var(--cyan)` — confirmado
+  con `getComputedStyle` que es un color sólido, no un gradiente real (`background-image:
+  none`), pese a leerse como "gradiente" a simple vista. En las 6 láminas fusionadas,
+  `.merge-half__title` ("Auditoría de EPS/IPS", "Salud Pública", etc.) no tenía ningún acento
+  de color — texto negro plano. Igualado al mismo `var(--cyan)` sólido de la lámina 3 (mismo
+  color, sin agregar un gradiente CSS real vía `background-clip:text`, que la wiki ya
+  documentó como fuente de un bug de hairline en Chrome headless para textos internos —
+  ver [[temas-por-cliente]] y los casos de Avicampo/Gas País Chilco).
+* **Texto en gradiente/itálica visualmente más chico que el texto en negrita adyacente (en
+  TODO el deck, no solo 4-9):** medido con `SVGTextElement.getBBox()` del `<text>` real
+  contra un `Range.getBoundingClientRect()` de una letra mayúscula del texto vecino en la
+  lámina 3 — el glifo de la palabra en gradiente ocupaba solo el 93.3% de la altura de una
+  mayúscula del texto en negrita (el `viewBox` de estas SVG no está recortado al alto real de
+  la tinta, así que `height:1em` deja el trazo visible más bajo de lo esperado; el menor
+  contraste del dorado sobre el fondo claro —vs. negro— acentuaba aún más la sensación de
+  "más chico"). Corregido con `.gt{ height:1.14em !important; }` (el `!important` es
+  necesario porque cada `<svg class="gt">` trae su propio `style="height:1em"` inline, que
+  gana sobre cualquier regla de hoja de estilos sin `!important`) — el mismo método de
+  medición confirmó el nuevo ratio en 106.7% (antes 93.3%), y una revisión visual a zoom alto
+  (`--slide-scale:1.9`) mostró "responden" (lámina 3) del mismo peso visual que "el correo"
+  vecino. Al ser una regla global sobre `.gt`, corrige el mismo defecto en las 12 láminas del
+  deck (Portada, Agentes de Correo, las 6 fusionadas, Equipo/Cronograma, Inversión, Cierre),
+  no solo en las que el usuario señaló.
+* **Espacio vacío en láminas 5 y 7 (señalado explícitamente por el usuario):** al agrandar
+  título+banner de las 6 láminas fusionadas, la fila de contenido (`1fr` del grid interno)
+  se achicó, y quedó en evidencia que las láminas 5 ("IVC Sanitario · Archivo de Tránsito", 5
+  ítems por lado) y el lado "Comités y Actas" de la lámina 7 (5 ítems) eran las peor llenadas
+  del deck (~59-61.5% del alto de columna, medido con el mismo método de `contentSpan/
+  containerHeight` que en la auditoría anterior). El modificador `.merge-half--roomy`
+  existente (creado para el lado de 3 ítems de la lámina 7) desborda a 5 ítems por lado —
+  calculado que 5 tarjetas al tamaño de `--roomy` necesitan ~208px de alto contra los ~143-149px
+  disponibles. Se creó un modificador intermedio `.merge-half--fill` (padding y tipografía
+  agrandados de forma más moderada, calibrado para 5 ítems) aplicado a ambos lados de la
+  lámina 5 y al lado "Comités y Actas" de la lámina 7 (el lado "Mesa de Víctimas", de 3
+  ítems, ya tenía `--roomy` de la auditoría anterior y no se tocó). Resultado verificado sin
+  desborde (`contentSpan > containerHeight` = false en las 12 láminas): lámina 5 sube a
+  100%/96.5% de llenado, lado "Comités y Actas" de la lámina 7 sube a 100% (su vecino "Mesa
+  de Víctimas" se mantiene en 69.9%, ya corregido antes — la diferencia ahora se lee como
+  "muchas tarjetas chicas" vs. "pocas tarjetas grandes", un contraste editorial intencional,
+  no un vacío accidental).
+* **Verificación:** cambios probados primero en vivo en el navegador (con cache-busting
+  explícito del CSS y recarga completa del HTML — el server estático no revalidaba el disco
+  por su cuenta) sobre las láminas puntuales, luego export a PDF completo (12 páginas) y
+  revisión visual página por página a 300dpi de las 12 láminas — sin desbordes, sin
+  colisiones, banners/títulos/subtítulos consistentes entre la lámina 3 y las 4-9, y sin
+  regresión en las láminas 1, 2, 10, 11 y 12 pese al cambio global de `.gt`. Chequeo
+  automatizado adicional (`getBoundingClientRect` de cada `h1/h2/p/span/.merge-item` contra
+  el borde de cada lámina) confirmó 0 elementos desbordados en las 12 láminas.
+
+---
+
 ## [2026-09-08] ajuste | Alcaldía Municipal de Girón — auditoría visual y de consistencia integral (12 láminas)
 
 * El usuario pidió una auditoría profesional completa del deck (no solo corregir lo evidentemente
