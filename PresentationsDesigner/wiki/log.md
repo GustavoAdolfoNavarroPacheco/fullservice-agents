@@ -4,6 +4,29 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-08] ajuste | Alcaldía Municipal de Girón — cronograma a 5 meses + 1 mes de pruebas y go-live
+
+* El usuario pidió cambiar el cronograma de "4 meses + pruebas" a "5 meses + 1 mes de pruebas
+  y go-live" (lámina 10, Equipo y Cronograma). Actualizado en 3 lugares: (1) el título en
+  gradiente "Un equipo dedicado y **5 meses** de implementación" (SVG remedido con
+  `getBBox()`, ancho casi idéntico al de "4 meses" — 3609 vs. 3631 unidades); (2) el
+  subtítulo de la columna "5 meses + 1 mes de pruebas y go-live" (antes "4 meses +
+  pruebas, por fases"); (3) la línea de tiempo, que pasa de 5 a 6 pasos — el antiguo "Mes 4"
+  ("Cierre de desarrollo, integraciones finales y ajustes por secretaría") se dividió en
+  **Mes 4** ("Integraciones finales y ajustes por secretaría") y **Mes 5** ("Cierre de
+  desarrollo y consolidación del catálogo completo"), y el paso final se renombró a "Pruebas
+  y Go-Live · 1 mes" para que la duración quede explícita igual que en los meses numerados.
+  Mes 1-3 quedaron sin cambios.
+* **Verificación:** con un paso adicional en la línea de tiempo, se midió que el bloque
+  completo (6 pasos + nota de metodología) sigue sin desbordar — 18.4px de margen positivo
+  contra el footer — y que el subtítulo nuevo (más largo) sigue en una sola línea. Barrido de
+  overflow automatizado sobre la lámina confirmó 0 elementos desbordados. **A pedido
+  explícito del usuario, no se regeneró el PDF en este ajuste** — el HTML/CSS desplegado
+  queda actualizado, pero `giron.pdf` conserva el cronograma de 4 meses hasta el próximo
+  export.
+
+---
+
 ## [2026-09-08] ajuste | Alcaldía Municipal de Girón — soporte post go-live especificado a 1 año
 
 * Ajuste puntual pedido por el usuario en la lámina 11 (Inversión y Forma de Pago): la nota
