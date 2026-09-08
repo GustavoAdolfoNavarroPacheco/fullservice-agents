@@ -4,6 +4,34 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-08] ajuste | Alcaldía Municipal de Girón — botón ancho de Resumen General pegado al pie de página
+
+* Tras revertir el rediseño con colores de la lámina 2 (a pedido del usuario, ver entrada
+  anterior "revert"), volvió a quedar expuesto un defecto ya documentado en la auditoría
+  original: el 7° botón (fila impar, ancho completo) quedaba **pegado directamente al pie
+  de página, 0px de separación**, mientras que arriba (entre el kicker y la primera fila)
+  había 17px de aire. El usuario lo señaló con una imagen de referencia señalando ese
+  espacio superior como el que quería replicar abajo.
+* **Causa raíz:** `.sol-grid-flat` usaba `flex:1` (se estira a ocupar todo el resto de la
+  columna) combinado con `grid-auto-rows:1fr` (reparte esa altura en 4 filas iguales) — el
+  grid siempre termina exactamente donde empieza el footer, sin margen posible. Peor aún:
+  medido con `getBoundingClientRect`, el contenido de la fila ancha en algunos casos
+  desbordaba su propio carril de `1fr` (el borde inferior del botón quedaba por debajo del
+  borde inferior del propio grid), agravando el amontonamiento visual.
+* **Corrección:** `flex:none` + `grid-auto-rows:min-content` (cada fila mide solo lo que
+  necesita su contenido, nunca se estira ni desborda) + `margin-bottom` explícito. Como el
+  alto total de la columna es fijo, fue necesario liberar espacio en otro lado para que el
+  margen inferior "cupiera": se redujo el `gap` entre filas de 14px a 6px. Calibrado
+  iterativamente en el navegador (medir → ajustar → volver a medir) hasta que el espacio
+  libre abajo (17-18px) igualara el de arriba (17px, sin tocar el margen superior que el
+  usuario ya daba por bueno).
+* **Verificación:** barrido de overflow automatizado sobre las 12 láminas (0 elementos
+  desbordados) y export a PDF con revisión visual a 300dpi de la lámina — el respiro debajo
+  del último botón ahora se lee igual de generoso que el de arriba, sin tocar el pie de
+  página.
+
+---
+
 ## [2026-09-08] ajuste | Alcaldía Municipal de Girón — cronograma a 5 meses + 1 mes de pruebas y go-live
 
 * El usuario pidió cambiar el cronograma de "4 meses + pruebas" a "5 meses + 1 mes de pruebas
