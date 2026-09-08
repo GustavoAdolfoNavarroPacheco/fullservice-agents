@@ -4,6 +4,15 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-08] ajuste | Alcaldía Municipal de Girón — soporte post go-live especificado a 1 año
+
+* Ajuste puntual pedido por el usuario en la lámina 11 (Inversión y Forma de Pago): la nota
+  de "Garantía y soporte" decía "soporte post go-live" sin plazo — se agregó "de 1 año".
+  Verificado que el `note-bar` sigue en una sola línea sin desbordar (`scrollHeight ==
+  clientHeight`, 1 línea) y confirmado visualmente en el PDF re-exportado.
+
+---
+
 ## [2026-09-08] ajuste | Alcaldía Municipal de Girón — láminas 4-9 alineadas al lenguaje visual de la lámina 3
 
 * El usuario pidió, con instrucciones muy puntuales, que las 6 láminas fusionadas (4-9)
