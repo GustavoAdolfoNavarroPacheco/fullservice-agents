@@ -4,6 +4,59 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-09] ajuste | Alcaldía Municipal de Girón — fusión de 12 propuestas en 6 láminas (18→12 láminas)
+
+* El usuario pidió una unificación grande y estricta: (1) eliminar 3 frases/ítems puntuales del
+  contenido; (2) fusionar 12 de las 13 propuestas técnicas de a 2 por lámina, dividiendo cada
+  lámina en mitad izquierda/mitad derecha (una propuesta por lado); (3) reordenar el deck
+  completo. Solo Agentes de Correo queda como lámina individual.
+* **Contenido eliminado:** "Código fuente 100% propiedad de la Alcaldía de Girón" (checklist de
+  la lámina de inversión), "— sin ninguna cifra de inversión visible aquí" (kicker de Agentes de
+  Correo) y "Cada una de las siguientes propuestas es una presentación independiente, con su
+  propia portada" (kicker del Resumen General, reescrito de todas formas por la fusión).
+* **6 pares fusionados** (nombre del apartado resultante entre paréntesis cuando el usuario dio
+  uno explícito; si no, se unieron ambos nombres con "·"): Auditoría EPS/IPS + Salud Pública
+  (**Secretaría de Salud** — nombre fijo dado por el usuario, no una unión de nombres); IVC
+  Sanitario + Archivo de Tránsito; Cobro Coactivo + Gestión Documental; Comités y Actas + Mesa de
+  Víctimas; Procesos Disciplinarios + Estampillas Digitales; Trámites de Ordenamiento + Reparto
+  de Querellas. Orden final: Resumen General → Agentes de Correo → los 6 pares (en el orden que
+  dio el usuario) → Equipo/Cronograma → Inversión/Pago → Cierre/Contacto = **12 láminas** (más la
+  portada, sin nav, igual que antes).
+* **Patrón nuevo `.cover--merge` / `.merge-split`:** a diferencia de `.sys-split` (que asume un
+  único título de lámina para 2 subsistemas de la MISMA propuesta), cada `.merge-half` es una
+  propuesta autónoma con su propio título, lead, lista de módulos (formato compacto título+desc
+  en una sola línea, "— " como separador) y meta (dependencia · sistemas · módulos). El contenido
+  original de cada propuesta se condensó a frases de 3-6 palabras por ítem para que hasta el par
+  más denso (7 módulos por lado, Trámites de Ordenamiento + Reparto de Querellas) quepa sin
+  desbordar. `.merge-split` es un grid de 2 columnas con `align-items:stretch` (default): ambas
+  mitades quedan siempre exactamente a la misma altura sin necesitar subgrid, y cada `.merge-list`
+  centra su propio contenido con `justify-content:center` — así una mitad de 3 ítems (Mesa de
+  Víctimas) y su vecina de 5 (Comités y Actas) quedan con el mismo espaciado uniforme en vez de
+  alturas dispares.
+* **Verificación milimétrica** (pedida explícitamente por el usuario — "perfeccionista, detallista,
+  milimétrico"): con `getBoundingClientRect()` en las 6 láminas fusionadas se confirmó que (a) el
+  título fusionado mide siempre exactamente 25.5px de alto (1 línea, sin excepción, incluso el más
+  largo: "Trámites de Ordenamiento · Reparto de Querellas"); (b) `.merge-split` arranca siempre en
+  el mismo y=215.1px con la misma altura 382.8px en las 6 láminas; (c) ambas mitades de cada par
+  miden el mismo rect exacto (mismo y/height), incluso el par más asimétrico (5 vs. 3 ítems); (d)
+  barrido de las 12 láminas confirmó cero desbordes — el contenido más bajo de cada lámina siempre
+  queda 23-29px por encima del borde inferior real. Un bug real detectado y corregido en el
+  camino: la lámina de Agentes de Correo quedó con el badge "Propuesta Técnica 01 de **13**" sin
+  actualizar (residuo de la limpieza de categorías) — debía decir "de 07"; se corrigió tras
+  revisar las 12 láminas una por una en vez de confiar en las primeras que se vieron bien.
+* **Resumen General reestructurado:** las 3 categorías (Gobierno y Justicia / Atención y Trámites
+  / Salud y Bienestar) ya no aplicaban limpio a los pares fusionados — casi todos cruzan
+  categorías (ej. IVC Sanitario —Salud— se fusiona con Archivo de Tránsito —Atención—). Se le
+  preguntó al usuario y eligió **lista plana sin categorías**: grid de 2 columnas con las 7
+  tarjetas en el orden final, sin agrupación temática. El 7º ítem (impar) usa
+  `grid-column:1/-1` para ocupar el ancho completo de su fila en vez de dejar una mitad vacía.
+* Actualizado en los 3 lugares de la Regla 3: `wiki/index.md`, `presentaciones/index.html`
+  (`decksData.giron.slides` "18 Láminas" → "12 Láminas" + descripción). PDF re-exportado (12
+  páginas verificadas con PyMuPDF) y las 12 láminas revisadas visualmente una por una (navegador +
+  PDF) antes de entregar.
+
+---
+
 ## [2026-09-08] ajuste | Miami Aqua Tours (Tracking) — lámina de Inversión simplificada a USD 9.000
 
 * A pedido del usuario, se ajustó la lámina "06 · Inversión" (página 7) de
@@ -24,6 +77,10 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
   medido en vivo vía `getBBox()` (5832px para "USD $9,000" a `font:900 1000px 'Playfair
   Display'`), y se subió el tamaño de `.big` de `26pt` a `36pt`. Verificado sin overflow ni
   colisión con el resto de la tarjeta, en navegador y en el PDF reexportado.
+
+---
+
+## [2026-09-08] ajuste | Alcaldía Municipal de Girón — 3 láminas de cierre (15→18 láminas)
 
 * El usuario pidió 3 láminas nuevas al final del deck de Girón, combinando el contenido de 4
   imágenes de referencia de una propuesta antigua de **otro cliente** (Unidrogas): Equipo del
