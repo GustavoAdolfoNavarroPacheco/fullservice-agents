@@ -4,6 +4,51 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-08] ajuste | Alcaldía Municipal de Girón — 3 láminas de cierre (15→18 láminas)
+
+* El usuario pidió 3 láminas nuevas al final del deck de Girón, combinando el contenido de 4
+  imágenes de referencia de una propuesta antigua de **otro cliente** (Unidrogas): Equipo del
+  Proyecto + Cronograma → lámina 16; Inversión + Forma de Pago y Garantía → lámina 17; Cuándo
+  Empezamos → lámina 18 (contacto). El contenido específico de Unidrogas (ERP Maía, fases de
+  ingesta/OCR/simulador de arriendos) no aplicaba a Girón (catálogo de 13 soluciones
+  municipales distintas) — se generalizó la redacción al alcance de Girón manteniendo la
+  misma estructura y cantidad de ítems pedida, y se confirmó el plan con el usuario antes de
+  construir (regla obligatoria del esquema).
+* **Lámina 16:** `sys-split` de 2 columnas — equipo (grid 2×5 de 9 roles con monograma en
+  gradiente oro/bronce + nota "Modelo Campers") y cronograma (timeline vertical de 5 fases).
+  Cronograma cambiado de 3.5 a **4 meses + pruebas** a pedido explícito del usuario (Mes 1-4 +
+  fase de "Pruebas y Go-Live" separada, en vez de "Mes 4 · 1ª quinc." + "2 sem. finales").
+* **Lámina 17:** checklist de alcance (6 ítems) + tiles de pago 40/40/20 + nota de garantía y
+  soporte. **Sin ninguna cifra de inversión**, a pedido explícito del usuario.
+* **Lámina 18:** estilo portada centrada (como la lámina 1) con 3 pasos, frase de cierre y
+  contacto **actualizado** — el de las imágenes de referencia era de una representante
+  anterior; se usó el contacto vigente encontrado en la wiki (**Gabriela Pedraza Rueda**,
+  Directora Full Service Global, gabriela.pedraza@campuslands.com, +57 300 302 8555, ya usado
+  en otros decks recientes) en vez del de la referencia.
+* **Bug de CSS Grid resuelto:** `.sys-col` usa `grid-template-rows:subgrid` con 3 filas fijas
+  (título/subtítulo/contenido). Las columnas de las láminas 16 y 17 necesitaban **2** bloques
+  en la fila de contenido (timeline+nota / tiles+nota) — como hijos directos sueltos, el 2º
+  bloque caía en una fila implícita del grid que se dibujaba **encima** del 1º (el texto
+  existía en el DOM, con `getBoundingClientRect()` correcto, pero visualmente tapado — se
+  diagnosticó con `elementFromPoint()`, que reveló el `.note-bar` cubriendo el timeline). Se
+  resolvió envolviendo ambos bloques en un contenedor único `.sys-col-fill` (flex column con
+  `margin:auto 0`), que ocupa la fila de contenido como un solo ítem de grid.
+* **Ancho de gradiente SVG medido, no estimado:** el patrón `<svg class="gt"><text
+  fill="url(#gradBrand)">` de este deck requiere que el `viewBox` width coincida con el ancho
+  real del texto a `font-size:1000px`. Un primer intento a ojo dejó el "?" de "¿Cuándo
+  empezamos?" superpuesto sobre la "s" final. Se corrigió midiendo el ancho real con
+  `SVGTextElement.getBBox()` en el navegador (con la fuente ya cargada vía
+  `document.fonts.load()`) — el mismo método, aplicado a un texto ya existente en el deck como
+  control, reprodujo su viewBox width original con menos de 1% de error. Método reusable para
+  cualquier gradiente-texto nuevo con este patrón, en este u otros decks.
+* Actualizado en los 3 lugares de la Regla 3: `wiki/index.md` (15→18 láminas + nota de esta
+  optimización), `presentaciones/index.html` (`decksData.giron.slides` "15 Láminas" → "18
+  Láminas" + descripción). No aplica `_temas-demo/` ni `temas-por-cliente.md` (mismo cliente,
+  sin paleta nueva). PDF re-exportado (18 páginas verificadas con PyMuPDF) y verificado
+  visualmente en navegador + PDF antes de entregar.
+
+---
+
 ## [2026-09-07] ajuste | Alcaldía Municipal de Girón — optimización a 15 láminas (portada+contenido fusionados)
 
 * El usuario pidió reducir el conteo de láminas ("28 puede ser un número exagerado para el
