@@ -4,6 +4,30 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-08] ajuste | Alcaldía Municipal de Girón — inversión total agregada: $546.000.000 COP
+
+* **Cambio de política del deck:** desde el build inicial, este deck se construyó
+  explícitamente **sin ninguna cifra de inversión** (a pedido del usuario, registrado en
+  varias entradas previas de este log). El usuario pidió ahora agregar el precio total en
+  la lámina 11 (Inversión y Forma de Pago) — se agrega solo ahí, el resto del deck (las 13
+  propuestas individuales) sigue sin cifras, consistente con el pedido puntual.
+* **Tarjeta "Inversión total"** nueva, en la columna "Pagos por hitos" (antes de los tiles
+  de 40/40/20): monto grande en `$546.000.000` con "COP" en tipografía menor al lado, barra
+  izquierda en `var(--blue)` a tono con el resto del sistema de acentos.
+* **Desglose por hito agregado a cada `pay-tile`:** además del porcentaje, cada tile ahora
+  muestra el monto exacto — 40% = $218.400.000 (anticipo), 40% = $218.400.000 (mitad de
+  proyecto), 20% = $109.200.000 (entrega/go-live). Suma verificada exacta contra el total
+  ($218.400.000 × 2 + $109.200.000 = $546.000.000). Los tiles se compactaron (padding
+  22px→14px, número 27pt→22pt) para hacer espacio al desglose sin desbordar.
+* **Verificación:** antes de agregar contenido se midió que la columna de pago solo estaba
+  al 50.5% de su alto disponible (91.5px de 181.2px) — margen de sobra. Tras el agregado
+  subió a 65.2%, sin desbordar (confirmado con `getBoundingClientRect`). Barrido de overflow
+  automatizado sobre las 12 láminas (0 elementos desbordados) y export a PDF con revisión
+  visual a 300dpi de la lámina — tarjeta de inversión total legible y bien alineada, tiles
+  con el desglose correcto, sin superposiciones.
+
+---
+
 ## [2026-09-08] ajuste | Alcaldía Municipal de Girón — botón ancho de Resumen General pegado al pie de página
 
 * Tras revertir el rediseño con colores de la lámina 2 (a pedido del usuario, ver entrada
