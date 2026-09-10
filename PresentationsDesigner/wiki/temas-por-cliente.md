@@ -196,6 +196,13 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > `white-space:nowrap` — Chrome headless puede pintar un recuadro visible alrededor del texto
 > al exportar a PDF (ver `.stat-card .big` en `presentaciones/colbeef-plan-trabajo/styles.css`,
 > resuelto usando color sólido `--cyan`/`--violet` en vez de gradiente para esos elementos).
+> **Reutilizada sin cambios (2026-09-10)** en `presentaciones/colbeef-flujo-ia/` (mismo cliente,
+> documento distinto) — no se rederivó la paleta. Ese deck usa la técnica de texto en gradiente
+> vía SVG (§5.2) para **todos** sus títulos desde el primer build, no solo como mitigación
+> posterior: el patrón `<em class="gradient-text">` con texto negro en la misma línea (portada y
+> los 17 `s-title` internos) sí disparó el bug de hairline en el PDF exportado, confirmando que
+> el bug no es exclusivo de números/labels — aplica a cualquier `<em>` en gradiente mezclado con
+> texto normal en una misma línea.
 ```css
 --bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
 --bg-glow-a:rgba(217,58,46,.09); --bg-glow-b:rgba(27,94,51,.09);

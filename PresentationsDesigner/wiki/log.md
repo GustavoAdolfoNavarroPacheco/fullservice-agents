@@ -4,6 +4,37 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-10] build | Colbeef S.A.S. — Flujo Conversacional del Agente IA (18 láminas)
+
+* **Fuente:** PDF de 16 páginas compartido inicialmente por el usuario, luego reemplazado por
+  un PPTX final de 17 páginas (agregó la lámina "Flujo 4 · Despacho de Cava", ausente del PDF
+  original) — el usuario pidió explícitamente mapear **cada página del fuente 1:1** a su propia
+  lámina, sin consolidar, más una 18ª lámina de Cierre (patrón `presentaciones/giron/`).
+* **Paleta reutilizada** sin cambios de `presentaciones/colbeef-plan-trabajo/` (rojo→verde,
+  mismo cliente) — no hizo falta rederivarla del logo.
+* **Evidencia real:** se extrajeron con PyMuPDF/PIL las capturas reales embebidas en el PDF/PPTX
+  (WhatsApp, tabla de incidentes SIRT, emails de alerta, reporte de CAVA) y se enmarcaron con un
+  componente `.evidence-card` nuevo. La lámina de Flujo 4 requirió recortar 2 capturas de una
+  única imagen de página completa rasterizada (mismo patrón ya usado para Flujo 3).
+* **Bug de hairline confirmado y corregido desde el build inicial:** los 17 títulos con
+  `<em class="gradient-text">` (texto negro + gradiente en la misma línea) mostraron el
+  recuadro/subrayado de Chrome headless documentado para otros clientes — se migró toda la
+  presentación a texto en gradiente vía SVG (`<text fill="url(#gradBrand)">`), midiendo cada
+  `viewBox` real con `getBBox()` en el navegador.
+* **Iteración de diseño pedida por el usuario:** el resaltado "activo" de paneles y pasos
+  (`.panel.active`, `.pipe-item.active`) usaba un `box-shadow` de anillo sólido — el usuario lo
+  encontró "feo"; se reemplazó por tinte de fondo + sombra difusa + barra de acento más gruesa.
+  Al aplicar el mismo ajuste a `.panel::before` (una barra **lateral**, no superior, a diferencia
+  de `.pipe-item::before`) se generó un artefacto de esquina — corregido ajustando el `width` en
+  vez del `height` del pseudo-elemento equivocado.
+* **Ajuste de evidencia:** la lámina de evidencia de Flujo 2 mostraba una captura muy angosta
+  (631×98px) casi ilegible dentro de una columna igual a las otras dos — se rediseñó a un layout
+  de 2 tarjetas grandes + 1 franja angosta con leyenda vertical.
+* Registrado en `wiki/index.md`, `presentaciones/index.html` (`decksData`) y nota de reutilización
+  en `wiki/temas-por-cliente.md` — sin tile nuevo en `_temas-demo/` (paleta ya existente, no nueva).
+
+---
+
 ## [2026-09-08] ajuste | Alcaldía Municipal de Girón — inversión total agregada: $546.000.000 COP
 
 * **Cambio de política del deck:** desde el build inicial, este deck se construyó
