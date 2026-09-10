@@ -4,6 +4,27 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-10] ajuste | Colbeef S.A.S. — capturas de evidencia agrandadas (legibilidad)
+
+* El usuario reportó 5 láminas con capturas reales poco legibles (6, 7, 8, 14, 15 — antes 4, 6,
+  7, 13, 14 de la numeración previa a agregar Flujo 4). Causa raíz: paneles de texto y filas de
+  diagrama compitiendo por el alto de la lámina con las imágenes, más una captura angosta
+  (631×98px) forzada al mismo alto que sus pares en un grid de 2 filas.
+* **Componente nuevo `.step-track`:** rastreador de pasos horizontal compacto (círculos + línea,
+  ~30px de alto) que reemplaza el `.pipe-row` de tarjetas completas (~90px) en las 4 láminas de
+  Contingencia — libera ~60px de alto por lámina para las capturas.
+* Lámina 6: la captura angosta de "datos del nuevo propietario" se movió a la lámina 5 (donde sí
+  hay espacio libre bajo los chips de tags), dejando la 6 con solo 2 capturas grandes a ancho completo.
+* Láminas 7 y 8: se quitó el párrafo `s-lead` (redundante con el eyebrow) y se redujo la columna
+  de contexto (resultado/tags) para darle todo el ancho restante a las capturas.
+* **Corrección de rebote:** al vaciar la lámina 12 (ya no tenía imagen, solo texto) quedó con
+  ~50% de espacio en blanco — se agrandó la tipografía y el padding de sus dos tarjetas en vez
+  de dejar espacio vacío, siguiendo la regla de balance de espacio de `wiki/sistema-diseno.md`.
+* Verificado a 200dpi (resolución de impresión real) con PyMuPDF, no solo en pantalla — el texto
+  de las 5 capturas es legible sin necesidad de zoom adicional en el PDF.
+
+---
+
 ## [2026-09-10] build | Colbeef S.A.S. — Flujo Conversacional del Agente IA (18 láminas)
 
 * **Fuente:** PDF de 16 páginas compartido inicialmente por el usuario, luego reemplazado por
