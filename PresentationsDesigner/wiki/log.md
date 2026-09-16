@@ -4,6 +4,33 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-16] ajuste | Chico Soluciones Logísticas S.A.S. — corrección de cifra de inversión y desglose
+
+* **Cifra de inversión corregida** a pedido explícito del usuario: el build inicial usó
+  $98.699.961 (el "Total General del Proyecto" del PDF de cotización que `QuoteDeveloperV2` ya
+  había generado, cifra de costo + AIU del 10%). El usuario indicó que la cifra comercial real
+  es la celda **`Y122`** del XLSX fuente — equivalente a **`Y1 ÷ 0.6`** — que da
+  **$143.527.149**. Corregido en la lámina de Inversión y en `wiki/index.md`. Nueva regla
+  obligatoria documentada en [[flujo-trabajo]] para no repetir el error en futuros decks desde
+  `QuoteDeveloperV2`: siempre verificar `Y122`/`Y1÷0.6` en el XLSX, no confiar en el total del
+  PDF auto-generado.
+* **Desglose por módulo retirado** a pedido del usuario: se quitó el precio individual junto a
+  cada título de módulo en las 5 láminas `.merge-split` (M1-M10) y se reemplazó la cuadrícula de
+  14 chips de la lámina de Inversión por **3 tarjetas de forma de pago 40/40/20**
+  ($57.410.860 · $57.410.860 · $28.705.430) — componente nuevo `.inv-pay`/`.pay-tile`, CSS
+  `.inv-grid`/`.inv-chip` retirado por no uso.
+* **Centrado del total corregido:** el número grande de la lámina de Inversión se veía desplazado
+  a la izquierda porque el `viewBox` del SVG de texto en gradiente (técnica de §5.2 de
+  [[sistema-diseno]]) se había estimado a ojo con un ancho casi el doble del real (14250 vs
+  8029 medido) — el texto se dibujaba centrado dentro de una caja mucho más ancha que él mismo,
+  dejando espacio vacío visible a la derecha que desplazaba el glifo visualmente a la izquierda
+  del centro real. Se remidieron **los 11 `viewBox` de texto en gradiente de todo el deck**
+  vía `getBBox()` en el navegador (no solo el de Inversión) y se corrigieron todos a su ancho
+  real medido — confirma otra vez la regla ya documentada de nunca estimar el `viewBox` a ojo
+  para el build final.
+
+---
+
 ## [2026-09-16] build | Chico Soluciones Logísticas S.A.S. — Modernización Logística y Abastecimiento Penitenciario
 
 * Deck nuevo (**10 láminas**) construido a partir de la cotización final en PDF ya generada por

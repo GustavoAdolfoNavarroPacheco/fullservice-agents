@@ -52,6 +52,20 @@ Este cuestionario debe ser enviado al usuario por el agente para estructurar los
    * ¿Se mantiene el esquema de pago estándar (40% anticipo, 40% hito intermedio, 20% entrega)?
    * ¿Cuáles son los términos de garantía y soporte técnico post-despliegue?
 
+> ⛔ **Regla obligatoria (2026-09-16) — de dónde sacar el total cuando la fuente es un XLSX de
+> `QuoteDeveloperV2`:** el **PDF de "Cotización de Alcance" que la herramienta genera
+> automáticamente** trae un "Total General del Proyecto" que **puede no ser la cifra
+> comercial correcta** — en el caso de Chico Soluciones Logísticas ese PDF mostraba
+> $98.699.961 (costo + AIU del 10%), pero la cifra real a cotizar era **$143.527.149**, la de
+> la celda **`Y122`** del XLSX fuente (equivalente a `Y1 ÷ 0.6`, es decir el costo base con el
+> margen comercial completo de la herramienta, no solo el AIU). **Siempre verificar la celda
+> `Y122` (o recalcular `Y1 ÷ 0.6`) directamente en el XLSX** y usar esa cifra como el total de
+> inversión — no asumir que el PDF ya generado trae el número correcto, y si hay
+> discrepancia entre el PDF y el XLSX, confirmar con el usuario antes de construir. El
+> desglose por fase/módulo del XLSX es material de trabajo interno — **no mostrar precio por
+> módulo/sección en el deck** salvo pedido explícito del usuario; el total se presenta como
+> cifra única con el esquema de pago 40/40/20.
+
 6. **Recursos de Marca:**
    * ¿Contamos con el logotipo del cliente en formato transparente (.png o .svg)?
 
