@@ -133,7 +133,7 @@ el trabajo de construcción, despliegue y mantenimiento de esta wiki.
     > `QuoteDeveloperV2/`, y un `add` amplio arrastraría sus cambios pendientes sin querer.
 11. 🔗 **REGLA OBLIGATORIA — Compartir link:** al terminar de crear (o modificar) cualquier
     presentación, **comparto en el chat el link actualizado de Vercel**, con la forma
-    `https://fullservice-presentaciones.vercel.app/<slug>/index.html`
+    `https://fullservicepresentations.vercel.app/<slug>/index.html`
     (reemplazando `<slug>` por la carpeta real de la presentación; también accesible como URL
     limpia `.../<slug>` sin el `/index.html`).
 
