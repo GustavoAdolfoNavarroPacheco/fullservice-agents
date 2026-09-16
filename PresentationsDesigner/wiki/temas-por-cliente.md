@@ -451,6 +451,38 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > el Excel fuente traía 13 cotizaciones con costeo completo por especialidad/hora, del cual solo
 > se usó la jerarquía de alcance (módulo → submódulo → funcionalidad), nunca las cifras.
 
+### Chico Soluciones Logísticas — azul marino institucional → rosa empolvado de marca
+> Derivado del logo real (muestreo de píxeles del PNG): **azul marino** (`#044378`, wordmark
+> "CHICO") hacia el **rosa empolvado** (`#BC7B7F`, avión de papel y punto del pin de
+> ubicación), con un tercer stop de **rosa claro** (`#D9B3B6`) como parada brillante del
+> gradiente — los 3 colores exactos pedidos por el usuario. Narrativa: **confianza
+> institucional (azul) → calidez del vínculo familiar** (el negocio es, literalmente, que
+> familiares envíen encomiendas a sus seres queridos privados de la libertad). Marca **mixta**
+> (azul frío dominante + rosa cálido-neutro) → el punto "Confidencial" se pone en **ámbar**,
+> mismo criterio que Marval (paleta mono-azul). Fondo gris claro + `--bg-wash` (estándar desde
+> 2026-07-10). Usado en `presentaciones/chico/`.
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(4,67,119,.09); --bg-glow-b:rgba(188,123,127,.10);
+--bg-wash:linear-gradient(135deg, rgba(217,179,182,.08) 0%, rgba(188,123,127,.06) 46%, rgba(4,67,120,.07) 100%);
+--cyan:#3D7DB8; --blue:#044378; --violet:#8B4B52; --magenta:#6B373D;
+--grad-brand:linear-gradient(100deg,#D9B3B6 0%,#BC7B7F 46%,#044378 100%);
+--grad-cyan:linear-gradient(120deg,#D9B3B6,#BC7B7F);
+--grad-violet:linear-gradient(120deg,#BC7B7F,#044378);
+--card-border:1px solid rgba(20,25,35,.10);
+--dot-confidential:#A85A0A; --dot-confidential-glow:rgba(168,90,10,.45);
+```
+> **Nota de proceso:** el gradiente insignia se construyó primero con 4 paradas
+> "profundizadas" (siguiendo la receta estándar de contraste AA), pero el usuario pidió
+> explícitamente los 3 colores exactos muestreados del logo (`#044378`/`#BC7B7F`/`#D9B3B6`)
+> sin profundizar — se aplicaron literales en `--grad-brand`/`--grad-cyan`/`--grad-violet` y en
+> el `<linearGradient id="gradBrand">` inline del SVG, mientras `--cyan`/`--violet`/`--magenta`
+> (usados como color de texto/label, no en el gradiente) se mantienen en sus versiones
+> profundizadas AA-seguras. Primer deck con el layout de **cierre centrado tipo portada**
+> (`.cover--close`, badge + steps en línea + statement + contacto + lockup de logos) en vez del
+> layout `.cta` de 2 columnas — adaptado del patrón ya usado en `presentaciones/giron/` a
+> pedido explícito del usuario, mostrando una captura de referencia.
+
 ## 4. Aplicación
 
 - **Decks nuevos:** derivar la paleta del logo en el paso de plan (ver [[flujo-trabajo]] y

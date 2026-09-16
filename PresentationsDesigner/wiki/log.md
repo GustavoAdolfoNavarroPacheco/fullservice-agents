@@ -4,6 +4,51 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-16] build | Chico Soluciones Logísticas S.A.S. — Modernización Logística y Abastecimiento Penitenciario
+
+* Deck nuevo (**10 láminas**) construido a partir de la cotización final en PDF ya generada por
+  `QuoteDeveloperV2/cotizaciones/chico-soluciones-logisticas/` (se prefirió sobre el XLSX crudo
+  por traer el objetivo redactado, el alcance/fuera-de-alcance y el total con AIU ya incluido).
+  Proyecto: sistema de información del modelo APP de Iniciativa Privada presentado al Ministerio
+  de Justicia — canal de e-commerce controlado que sustituye el ingreso físico de encomiendas a
+  la Población Privada de la Libertad (PPL), con 4 fases transversales + 10 módulos funcionales
+  (E-commerce/Catálogo, Anti-Contrabando, RFID, Candados GPS, PPL Connect, INI/K9, Pagos,
+  Protección de Datos, Cárceles Productivas, Reportería). Inversión **$98.699.961 COP**.
+* **Plan inicial de 12 láminas bajado a 10 a pedido explícito del usuario** ("baja el número de
+  láminas a 10 inteligentemente"): se fusionaron Objetivo+Alcance+Arquitectura en una sola lámina
+  con diagrama de flujo (`.pipe-row` de 7 pasos, técnica reutilizada de `colbeef-flujo-ia/`) y se
+  movieron las 4 Fases Transversales del proyecto al desglose de la lámina de Inversión (en vez
+  de una lámina dedicada) — sin perder ningún dato real de la cotización.
+* Los 10 módulos funcionales se agruparon en **5 láminas de a 2 módulos** (`.merge-split`,
+  patrón de `presentaciones/giron/`) por afinidad temática: Comercio+Pagos, Anti-Contrabando+INI/K9,
+  RFID+Candados GPS, PPL Connect+Protección de Datos, Cárceles Productivas+Reportería. El
+  `.merge-item` base se ajustó más compacto que el de Girón (gap 5px, padding 5px/10px, texto
+  7-7.9pt) tras detectar overflow real con la mitad de 5 ítems (M1) colisionando con el footer —
+  el modificador `--roomy` (agrandado) se reserva para las mitades de 2 ítems.
+* Paleta derivada por muestreo de píxeles del logo real (azul marino `#044378` del wordmark →
+  rosa empolvado `#BC7B7F` del pin/avión de papel). **El usuario pidió explícitamente los 3 hex
+  exactos del muestreo** (`#044378`/`#BC7B7F`/`#D9B3B6`) para el gradiente insignia, sin
+  profundizarlos — se aplicaron literales en `--grad-brand`/`--grad-cyan`/`--grad-violet` y en
+  el `<linearGradient>` SVG inline, mientras los tokens de texto (`--cyan`/`--violet`/`--magenta`)
+  se mantuvieron en sus versiones AA-seguras profundizadas. Detalle en [[temas-por-cliente]].
+* **Lámina de cierre rediseñada a pedido del usuario** (mostró una captura de referencia): pasó
+  del layout `.cta` de 2 columnas (steps + contact-card) al layout centrado tipo portada
+  `.cover--close` ya usado en `presentaciones/giron/` — badge "Próxima ventana de lanzamiento:
+  ahora", título en gradiente, 3 pasos en línea con círculos numerados, statement de cierre
+  narrativo (adaptado al contexto penitenciario/APP), fila de contacto y lockup de logos
+  Campuslands×Chico. Primer deck de la familia `.internal`/single-scenario (no sidebar) en
+  adoptar este patrón de cierre.
+* **Esquinas decorativas (`.corner` tl/tr/bl/br) retiradas de portada y cierre** a pedido
+  explícito del usuario — quedan solo los `.deco-rings` de fondo en ambas láminas.
+* Verificación: preview en navegador lámina por lámina (balance de espacio corregido en
+  `.merge-item` antes de exportar) + export a PDF (10 páginas, shell oculto correctamente) +
+  lectura completa del PDF con PyMuPDF, sin hairlines ni desbordes. Registrado en `wiki/index.md`,
+  `wiki/temas-por-cliente.md`, `presentaciones/_temas-demo/index.html` y el portal
+  `presentaciones/index.html` (`decksData`), con el logo sin procesar copiado a
+  `presentaciones/assets/logos/`.
+
+---
+
 ## [2026-09-10] ajuste | Colbeef S.A.S. — capturas de evidencia agrandadas (legibilidad)
 
 * El usuario reportó 5 láminas con capturas reales poco legibles (6, 7, 8, 14, 15 — antes 4, 6,
