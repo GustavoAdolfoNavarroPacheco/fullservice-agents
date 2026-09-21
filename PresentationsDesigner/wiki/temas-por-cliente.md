@@ -506,6 +506,43 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > Plataforma se agruparon en 4 pilares conceptuales para caber en el tope sin perder alcance
 > ni repetir contenido — ver `wiki/log.md` [2026-09-21].
 
+### Land Cargo — periwinkle del ícono → azul corporativo → azul marino → gris pizarra del wordmark
+> Derivado del logo real por muestreo de píxeles: el isotipo (flecha/camión geométrico) trae dos
+> azules — **periwinkle** (`#3B78DF`, faceta clara) y **azul corporativo** (`#0047A0`, faceta
+> oscura y wordmark "CARGO"); el wordmark "LAND" es un **gris pizarra** sólido (`#504F4F`). Marca
+> monocromática **fría** (azul), igual que Marval — se separa de esa paleta por **trayectoria**:
+> Marval es azul→azul (claro a marino, sin salir del hue), mientras Land Cargo cierra el
+> `--grad-brand` en el **gris pizarra del wordmark** (`#454B57`, versión profundizada del
+> `#504F4F` real) como 4ª parada neutra en vez de otro azul — referencia visual "carretera/acero"
+> en vez de solo "corporativo". El punto "Confidencial" se pone en **ámbar** por defecto (regla de
+> seguridad, mismo criterio que Marval). Fondo gris claro + `--bg-wash` (estándar desde
+> 2026-07-10). Usado en `presentaciones/landcargo/`.
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(59,120,223,.09); --bg-glow-b:rgba(0,71,160,.09);
+--bg-wash:linear-gradient(135deg, rgba(127,174,234,.07) 0%, rgba(59,120,223,.06) 32%, rgba(0,71,160,.05) 66%, rgba(69,75,87,.07) 100%);
+--cyan:#0B3D75; --blue:#0047A0; --violet:#3B78DF; --magenta:#454B57;
+--grad-brand:linear-gradient(100deg,#7FAEEA 0%,#3B78DF 34%,#0047A0 66%,#454B57 100%);
+--grad-cyan:linear-gradient(120deg,#7FAEEA,#3B78DF);
+--grad-violet:linear-gradient(120deg,#0047A0,#454B57);
+--card-border:1px solid rgba(20,25,35,.10);
+--dot-confidential:#B4650C; --dot-confidential-glow:rgba(180,101,12,.45);
+```
+> **Nota de estructura:** documento de **alcance funcional (SRS)**, no una cotización — el
+> deck no lleva lámina de inversión. Los **11 módulos funcionales** del SRS fuente (18 páginas)
+> se fusionaron en **5 láminas `.merge-split`** por pares afines (Comercial+Hojas de Vida,
+> Despacho+Manifiestos, Cumplidos+Liquidaciones, Tráfico+Flota Propia, Tesorería+Contable/ERP)
+> más una lámina `.merge-split--trio` para transversales+no funcionales+interfaces externas y
+> otra para riesgos+fuera de alcance+próximos pasos, para caber en el tope de **10 láminas**
+> pedido explícitamente por el usuario, sin perder ningún requisito del documento fuente.
+> **Nota técnica — ancho de texto SVG en gradiente:** confirmado de nuevo (ver ya FCV/Miami Aqua
+> Tracking) que el ancho medido por `getBBox().width` puede quedar unos px corto para el glifo
+> itálico real en el export a PDF de Chrome headless — el cierre "¿Cuándo *empezamos*?" mostró el
+> signo "?" montado sobre la "s" final con el ancho medido exacto (4738); se corrigió con un
+> margen de seguridad de ~10% sobre el ancho medido (5250) en vez del valor exacto. Aplicar este
+> mismo margen en vez de usar `getBBox()` a ojo para cualquier gradiente-texto que preceda
+> texto normal en la misma línea.
+
 ## 4. Aplicación
 
 - **Decks nuevos:** derivar la paleta del logo en el paso de plan (ver [[flujo-trabajo]] y
