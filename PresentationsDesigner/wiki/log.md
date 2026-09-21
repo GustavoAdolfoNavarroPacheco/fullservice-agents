@@ -4,6 +4,20 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-21] ajuste | Landcargo S.A.S. — Dinamismo de layouts (anti-planitud)
+
+* **Motivo:** el usuario señaló que el deck se veía "plano" — 5 de las 10 láminas (03, 04, 05, 06, 07) usaban el mismo layout `.merge-split` de 2 columnas y las 2 láminas trio (08, 09) también eran visualmente idénticas entre sí. Pedido explícito: "más dinamismo" y que "la mayoría de hojas" dejaran de verse "prácticamente iguales" — sin tocar el contenido/alcance ya aprobado.
+* **4 arquetipos de layout nuevos**, todos reutilizando los tokens de marca existentes (sin tocar la paleta):
+  - `.icon-grid`/`.icon-card` (lámina 03: Comercial/CRM + Hojas de Vida) — grid de tarjetas con ícono, agrupadas por rótulo en vez de columnas partidas.
+  - `.flow-columns`/`.flow-col`/`.flow-step` (lámina 05: Cumplidos → Liquidaciones) — pasos verticales numerados y conectados por línea, con un conector `→` entre los dos encabezados de columna (no centrado contra toda la columna, sino alineado a la altura de "Cumplidos"/"Liquidaciones" — ver nota de UX abajo).
+  - `.merge-item--ic` (láminas 06 y 08) — variante de `.merge-item` con badge de ícono circular en gradiente de marca en vez de solo el borde izquierdo; en la lámina 09 se aplicó además `.merge-item--warn` (ícono de alerta) solo a la columna "Riesgos Identificados", diferenciándola de "Fuera de Alcance" (texto plano) y "Próximos Pasos" (convertida a `.flow-col` de pasos numerados) — 3 tratamientos distintos dentro de una misma lámina trio.
+  - `.split-asym` (lámina 07: Tesorería + Contable/ERP) — panel angosto de marca (ícono grande + `.flow-col--solo`) a la izquierda, grid de tarjetas ancho a la derecha, en vez de 2 columnas parejas.
+  - Iconografía nueva: ~28 íconos de línea (stroke, 24×24) dibujados a mano para los conceptos del SRS (RUN, semáforo, geocerca, FOPAC, DIAN, RNDC, etc.), sin librería externa.
+* **Animaciones de entrada por ítem (regla nueva, reutilizable):** `@keyframes itemFadeUp` + `nth-child` stagger aplicado a `.merge-item`, `.icon-card`, `.pipe-item` y `.flow-step` — como el shell alterna `.slide{display:none↔block}`, las animaciones CSS se re-disparan solas cada vez que se revisita una lámina (sin JS adicional). `@media print{ *{animation:none!important} }` agregado al bloque de impresión para que el PDF capture siempre el estado final, nunca un frame a medias.
+* **2 rondas de corrección de balance de espacio** (verificación PDF página por página, no solo en navegador): lámina 05 dejaba ~35% de vacío abajo (se centró verticalmente el `.flow-col` y se agrandaron los pasos); lámina 03 con el primer tamaño de `.icon-card` se desbordaba sobre el footer (se recalibró el padding/tipografía a un punto medio); lámina 07 con el primer tamaño de `.split-asym__side` desbordaba el panel angosto sobre el footer (se compactó `.flow-col--solo` y se acortaron 2 descripciones).
+* **Corrección de UX del conector (pedido explícito del usuario tras ver la lámina 05):** el `→` entre "Cumplidos" y "Liquidaciones" se centraba inicialmente contra la altura total de la columna (encabezado + 5 pasos), quedando visualmente a la altura del paso 3 sin relación clara con nada. Se rediseñó para anclarse a la altura de los encabezados de columna — ahora lee literalmente "Cumplidos → Liquidaciones", más intencional que un punto medio aritmético.
+* **Sin cambios de alcance, contenido ni paleta** — las 10 láminas, el PDF (re-exportado) y el link de Vercel siguen igual; solo cambió el tratamiento visual de 6 láminas.
+
 ## [2026-09-21] build | Landcargo S.A.S. — Sistema Integrado TMS + ERP a la Medida
 
 * **Fuente:** "Toma de Requerimientos - TMS ERP Landcargo.pdf" (18 páginas, SRS elaborado a partir de la transcripción de la sesión del 09/09/2026) para la transformación de Landcargo de operador **2PL a 4PL**. Documento de alcance funcional puro — sin cifras de inversión, sin lámina de inversión en el deck.
