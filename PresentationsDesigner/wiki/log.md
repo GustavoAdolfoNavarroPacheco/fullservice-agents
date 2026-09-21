@@ -4,6 +4,18 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-21] build | Financiera Comultrasan — Agente de IA Generativa para el Sistema Normativo Interno
+
+* **Fuente:** SRS de 41 puntos ("Toma de Requerimientos - Agente IA Normativo Comultrasan.docx") + cotización ya existente en `QuoteDeveloperV2/cotizaciones/comultrasan-normativo/` (11 módulos funcionales que mapean casi 1:1 con las secciones del SRS).
+* **Restricción explícita del usuario:** máximo 10 láminas. Los 11 módulos se fusionaron en bloques temáticos: Ingesta+Procesamiento (M1+M2, `.merge-split` estándar), Búsqueda Híbrida+RAG+Citación (M3+M4+M5, layout nuevo de 3 columnas `.merge-split--trio`), Omnicanal+Integración (M6+M7) y Seguridad+Telemetría+Auditoría (M8+M9+M10, también trio). El módulo M11 (Transferencia de Conocimiento) no tiene lámina propia — se condensó como una línea en la nota de la lámina de Inversión.
+* **Componentes nuevos de sistema de diseño:** `.tier-wrap`/`.tier-row` (lista jerárquica compacta para la Taxonomía Normativa: 6 tipologías con código oficial y descripción), `.kpi-grid`/`.kpi-card` (tira de métricas contractuales, reutilizado también como grid de 4 estadísticas de diagnóstico con el modificador `.kpi-grid--4`), `.route-row`/`.route-tile` (4 fases de hoja de ruta en fila compacta sobre la lámina de Inversión) y `.merge-split--trio` (variante de 3 columnas de `.merge-split` para módulos que no caben en pares).
+* **Inversión:** verificada contra la celda **Y122** del XLSX fuente = **$180.637.460 COP** (`Y1 ÷ 0.6`) — el PDF de "Cotización de Alcance" que la herramienta genera automáticamente trae $108.382.476 como "TOTAL", que es solo el costo base `Y1` sin el margen comercial completo; se siguió la regla de [[flujo-trabajo]] de siempre verificar `Y122` en vez de asumir el PDF ya generado. Pago 40/40/20 ($72.254.984 · $72.254.984 · $36.127.492).
+* **Paleta:** reutilizada sin cambios de `comultrasan-orbit/` (teal `#0B6667` → verde/lima `#8DC63F`, derivada del logo) — mismo cliente, consistencia de marca entre sus dos proyectos de IA distintos (este es el agente normativo interno; `comultrasan-orbit/` es el agente Orbit para WhatsApp/precalificación de crédito).
+* Assets del deck (logo del cliente ya recortado con reconstrucción de alfa, favicon, fuentes) copiados de `comultrasan-orbit/` y `chico/` en vez de reprocesarse desde cero, al ser reutilizables tal cual.
+* Registrado en `wiki/index.md` y el portal `presentaciones/index.html` (al inicio de `decksData`). No requirió tile nuevo en `presentaciones/_temas-demo/index.html` ni entrada nueva en `wiki/temas-por-cliente.md` — la paleta Comultrasan ya estaba catalogada ahí desde `comultrasan-orbit/`.
+
+---
+
 ## [2026-09-21] build | Unidrogas S.A. — Automatización de Contenidos y Formación con IA
 
 * **Fuente:** un solo Excel (`FullServices NAL 2026.xlsx`) con dos hojas de cotización independientes — "Unidrogas Video" y "Unidrogas Plataforma" — presentadas en ese orden a pedido del usuario.
