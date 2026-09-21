@@ -4,6 +4,23 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-09-21] build | Unidrogas S.A. — Automatización de Contenidos y Formación con IA
+
+* **Fuente:** un solo Excel (`FullServices NAL 2026.xlsx`) con dos hojas de cotización independientes — "Unidrogas Video" y "Unidrogas Plataforma" — presentadas en ese orden a pedido del usuario.
+* **Restricción explícita del usuario:** máximo 10 láminas + validación de que ningún contenido se repitiera entre láminas. Se resolvió agrupando los 10 módulos de la Plataforma en 4 pilares conceptuales, con una lámina de "mapa de alcance" que solo lista nombres (índice) y láminas de detalle separadas que solo desarrollan descripciones — cada bullet/cifra aparece una única vez en todo el deck.
+* **Inversión:** Video $27.393.825 COP · Plataforma $43.358.206 COP, ambas = `Y1 ÷ 0.7` de su hoja (este Excel usa margen 0.7, no 0.6 como QuoteDeveloperV2 — ver celdas `Y62`/`Y107`). Lámina de cierre aclara que la cifra de Video se cotiza aparte, sin repetirla.
+* **Paleta:** azul `#00ADEF` → verde lima `#A6CE3A`, muestreada por píxeles del logo (2 colores puros, sin variantes intermedias) — marca 100% fría, punto "Confidencial" en ámbar por defecto.
+* Registrado en `wiki/index.md`, `wiki/temas-por-cliente.md`, `presentaciones/_temas-demo/index.html` y el portal `presentaciones/index.html` (al inicio de `decksData`).
+
+---
+
+## [2026-09-21] ajuste | Estándar de orden más reciente primero con fecha en portal principal
+
+* **Portal Principal (`presentaciones/index.html`):** Implementación de orden cronológico por defecto de más reciente a más antigua de arriba para abajo, visualización de fechas de desarrollo en cada tarjeta (`.badge-date` y `.meta-pill.date-pill`) y nuevo control interactivo estilizado (`.btn-sort` y menú flotante) para alternar entre "Más reciente a más antiguo" y "Más antiguo a más reciente".
+* **Comportamiento del Agente (`CLAUDE.md`, `wiki/flujo-trabajo.md`, `wiki/despliegue.md`):** Actualizada la Regla 3 obligatoria del agente: toda nueva presentación debe registrarse insertándola **en la parte superior (al inicio) del arreglo `decksData` como la más reciente**, acompañada obligatoriamente de sus propiedades de fecha (`date` y `dateFormatted`).
+
+---
+
 ## [2026-09-16] ajuste | Chico Soluciones Logísticas S.A.S. — corrección de cifra de inversión y desglose
 
 * **Cifra de inversión corregida** a pedido explícito del usuario: el build inicial usó

@@ -483,6 +483,29 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > layout `.cta` de 2 columnas — adaptado del patrón ya usado en `presentaciones/giron/` a
 > pedido explícito del usuario, mostrando una captura de referencia.
 
+### Unidrogas — azul de marca → verde lima (isotipo "uni" + wordmark "drogas s.a.")
+> Derivado del logo real por muestreo de píxeles: solo **2 colores puros**, sin variantes
+> intermedias — **azul** `#00ADEF` (isotipo "uni") y **verde lima** `#A6CE3A` (cuadro del
+> punto de la "i" y wordmark "drogas s.a."). Marca **100% fría** (azul + verde, sin ningún
+> hue cálido) → el punto "Confidencial" se queda en **ámbar** por defecto (regla de
+> seguridad, mismo criterio que Comultrasan). Fondo gris claro + `--bg-wash` (estándar desde
+> 2026-07-10). Usado en `presentaciones/unidrogas/`.
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(0,173,239,.09); --bg-glow-b:rgba(166,206,58,.10);
+--bg-wash:linear-gradient(135deg, rgba(0,173,239,.07) 0%, rgba(77,200,245,.05) 32%, rgba(166,206,58,.05) 66%, rgba(127,168,41,.07) 100%);
+--cyan:#0A6E93; --blue:#0089C4; --violet:#5C8A1E; --magenta:#3F5C12;
+--grad-brand:linear-gradient(100deg,#4DC8F5 0%,#00ADEF 38%,#A6CE3A 72%,#7FA829 100%);
+--grad-cyan:linear-gradient(120deg,#4DC8F5,#00ADEF);
+--grad-violet:linear-gradient(120deg,#A6CE3A,#7FA829);
+--card-border:1px solid rgba(20,25,35,.10);
+--dot-confidential:#F5A623; --dot-confidential-glow:rgba(245,166,35,.45);
+```
+> **Nota de estructura:** deck de **10 láminas** (tope explícito del usuario) que reúne dos
+> cotizaciones independientes del mismo Excel (Video + Plataforma). Los 10 módulos de la
+> Plataforma se agruparon en 4 pilares conceptuales para caber en el tope sin perder alcance
+> ni repetir contenido — ver `wiki/log.md` [2026-09-21].
+
 ## 4. Aplicación
 
 - **Decks nuevos:** derivar la paleta del logo en el paso de plan (ver [[flujo-trabajo]] y
