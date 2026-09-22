@@ -451,7 +451,8 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > el Excel fuente traía 13 cotizaciones con costeo completo por especialidad/hora, del cual solo
 > se usó la jerarquía de alcance (módulo → submódulo → funcionalidad), nunca las cifras.
 > **Reutilizada sin cambios en `presentaciones/giron-cobro-coactivo/` (2026-09-22):** deck
-> individual (10 láminas, tope explícito del usuario) construido a partir de un XLSX nuevo de
+> individual (9 láminas, tope reducido de 10 a 9 en la misma sesión al fusionar Inversión con
+> Equipo/Cronograma y retirar la lámina de cierre/contacto) construido a partir de un XLSX nuevo de
 > cotización con una sola hoja ("Cobro Coactivo", ~190 funcionalidades en 14 submódulos) — a
 > diferencia del XLSX del catálogo general, aquí `Y1` (`=SUMIFS(...)`) ya es el total con margen
 > comercial completo incluido, verificado contra `AC1` (`=SUM(AC2:AC219)`), sin necesitar la
