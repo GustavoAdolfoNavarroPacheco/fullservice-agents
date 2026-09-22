@@ -450,6 +450,20 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 > **Sin ninguna cifra de inversión/precio** en ninguna lámina, a pedido explícito del usuario —
 > el Excel fuente traía 13 cotizaciones con costeo completo por especialidad/hora, del cual solo
 > se usó la jerarquía de alcance (módulo → submódulo → funcionalidad), nunca las cifras.
+> **Reutilizada sin cambios en `presentaciones/giron-cobro-coactivo/` (2026-09-22):** deck
+> individual (10 láminas, tope explícito del usuario) construido a partir de un XLSX nuevo de
+> cotización con una sola hoja ("Cobro Coactivo", ~190 funcionalidades en 14 submódulos) — a
+> diferencia del XLSX del catálogo general, aquí `Y1` (`=SUMIFS(...)`) ya es el total con margen
+> comercial completo incluido, verificado contra `AC1` (`=SUM(AC2:AC219)`), sin necesitar la
+> fórmula `Y1÷0.6`/celda `Y122` de otros clientes (ver [[flujo-trabajo]]). **Inversión
+> $99.295.169 COP**, pago 40/40/20. Mismo shell estándar de header/footer de un solo escenario
+> (no el sidebar retráctil del catálogo general, por ser un deck de un solo proyecto) con 8
+> arquetipos de layout distintos en 9 láminas de contenido (pipe-row, merge-split, split-asym,
+> merge-split--trio ×2, flow-columns, icon-grid doble, sys-split, cover--close) a pedido
+> explícito del usuario de "más dinamismo, que no sea plano". Copy narrado explícitamente desde
+> la perspectiva del Alcalde/Despacho (certeza jurídica, trazabilidad, recursos para inversión
+> social, visibilidad directiva) en vez de lenguaje corporativo de ROI. Reutiliza logo, favicon y
+> fuentes ya recortados de `presentaciones/giron/assets/` sin reprocesar.
 
 ### Chico Soluciones Logísticas — azul marino institucional → rosa empolvado de marca
 > Derivado del logo real (muestreo de píxeles del PNG): **azul marino** (`#044378`, wordmark
