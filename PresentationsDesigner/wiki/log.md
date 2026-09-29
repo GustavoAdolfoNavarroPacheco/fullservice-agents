@@ -1781,3 +1781,9 @@ regeneró `gaspais-chilco.pdf`.
 * Textos del usuario corregidos ortográficamente ("irán", "específicos", "técnica", "operación") y sin mayúsculas indebidas.
 * Sigue sin resolver: la etiqueta "Revisión actual" de la lámina 2 ya no describe el contenido de esa tarjeta.
 
+## [2026-09-29] ajuste | Globant — lámina 6 "Lo que nos están pidiendo hoy las empresas"
+* Nueva última lámina con 5 soluciones del portafolio (Plataforma LMS KHC, Agente maestro con IA, Nébula, Agente con IA de RR. HH., Facturación electrónica), cada una con descripción y "¿Qué incluye?". Distribución tomada de la imagen del usuario: 3 columnas, tarjetas con ícono circular y título; el LMS ocupa dos filas por ser la de más contenido (5 tarjetas no llenan una cuadrícula 3×2).
+* Título corregido de "no están pidiendo" a "nos están pidiendo" (errata evidente). En Facturación se quitó el inciso "según la descripción del portafolio" (nota interna, no texto de cara al cliente) y se fusionaron bullets que repetían la descripción (Agente maestro, Facturación) para que todo cupiera sin bajar de 8 pt.
+* No se incluyó la franja inferior de beneficios de la imagen de referencia porque el usuario no entregó ese contenido.
+* Verificación: PDF de 6 páginas, sin fuentes de respaldo, lectura visual sin desbordes contra el footer.
+
