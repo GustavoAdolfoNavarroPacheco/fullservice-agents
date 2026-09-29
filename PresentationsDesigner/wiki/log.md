@@ -1772,3 +1772,12 @@ regeneró `gaspais-chilco.pdf`.
 * Cifras del Excel citadas con hoja/celda (`06_P&G`, `08_CAPEX`, `09_Info_Socios`). Se dejó en la lámina 3 que la nómina de desarrolladores del P&G es "Sin DOJO". No se calcularon cifras derivadas (p. ej. 5 células × 10–15 personas) porque contradicen el dimensionamiento de 3–4 seniors para 38 chicos: pendiente de aclarar con el usuario.
 * Pendientes: razón social completa de Globant para el `<title>`; confirmar que el Excel es el escenario recalibrado; el `git push` de `presentaciones/` devolvió 403 (Claude GitHub App sin acceso a la org) — el commit queda local.
 * Lección: el export a PDF caía a Georgia/Times en pesos de Playfair no usados en la lámina activa; corregido con `preloadAllFonts()` + `--virtual-time-budget`.
+
+## [2026-09-29] ajuste | Globant — recorte a 5 láminas y nuevos textos (a pedido del usuario)
+* Pie de página de todas las internas: "Exploramos · Despegamos · Conquistamos" + "Propuesta Globant Dojo · Campuslands".
+* Portada: se eliminaron la etiqueta superior, la píldora de subtítulo, la segunda línea del título y el kicker; queda "Dojo × Globant" (60pt, Globant en gradiente) y "Preparado por: Campuslands S.A.S. BIC".
+* Lámina 2 reescrita (talento senior, productos escalables, licencias por sector, SaaS/ERP/CRM); el título baja a 20pt en una línea. Lámina 4: "Un senior, diferentes proyectos" y "2–3 juniors y mid-juniors por proyecto" (también en el texto de cada fila, para mantener coherencia).
+* Láminas 5 y 6 unificadas: de la 6 solo pasan los dos textos indicados (sin la cifra 38, sin la matriz de puntos, sin la tarjeta oscura de "3–4 seniors"). Láminas 7–10 eliminadas (el deck queda sin cierre).
+* Textos del usuario corregidos ortográficamente ("irán", "específicos", "técnica", "operación") y sin mayúsculas indebidas.
+* Sigue sin resolver: la etiqueta "Revisión actual" de la lámina 2 ya no describe el contenido de esa tarjeta.
+
