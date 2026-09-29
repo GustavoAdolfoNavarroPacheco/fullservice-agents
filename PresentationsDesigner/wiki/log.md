@@ -1787,3 +1787,9 @@ regeneró `gaspais-chilco.pdf`.
 * No se incluyó la franja inferior de beneficios de la imagen de referencia porque el usuario no entregó ese contenido.
 * Verificación: PDF de 6 páginas, sin fuentes de respaldo, lectura visual sin desbordes contra el footer.
 
+## [2026-09-29] ajuste | Globant — rediseño de la lámina 6 (mosaico dinámico)
+* A pedido del usuario ("no me pareció el diseño… más dinámica, mejor distribución, quita el pie de página y los logos de arriba si es necesario"): la lámina 6 pasa a **pantalla completa, sin header de logos ni footer** (se pierde también el número de página en esa lámina; la barra superior del shell interactivo sigue mostrando los logos).
+* Composición tipo mosaico: LMS KHC como tarjeta **negra a doble altura** (ancla, eco del wordmark, halo lima), Agente maestro y Facturación en **blanco**, Nébula y Agente de RR. HH. en **verde lima con tinta negra** (contraste alto), insignias 01–05, chip "5 soluciones" y chevrón decorativo.
+* Con los ~85 px recuperados la tipografía subió de ~8 pt a 8,5–9,3 pt y se restauraron los bullets originales del LMS (los fusionados en Agente maestro y Facturación se mantienen para que quepan).
+* Lección de layout: en una cuadrícula `1fr 1fr` con contenido variable, el `min-content` de las filas hace que la cuadrícula se salga de la lámina aunque el contenedor tenga `min-height:0`; se resolvió recortando tipografía/márgenes hasta que las filas cupieran, y verificando el borde inferior en el PDF.
+
