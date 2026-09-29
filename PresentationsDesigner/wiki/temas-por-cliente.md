@@ -318,6 +318,34 @@ Usado sin logo oficial (evento/boletería, sin PNG de marca): wordmark recreado 
 --dot-confidential:#C2570A; --dot-confidential-glow:rgba(194,87,10,.45);
 ```
 
+### Globant — lima de la flecha → oliva → bosque, con el negro del wordmark como ancla
+> Derivado del logo real: wordmark negro `#000000` + flecha verde lima `#BED731` (muestreo de
+> píxeles del PNG). Marca **fría** → punto confidencial en **ámbar**. Se separa de GreenMetal
+> (lima→teal) y Mchaileh (hoja→esmeralda) por trayectoria: lima→oliva→bosque, **sin cian ni
+> esmeralda**. El lima puro no sirve para texto sobre claro (~1.5:1), así que: texto de color en
+> oliva profundo `#5A7410` (~5.3:1) y texto en gradiente SVG con paradas más profundas
+> (`#6E9418`→`#2E4A12`); el lima vivo queda para píldoras, barras y fondos de íconos donde el
+> texto encima es **tinta negra** (`--ink`), nunca blanco. Íconos/números en negro+lima
+> (`--ink`/`--lime`) replican el logo. Usado en `presentaciones/globant-dojo/`.
+```css
+--bg-0:#F2F3F5; --bg-1:#E9EBEF; --bg-2:#FFFFFF; --bg-deep:#E2E4E9;
+--bg-glow-a:rgba(190,215,49,.12); --bg-glow-b:rgba(46,74,18,.08);
+--bg-wash:linear-gradient(135deg, rgba(190,215,49,.08) 0%, rgba(148,183,37,.06) 34%, rgba(95,138,26,.05) 66%, rgba(46,74,18,.07) 100%);
+--ink:#14161B; --lime:#BED731; --olive:#7FA21B; --forest:#2E4A12;
+--cyan:#5A7410; --blue:#6E9418; --violet:#2E4A12; --magenta:#1F3A0C;
+--grad-brand:linear-gradient(100deg,#BED731 0%,#94B725 36%,#5F8A1A 70%,#2E4A12 100%);
+--grad-cyan:linear-gradient(120deg,#BED731,#7FA21B);
+--grad-violet:linear-gradient(120deg,#7FA21B,#2E4A12);
+--dot-confidential:#C98A00; --dot-confidential-glow:rgba(201,138,0,.45);
+```
+> **Nota técnica — fuentes en el export a PDF (2026-09-29):** las `@font-face` de láminas ocultas
+> (`display:none` en el shell) **no se descargan solas**, y `--print-to-pdf` exporta antes de que
+> carguen: los pesos Playfair 700/400-itálica y Poppins 600 caían a Georgia/Times en títulos y
+> citas (el PDF de FCV ya trae `Georgia-Bold`/`Georgia-Italic` por esto). Solución aplicada en
+> `globant-dojo/script.js`: `preloadAllFonts()` fuerza `face.load()` en todas las fuentes al
+> `DOMContentLoaded`, y el export usa `--virtual-time-budget=8000`. Verificar con `pymupdf`
+> (`get_fonts()`) que no aparezca `Liberation*`/`Georgia*`. Los decks previos no se retocan.
+
 ### FCV — teal clínico → verde vital → dorado energía → magenta/burdeos cardio
 > Derivado del logo real: el isotipo (árbol/corazón de hojas) trae **6 colores** — el más diverso
 > tematizado hasta ahora (teal `#009CB4`, verde `#78B448`, dorado `#F0A830`, magenta `#E43084`,

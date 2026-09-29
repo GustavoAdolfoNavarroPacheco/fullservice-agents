@@ -1765,3 +1765,10 @@ regeneró `gaspais-chilco.pdf`.
   borde de cada lámina Y gap positivo contra el footer en las 7 láminas internas; sin errores de
   consola; crops a 150–300dpi confirman paleta violeta, wordmark y ausencia de hairlines.
 
+## [2026-09-29] build | Globant — Dojo × Globant (modelo de células y supervisión), 10 láminas
+* Brief: notas de reunión + Excel *Proyección Financiera Campuslands–Globant V2*. Límite de 10 láminas pedido por el usuario: se fusionaron "punto de partida + recalibración" y "escenario financiero + alianza 70/30".
+* Carpeta `presentaciones/globant-dojo/` (slug corto), paleta lima/oliva/bosque + negro (ver [[temas-por-cliente]]), fondo gris claro frío con wash lima, shell interactivo de un solo escenario, PDF de 10 páginas.
+* Registrado en las 3 ubicaciones: `wiki/index.md`, tile en `_temas-demo` + bloque en `temas-por-cliente.md`, entrada `decksData` en el portal + logo crudo en `assets/logos/Globant.png`.
+* Cifras del Excel citadas con hoja/celda (`06_P&G`, `08_CAPEX`, `09_Info_Socios`). Se dejó en la lámina 3 que la nómina de desarrolladores del P&G es "Sin DOJO". No se calcularon cifras derivadas (p. ej. 5 células × 10–15 personas) porque contradicen el dimensionamiento de 3–4 seniors para 38 chicos: pendiente de aclarar con el usuario.
+* Pendientes: razón social completa de Globant para el `<title>`; confirmar que el Excel es el escenario recalibrado; el `git push` de `presentaciones/` devolvió 403 (Claude GitHub App sin acceso a la org) — el commit queda local.
+* Lección: el export a PDF caía a Georgia/Times en pesos de Playfair no usados en la lámina activa; corregido con `preloadAllFonts()` + `--virtual-time-budget`.
