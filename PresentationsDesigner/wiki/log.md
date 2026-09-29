@@ -1793,3 +1793,8 @@ regeneró `gaspais-chilco.pdf`.
 * Con los ~85 px recuperados la tipografía subió de ~8 pt a 8,5–9,3 pt y se restauraron los bullets originales del LMS (los fusionados en Agente maestro y Facturación se mantienen para que quepan).
 * Lección de layout: en una cuadrícula `1fr 1fr` con contenido variable, el `min-content` de las filas hace que la cuadrícula se salga de la lámina aunque el contenedor tenga `min-height:0`; se resolvió recortando tipografía/márgenes hasta que las filas cupieran, y verificando el borde inferior en el PDF.
 
+## [2026-09-29] ajuste | Globant — portada centrada y lámina 7 "¿Cuándo empezamos?"
+* Portada rediseñada a pedido del usuario: logo Campuslands × logo Globant centrados, título "Modelo de desarrollo con dojo" (la palabra "con" al 50 % del tamaño, cursiva, en gris), píldora en gradiente, metadatos en 3 columnas centradas (Preparado para / Preparado por / Fecha "2026"). Se eliminó "Versión v1.0". Para que no se viera vacía: logos y título más grandes, anillos concéntricos centrados en SVG (los anillos por CSS con `transform` salieron descentrados) y chevrones simétricos a los lados.
+* Nueva lámina 7 "¿Cuándo empezamos?" siguiendo la imagen de cierre de Landcargo: eyebrow, título con "empezamos" en gradiente, 3 pasos numerados, párrafo, ambos logos y sin bloque de contacto. Conserva el badge Confidencial arriba a la derecha y el pie de página.
+* El contenido de los pasos y del párrafo NO lo dio el usuario: se adaptó del ejemplo de Landcargo sin su compromiso específico ("3 días hábiles") ni sus datos. Queda por confirmar con el usuario.
+
