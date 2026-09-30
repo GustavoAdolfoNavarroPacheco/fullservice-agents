@@ -1821,3 +1821,7 @@ regeneró `gaspais-chilco.pdf`.
 ## [2026-09-30] ajuste | Globant — lámina 3, signo "+" antes del 30 %
 * A pedido del usuario la tarjeta "Escalabilidad del negocio" muestra "4,7 % → +30 %" (se añadió el "+" entre la flecha y el 30 %). El 30 % sigue sin coincidir con el Excel (margen neto año 3 = 39,8 %; acumulado = 34,5 %); pendiente de confirmar con el usuario.
 
+## [2026-09-30] ajuste | Globant — lámina 7, nuevo título "Propuesta de inicio: octubre 2026"
+* A pedido del usuario el título "¿Cuándo empezamos?" se reemplaza por "Propuesta de Inicio: Octubre 2026". Se normalizó la ortografía ("inicio" y "octubre" en minúscula, como pide el español) y se partió en dos líneas ("Propuesta de inicio:" en tinta, "octubre 2026" en gradiente) porque en una sola línea no cabía a 50 pt.
+* Sigue sin tocar el texto pequeño superior "Próximo paso: propuesta técnica y económica", que ahora convive con el paso 2 "Propuesta aprobada" y el título de inicio en octubre 2026: pendiente de confirmar con el usuario si debe cambiar.
+
