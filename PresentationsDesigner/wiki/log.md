@@ -1808,3 +1808,13 @@ regeneró `gaspais-chilco.pdf`.
 * Respaldo del 34 %: es el margen neto acumulado a 3 años del Excel (`06_P&G!F45` = 0,3449 = F40/F6, utilidad neta 6.078,9 M / ingresos 17.625 M). Se aclaró en la nota al pie de la lámina ("34 %: margen neto acumulado a 3 años") y se acortó esa nota para que siguiera ocupando 4 líneas y no empujara la tarjeta contra el pie de página.
 * Observación: la tarjeta vecina "Margen neto" (4,7 % → 39,8 %) y esta ya hablan del mismo indicador (por año vs. acumulado), y la tarjeta "Utilidad neta por socio" sigue mostrando montos en COP (4.255 M / 1.824 M). No se tocaron por no haberse pedido.
 
+## [2026-09-30] ajuste | Globant — lámina 4 rediseñada (árbol) y "KHC" fuera de la lámina 6
+* Lámina 4 rediseñada según el boceto y la conversación del usuario: arriba **Senior Globant** (cápsula negra, eco de la elipse del boceto) → barra transversal **"Células de trabajo"** (con "Cada célula: 2 juniors, máximo 3") → **5 ramas** (Célula 1–5, cada una con 2 juniors y un tercero punteado = máximo 3, y su "Proyecto n") → barra inferior lima **"5 proyectos simultáneos diferentes"**.
+* Se quitó todo "mid-junior": el usuario explicó que no se pueden garantizar perfiles intermedios porque el staffing es en su gran mayoría junior. Se eliminaron también las cajas "2–3 juniors y mid-juniors por proyecto" y las filas "Proyecto n / 2 a 3 …".
+* Lámina 6: "Plataforma LMS KHC" → "Plataforma LMS" (los clientes no entenderían el término interno). También se quitó "KHC" del portal (descripción y palabras clave) y del índice de la wiki.
+* De la conversación NO se aplicó (no se pidió y el resumen está transcrito por IA y es ambiguo): reordenar los productos según Diego (LMS, agente maestro con IA, "Orbit con llamadas", agente de RR. HH. "en Casablanca y Nébula", facturación electrónica), fusionar/quitar la lámina 5 ni agregar una sección de legalizaciones. Queda para confirmar con el usuario.
+
+## [2026-09-30] ajuste | Globant — lámina 3, tarjeta de margen como "Escalabilidad del negocio" (4,7 % → 30 %)
+* A pedido del usuario la tarjeta "Margen neto" (4,7 % → 39,8 %) pasa a **"Escalabilidad del negocio"**: "4,7 % → 30 %" y la frase "Un negocio que inicia en 4,7 % de margen neto y llega hasta un 30 %". Se quitó el detalle "año 2: 37,7 %".
+* ⚠️ **El 30 % no sale del Excel.** `06_P&G` fila 45 (Margen NETO): año 1 = 4,7 %, año 2 = 37,7 %, año 3 = 39,8 %, acumulado 3 años = 34,5 %. El 30 % lo dio el usuario. La nota al pie de la lámina sigue citando el Excel como fuente, y la tarjeta vecina dice "Escalabilidad que llega al 34 %": dos tarjetas contiguas con metas distintas (34 % y 30 %). Pendiente de confirmar con el usuario si el 30 % es una meta conservadora deliberada y, de serlo, aclararlo en la nota.
+
