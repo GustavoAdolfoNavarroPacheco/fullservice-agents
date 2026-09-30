@@ -1825,3 +1825,6 @@ regeneró `gaspais-chilco.pdf`.
 * A pedido del usuario el título "¿Cuándo empezamos?" se reemplaza por "Propuesta de Inicio: Octubre 2026". Se normalizó la ortografía ("inicio" y "octubre" en minúscula, como pide el español) y se partió en dos líneas ("Propuesta de inicio:" en tinta, "octubre 2026" en gradiente) porque en una sola línea no cabía a 50 pt.
 * Sigue sin tocar el texto pequeño superior "Próximo paso: propuesta técnica y económica", que ahora convive con el paso 2 "Propuesta aprobada" y el título de inicio en octubre 2026: pendiente de confirmar con el usuario si debe cambiar.
 
+## [2026-09-30] ajuste | Globant — lámina 6, se quita el "01" del LMS
+* A pedido del usuario se elimina el numeral fantasma "01" de la tarjeta negra del LMS; se conserva el resplandor lima de la esquina inferior derecha (`.sol.ink::after`). Los indicadores "01 · …" junto al título de cada tarjeta se mantienen.
+
