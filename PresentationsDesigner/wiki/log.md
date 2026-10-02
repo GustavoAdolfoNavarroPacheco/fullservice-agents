@@ -1849,3 +1849,15 @@ regeneró `gaspais-chilco.pdf`.
 * **Decisiones:** (1) el logo de Globant solo existe en versión oscura/lima → en láminas oscuras el co-branding va sobre una **placa arena** con ambos logos a color (se prefiere a recolorear el logo del cliente, prohibido p.16); (2) el portafolio (LMS, facturación, agentes) se partió en 3 láminas por la densidad de Roboto Mono; (3) no se registró en el portal.
 * **Mejora al verificador:** nueva comprobación «imagen vs contenedor» (detectó logos de cliente que desbordaban su tarjeta; probada con desbordes de 30 px y 7 px).
 * **Límite observable:** las alturas de los logos son iguales (medido), pero el de Globant (5,09 : 1) se ve más ancho que el de Campuslands a color (3,20 : 1); la regla R2 se midió por altura.
+
+## [2026-10-02] ajuste | Reglas del usuario tras revisar `globant-dojo-v3`: tema claro, «×», peso visual, sin «Confidencial»
+* **Pedido (a nivel agente + plantilla + deck de prueba):**
+  - **Tema claro obligatorio** en la web y en la presentación → todo fondo de lámina es **arena**; el visor (barras y página) también. Navy/violeta pasan a ser solo tarjetas/franjas/acentos.
+  - **Eliminar** el tag «Confidencial» (visor y portada/cierre).
+  - **Portada:** reemplazar los chevrones laterales `<`/`>` por **figuras difuminadas** (`.blob`); reemplazar la línea divisoria entre logos por una **«×»** (Campuslands × Cliente), **siempre centrada en vertical**; pie en **Poppins** (en lugar de Roboto Mono) y «Fecha» = **Mes y Año**.
+  - **Logos:** Globant se veía notoriamente más grande que Campuslands con la misma altura → igualar el **peso visual**.
+* **Decisión técnica sobre el tamaño (mía, a confirmar con el usuario):** se iguala el **área de la caja recortada** (±6 %): alto del cliente = alto de Campuslands × √(ratio_Campuslands/ratio_cliente). Globant 5,09 : 1 y Campuslands 3,20 : 1 → k = 0,7925 (30 px → 23,8 px en cabecera; 64 px → 50,7 px en portada). Es una métrica geométrica; el peso percibido sigue confirmándose **a la vista**. Herramienta nueva: `herramientas/igualar_logos.py`.
+* **Decisión mía a confirmar:** «tema claro» se interpretó como **fondo arena** (el color claro de la paleta; el blanco no es color de marca) y se conservaron **tarjetas navy/violeta** como acentos sobre la arena.
+* **Herramientas:** `verificar_deck.py` ahora rechaza `data-bg` ≠ `sand` y fondos oscuros (lámina y visor), la palabra «Confidencial», el separador `.sep`, la «×» ausente o descentrada (>2 px) y la fecha sin mes; mide el peso visual por **área** (±6 %) en lugar de la altura; tolera hasta 30 % de hueco entre bloques en portada/cierre.
+* **Archivos:** `CLAUDE.md` (reglas supremas 1, 2, 3, 5), `wiki/marca-campuslands`, `sistema-diseno`, `verificacion`, `temas-por-cliente`, `plantilla-base`, `flujo-trabajo`, `index`, `recursos/logos-campuslands/README`. Plantilla `_plantilla-campuslands` y `globant-dojo-v3` rehechos en tema claro; PDF regenerado.
+* **Límite:** el Brandbook (p.1) separa los logos con un divisor fino; la «×» es una decisión del usuario que se aparta de esa lámina. La regla R2 original (misma altura) quedó reemplazada por «igual área».

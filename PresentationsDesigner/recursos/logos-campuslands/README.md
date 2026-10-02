@@ -14,5 +14,5 @@ Fuente: archivos entregados por el usuario (2026-10-02) junto al Brandbook. Norm
 - Los **`-recortado.png`** están cortados al contenido exacto (sin padding): son los que se copian a `assets/` de cada deck.
 - Elegir la variante con `python3 herramientas/elegir_logo.py <fondo>` (contraste). Dorado, verde y celeste **no** son fondos válidos para logos.
 - **Nunca** recolorear, rotar, estirar, recortar elementos ni cambiar la distribución (Brandbook p.16).
-- El horizontal blanco (5,05 : 1) y el horizontal a color (3,20 : 1) son oficiales con **proporciones distintas**; no se igualan estirando.
+- El horizontal blanco (5,05 : 1) y el horizontal a color (3,20 : 1) son oficiales con **proporciones distintas**; no se igualan estirando. Con **tema claro obligatorio** (2026-10-02) se usa el **horizontal a color**. El peso visual frente al logo del cliente se iguala por **área** con `herramientas/igualar_logos.py`.
 - Los logos antiguos de `recursos/` (`Logo Campuslands ... Horizontal/Vertical Azul/Blanco.png`) son los mismos archivos con otros nombres; **usar esta carpeta**.

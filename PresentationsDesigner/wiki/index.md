@@ -4,7 +4,7 @@ Esta wiki contiene el conocimiento, la marca, las especificaciones técnicas y l
 
 ## Contenido de la Wiki
 
-> **Sistema v3 (2026-10-02):** la marca es siempre **Campuslands** (Brandbook 2023). Fondos solo navy/violeta/arena, logos del mismo tamaño,
+> **Sistema v3 (2026-10-02):** la marca es siempre **Campuslands** (Brandbook 2023). **tema claro obligatorio (fondo arena, web y presentación)**, «Campuslands × Cliente» con igual peso visual, sin «Confidencial»,
 > Poppins + Roboto Mono, máximo 10 láminas, verificación visual rigurosa. Los documentos del sistema anterior están en [`archivo/`](archivo/README.md).
 
 1. [Perfil de Usuario y Clientes](perfil-usuario.md) — quién es el usuario, la identidad de Campuslands Full Service y el perfil de los clientes objetivo.

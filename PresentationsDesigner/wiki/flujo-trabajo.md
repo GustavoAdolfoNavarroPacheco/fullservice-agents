@@ -73,8 +73,8 @@ Este cuestionario debe ser enviado al usuario por el agente para estructurar los
 ### 2. Plan por lámina (MANDATORIO, antes de programar)
 Antes de escribir una sola línea de HTML/CSS, el agente presenta al usuario, **lámina por lámina**:
 * **Contenido** (títulos y textos, con las cifras y su fuente).
-* **Arquetipo** de layout y **fondo** (`navy` / `violeta` / `arena`) — nada de colores del cliente (ver [[temas-por-cliente]]).
-* **Logo de Campuslands elegido** por contraste con ese fondo (`herramientas/elegir_logo.py`) y confirmación de que el logo del cliente contrasta también.
+* **Arquetipo** de layout. **Fondo = arena siempre** (tema claro obligatorio); se indica qué bloques van en tarjeta navy/violeta como acento — nada de colores del cliente (ver [[temas-por-cliente]]).
+* **Logos:** Campuslands a color + logo del cliente con su factor `--k-cliente` (`herramientas/igualar_logos.py`), «×» centrada; confirmar que el logo del cliente contrasta con la arena.
 * **Razón de ubicación** de los bloques principales (R7): por qué ahí, a ese tamaño y con ese color.
 * **Número de láminas ≤ 10.** Si el contenido no cabe, fusionar ([[plantilla-base]]); solo se pasa de 10 si el usuario lo pide **textualmente**.
 **El agente NO inicia la codificación hasta que el usuario confirme el plan.**

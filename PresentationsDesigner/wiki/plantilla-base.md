@@ -8,16 +8,16 @@ Elegir de la biblioteca solo lo que la historia necesita y **fusionar** antes qu
 
 | # | Bloque | Objetivo | Arquetipo (plantilla) | Fondo típico |
 |---|---|---|---|---|
-| 1 ⭐ | Portada | Co-branding (Campuslands primero, mismo tamaño) + título con `</` + preparado para/por/fecha | Portada | navy |
-| 2 | Contexto / reto | Qué le duele al cliente, en una frase + dato clave | Afirmación (comilla + neón) | violeta |
+| 1 ⭐ | Portada | Co-branding «Campuslands × Cliente» (igual peso visual) + título con `</` + preparado para/por/fecha (Poppins; fecha = Mes Año) + figuras difuminadas | Portada | arena |
+| 2 | Contexto / reto | Qué le duele al cliente, en una frase + dato clave | Afirmación (comilla + neón en tarjeta navy) | arena |
 | 3 ⭐ | Línea base y cifras | Números críticos de hoy / del escenario | Métricas | arena |
-| 4 ⭐ | Solución | Qué se construye y cómo encaja | Módulos / diagrama de capas | violeta o navy |
-| 5 | Cómo se hace | Método, fases, hitos | Proceso (escalera) / timeline | navy |
+| 4 ⭐ | Solución | Qué se construye y cómo encaja | Módulos / diagrama de capas | arena |
+| 5 | Cómo se hace | Método, fases, hitos | Proceso (escalera) / timeline | arena |
 | 6 | Antes / después | Cambio medible | Antes/después | arena |
-| 7 | Equipo / Campuslands | Por qué nosotros | Split / galería | navy |
+| 7 | Equipo / Campuslands | Por qué nosotros | Split / galería | arena |
 | 8 | Casos / industrias | Prueba social (logos y perfiles) | Galería de logos + tarjetas | arena |
 | 9 ⭐ | Inversión y condiciones | Total, esquema de pago, garantías (una lámina; dos solo si no cabe) | Métricas/tabla | arena |
-| 10 ⭐ | Cierre / siguiente paso | Pasos y co-branding, **sin** datos de contacto si el usuario no los pide | Cierre | navy |
+| 10 ⭐ | Cierre / siguiente paso | Pasos y co-branding, **sin** datos de contacto si el usuario no los pide | Cierre (figuras difuminadas) | arena |
 
 Reglas de fusión: contexto+reto en una; cronograma+método en una; equipo+casos en una; inversión+pago en una.
 **Cada lámina responde una pregunta** y se escribe, en el plan, su razón de ubicación (R7, [[verificacion]] §3).

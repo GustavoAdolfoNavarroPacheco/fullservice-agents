@@ -17,27 +17,28 @@
 ```css
 --violet:#5E3AE2; --gold:#F4B422; --green:#00AA80; --navy:#000087; --sky:#2CAAFF; --sand:#E4E4DB;   /* paleta oficial */
 --white:#FFFFFF; --ink:#373435;                       /* apoyos: texto/logo sobre oscuro · texto sobre arena */
---bg-navy:   radial-gradient(90% 80% at 88% 8%, rgba(94,58,226,.60), transparent 58%),
-             radial-gradient(70% 70% at 0% 100%, rgba(44,170,255,.22), transparent 62%), #000087;
---bg-violet: linear-gradient(135deg,#5E3AE2 0%,#000087 135%);
 --bg-sand:   radial-gradient(80% 70% at 100% 0%, rgba(44,170,255,.20), transparent 60%),
-             radial-gradient(60% 60% at 0% 100%, rgba(94,58,226,.13), transparent 62%), #E4E4DB;
+             radial-gradient(60% 60% at 0% 100%, rgba(94,58,226,.13), transparent 62%), #E4E4DB;   /* ÚNICO fondo de lámina y del visor */
 --font-title:'Poppins'; --font-body:'Roboto Mono'; --font-accent:'Nutmeg','Poppins';
---logo-h:30px;  --logo-h-cover:64px;                  /* UNA sola altura para AMBOS logos */
+--logo-h:30px;  --logo-h-cover:64px;                  /* alto del logo de Campuslands */
+--k-cliente:<√(ratio Campuslands / ratio cliente)>;   /* igualar_logos.py: alto del cliente = alto Campuslands × k → ÁREAS IGUALES */
 ```
-**Fondos de lámina permitidos:** `navy`, `violet`, `sand` — declarados con `data-bg="…"` en la raíz de la lámina (lo usan el
-contraste y la elección de logo). Todo color de un fondo debe ser de la paleta (los *glows* usan el `rgb` de un color de la paleta con alfa).
-**Prohibido** como fondo de lámina: blanco, gris frío, negro puro, colores derivados del cliente, dorado/verde/celeste a pantalla completa.
+**TEMA CLARO OBLIGATORIO (web y presentación):** el único fondo de lámina permitido es `sand` — `data-bg="sand"` en la raíz de la lámina — y el visor
+(barras y página) también es arena. Todo color de un fondo debe ser de la paleta (los *glows* usan el `rgb` de un color de la paleta con alfa).
+Navy/violeta/dorado/verde/celeste existen **solo como tarjetas, franjas, íconos, acentos y figuras difuminadas** sobre la arena.
+**Prohibido** como fondo de lámina o de visor: navy, violeta, blanco, gris frío, negro, colores derivados del cliente, dorado/verde/celeste a pantalla completa.
+**Prohibido** el rótulo/badge/óvalo «Confidencial».
 
 ## 3. Grilla y estructura
 - Lámina nativa **1056 × 594 px** (11 × 6,1875 in a 96 dpi) = tamaño del PDF. Padding lateral `.62in`, vertical `.42in / .38in`.
 - `.sl[data-bg]` (raíz) → `.hd` (cabecera: **solo el co-branding**) · contenido · `.ft` (pie).
-- **Cabecera interna:** co-branding agrupado a la izquierda — logo Campuslands, divisor fino, logo del cliente — **misma altura** (`--logo-h`).
+- **Cabecera interna:** co-branding agrupado a la izquierda — logo Campuslands, **«×»** (`.x`, centrada en vertical), logo del cliente — con **igual peso visual** (alto del cliente = `--logo-h × --k-cliente`).
   Numeral de sección translúcido (`.ghost`) arriba a la derecha.
 - **Pie:** izquierda *Exploramos · Despegamos · Conquistamos* · centro migas `| campuslands | propuesta | cliente | sección |` · derecha `NN / TT`.
-- **Portada y cierre:** co-branding **centrado y grande** (`--logo-h-cover`), título con `</`, chevrones laterales, sin cabecera.
+- **Portada y cierre:** co-branding **centrado y grande** (`--logo-h-cover`), título con `</`, **figuras difuminadas** `.blob` (violeta/celeste arriba, dorado/verde abajo; sin chevrones laterales), sin cabecera.
+  Pie de portada en **Poppins** (etiquetas Black, valores Regular) con «Fecha» = **Mes Año** (p. ej. «Octubre 2026»).
 - El deck se entrega en el **visor de una lámina a la vez** (`script.js`, `zoom` y no `transform:scale()`); la barra superior del visor también
-  lleva ambos logos a la misma altura. El PDF oculta el visor (`@media print`).
+  lleva «Campuslands × Cliente» con el mismo peso visual y es **clara**. El PDF oculta el visor (`@media print`).
 
 ## 4. Tipografía (resumen; detalle en [[marca-campuslands]] §5)
 | Elemento | Fuente | Tamaño orientativo |
@@ -57,14 +58,15 @@ Roboto Mono es ancha: líneas más cortas, tamaños un punto por encima de lo qu
 | Título de sección | `.sec` + `.mark` (`</`) + `.em` (acento) | Toda lámina interna. |
 | Etiqueta / lista / subtítulo | `.label` · `.code-list` (`=>`) · `.tagline` (`<= … =>`) | Jerarquía secundaria. |
 | Numeral fantasma | `.ghost` | Esquina sup. derecha de cada lámina interna. |
-| Tarjeta | `.card` (blanca sobre arena; vidrio sobre navy/violeta) | Agrupar contenido. |
+| Tarjeta | `.card` (blanca sobre arena) · `.card--navy` (acento oscuro: dato clave, panel «Con la propuesta») | Agrupar contenido. |
 | Métrica | `.metric` (barra superior de color) | Cifras (4 por lámina como máximo). |
 | Peldaño de proceso | `.step` + `.go` | Secuencias (escalera + chevrón conector). |
 | Panel antes/después | `.panel--hoy` / `.panel--nuevo` + `.delta` | Comparaciones con indicador de impacto. |
 | Módulo con ícono | `.mod` + `.ico--{sky,gold,green,violet,navy}` | Cuadrículas de capacidades. |
 | Franja de lectura | `.reading` | Cierra una lámina con la conclusión (una por lámina). |
 | Marco neón | `.neon` | **Un** dato o frase clave por lámina. |
-| Chevrones | `.chev` (`aria-hidden`) | Decoración lateral; nunca sobre texto. |
+| Figuras difuminadas | `.blob` + `.blob--{violet,sky,gold,green,navy}` (`aria-hidden`) | Fondo de portada/cierre en los bordes; nunca bajo texto pequeño. |
+| Chevrones | `.chev` (`aria-hidden`) | Solo conectores puntuales; ya no decoran la portada. |
 | Comilla | `.qmark` | Afirmación/cita. |
 | Chips | `.pill--{gold,sky,green,violet}` | Estados y categorías. |
 
@@ -72,7 +74,7 @@ Roboto Mono es ancha: líneas más cortas, tamaños un punto por encima de lo qu
 Arquetipos de la plantilla: **portada · afirmación · métricas · proceso (escalera) · antes/después · módulos · cierre**. Otros válidos:
 timeline, diagrama de capas, tabla de planes, mapa, comparador de opciones, galería de logos/clientes.
 - **No repetir** el mismo arquetipo en láminas contiguas.
-- **Alternar fondo** (navy ↔ arena ↔ violeta) para dar ritmo; el fondo cambia con intención (p. ej. arena para datos, navy para narrativa).
+- **El fondo no cambia** (tema claro): el ritmo sale de alternar arquetipos y de dónde se usan las **tarjetas de acento** navy/violeta (p. ej. navy para el dato clave o la conclusión).
 - Variar el protagonista (izquierda/centro/derecha) y la escala (un número gigante *vs.* una cuadrícula densa).
 - Animar solo `transform`, `opacity`, `clip-path`.
 
@@ -86,19 +88,19 @@ Ni vacío ni apretado. El verificador avisa si hay un **hueco vertical > 20 %** 
 excepto portada/cierre centrados). Orden de corrección: más contenido útil → tarjetas/tipografía más grandes → más `gap`. Nunca "rellenar".
 
 ## 9. Contraste de texto
-Usar solo los pares de [[marca-campuslands]] §4 (✅). Etiquetas pequeñas sobre violeta: **arena**, no celeste. Dorado sobre violeta: solo texto grande.
+Usar solo los pares de [[marca-campuslands]] §4 (✅). Sobre arena: títulos navy, acentos violeta, cuerpo tinta; el dorado **no** es texto sobre arena (solo íconos/barras). Sobre tarjeta navy: blanco, dorado y celeste.
 
 ## 10. Lecciones técnicas vigentes
 - **Fuentes y PDF:** las `@font-face` de láminas ocultas no se descargan solas; `script.js` ejecuta `preloadAllFonts()` y el export usa
   `--virtual-time-budget`. Roboto Mono (variable) sale como **Type3** en el PDF: es normal; lo que se vigila es que **no** aparezcan
   Liberation/Georgia/Times/Arial.
 - **Densidad con Roboto Mono:** es ~25 % más ancha que una proporcional; una lámina que cabía con tipografías anteriores debe **partirse en dos** (caso Globant: LMS + facturación → 2 láminas) en lugar de reducir por debajo de 9 px.
-- **Logos en `<img>`:** solo `height` + `width:auto`; el logo del cliente se recorta a su contenido (alfa) y se prueba que no se deforme.
+- **Logos en `<img>`:** solo `height` + `width:auto` (el del cliente: `calc(var(--lh)*var(--k-cliente))`); el logo del cliente se recorta a su contenido (alfa) y se prueba que no se deforme.
 - **Imágenes de placeholder** no deben usar fuentes del sistema (generar PNG con Poppins) para no contaminar el PDF.
 - **Decoración** (`aria-hidden`, `.ghost`, `.chev`) sangra a propósito y queda fuera de las mediciones de desborde; el texto nunca.
 - **Impresión:** `@page{size:11in 6.1875in; margin:0}` + `print-color-adjust:exact`.
 
 ## 11. Anti-patrones (cero tolerancia)
-Fondos fuera de paleta · logos de distinta altura o deformados · logo a color sobre navy/violeta (o blanco sobre arena) · Playfair/Montserrat/
+Fondos oscuros o fuera de paleta (tema claro obligatorio) · rótulo «Confidencial» · línea divisoria `|` entre logos (va «×») · «×» descentrada · logos de distinto peso visual (misma altura con proporciones distintas) o deformados · chevrones laterales en la portada · pie de portada en Roboto Mono o fecha solo con el año · Playfair/Montserrat/
 otras tipografías · todas las láminas con el mismo arquetipo · texto corrido centrado · decoración sobre texto · más de 10 láminas sin pedido
 textual · tarjetas con 40 % de aire muerto · subrayados/`hr` decorativos bajo títulos · color plano donde la marca pide el recurso gráfico.

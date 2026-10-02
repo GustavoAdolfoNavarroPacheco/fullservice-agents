@@ -15,8 +15,10 @@ Logos oficiales en [`recursos/logos-campuslands/`](../recursos/logos-campuslands
 
 | # | Regla | Cómo se cumple y se comprueba |
 |---|---|---|
-| R1 | Los **fondos** de toda presentación usan **SIEMPRE y OBLIGATORIAMENTE colores de Campuslands**. | Fondos solo `navy`, `violeta` o `arena` (sólidos o degradados entre colores de la paleta). `verificar_deck.py` rechaza cualquier color de fondo fuera de la paleta. |
-| R2 | Logo de Campuslands y logo del cliente con el **mismo tamaño**. | Misma altura (±3 %) de ambos logos recortados al contenido; se mide con `verificar_deck.py` **y** se confirma mirando la lámina. |
+| R1 | Los **fondos** usan **SIEMPRE y OBLIGATORIAMENTE colores de Campuslands** y el **TEMA ES CLARO** (web y presentación; ajuste del 2026-10-02). | Todo fondo de lámina y del visor = **arena** `#E4E4DB` (+ resplandores de colores de la paleta). Navy/violeta solo como tarjetas/franjas/acentos. `verificar_deck.py` rechaza `data-bg` ≠ `sand`, fondos oscuros y colores fuera de la paleta. |
+| R2 | Logo de Campuslands y logo del cliente con el **mismo tamaño** (ajustado el 2026-10-02: igual **peso visual**), separados por una **«×»** centrada en vertical. | **Áreas de caja recortada iguales (±6 %)** con `--k-cliente` de `igualar_logos.py` (a igual altura Globant se veía ~60 % más ancho); «×» centrada (±2 px); se mide con `verificar_deck.py` **y** se confirma a la vista. |
+| R8 | **Sin rótulo «Confidencial»** en visor ni láminas. | `verificar_deck.py` falla si aparece el texto. |
+| R9 | **Portada:** figuras difuminadas (no chevrones), pie en Poppins, «Fecha» = **Mes y Año**. | Plantilla `_plantilla-campuslands`; el verificador valida el formato de la fecha. |
 | R3 | **Dinamismo e innovación**: nada "plano". | Alternar arquetipos entre láminas contiguas y usar el lenguaje gráfico de marca (§6). Ver [[sistema-diseno]]. |
 | R4 | **Máximo 10 láminas**; solo se supera si el usuario lo pide **textualmente**. | `verificar_deck.py` falla con >10 (salvo `--max-slides N` ante pedido textual). |
 | R5 | **Elegir el mejor logo de Campuslands** evaluando el **contraste** con el fondo. | `herramientas/elegir_logo.py` (tabla en §3.3). |
@@ -50,9 +52,9 @@ Archivos en `recursos/logos-campuslands/` (maestro tal cual llegó + `-recortado
 | Vertical blanco | `campuslands-vertical-blanco` | 0,91 : 1 | Portadas/cierres verticales sobre navy/violeta. |
 | Isotipo (casco solo) | `recursos/isotipo-campuslands.png` | — | **Favicon** y usos muy pequeños. |
 
-> ⚠️ El horizontal blanco y el horizontal a color son archivos **oficiales con distinta proporción** (el casco es proporcionalmente
-> menor en el blanco). Se usan tal cual; **no se "iguala"** estirándolos. Por eso la regla de tamaño se mide por **altura del
-> recorte** y se **confirma a la vista** (§4).
+> ⚠️ El horizontal blanco y el horizontal a color son archivos **oficiales con distinta proporción**. Se usan tal cual; **no se "iguala"**
+> estirándolos. Con tema claro solo se usa el **horizontal a color**; el blanco queda para el caso (no habitual) de que el usuario cambie el tema.
+> La regla de tamaño se mide por **ÁREA del recorte** (R2) y se **confirma a la vista**.
 > Los vectoriales (`vectoriales/*.pdf`, `.ai`) son la fuente para impresión o cambios de escala grandes.
 
 ### 3.2 Usos incorrectos (p.16) — prohibido
@@ -75,7 +77,8 @@ extremos del casco ≥ **2,5 : 1**. Resultado medido (`python3 herramientas/eleg
 | Verde | `#00AA80` | 4,14 / 1,15 | 2,97 | ❌ ninguno |
 | Celeste | `#2CAAFF` | 4,87 / 1,35 | 2,53 | ❌ ninguno |
 
-**Consecuencia de diseño:** la zona de los logos (cabecera, portada, cierre) va sobre **navy, violeta o arena**. **Dorado, verde y celeste
+**Consecuencia de diseño (tema claro, R1):** la zona de los logos (cabecera, portada, cierre) va **siempre sobre arena** con el logo **A COLOR**
+(9,63 : 1). Navy/violeta (donde el blanco sería la opción) quedan como tarjetas de acento **sin logos**. **Dorado, verde y celeste
 son colores de acento** (marcadores, íconos, números, bandas, llamados); **no** se usan como fondo de una zona con logos.
 
 ### 3.4 Espacio libre (p.7)
@@ -88,13 +91,14 @@ co-branding se usa una separación **≥ 2X** más un divisor fino, y nunca se c
 
 ### 3.5 Co-branding (p.6, p.1)
 1. **Campuslands aparece primero**, de izquierda a derecha.
-2. **Semejanza total en los tamaños** → regla **R2**: misma altura de recorte en cabecera, portada, cierre **y barra del visor**.
-3. Espacio adecuado entre logotipos según el espacio libre (§3.4). El Brandbook (p.1) los separa con un **divisor vertical fino**.
-4. Si el logo del cliente es muy ancho o muy alto (proporción > 5 : 1 o < 1,3 : 1) puede pedir un ajuste óptico: se **mide el área**
-   (el verificador avisa si difiere ×3) y se **decide mirando** la lámina; la altura igual sigue siendo el punto de partida.
-5. Logo del cliente: PNG/SVG **transparente**, recortado al contenido, **en la versión que contraste** con el fondo (a color sobre arena;
-   blanco/monocromo claro sobre navy/violeta). **No se recolorea**: se pide al usuario la versión adecuada. Si solo existe una
-   versión que no contrasta, la lámina cambia de fondo (navy ↔ arena), no el logo.
+2. **Semejanza total en los tamaños** → regla **R2** (ajustada por el usuario el 2026-10-02): igual **peso visual**, es decir **áreas de caja
+   recortada iguales (±6 %)** en cabecera, portada, cierre **y barra del visor**. A igual altura, un logo más apaisado (Globant 5,09 : 1 frente
+   a Campuslands 3,20 : 1) se ve mucho más grande; el factor lo da `herramientas/igualar_logos.py` (`k = √(ratio_Campuslands / ratio_cliente)`).
+3. Entre los logos va una **«×»** (SVG, clase `.x`) —**no** una línea divisoria (cambio del usuario sobre el divisor del Brandbook p.1)— y está **siempre
+   centrada en vertical** respecto a los logos (±2 px). Espacio entre elementos según §3.4.
+4. Se confirma **a la vista** que ninguno de los dos logos domina; si aun así lo parece, se ajusta `--k-cliente` unos puntos y se vuelve a medir.
+5. Logo del cliente: PNG/SVG **transparente**, recortado al contenido, **a color/oscuro** (se ve sobre arena). **No se recolorea**: si solo existe
+   una versión que no contrasta con la arena, se pide al usuario otra versión (no se cambia el fondo: el tema claro es obligatorio).
 
 ---
 
@@ -102,9 +106,9 @@ co-branding se usa una separación **≥ 2X** más un divisor fino, y nunca se c
 
 | Color | HEX | CMYK (como figura en el Brandbook) | Rol en presentaciones |
 |---|---|---|---|
-| **Navy** | `#000087` | C100 · M93,2 · Y25,65 · K13,72 | **Fondo** principal; panel oscuro. |
-| **Violeta** | `#5E3AE2` | C82,22 · M77,41 · Y0 · K0 | **Fondo** secundario; énfasis sobre arena. |
-| **Arena** | `#E4E4DB` | C16,36 · M10,89 · Y18,05 · K0,09 | **Fondo** claro. |
+| **Navy** | `#000087` | C100 · M93,2 · Y25,65 · K13,72 | **Tarjetas y franjas** de acento; texto de títulos sobre arena (**no** fondo de lámina). |
+| **Violeta** | `#5E3AE2` | C82,22 · M77,41 · Y0 · K0 | Énfasis sobre arena: acentos, números, tarjetas (**no** fondo de lámina). |
+| **Arena** | `#E4E4DB` | C16,36 · M10,89 · Y18,05 · K0,09 | **ÚNICO fondo de lámina y del visor** (tema claro). |
 | **Dorado** | `#F4B422` | C6,91 · M35,47 · Y91,67 · K0,52 | **Acento**: `</`, números, bandas, marco neón. |
 | **Celeste** | `#2CAAFF` | C68,51 · M28,97 · Y0 · K0 | **Acento**: `{ }`, íconos, líneas. |
 | **Verde** | `#00AA80` | C77,49 · M0,76 · Y61,5 · K0 | **Acento**: éxito, chevrones, íconos. |
@@ -152,7 +156,7 @@ decks previos al 2026-10-02 que las usan son legado, ver [[archivo/README]]).
 | **Migas de pan** `\| campuslands \| brandbook \| guidelines \| sección \|` | encabezado de cada página | Pie de lámina: `\| campuslands \| propuesta \| cliente \| sección \|`. |
 | **Numerales grandes translúcidos** | p.3, 5–7, 12 (1–5 en gris) | Número de sección, esquina superior derecha. |
 | **Comillas doradas** | p.2 | Lámina de afirmación/cita. |
-| **Chevrones `>>`** navy + verde (+ celeste/dorado sobre oscuro) | tarjetas p.19 | Decoración lateral y conectores de proceso. |
+| **Chevrones `>>`** navy + verde | tarjetas p.19 | Solo **conectores de proceso**. Desde el 2026-10-02 **no** se usan como decoración lateral de portada/cierre: ahí van **figuras difuminadas** (`.blob`, colores de la paleta + blur). |
 | **Marco neón dorado** | post RRSS p.8 | Marco del dato o frase clave (uno por lámina como máximo). |
 | **Divisor fino entre logos** | portada p.1 | Co-branding. |
 | Fotografía con *overlay* navy/violeta | p.1, 4, 9, 11, 13, 17 | Solo si el usuario entrega fotos reales; no hay fotos en el repo. |

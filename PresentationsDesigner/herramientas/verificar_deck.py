@@ -7,9 +7,11 @@ Uso:
 
 Qué mide (en Chromium headless, lámina por lámina, a tamaño real 1056×594 px):
   1. Número de láminas  ≤ máximo (10 por defecto; solo se supera si el usuario lo pidió TEXTUALMENTE: --max-slides N).
-  2. Fondos: el color/gradiente de cada lámina usa SOLO colores de la paleta Campuslands (Brandbook p.12).
-  3. Logos: Campuslands y cliente con la MISMA altura (±3 %), Campuslands primero (izq→der), sin deformar,
-     y variante correcta según contraste con el fondo (blanco sobre navy/violeta · a color sobre arena).
+  2. Fondos: TEMA CLARO OBLIGATORIO. Toda lámina (y el visor) va sobre ARENA #E4E4DB (fondo claro de la paleta Campuslands,
+     Brandbook p.12). Navy/violeta/dorado/verde/celeste solo como tarjetas, franjas y acentos, nunca como fondo de lámina.
+  3. Logos: Campuslands y cliente con el MISMO PESO VISUAL (áreas de caja recortada iguales ±6 %: la altura se escala con
+     herramientas/igualar_logos.py), Campuslands primero (izq→der), sin deformar, versión a color sobre arena.
+     Entre ambos va una «×» (no una línea), centrada en vertical con los logos (±2 px). Prohibido el rótulo «Confidencial».
   4. Tipografía: solo Poppins (400/900), Roboto Mono (400) y Nutmeg (Brandbook p.10).  Tamaño mínimo 9 px.
   5. Geometría: nada fuera de la lámina, nada invadiendo el pie, texto recortado, huecos verticales grandes.
   6. Contraste del texto (WCAG: 4.5:1 normal · 3:1 grande/negrita) contra su fondo real.
@@ -34,6 +36,7 @@ JS = r"""
 (async () => {
   const PAL = [[94,58,226],[244,180,34],[0,170,128],[0,0,135],[44,170,255],[228,228,219]];
   const BGREP = {navy:[[0,0,135],[94,58,226]], violet:[[94,58,226],[0,0,135]], sand:[[228,228,219]]};
+  const NOCONF = /confidencial/i;
   const OKFONT = ['poppins','roboto mono','nutmeg'];
   const R = {slides:[], chrome:[], notes:[]};
   await document.fonts.ready; document.fonts.forEach(f=>{ try{f.load()}catch(e){} }); await document.fonts.ready;
@@ -56,6 +59,9 @@ JS = r"""
     if (bad.length) S.err.push('Fondo fuera de paleta Campuslands: ' + [...new Set(bad.map(c=>`rgb(${c.r},${c.g},${c.b})`))].join(', '));
     if (!root.dataset.bg) S.warn.push('La lámina no declara data-bg="navy|violet|sand" (necesario para verificar contraste y logo).');
     const dark = ['navy','violet'].includes(root.dataset.bg);
+    if (root.dataset.bg && root.dataset.bg !== 'sand') S.err.push(`TEMA CLARO obligatorio: la lámina declara data-bg="${root.dataset.bg}"; todo fondo de lámina debe ser arena (data-bg="sand").`);
+    { const bc = cols.length ? cols[cols.length-1] : null; if (bc && lum(bc) < 0.55) S.err.push('Fondo oscuro: el tema debe ser claro (arena).'); }
+    if (NOCONF.test(sl.textContent)) S.err.push('Aparece el rótulo «Confidencial»: está prohibido (regla del usuario).');
     // 3 · logos
     let logos = [...sl.querySelectorAll('img[data-logo]')];
     if (!logos.length) logos = [...sl.querySelectorAll('img')].filter(i => /logo|brand|client|campuslands/i.test(i.className+' '+i.alt+' '+i.src) && !/favicon/.test(i.src));
@@ -67,13 +73,24 @@ JS = r"""
       if (!k) S.warn.push('Logo del cliente ausente (¿lámina sin co-branding?).');
       if (c && k) {
         const rc = c.getBoundingClientRect(), rk = k.getBoundingClientRect();
-        const dh = Math.abs(rc.height-rk.height)/Math.max(rc.height,rk.height);
-        S.info.logos = {campuslands_h:+rc.height.toFixed(1), cliente_h:+rk.height.toFixed(1), dif_pct:+(dh*100).toFixed(1),
+        const ac = rc.width*rc.height, ak = rk.width*rk.height, da = Math.abs(ac-ak)/Math.max(ac,ak);
+        S.info.logos = {campuslands_h:+rc.height.toFixed(1), cliente_h:+rk.height.toFixed(1), area_dif_pct:+(da*100).toFixed(1),
                         campuslands_x:+rc.left.toFixed(0), cliente_x:+rk.left.toFixed(0)};
-        if (dh > 0.03) S.err.push(`Logos de distinta altura: Campuslands ${rc.height.toFixed(1)}px vs cliente ${rk.height.toFixed(1)}px (${(dh*100).toFixed(1)} %). Deben ser iguales.`);
+        if (da > 0.06) S.err.push(`Logos con distinto peso visual: área Campuslands ${Math.round(ac)}px² vs cliente ${Math.round(ak)}px² (${(da*100).toFixed(1)} %). Escalar el logo del cliente con igualar_logos.py (--k-cliente).`);
         if (rc.left > rk.left) S.err.push('El logo de Campuslands debe ir PRIMERO de izquierda a derecha (Brandbook p.6).');
-        const areaR = (rc.width*rc.height)/(rk.width*rk.height);
-        if (areaR > 3 || areaR < 1/3) S.warn.push(`Áreas de logo muy dispares (×${areaR.toFixed(2)}); revisar visualmente la semejanza de tamaño.`);
+        // separador: «×» centrada en vertical (no una línea)
+        const cb = c.closest('.cobrand');
+        if (cb) {
+          if (cb.querySelector('.sep')) S.err.push('El separador entre logos debe ser una «×» (.x), no una línea (.sep).');
+          const x = cb.querySelector('.x');
+          if (!x) S.err.push('Falta la «×» entre el logo de Campuslands y el del cliente (Campuslands × Cliente).');
+          else {
+            const rx = x.getBoundingClientRect(), mid = ((rc.top+rc.bottom)/2 + (rk.top+rk.bottom)/2)/2, cx = (rx.top+rx.bottom)/2;
+            S.info.x_off = +(cx-mid).toFixed(1);
+            if (Math.abs(cx-mid) > 2) S.err.push(`La «×» no está centrada en vertical respecto a los logos (desvío ${(cx-mid).toFixed(1)}px; máx 2px).`);
+            if (!(rc.right <= rx.left+0.5 && rx.right <= rk.left+0.5)) S.err.push('La «×» debe quedar entre los dos logos.');
+          }
+        }
       }
       logos.forEach(i => {
         const r = i.getBoundingClientRect(); if (!i.naturalWidth) { S.err.push('Logo sin cargar: '+i.src.split('/').pop()); return; }
@@ -162,12 +179,18 @@ JS = r"""
       if (gBot > maxGap) { maxGap = gBot; where = 'sobre el pie'; }
     }
     S.info.max_gap_px = Math.round(maxGap);
-    if (maxGap > 0.2*sr.height) S.warn.push(`Hueco vertical de ${Math.round(maxGap)}px (${where}) = ${(maxGap/sr.height*100).toFixed(0)} % de la lámina: redistribuir (regla de balance de espacio).`);
+    if (maxGap > (center ? 0.3 : 0.2)*sr.height) S.warn.push(`Hueco vertical de ${Math.round(maxGap)}px (${where}) = ${(maxGap/sr.height*100).toFixed(0)} % de la lámina (máx ${center ? 30 : 20} %): redistribuir (regla de balance de espacio).`);
     R.slides.push(S);
   }
   // chrome del visor (si existe): ambos logos con la misma altura
   const ch = [...document.querySelectorAll('.app-header img[data-logo]')];
-  if (ch.length >= 2) { const h = ch.map(i => i.getBoundingClientRect().height); R.chrome.push({heights:h, ok: Math.abs(h[0]-h[1])/Math.max(...h) <= 0.03}); }
+  if (ch.length >= 2) { const a = ch.map(i => { const r = i.getBoundingClientRect(); return r.width*r.height; }), h = ch.map(i => i.getBoundingClientRect().height);
+    const hb = document.querySelector('.app-header'), bg = hb ? parse(getComputedStyle(hb).backgroundColor) : null;
+    R.chrome.push({heights:h, ok: Math.abs(a[0]-a[1])/Math.max(...a) <= 0.06, light: !bg || lum(bg) > 0.55, conf: !!document.querySelector('.badge-confidential')}); }
+  { const sepx = document.querySelector('.app-header .cobrand .x'); if (!sepx && ch.length >= 2) R.chrome.push({heights:[0,0], ok:false, msg:'Visor: falta la «×» entre los logos de la barra.'}); }
+  { const body = getComputedStyle(document.querySelector('.app-content') || document.body).backgroundColor; const c2 = parse(body); R.chromeBg = c2 && c2.a > 0 ? lum(c2) : null; }
+  // cabecera de portada: «Fecha» debe ser Mes y Año
+  { const meta = [...document.querySelectorAll('.meta div')].find(d => /fecha/i.test(d.textContent)); if (meta) { const v = (meta.querySelector('span')||meta).textContent.trim(); R.fecha = v; } }
   R.title = document.title; const ic = document.querySelector('link[rel~=icon]'); R.favicon = ic ? ic.getAttribute('href') : null;
   R.count = slides.length;
   document.getElementById('__vf').textContent = JSON.stringify(R);
@@ -208,11 +231,18 @@ def main():
     if not R.get('favicon'): print('✗ ERROR  Falta <link rel="icon"> (isotipo de Campuslands).'); errs += 1
     elif not os.path.exists(os.path.join(deck, R['favicon'])): print('✗ ERROR  El favicon apunta a un archivo inexistente: ' + R['favicon']); errs += 1
     for c in R['chrome']:
-        if c['ok']: print('✓ Visor: logos de la barra superior con igual altura', [round(x,1) for x in c['heights']])
-        else: print('✗ ERROR  Visor: logos de la barra superior con distinta altura', [round(x,1) for x in c['heights']]); errs += 1
+        if c.get('msg'): print('✗ ERROR ', c['msg']); errs += 1; continue
+        if c['ok']: print('✓ Visor: logos de la barra superior con igual peso visual (alturas', [round(x,1) for x in c['heights']], ')')
+        else: print('✗ ERROR  Visor: logos de la barra superior con distinto peso visual (alturas', [round(x,1) for x in c['heights']], ')'); errs += 1
+        if not c.get('light', True): print('✗ ERROR  Visor: la barra superior debe ser CLARA (tema claro obligatorio).'); errs += 1
+        if c.get('conf'): print('✗ ERROR  Visor: el rótulo «Confidencial» está prohibido.'); errs += 1
+    if R.get('chromeBg') is not None and R['chromeBg'] < 0.55: print('✗ ERROR  Visor: el fondo de la página debe ser CLARO (tema claro obligatorio).'); errs += 1
+    if R.get('fecha') is not None:
+        if re.fullmatch(r'\s*\d{4}\s*', R['fecha']) or not re.search(r'[A-Za-zÁÉÍÓÚáéíóúñ]{3,}.*\d{4}', R['fecha']): print(f'✗ ERROR  Portada: «Fecha» debe mostrar MES Y AÑO (p. ej. «Octubre 2026»); hay «{R["fecha"]}».'); errs += 1
+        else: print(f'✓ Portada: fecha «{R["fecha"]}» (mes y año)')
     for S in R['slides']:
         mark = '✗' if S['err'] else ('⚠' if S['warn'] else '✓')
-        lg = S['info'].get('logos'); lgt = f" · logos h={lg['campuslands_h']}/{lg['cliente_h']}px" if lg else ''
+        lg = S['info'].get('logos'); lgt = f" · logos h={lg['campuslands_h']}/{lg['cliente_h']}px (Δárea {lg['area_dif_pct']}%) ×off={S['info'].get('x_off')}px" if lg else ''
         print(f"{mark} Lámina {S['n']:>2}  fondo={S['info']['bg']}{lgt} · hueco máx {S['info'].get('max_gap_px')}px")
         for e in S['err']: print('     ✗', e); errs += 1
         for w in S['warn']: print('     ⚠', w); warns += 1
