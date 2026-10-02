@@ -1893,3 +1893,9 @@ regeneró `gaspais-chilco.pdf`.
 * **Hecho:** `border`/`outline` = 0 en `.app-header`, `.slides-footer-controls`, `.slide` (en pantalla) y `.control-btn`; sombras suaves azul-navy; los botones son blancos con sombra (hover/activo: dorado con sombra dorada; pulsado: sombra corta).
 * **Verificador:** nueva comprobación «divisiones del visor» (sombra presente, sin borde/outline); probada contra la versión anterior (4 errores) y la nueva (0). Se quitó `box-shadow:none` del CSS de prueba del verificador, que ocultaba la sombra del recuadro.
 * **Nota:** las tarjetas internas de las láminas conservan su borde fino (no se tocó el contenido).
+
+## [2026-10-02] regla | Láminas sin bordes ni líneas: sombras (tras la prueba *preview*)
+* **Proceso:** el usuario pidió «solo para probar» aplicar dentro de las láminas el criterio del visor; se publicó como PR *preview* sin fusionar (Presentaciones PR 17); el usuario lo aprobó («Fusiónalo y déjalo como regla»).
+* **Regla:** dentro de las láminas no hay bordes finos ni líneas divisorias; todo se distingue por sombras. Permitidos: acentos de color ≥ 3 px, conectores estructurales, avatar punteado y el marco neón de un dato clave. Aplica a `_plantilla-campuslands` (bloque «REGLA» al final de `styles.css`) y a `globant-dojo-v3`.
+* **Cambios concretos:** tarjetas sin borde y con sombra (las de color con sombra de su color); pie de portada en tarjeta blanca con sombra (antes líneas); se elimina la línea del rótulo «¿Qué incluye?»; «Partner» y «delta» pasan a paneles con sombra; caja de logos del cliente con sombra; píldora blanca sin borde.
+* **Verificador:** nueva comprobación de hairlines (borde sólido < 2,6 px o línea ≤ 2,5 px, salvo neón/decoración); probada contra la plantilla antes de actualizarla (falló en portada, métricas, proceso, comparación) y después (0 errores).

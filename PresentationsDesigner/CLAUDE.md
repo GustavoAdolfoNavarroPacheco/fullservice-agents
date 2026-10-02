@@ -22,8 +22,9 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 1. **TEMA CLARO OBLIGATORIO — web Y presentación (reglas del usuario, 2026-10-02).** El fondo de **toda lámina** y de la **página del visor web** es **BLANCO `#FFFFFF`** (ajuste del usuario;
    antes arena). Navy `#000087`, violeta `#5E3AE2`, dorado `#F4B422`, celeste `#2CAAFF`, verde `#00AA80` y arena `#E4E4DB` se usan **solo como tarjetas, franjas, íconos y acentos** sobre el blanco.
    **Prohibido** navy/violeta/negro/arena como fondo de lámina o del visor. **Se acabó la paleta derivada del logo del cliente**: el cliente aporta su logo y su contenido, no sus colores (`wiki/temas-por-cliente.md`).
-   **Visor web sin líneas ni bordes (2026-10-02):** la barra superior, la barra inferior, el recuadro de la presentación y los botones de la barra inferior se distinguen **por sombras**
-   (`box-shadow`), nunca con `border`/`outline`. (Solo el recuadro del visor: el contenido interno de las láminas no cambia.)
+   **Sin líneas ni bordes — visor Y láminas (2026-10-02):** la barra superior, la barra inferior, el recuadro de la presentación y los botones del visor, **y también las tarjetas y bloques dentro de las láminas**,
+   se distinguen **por sombras** (`box-shadow`), nunca con `border`/`outline` ni líneas divisorias (hairlines): sin borde fino en tarjetas, sin líneas en el pie de portada, bajo rótulos («¿Qué incluye?») ni en bloques «Partner»/«delta»
+   (se sustituyen por paneles con sombra). **Permitidos:** acentos de color de ≥ 3 px (barras superiores de colores), conectores estructurales del árbol, avatar punteado y el marco neón de UN dato clave.
    **Prohibido el rótulo «Confidencial»** (ni badge, ni óvalo, ni texto). **Sin difuminación celeste** en las esquinas del fondo; el fondo de las láminas es blanco liso (las decoraciones van en los marcos, regla 5).
 2. **CO-BRANDING «Campuslands × Cliente» CON IGUAL PESO VISUAL — SOLO EN PORTADA, CIERRE Y BARRA DEL VISOR.** Las **láminas de contenido NO llevan logos** (ni cabecera): el título abre la lámina.
    En la **barra superior del visor** los logos van **grandes** (Campuslands ≥ 40 px de alto; plantilla: 44 px). Campuslands **primero** de izquierda a derecha; entre ambos logos va una **«×»**

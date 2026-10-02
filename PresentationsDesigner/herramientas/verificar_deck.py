@@ -13,6 +13,7 @@ Qué mide (en Chromium headless, lámina por lámina, a tamaño real 1056×594 p
      herramientas/igualar_logos.py), Campuslands primero (izq→der), sin deformar, versión a color sobre arena.
      Entre ambos va una «×» (no una línea), centrada en vertical con los logos (±2 px). Prohibido el rótulo «Confidencial».
      Los logos van SOLO en portada y cierre (+ barra del visor): una lámina de contenido con logos arriba a la izquierda es error.
+     Láminas: SIN bordes ni líneas divisorias (hairlines); tarjetas y bloques se distinguen por SOMBRAS (acentos de color ≥ 3 px y marco neón permitidos).
      Visor: las barras, el recuadro de la lámina y los botones se separan con SOMBRAS, sin líneas ni bordes.
      Sin indicador de página/módulo (puntos, «NN / TT») en ninguna parte de la lámina (solo el numeral grande .ghost); sin resplandor celeste en el fondo; sin borde dorado en banners/franjas.
   4. Tipografía: POPPINS en toda la presentación (400/500/600/900) y Nutmeg; Roboto Mono ya no se usa (regla del usuario).  Tamaño mínimo 9 px.
@@ -74,6 +75,15 @@ JS = r"""
       if (dots.length || txt) S.err.push('Indicador de página/módulo (puntos y/o «NN / TT») en la lámina: prohibido (ajuste del usuario); solo se conserva el numeral grande de sección (.ghost).'); }
     sl.querySelectorAll('[class*="reading"],[class*="banner"],[class*="note"],[class*="franja"]').forEach(e => { const b = getComputedStyle(e);
       const col = parse(b.borderTopColor); if (parseFloat(b.borderTopWidth) >= 1.5 && col && col.a > 0.3 && near([244,180,34],[col.r,col.g,col.b],6)) S.err.push('Banner/franja con borde dorado (neón): prohibido; el marco neón es solo para un dato/tarjeta clave (' + e.className + ').'); });
+    // SIN BORDES NI LÍNEAS dentro de la lámina: las tarjetas y bloques se distinguen por SOMBRAS (acentos de color ≥ 3 px y marco neón quedan permitidos)
+    { const hair = [];
+      sl.querySelectorAll('*').forEach(e => { if (decor(e) || e.closest('.neon') || e === root) return;
+        const cs2 = getComputedStyle(e);
+        for (const k of ['Top','Right','Bottom','Left']) { const w = parseFloat(cs2['border'+k+'Width']), st2 = cs2['border'+k+'Style'], c2 = parse(cs2['border'+k+'Color']);
+          if (w > 0 && w < 2.6 && st2 === 'solid' && c2 && c2.a > 0.02) { hair.push((e.className.baseVal ?? e.className).toString().split(' ')[0] || e.tagName.toLowerCase()); break; } }
+        const r = e.getBoundingClientRect(); const bg = parse(cs2.backgroundColor);
+        if (r.height <= 2.5 && r.width >= 40 && bg && bg.a > 0.02) hair.push('línea ' + ((e.className.baseVal ?? e.className).toString().split(' ')[0] || e.tagName.toLowerCase())); });
+      if (hair.length) S.err.push('Bordes/líneas divisorias en la lámina (usar SOMBRAS, no líneas): ' + [...new Set(hair)].slice(0,5).join(', ')); }
     if (NOCONF.test(sl.textContent)) S.err.push('Aparece el rótulo «Confidencial»: está prohibido (regla del usuario).');
     // 3 · logos
     let logos = [...sl.querySelectorAll('img[data-logo]')];
