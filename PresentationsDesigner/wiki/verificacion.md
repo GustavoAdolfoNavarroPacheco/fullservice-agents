@@ -30,6 +30,7 @@ Requiere Chromium y `pip install pymupdf`. Si el usuario pidió más de 10 lámi
 | Versión del logo vs fondo | a color sobre blanco | R5 |
 | Logos del visor | Campuslands ≥ 40 px de alto en la barra superior | R12 |
 | Bordes/líneas en láminas | ningún `border` sólido < 2,6 px ni línea de ≤ 2,5 px (acentos ≥ 3 px, neón y punteados permitidos); se usan sombras | R14 |
+| Altura de las barras del visor | barra superior = barra inferior (±1 px, `--bar-h`) | R15 |
 | Divisiones del visor | barras, recuadro de la lámina y botones con **sombra** y **sin** `border`/`outline` | R13 |
 | Fuentes | **solo Poppins** (400/500/600/900) y Nutmeg · cargadas; Roboto Mono = error | R12 |
 | Texto mínimo | ≥ 9 px | legibilidad |

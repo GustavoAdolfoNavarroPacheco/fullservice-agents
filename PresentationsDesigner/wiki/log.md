@@ -1899,3 +1899,8 @@ regeneró `gaspais-chilco.pdf`.
 * **Regla:** dentro de las láminas no hay bordes finos ni líneas divisorias; todo se distingue por sombras. Permitidos: acentos de color ≥ 3 px, conectores estructurales, avatar punteado y el marco neón de un dato clave. Aplica a `_plantilla-campuslands` (bloque «REGLA» al final de `styles.css`) y a `globant-dojo-v3`.
 * **Cambios concretos:** tarjetas sin borde y con sombra (las de color con sombra de su color); pie de portada en tarjeta blanca con sombra (antes líneas); se elimina la línea del rótulo «¿Qué incluye?»; «Partner» y «delta» pasan a paneles con sombra; caja de logos del cliente con sombra; píldora blanca sin borde.
 * **Verificador:** nueva comprobación de hairlines (borde sólido < 2,6 px o línea ≤ 2,5 px, salvo neón/decoración); probada contra la plantilla antes de actualizarla (falló en portada, métricas, proceso, comparación) y después (0 errores).
+
+## [2026-10-02] ajuste | Barras del visor con la misma altura
+* **Pedido del usuario:** ajustar la altura de la barra superior e inferior para que ambas midan lo mismo.
+* **Hecho:** antes 88 px (superior) y 60 px (inferior); ahora ambas `--bar-h` = **76 px** (valor intermedio: cabe el logo de Campuslands de 44 px y los botones de 40 px sin apretar). `--header-h` y `--footer-h` apuntan a `--bar-h`. Aplicado a la plantilla y a `globant-dojo-v3`.
+* **Verificador:** nueva comprobación «altura de las barras del visor» (±1 px); probada contra la versión anterior (falla: 88 vs 60 px) y la nueva (pasa). Los 76 px son decisión mía (el usuario no indicó cifra); se ajusta con `--bar-h`.

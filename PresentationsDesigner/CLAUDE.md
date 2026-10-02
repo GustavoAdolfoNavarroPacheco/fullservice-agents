@@ -22,6 +22,7 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 1. **TEMA CLARO OBLIGATORIO — web Y presentación (reglas del usuario, 2026-10-02).** El fondo de **toda lámina** y de la **página del visor web** es **BLANCO `#FFFFFF`** (ajuste del usuario;
    antes arena). Navy `#000087`, violeta `#5E3AE2`, dorado `#F4B422`, celeste `#2CAAFF`, verde `#00AA80` y arena `#E4E4DB` se usan **solo como tarjetas, franjas, íconos y acentos** sobre el blanco.
    **Prohibido** navy/violeta/negro/arena como fondo de lámina o del visor. **Se acabó la paleta derivada del logo del cliente**: el cliente aporta su logo y su contenido, no sus colores (`wiki/temas-por-cliente.md`).
+   **Barra superior e inferior del visor con LA MISMA ALTURA** (variable `--bar-h`; plantilla: 76 px las dos). El logo de Campuslands de la barra sigue ≥ 40 px.
    **Sin líneas ni bordes — visor Y láminas (2026-10-02):** la barra superior, la barra inferior, el recuadro de la presentación y los botones del visor, **y también las tarjetas y bloques dentro de las láminas**,
    se distinguen **por sombras** (`box-shadow`), nunca con `border`/`outline` ni líneas divisorias (hairlines): sin borde fino en tarjetas, sin líneas en el pie de portada, bajo rótulos («¿Qué incluye?») ni en bloques «Partner»/«delta»
    (se sustituyen por paneles con sombra). **Permitidos:** acentos de color de ≥ 3 px (barras superiores de colores), conectores estructurales del árbol, avatar punteado y el marco neón de UN dato clave.
