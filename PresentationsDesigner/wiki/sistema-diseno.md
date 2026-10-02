@@ -33,6 +33,7 @@ con borde fino `rgba(0,0,135,.12)` y sombra suave. **Prohibido** como fondo de l
 - **Pie:** izquierda *Exploramos · Despegamos · Conquistamos* · centro migas `| campuslands | propuesta | cliente | sección |` · **sin** indicador `NN / TT` a la derecha.
 - **Portada y cierre:** co-branding **centrado y grande** (`--logo-h-cover`), título con `</`, fondo `.deco-cover` (anillos concéntricos + resplandor central violeta + dos hojas laterales violeta/celeste, baja saturación; sin chevrones ni manchas), sin cabecera.
   Pie de portada en **Poppins** (etiquetas Black, valores Regular) con «Fecha» = **Mes Año** (p. ej. «Octubre 2026»).
+- **Visor sin líneas ni bordes:** barra superior (`0 8px 26px rgba(0,0,135,.10)`), barra inferior (sombra hacia arriba), recuadro de la lámina (`0 16px 46px rgba(0,0,135,.20)`) y botones (`0 5px 14px rgba(0,0,135,.18)`; al pasar el cursor, sombra dorada) se separan **solo por sombras**; `border` y `outline` = 0. Lo comprueba el verificador.
 - El deck se entrega en el **visor de una lámina a la vez** (`script.js`, `zoom` y no `transform:scale()`); la barra superior del visor también
   lleva «Campuslands × Cliente» con el mismo peso visual y es **clara**. El PDF oculta el visor (`@media print`).
 

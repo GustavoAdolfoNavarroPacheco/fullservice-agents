@@ -1887,3 +1887,9 @@ regeneró `gaspais-chilco.pdf`.
 * **Verificador:** exige fondo blanco (lámina y visor), solo Poppins (Roboto Mono = error), logos del visor ≥ 40 px y barra/página blancas. **Hallazgo propio importante:** la clase `deco` que yo usaba en las tarjetas coincidía con la lista de *decoración* del verificador y **anulaba sus mediciones** (contraste, desborde, superposición) en esos elementos; se renombró a `.fx` y al reactivar las mediciones aparecieron fallas reales (texto gris/dorado sobre violeta 3,6 : 1; textos desbordando tarjetas en facturación e industrias), ya corregidas.
 * **Plantilla** `_plantilla-campuslands` re-hecha con el sistema v4 (7 láminas); fuentes: se añaden Poppins Medium/SemiBold y se retira Roboto Mono de `assets/fonts/`.
 * **A confirmar con el usuario:** (a) «página» = blanco también para el visor; (b) logos grandes = barra del visor; (c) lema a la derecha del pie; (d) las esquinas tipo visor de la portada original siguen sin incluirse.
+
+## [2026-10-02] ajuste | Visor web: divisiones por sombra, sin líneas ni bordes
+* **Pedido del usuario:** quitar la línea que divide la barra superior e inferior (que se noten por sombra), quitar los bordes del recuadro de la presentación (se diferencia por sombra) y hacer lo mismo con los botones de la barra inferior. **No** se toca nada dentro de las láminas.
+* **Hecho:** `border`/`outline` = 0 en `.app-header`, `.slides-footer-controls`, `.slide` (en pantalla) y `.control-btn`; sombras suaves azul-navy; los botones son blancos con sombra (hover/activo: dorado con sombra dorada; pulsado: sombra corta).
+* **Verificador:** nueva comprobación «divisiones del visor» (sombra presente, sin borde/outline); probada contra la versión anterior (4 errores) y la nueva (0). Se quitó `box-shadow:none` del CSS de prueba del verificador, que ocultaba la sombra del recuadro.
+* **Nota:** las tarjetas internas de las láminas conservan su borde fino (no se tocó el contenido).

@@ -29,6 +29,7 @@ Requiere Chromium y `pip install pymupdf`. Si el usuario pidió más de 10 lámi
 | Deformación del logo | proporción dibujada = natural (±3 %) | Brandbook p.16 |
 | Versión del logo vs fondo | a color sobre blanco | R5 |
 | Logos del visor | Campuslands ≥ 40 px de alto en la barra superior | R12 |
+| Divisiones del visor | barras, recuadro de la lámina y botones con **sombra** y **sin** `border`/`outline` | R13 |
 | Fuentes | **solo Poppins** (400/500/600/900) y Nutmeg · cargadas; Roboto Mono = error | R12 |
 | Texto mínimo | ≥ 9 px | legibilidad |
 | Contraste | ≥ 4,5 : 1 (≥ 3 : 1 si es grande) | accesibilidad |

@@ -13,6 +13,7 @@ Qué mide (en Chromium headless, lámina por lámina, a tamaño real 1056×594 p
      herramientas/igualar_logos.py), Campuslands primero (izq→der), sin deformar, versión a color sobre arena.
      Entre ambos va una «×» (no una línea), centrada en vertical con los logos (±2 px). Prohibido el rótulo «Confidencial».
      Los logos van SOLO en portada y cierre (+ barra del visor): una lámina de contenido con logos arriba a la izquierda es error.
+     Visor: las barras, el recuadro de la lámina y los botones se separan con SOMBRAS, sin líneas ni bordes.
      Sin indicador de página/módulo (puntos, «NN / TT») en ninguna parte de la lámina (solo el numeral grande .ghost); sin resplandor celeste en el fondo; sin borde dorado en banners/franjas.
   4. Tipografía: POPPINS en toda la presentación (400/500/600/900) y Nutmeg; Roboto Mono ya no se usa (regla del usuario).  Tamaño mínimo 9 px.
   5. Geometría: nada fuera de la lámina, nada invadiendo el pie, texto recortado, huecos verticales grandes.
@@ -217,6 +218,15 @@ JS = r"""
   { const body = getComputedStyle(document.querySelector('.app-content') || document.body).backgroundColor; const c2 = parse(body); R.chromeBg = c2 && c2.a > 0 ? lum(c2) : null; const hb2 = document.querySelector('.app-header'); const hc = hb2 ? parse(getComputedStyle(hb2).backgroundColor) : null; R.chromeWhite = !hc || (hc.r===255 && hc.g===255 && hc.b===255); R.pageWhite = !c2 || (c2.r===255 && c2.g===255 && c2.b===255); }
   // cabecera de portada: «Fecha» debe ser Mes y Año
   { const meta = [...document.querySelectorAll('.meta div')].find(d => /fecha/i.test(d.textContent)); if (meta) { const v = (meta.querySelector('span')||meta).textContent.trim(); R.fecha = v; } }
+  // visor: divisiones por SOMBRA, no por líneas ni bordes (barra superior, barra inferior, recuadro de la lámina y botones)
+  R.lines = [];
+  { const bw = e => e ? ['Top','Right','Bottom','Left'].reduce((m,k) => Math.max(m, parseFloat(getComputedStyle(e)['border'+k+'Width']) * (getComputedStyle(e)['border'+k+'Style'] === 'none' ? 0 : 1)), 0) : 0;
+    const sh = e => e && getComputedStyle(e).boxShadow !== 'none';
+    const hd = document.querySelector('.app-header'), ft = document.querySelector('.slides-footer-controls'), sl0 = document.querySelector('.slide.active') || document.querySelector('.slide');
+    if (hd && (bw(hd) > 0 || !sh(hd))) R.lines.push('Barra superior del visor: debe separarse con SOMBRA y sin línea/borde.');
+    if (ft && (bw(ft) > 0 || !sh(ft))) R.lines.push('Barra inferior del visor: debe separarse con SOMBRA y sin línea/borde.');
+    if (sl0 && (bw(sl0) > 0 || parseFloat(getComputedStyle(sl0).outlineWidth) > 0 && getComputedStyle(sl0).outlineStyle !== 'none' || !sh(sl0))) R.lines.push('Recuadro de la presentación: debe separarse con SOMBRA y sin borde/contorno.');
+    const bt = [...document.querySelectorAll('.control-btn')]; if (bt.some(b => bw(b) > 0 || !sh(b))) R.lines.push('Botones de la barra inferior: deben verse con SOMBRA y sin borde.'); }
   R.title = document.title; const ic = document.querySelector('link[rel~=icon]'); R.favicon = ic ? ic.getAttribute('href') : null;
   R.count = slides.length;
   document.getElementById('__vf').textContent = JSON.stringify(R);
@@ -225,7 +235,7 @@ JS = r"""
 
 FORCE_CSS = """
 <style id="__vfcss">
- .slide{display:block!important;position:relative!important;opacity:1!important;transform:none!important;zoom:1!important;margin:0 0 20px!important;width:1056px!important;height:594px!important;box-shadow:none!important}
+ .slide{display:block!important;position:relative!important;opacity:1!important;transform:none!important;zoom:1!important;margin:0 0 20px!important;width:1056px!important;height:594px!important}
  html,body{height:auto!important;overflow:visible!important} .slides-container,.app-content,.slides-viewport{display:block!important;height:auto!important;padding:0!important}
  .slides-footer-controls{display:none!important}
 </style>"""
@@ -263,6 +273,7 @@ def main():
         if not c.get('light', True): print('✗ ERROR  Visor: la barra superior debe ser CLARA (tema claro obligatorio).'); errs += 1
         if not c.get('big', True): print('✗ ERROR  Visor: el logo de Campuslands de la barra superior debe ser GRANDE (≥ 40 px de alto); mide', round(c['heights'][0],1), 'px.'); errs += 1
         if c.get('conf'): print('✗ ERROR  Visor: el rótulo «Confidencial» está prohibido.'); errs += 1
+    for m in R.get('lines', []): print('✗ ERROR  Visor:', m); errs += 1
     if R.get('pageWhite') is False: print('✗ ERROR  Visor: el fondo de la página debe ser BLANCO #FFFFFF.'); errs += 1
     if R.get('chromeWhite') is False: print('✗ ERROR  Visor: la barra superior debe ser BLANCA #FFFFFF.'); errs += 1
     if R.get('fecha') is not None:
