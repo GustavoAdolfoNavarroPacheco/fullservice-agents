@@ -24,7 +24,9 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
    sobre la arena; dorado `#F4B422`, celeste `#2CAAFF` y verde `#00AA80` son acentos. **Prohibido** navy/violeta/negro como fondo de lámina o del visor. **Se acabó la paleta derivada
    del logo del cliente**: el cliente aporta su logo y su contenido, no sus colores (`wiki/temas-por-cliente.md`).
    **Prohibido el rótulo «Confidencial»** (ni badge, ni óvalo, ni texto) en el visor y en las láminas.
-2. **CO-BRANDING «Campuslands × Cliente» CON IGUAL PESO VISUAL.** Campuslands **primero** de izquierda a derecha; entre ambos logos va una **«×»** (nunca una línea divisoria),
+   **Fondo sin difuminación celeste** en la esquina superior derecha: el único resplandor del fondo es el violeta suave abajo-izquierda.
+2. **CO-BRANDING «Campuslands × Cliente» CON IGUAL PESO VISUAL — SOLO EN PORTADA Y CIERRE** (y en la barra del visor). Las **láminas de contenido NO llevan logos arriba a la izquierda**
+   (ni cabecera): el título abre la lámina (ajuste del usuario, 2026-10-02). Campuslands **primero** de izquierda a derecha; entre ambos logos va una **«×»** (nunca una línea divisoria),
    **centrada siempre en vertical** respecto a los logos (tolerancia 2 px). Dos logos a igual altura no se ven iguales si sus proporciones difieren (Globant 5,09 : 1 vs Campuslands
    3,20 : 1), por eso el tamaño se iguala por **ÁREA de caja recortada** (±6 %): `python3 herramientas/igualar_logos.py <logo-cliente.png>` da el factor `--k-cliente`
    (alto del cliente = alto de Campuslands × k). Sin deformar, en cabecera, portada, cierre **y barra del visor**. Se **mide** (`verificar_deck.py`) y se **confirma a la vista**.
@@ -34,11 +36,13 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 4. **TIPOGRAFÍA DEL BRANDBOOK.** **Poppins** (Regular/Black) en títulos · **Roboto Mono** (Regular) en cuerpos · **Nutmeg** en destacados (comercial, aún sin
    licencia en el repo → cae a Poppins Black; avisar al usuario). **Prohibido** Playfair, DM Serif, Montserrat, Cambria, Calibri, Arial.
 5. **DINAMISMO E INNOVACIÓN.** Nada plano: alternar arquetipo entre láminas contiguas y usar el lenguaje gráfico de la marca (`</`, `{ }`, `<= =>`,
-   marco neón dorado, numerales grandes, comillas doradas, migas de pan, tarjetas navy/violeta como acentos, **figuras difuminadas** `.blob`). Portada y cierre llevan figuras
-   difuminadas de colores de la paleta (**no** chevrones `>`/`<` laterales). Catálogo y clases en `wiki/sistema-diseno.md`.
+   marco neón dorado (solo en **un dato/tarjeta clave**; **nunca** en banners/franjas), numerales grandes, comillas doradas, migas de pan, tarjetas navy/violeta como acentos).
+   **Fondo de portada y cierre** (`.deco-cover`): el estilo de la portada original —**anillos concéntricos finos + resplandor central + dos «hojas» laterales curvas**— con colores de la
+   paleta y **baja saturación** (violeta/celeste/navy con alfa bajo). **No** chevrones `<`/`>` ni manchas difuminadas. Catálogo y clases en `wiki/sistema-diseno.md`.
+   **Pie de lámina:** lema + migas de pan; **sin indicador de página «NN / TT»** (el visor ya muestra «N / total»).
    **Portada:** el pie (Preparado para / por / Fecha) va en **Poppins** (no Roboto Mono) y «Fecha» muestra **Mes y Año** (p. ej. «Octubre 2026»), nunca solo el año.
 6. **MÁXIMO 10 LÁMINAS.** Solo se supera si el usuario lo pide **textualmente** (y entonces uso `--max-slides N`). Antes de añadir, **fusionar** (`wiki/plantilla-base.md`).
-7. **VERIFICACIÓN VISUAL RIGUROSA** de espacios, distribución, colores y fuentes en **cada build y cada ajuste**: `verificar_deck.py` en APROBADO **y** revisión a la vista de cada
+7. **VERIFICACIÓN VISUAL RIGUROSA** de espacios, distribución (aprovechar el espacio útil: tarjetas sin mitades vacías, tipografía lo más grande que quepa), colores y fuentes en **cada build y cada ajuste**: `verificar_deck.py` en APROBADO **y** revisión a la vista de cada
    lámina (protocolo en `wiki/verificacion.md`). No entrego nada que no haya pasado ambas.
 8. **CADA OBJETO CON RAZÓN.** Para cada bloque debo poder decir por qué está ahí, a ese tamaño y con ese color. Lo escribo en el plan y en la bitácora; lo que no tenga razón se quita.
 

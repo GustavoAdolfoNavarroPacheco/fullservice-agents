@@ -8,7 +8,7 @@ Elegir de la biblioteca solo lo que la historia necesita y **fusionar** antes qu
 
 | # | Bloque | Objetivo | Arquetipo (plantilla) | Fondo típico |
 |---|---|---|---|---|
-| 1 ⭐ | Portada | Co-branding «Campuslands × Cliente» (igual peso visual) + título con `</` + preparado para/por/fecha (Poppins; fecha = Mes Año) + figuras difuminadas | Portada | arena |
+| 1 ⭐ | Portada | Co-branding «Campuslands × Cliente» (igual peso visual) + título con `</` + preparado para/por/fecha (Poppins; fecha = Mes Año) + fondo de anillos y hojas (baja saturación) | Portada | arena |
 | 2 | Contexto / reto | Qué le duele al cliente, en una frase + dato clave | Afirmación (comilla + neón en tarjeta navy) | arena |
 | 3 ⭐ | Línea base y cifras | Números críticos de hoy / del escenario | Métricas | arena |
 | 4 ⭐ | Solución | Qué se construye y cómo encaja | Módulos / diagrama de capas | arena |

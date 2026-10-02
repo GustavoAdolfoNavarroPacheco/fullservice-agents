@@ -18,6 +18,12 @@ Requiere Chromium y `pip install pymupdf`. Si el usuario pidió más de 10 lámi
 | Peso visual de logos (Campuslands vs cliente) | **áreas iguales ±6 %** (no la altura) | R2 |
 | «×» entre logos | existe `.x`, no hay `.sep`, centrada en vertical ±2 px, entre ambos logos | R2 |
 | Rótulo «Confidencial» | no aparece (ni visor ni láminas) | R8 |
+| Logos en láminas de contenido | ninguno (solo portada/cierre, que sí deben llevarlos) | R10 |
+| Fondo | sin resplandor celeste (`rgb(44,170,255)`) | R10 |
+| Pie | sin indicador `NN / TT` | R10 |
+| Banners/franjas | sin borde dorado | R11 |
+| Bloques superpuestos | ninguna tarjeta/franja pisa a otra (≥ 50 px) | calidad |
+| Texto dentro de su tarjeta | el texto no sobresale de la tarjeta/franja que lo contiene | calidad |
 | Portada: «Fecha» | Mes y Año (no solo el año) | R9 |
 | Orden de logos | Campuslands a la izquierda | Brandbook p.6 |
 | Deformación del logo | proporción dibujada = natural (±3 %) | Brandbook p.16 |

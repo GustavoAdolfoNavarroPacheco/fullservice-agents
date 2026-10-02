@@ -18,7 +18,9 @@ Logos oficiales en [`recursos/logos-campuslands/`](../recursos/logos-campuslands
 | R1 | Los **fondos** usan **SIEMPRE y OBLIGATORIAMENTE colores de Campuslands** y el **TEMA ES CLARO** (web y presentación; ajuste del 2026-10-02). | Todo fondo de lámina y del visor = **arena** `#E4E4DB` (+ resplandores de colores de la paleta). Navy/violeta solo como tarjetas/franjas/acentos. `verificar_deck.py` rechaza `data-bg` ≠ `sand`, fondos oscuros y colores fuera de la paleta. |
 | R2 | Logo de Campuslands y logo del cliente con el **mismo tamaño** (ajustado el 2026-10-02: igual **peso visual**), separados por una **«×»** centrada en vertical. | **Áreas de caja recortada iguales (±6 %)** con `--k-cliente` de `igualar_logos.py` (a igual altura Globant se veía ~60 % más ancho); «×» centrada (±2 px); se mide con `verificar_deck.py` **y** se confirma a la vista. |
 | R8 | **Sin rótulo «Confidencial»** en visor ni láminas. | `verificar_deck.py` falla si aparece el texto. |
-| R9 | **Portada:** figuras difuminadas (no chevrones), pie en Poppins, «Fecha» = **Mes y Año**. | Plantilla `_plantilla-campuslands`; el verificador valida el formato de la fecha. |
+| R9 | **Portada:** fondo con anillos concéntricos + resplandor + hojas laterales (colores Campuslands, baja saturación; sin chevrones), pie en Poppins, «Fecha» = **Mes y Año**. | Plantilla `_plantilla-campuslands`; el verificador valida el formato de la fecha. |
+| R10 | **Láminas de contenido sin logos** arriba a la izquierda (logos solo en portada y cierre), **sin difuminación celeste** arriba a la derecha y **sin indicador «NN / TT»** en el pie. | `verificar_deck.py` falla si aparece cualquiera. |
+| R11 | **Banners/franjas sin borde dorado**; el marco neón es solo para un dato/tarjeta clave. | `verificar_deck.py` falla con borde dorado ≥ 1,5 px en `reading/banner/note/franja`. |
 | R3 | **Dinamismo e innovación**: nada "plano". | Alternar arquetipos entre láminas contiguas y usar el lenguaje gráfico de marca (§6). Ver [[sistema-diseno]]. |
 | R4 | **Máximo 10 láminas**; solo se supera si el usuario lo pide **textualmente**. | `verificar_deck.py` falla con >10 (salvo `--max-slides N` ante pedido textual). |
 | R5 | **Elegir el mejor logo de Campuslands** evaluando el **contraste** con el fondo. | `herramientas/elegir_logo.py` (tabla en §3.3). |
@@ -92,9 +94,9 @@ co-branding se usa una separación **≥ 2X** más un divisor fino, y nunca se c
 ### 3.5 Co-branding (p.6, p.1)
 1. **Campuslands aparece primero**, de izquierda a derecha.
 2. **Semejanza total en los tamaños** → regla **R2** (ajustada por el usuario el 2026-10-02): igual **peso visual**, es decir **áreas de caja
-   recortada iguales (±6 %)** en cabecera, portada, cierre **y barra del visor**. A igual altura, un logo más apaisado (Globant 5,09 : 1 frente
+   recortada iguales (±6 %)** en portada, cierre **y barra del visor**. A igual altura, un logo más apaisado (Globant 5,09 : 1 frente
    a Campuslands 3,20 : 1) se ve mucho más grande; el factor lo da `herramientas/igualar_logos.py` (`k = √(ratio_Campuslands / ratio_cliente)`).
-3. Entre los logos va una **«×»** (SVG, clase `.x`) —**no** una línea divisoria (cambio del usuario sobre el divisor del Brandbook p.1)— y está **siempre
+3. Los logos van **solo en portada y cierre** (y en la barra del visor); las láminas de contenido no llevan co-branding. Entre los logos va una **«×»** (SVG, clase `.x`) —**no** una línea divisoria (cambio del usuario sobre el divisor del Brandbook p.1)— y está **siempre
    centrada en vertical** respecto a los logos (±2 px). Espacio entre elementos según §3.4.
 4. Se confirma **a la vista** que ninguno de los dos logos domina; si aun así lo parece, se ajusta `--k-cliente` unos puntos y se vuelve a medir.
 5. Logo del cliente: PNG/SVG **transparente**, recortado al contenido, **a color/oscuro** (se ve sobre arena). **No se recolorea**: si solo existe
@@ -156,7 +158,7 @@ decks previos al 2026-10-02 que las usan son legado, ver [[archivo/README]]).
 | **Migas de pan** `\| campuslands \| brandbook \| guidelines \| sección \|` | encabezado de cada página | Pie de lámina: `\| campuslands \| propuesta \| cliente \| sección \|`. |
 | **Numerales grandes translúcidos** | p.3, 5–7, 12 (1–5 en gris) | Número de sección, esquina superior derecha. |
 | **Comillas doradas** | p.2 | Lámina de afirmación/cita. |
-| **Chevrones `>>`** navy + verde | tarjetas p.19 | Solo **conectores de proceso**. Desde el 2026-10-02 **no** se usan como decoración lateral de portada/cierre: ahí van **figuras difuminadas** (`.blob`, colores de la paleta + blur). |
+| **Chevrones `>>`** navy + verde | tarjetas p.19 | Solo **conectores de proceso**. Desde el 2026-10-02 **no** decoran portada/cierre: ahí va el fondo de **anillos + hojas laterales** (`.deco-cover`, estilo de la portada original con colores de la paleta y baja saturación). |
 | **Marco neón dorado** | post RRSS p.8 | Marco del dato o frase clave (uno por lámina como máximo). |
 | **Divisor fino entre logos** | portada p.1 | Co-branding. |
 | Fotografía con *overlay* navy/violeta | p.1, 4, 9, 11, 13, 17 | Solo si el usuario entrega fotos reales; no hay fotos en el repo. |

@@ -17,8 +17,7 @@
 ```css
 --violet:#5E3AE2; --gold:#F4B422; --green:#00AA80; --navy:#000087; --sky:#2CAAFF; --sand:#E4E4DB;   /* paleta oficial */
 --white:#FFFFFF; --ink:#373435;                       /* apoyos: texto/logo sobre oscuro · texto sobre arena */
---bg-sand:   radial-gradient(80% 70% at 100% 0%, rgba(44,170,255,.20), transparent 60%),
-             radial-gradient(60% 60% at 0% 100%, rgba(94,58,226,.13), transparent 62%), #E4E4DB;   /* ÚNICO fondo de lámina y del visor */
+--bg-sand:   radial-gradient(60% 60% at 0% 100%, rgba(94,58,226,.13), transparent 62%), #E4E4DB;   /* ÚNICO fondo de lámina y del visor; SIN difuminación celeste arriba-derecha */
 --font-title:'Poppins'; --font-body:'Roboto Mono'; --font-accent:'Nutmeg','Poppins';
 --logo-h:30px;  --logo-h-cover:64px;                  /* alto del logo de Campuslands */
 --k-cliente:<√(ratio Campuslands / ratio cliente)>;   /* igualar_logos.py: alto del cliente = alto Campuslands × k → ÁREAS IGUALES */
@@ -31,11 +30,11 @@ Navy/violeta/dorado/verde/celeste existen **solo como tarjetas, franjas, íconos
 
 ## 3. Grilla y estructura
 - Lámina nativa **1056 × 594 px** (11 × 6,1875 in a 96 dpi) = tamaño del PDF. Padding lateral `.62in`, vertical `.42in / .38in`.
-- `.sl[data-bg]` (raíz) → `.hd` (cabecera: **solo el co-branding**) · contenido · `.ft` (pie).
-- **Cabecera interna:** co-branding agrupado a la izquierda — logo Campuslands, **«×»** (`.x`, centrada en vertical), logo del cliente — con **igual peso visual** (alto del cliente = `--logo-h × --k-cliente`).
+- `.sl[data-bg]` (raíz) → contenido (el título abre la lámina) · `.ft` (pie). Portada y cierre: sin cabecera, co-branding centrado.
+- **Láminas de contenido: sin cabecera de logos** (el verificador rechaza logos en láminas de contenido). El co-branding vive solo en portada, cierre y barra del visor, con la «×» (`.x`) centrada y el logo del cliente a `--k-cliente`.
   Numeral de sección translúcido (`.ghost`) arriba a la derecha.
-- **Pie:** izquierda *Exploramos · Despegamos · Conquistamos* · centro migas `| campuslands | propuesta | cliente | sección |` · derecha `NN / TT`.
-- **Portada y cierre:** co-branding **centrado y grande** (`--logo-h-cover`), título con `</`, **figuras difuminadas** `.blob` (violeta/celeste arriba, dorado/verde abajo; sin chevrones laterales), sin cabecera.
+- **Pie:** izquierda *Exploramos · Despegamos · Conquistamos* · centro migas `| campuslands | propuesta | cliente | sección |` · **sin** indicador `NN / TT` a la derecha.
+- **Portada y cierre:** co-branding **centrado y grande** (`--logo-h-cover`), título con `</`, fondo `.deco-cover` (anillos concéntricos + resplandor central violeta + dos hojas laterales violeta/celeste, baja saturación; sin chevrones ni manchas), sin cabecera.
   Pie de portada en **Poppins** (etiquetas Black, valores Regular) con «Fecha» = **Mes Año** (p. ej. «Octubre 2026»).
 - El deck se entrega en el **visor de una lámina a la vez** (`script.js`, `zoom` y no `transform:scale()`); la barra superior del visor también
   lleva «Campuslands × Cliente» con el mismo peso visual y es **clara**. El PDF oculta el visor (`@media print`).
@@ -64,8 +63,8 @@ Roboto Mono es ancha: líneas más cortas, tamaños un punto por encima de lo qu
 | Panel antes/después | `.panel--hoy` / `.panel--nuevo` + `.delta` | Comparaciones con indicador de impacto. |
 | Módulo con ícono | `.mod` + `.ico--{sky,gold,green,violet,navy}` | Cuadrículas de capacidades. |
 | Franja de lectura | `.reading` | Cierra una lámina con la conclusión (una por lámina). |
-| Marco neón | `.neon` | **Un** dato o frase clave por lámina. |
-| Figuras difuminadas | `.blob` + `.blob--{violet,sky,gold,green,navy}` (`aria-hidden`) | Fondo de portada/cierre en los bordes; nunca bajo texto pequeño. |
+| Marco neón | `.neon` | **Un** dato o tarjeta clave por lámina. **Nunca** en banners/franjas (`.reading`, notas): sin borde dorado. |
+| Fondo de portada/cierre | `<svg class="deco-cover">` (`.ring`, `.ring.accent`, `.blade--l/--r`; `aria-hidden`) | Solo en portada y cierre; copiar el bloque `DECO` de la plantilla. |
 | Chevrones | `.chev` (`aria-hidden`) | Solo conectores puntuales; ya no decoran la portada. |
 | Comilla | `.qmark` | Afirmación/cita. |
 | Chips | `.pill--{gold,sky,green,violet}` | Estados y categorías. |
@@ -101,6 +100,6 @@ Usar solo los pares de [[marca-campuslands]] §4 (✅). Sobre arena: títulos na
 - **Impresión:** `@page{size:11in 6.1875in; margin:0}` + `print-color-adjust:exact`.
 
 ## 11. Anti-patrones (cero tolerancia)
-Fondos oscuros o fuera de paleta (tema claro obligatorio) · rótulo «Confidencial» · línea divisoria `|` entre logos (va «×») · «×» descentrada · logos de distinto peso visual (misma altura con proporciones distintas) o deformados · chevrones laterales en la portada · pie de portada en Roboto Mono o fecha solo con el año · Playfair/Montserrat/
+Fondos oscuros o fuera de paleta (tema claro obligatorio) · rótulo «Confidencial» · línea divisoria `|` entre logos (va «×») · «×» descentrada · logos de distinto peso visual (misma altura con proporciones distintas) o deformados · chevrones laterales o manchas difuminadas en la portada · logos arriba a la izquierda en láminas de contenido · difuminación celeste arriba a la derecha · indicador de página «NN / TT» · borde dorado en banners · tarjetas que se pisan o texto que se sale de su tarjeta · pie de portada en Roboto Mono o fecha solo con el año · Playfair/Montserrat/
 otras tipografías · todas las láminas con el mismo arquetipo · texto corrido centrado · decoración sobre texto · más de 10 láminas sin pedido
 textual · tarjetas con 40 % de aire muerto · subrayados/`hr` decorativos bajo títulos · color plano donde la marca pide el recurso gráfico.

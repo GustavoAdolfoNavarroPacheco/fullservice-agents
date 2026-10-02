@@ -12,6 +12,8 @@ Qué mide (en Chromium headless, lámina por lámina, a tamaño real 1056×594 p
   3. Logos: Campuslands y cliente con el MISMO PESO VISUAL (áreas de caja recortada iguales ±6 %: la altura se escala con
      herramientas/igualar_logos.py), Campuslands primero (izq→der), sin deformar, versión a color sobre arena.
      Entre ambos va una «×» (no una línea), centrada en vertical con los logos (±2 px). Prohibido el rótulo «Confidencial».
+     Los logos van SOLO en portada y cierre (+ barra del visor): una lámina de contenido con logos arriba a la izquierda es error.
+     Sin indicador de página «NN / TT» en el pie; sin resplandor celeste en el fondo; sin borde dorado en banners/franjas.
   4. Tipografía: solo Poppins (400/900), Roboto Mono (400) y Nutmeg (Brandbook p.10).  Tamaño mínimo 9 px.
   5. Geometría: nada fuera de la lámina, nada invadiendo el pie, texto recortado, huecos verticales grandes.
   6. Contraste del texto (WCAG: 4.5:1 normal · 3:1 grande/negrita) contra su fondo real.
@@ -61,13 +63,20 @@ JS = r"""
     const dark = ['navy','violet'].includes(root.dataset.bg);
     if (root.dataset.bg && root.dataset.bg !== 'sand') S.err.push(`TEMA CLARO obligatorio: la lámina declara data-bg="${root.dataset.bg}"; todo fondo de lámina debe ser arena (data-bg="sand").`);
     { const bc = cols.length ? cols[cols.length-1] : null; if (bc && lum(bc) < 0.55) S.err.push('Fondo oscuro: el tema debe ser claro (arena).'); }
+    const isEdge = root.classList.contains('cover') || root.classList.contains('close');
+    if (/rgba?\(\s*44\s*,\s*170\s*,\s*255/.test(bgTxt)) S.err.push('Fondo con resplandor/difuminación CELESTE: prohibido (ajuste del usuario); usar solo el resplandor violeta suave.');
+    { const pi = [...sl.querySelectorAll('.ft *, .s-footer *')].find(e => /^\s*\d{1,2}\s*\/\s*\d{1,2}\s*$/.test(e.textContent) && !e.children.length);
+      if (pi) S.err.push('Indicador de página «NN / TT» en el pie: prohibido (ajuste del usuario); el visor ya muestra «N / total».'); }
+    sl.querySelectorAll('[class*="reading"],[class*="banner"],[class*="note"],[class*="franja"]').forEach(e => { const b = getComputedStyle(e);
+      const col = parse(b.borderTopColor); if (parseFloat(b.borderTopWidth) >= 1.5 && col && col.a > 0.3 && near([244,180,34],[col.r,col.g,col.b],6)) S.err.push('Banner/franja con borde dorado (neón): prohibido; el marco neón es solo para un dato/tarjeta clave (' + e.className + ').'); });
     if (NOCONF.test(sl.textContent)) S.err.push('Aparece el rótulo «Confidencial»: está prohibido (regla del usuario).');
     // 3 · logos
     let logos = [...sl.querySelectorAll('img[data-logo]')];
-    if (!logos.length) logos = [...sl.querySelectorAll('img')].filter(i => /logo|brand|client|campuslands/i.test(i.className+' '+i.alt+' '+i.src) && !/favicon/.test(i.src));
+    if (!logos.length) logos = [...sl.querySelectorAll('.cobrand img,.hd img,.s-header img')].filter(i => /logo|brand|client|campuslands/i.test(i.className+' '+i.alt+' '+i.src) && !/favicon/.test(i.src));
     const lg = {};
     logos.forEach(i => { const k = (i.dataset.logo || (/campuslands/i.test(i.alt+i.src) ? 'campuslands' : 'cliente')); (lg[k] = lg[k] || []).push(i); });
-    if (logos.length) {
+    if (logos.length && !isEdge && !sl.classList.contains('sin-logos')) S.err.push('Lámina de contenido con logos (Campuslands × Cliente arriba): los logos van solo en portada y cierre (ajuste del usuario).');
+    if (logos.length && isEdge) {
       const c = (lg.campuslands||[])[0], k = (lg.cliente||[])[0];
       if (!c) S.err.push('Logo Campuslands ausente en la lámina.');
       if (!k) S.warn.push('Logo del cliente ausente (¿lámina sin co-branding?).');
@@ -105,7 +114,7 @@ JS = r"""
           if (!effDark && !isColor) S.err.push(`Logo Campuslands ${where} CLARO debe ser la versión A COLOR.`);
         }
       });
-    } else if (!sl.classList.contains('sin-logos')) S.warn.push('La lámina no tiene logos.');
+    } else if (isEdge) S.err.push('Portada/cierre sin logos: debe llevar «Campuslands × Cliente».');
     // 4 · tipografía y 6 · contraste
     const bgChain = el => { let e = el, a = 1;
       while (e && e !== root.parentElement) { const c = parse(getComputedStyle(e).backgroundColor); if (c && c.a > 0.55) return {c, solid:true}; e = e.parentElement; }
@@ -142,8 +151,8 @@ JS = r"""
     if (low.length) (low.length > 3 ? S.err : S.warn).push('Contraste insuficiente: ' + [...new Set(low)].slice(0,4).join(' | '));
     // 5 · geometría
     const ft = sl.querySelector('.ft,.s-footer'), ftTop = ft ? ft.getBoundingClientRect().top : sr.bottom;
-    const hdEl = sl.querySelector('.hd,.s-header'), hdBottom = hdEl ? hdEl.getBoundingClientRect().bottom : sr.top + 70;
-    const out = [], over = [], clip = [], leaves = [];
+    const hdEl = sl.querySelector('.hd,.s-header'), hdBottom = hdEl ? hdEl.getBoundingClientRect().bottom : sr.top + 40;
+    const out = [], over = [], clip = [], leaves = [], boxOver = [];
     sl.querySelectorAll('*').forEach(el => {
       if (decor(el)) return;
       const r = el.getBoundingClientRect(); if (r.width < 1 || r.height < 1) return;
@@ -154,11 +163,24 @@ JS = r"""
       if (boxed && !inFt && !inHd) leaves.push([r.top - sr.top, r.bottom - sr.top]);
       if (own && !inFt && !inHd) {
         leaves.push([r.top - sr.top, r.bottom - sr.top]);
+        // el texto debe quedar DENTRO de la tarjeta/franja que lo contiene (si no, la pisa otro bloque o se sale del fondo)
+        { let a = el.parentElement; while (a && a !== root) { const bg = parse(getComputedStyle(a).backgroundColor); if (bg && bg.a > 0.5) break; a = a.parentElement; }
+          if (a && a !== root) { const ra = a.getBoundingClientRect(); if (r.bottom > ra.bottom + 2 || r.right > ra.right + 2) boxOver.push((el.textContent.trim().slice(0,28)) + ' (+' + Math.max(r.bottom-ra.bottom, r.right-ra.right).toFixed(0) + 'px)'); } }
         if (ft && r.bottom > ftTop + 1) over.push(el.tagName.toLowerCase()+'.'+el.className+` (+${(r.bottom-ftTop).toFixed(0)}px)`);
       }
       const o = getComputedStyle(el);
       if (el !== root && /(hidden|clip)/.test(o.overflow+o.overflowY) && (el.scrollHeight > el.clientHeight+2 || el.scrollWidth > el.clientWidth+2) && el.clientHeight>0) clip.push(el.tagName.toLowerCase()+'.'+el.className);
     });
+    // bloques (tarjetas, franjas) superpuestos entre sí: uno pisa al otro (p. ej. una tarjeta que crece y queda bajo el banner)
+    { const bx = [];
+      sl.querySelectorAll('*').forEach(el => { if (decor(el) || el === root) return; const r = el.getBoundingClientRect(); const bgc = parse(getComputedStyle(el).backgroundColor);
+        if (r.width >= 50 && r.height >= 50 && bgc && bgc.a > 0.5 && !el.closest('.ft,.s-footer')) bx.push({el, r}); });
+      const hit = [];
+      for (let i = 0; i < bx.length; i++) for (let j = i+1; j < bx.length; j++) { const A = bx[i], B = bx[j];
+        if (A.el.contains(B.el) || B.el.contains(A.el)) continue;
+        const w = Math.min(A.r.right, B.r.right) - Math.max(A.r.left, B.r.left), h = Math.min(A.r.bottom, B.r.bottom) - Math.max(A.r.top, B.r.top);
+        if (w > 4 && h > 4) hit.push(`${A.el.className.toString().split(' ')[0]||A.el.tagName} × ${B.el.className.toString().split(' ')[0]||B.el.tagName} (${Math.round(w)}×${Math.round(h)}px)`); }
+      if (hit.length) S.err.push('Bloques superpuestos (uno pisa a otro): ' + [...new Set(hit)].slice(0,4).join(' | ')); }
     // imágenes (logos, fotos) que se salen de su contenedor inmediato: pisan a sus vecinos aunque sigan dentro de la lámina
     const esc = [];
     sl.querySelectorAll('img').forEach(im => { if (decor(im)) return; const r = im.getBoundingClientRect(), pr = im.parentElement.getBoundingClientRect();
@@ -166,6 +188,7 @@ JS = r"""
     if (esc.length) S.err.push('Imagen desborda su contenedor: ' + esc.join(', '));
     if (out.length) S.err.push('Contenido fuera de la lámina: ' + [...new Set(out)].slice(0,4).join(', '));
     if (over.length) S.err.push('Contenido invade el pie de página: ' + [...new Set(over)].slice(0,3).join(', '));
+    if (boxOver.length) S.err.push('Texto que se sale de su tarjeta/franja (queda pisado o fuera del fondo): ' + [...new Set(boxOver)].slice(0,4).join(' | '));
     if (clip.length) S.err.push('Texto/contenido recortado por overflow: ' + [...new Set(clip)].slice(0,4).join(', '));
     // huecos verticales
     leaves.sort((a,b)=>a[0]-b[0]); const merged = [];
