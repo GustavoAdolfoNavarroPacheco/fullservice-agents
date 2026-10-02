@@ -8,16 +8,16 @@ Elegir de la biblioteca solo lo que la historia necesita y **fusionar** antes qu
 
 | # | Bloque | Objetivo | Arquetipo (plantilla) | Fondo típico |
 |---|---|---|---|---|
-| 1 ⭐ | Portada | Co-branding «Campuslands × Cliente» (igual peso visual) + título con `</` + preparado para/por/fecha (Poppins; fecha = Mes Año) + fondo de anillos y hojas (baja saturación) | Portada | arena |
-| 2 | Contexto / reto | Qué le duele al cliente, en una frase + dato clave | Afirmación (comilla + neón en tarjeta navy) | arena |
-| 3 ⭐ | Línea base y cifras | Números críticos de hoy / del escenario | Métricas | arena |
-| 4 ⭐ | Solución | Qué se construye y cómo encaja | Módulos / diagrama de capas | arena |
-| 5 | Cómo se hace | Método, fases, hitos | Proceso (escalera) / timeline | arena |
-| 6 | Antes / después | Cambio medible | Antes/después | arena |
-| 7 | Equipo / Campuslands | Por qué nosotros | Split / galería | arena |
-| 8 | Casos / industrias | Prueba social (logos y perfiles) | Galería de logos + tarjetas | arena |
-| 9 ⭐ | Inversión y condiciones | Total, esquema de pago, garantías (una lámina; dos solo si no cabe) | Métricas/tabla | arena |
-| 10 ⭐ | Cierre / siguiente paso | Pasos y co-branding, **sin** datos de contacto si el usuario no los pide | Cierre (figuras difuminadas) | arena |
+| 1 ⭐ | Portada | Co-branding «Campuslands × Cliente» (igual peso visual) + título con `</` + preparado para/por/fecha (Poppins; fecha = Mes Año) + fondo de anillos y hojas (baja saturación) | Portada | blanco |
+| 2 | Contexto / reto | Qué le duele al cliente, en una frase + dato clave | Afirmación (comilla + neón en tarjeta navy) | blanco |
+| 3 ⭐ | Línea base y cifras | Números críticos de hoy / del escenario | Métricas | blanco |
+| 4 ⭐ | Solución | Qué se construye y cómo encaja | Módulos / diagrama de capas | blanco |
+| 5 | Cómo se hace | Método, fases, hitos | Proceso (escalera) / timeline | blanco |
+| 6 | Antes / después | Cambio medible | Antes/después | blanco |
+| 7 | Equipo / Campuslands | Por qué nosotros | Split / galería | blanco |
+| 8 | Casos / industrias | Prueba social (logos y perfiles) | Galería de logos + tarjetas | blanco |
+| 9 ⭐ | Inversión y condiciones | Total, esquema de pago, garantías (una lámina; dos solo si no cabe) | Métricas/tabla | blanco |
+| 10 ⭐ | Cierre / siguiente paso | Pasos y co-branding, **sin** datos de contacto si el usuario no los pide | Cierre (figuras difuminadas) | blanco |
 
 Reglas de fusión: contexto+reto en una; cronograma+método en una; equipo+casos en una; inversión+pago en una.
 **Cada lámina responde una pregunta** y se escribe, en el plan, su razón de ubicación (R7, [[verificacion]] §3).

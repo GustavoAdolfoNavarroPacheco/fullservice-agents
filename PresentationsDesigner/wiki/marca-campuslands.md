@@ -15,11 +15,12 @@ Logos oficiales en [`recursos/logos-campuslands/`](../recursos/logos-campuslands
 
 | # | Regla | Cómo se cumple y se comprueba |
 |---|---|---|
-| R1 | Los **fondos** usan **SIEMPRE y OBLIGATORIAMENTE colores de Campuslands** y el **TEMA ES CLARO** (web y presentación; ajuste del 2026-10-02). | Todo fondo de lámina y del visor = **arena** `#E4E4DB` (+ resplandores de colores de la paleta). Navy/violeta solo como tarjetas/franjas/acentos. `verificar_deck.py` rechaza `data-bg` ≠ `sand`, fondos oscuros y colores fuera de la paleta. |
+| R1 | Los **fondos** usan **BLANCO `#FFFFFF`** (tema claro, web y presentación; ajuste del usuario 2026-10-02, antes arena); el resto de la paleta Campuslands son **tarjetas, franjas y acentos**. | Todo fondo de lámina y de la página del visor = `#FFFFFF` (`data-bg="white"`). `verificar_deck.py` rechaza `data-bg` ≠ `white`, cualquier otro color de fondo y la barra/página del visor no blanca. |
 | R2 | Logo de Campuslands y logo del cliente con el **mismo tamaño** (ajustado el 2026-10-02: igual **peso visual**), separados por una **«×»** centrada en vertical. | **Áreas de caja recortada iguales (±6 %)** con `--k-cliente` de `igualar_logos.py` (a igual altura Globant se veía ~60 % más ancho); «×» centrada (±2 px); se mide con `verificar_deck.py` **y** se confirma a la vista. |
 | R8 | **Sin rótulo «Confidencial»** en visor ni láminas. | `verificar_deck.py` falla si aparece el texto. |
+| R12 | **Poppins en toda la presentación**; **numerales de sección pequeños y difuminados**; **pie (migas) abajo a la izquierda**; **logos grandes en la barra del visor**; **decoraciones** (anillos, puntos, rayas, cruces, chevrones) en los marcos de contenido. | Plantilla; el verificador rechaza Roboto Mono y logos del visor < 40 px. |
 | R9 | **Portada:** fondo con anillos concéntricos + resplandor + hojas laterales (colores Campuslands, baja saturación; sin chevrones), pie en Poppins, «Fecha» = **Mes y Año**. | Plantilla `_plantilla-campuslands`; el verificador valida el formato de la fecha. |
-| R10 | **Láminas de contenido sin logos** arriba a la izquierda (logos solo en portada y cierre), **sin difuminación celeste** arriba a la derecha y **sin indicador «NN / TT»** en el pie. | `verificar_deck.py` falla si aparece cualquiera. |
+| R10 | **Láminas de contenido sin logos** arriba a la izquierda (logos solo en portada y cierre), **sin difuminación celeste** arriba a la derecha y **sin indicadores de página/módulo** (ni «NN / TT» en el pie ni filas de puntos junto al título; solo el numeral grande). | `verificar_deck.py` falla si aparece cualquiera. |
 | R11 | **Banners/franjas sin borde dorado**; el marco neón es solo para un dato/tarjeta clave. | `verificar_deck.py` falla con borde dorado ≥ 1,5 px en `reading/banner/note/franja`. |
 | R3 | **Dinamismo e innovación**: nada "plano". | Alternar arquetipos entre láminas contiguas y usar el lenguaje gráfico de marca (§6). Ver [[sistema-diseno]]. |
 | R4 | **Máximo 10 láminas**; solo se supera si el usuario lo pide **textualmente**. | `verificar_deck.py` falla con >10 (salvo `--max-slides N` ante pedido textual). |
@@ -48,7 +49,7 @@ Archivos en `recursos/logos-campuslands/` (maestro tal cual llegó + `-recortado
 
 | Variante | Archivo | Proporción (recortado) | Uso |
 |---|---|---|---|
-| Horizontal a color | `campuslands-horizontal-color` | 3,20 : 1 | Fondos **arena** (claros). |
+| Horizontal a color | `campuslands-horizontal-color` | 3,20 : 1 | Fondo **blanco** (tema claro). |
 | Horizontal blanco | `campuslands-horizontal-blanco` | 5,05 : 1 | Fondos **navy** y **violeta**. |
 | Vertical a color | `campuslands-vertical-color` | 0,91 : 1 | Portadas/cierres verticales sobre arena. |
 | Vertical blanco | `campuslands-vertical-blanco` | 0,91 : 1 | Portadas/cierres verticales sobre navy/violeta. |
@@ -75,12 +76,12 @@ extremos del casco ≥ **2,5 : 1**. Resultado medido (`python3 herramientas/eleg
 | Navy | `#000087` | 1,26 / 1,18 | **15,56** | ✅ **BLANCO** |
 | Violeta | `#5E3AE2` | 1,86 / 1,93 | **6,61** | ✅ **BLANCO** |
 | Arena | `#E4E4DB` | **9,63** / 2,67 | 1,28 | ✅ **A COLOR** |
+| **Blanco** | `#FFFFFF` | **12,32** / 3,42 | 1,00 | ✅ **A COLOR** (fondo de lámina vigente) |
 | Dorado | `#F4B422` | 6,68 / 1,85 | 1,84 | ❌ ninguno |
 | Verde | `#00AA80` | 4,14 / 1,15 | 2,97 | ❌ ninguno |
 | Celeste | `#2CAAFF` | 4,87 / 1,35 | 2,53 | ❌ ninguno |
 
-**Consecuencia de diseño (tema claro, R1):** la zona de los logos (cabecera, portada, cierre) va **siempre sobre arena** con el logo **A COLOR**
-(9,63 : 1). Navy/violeta (donde el blanco sería la opción) quedan como tarjetas de acento **sin logos**. **Dorado, verde y celeste
+**Consecuencia de diseño (tema claro, R1):** la zona de los logos (cabecera, portada, cierre) va **siempre sobre blanco** con el logo **A COLOR**. Navy/violeta (donde el blanco sería la opción) quedan como tarjetas de acento **sin logos**. **Dorado, verde y celeste
 son colores de acento** (marcadores, íconos, números, bandas, llamados); **no** se usan como fondo de una zona con logos.
 
 ### 3.4 Espacio libre (p.7)
@@ -110,7 +111,7 @@ co-branding se usa una separación **≥ 2X** más un divisor fino, y nunca se c
 |---|---|---|---|
 | **Navy** | `#000087` | C100 · M93,2 · Y25,65 · K13,72 | **Tarjetas y franjas** de acento; texto de títulos sobre arena (**no** fondo de lámina). |
 | **Violeta** | `#5E3AE2` | C82,22 · M77,41 · Y0 · K0 | Énfasis sobre arena: acentos, números, tarjetas (**no** fondo de lámina). |
-| **Arena** | `#E4E4DB` | C16,36 · M10,89 · Y18,05 · K0,09 | **ÚNICO fondo de lámina y del visor** (tema claro). |
+| **Arena** | `#E4E4DB` | C16,36 · M10,89 · Y18,05 · K0,09 | Paneles/franjas de apoyo (p. ej. pie de tarjeta). **No** fondo de lámina (el fondo es blanco). |
 | **Dorado** | `#F4B422` | C6,91 · M35,47 · Y91,67 · K0,52 | **Acento**: `</`, números, bandas, marco neón. |
 | **Celeste** | `#2CAAFF` | C68,51 · M28,97 · Y0 · K0 | **Acento**: `{ }`, íconos, líneas. |
 | **Verde** | `#00AA80` | C77,49 · M0,76 · Y61,5 · K0 | **Acento**: éxito, chevrones, íconos. |
@@ -139,10 +140,10 @@ de la paleta** (p. ej. violeta → navy) y *glows* de un color de la paleta con 
 | Rol (Brandbook) | Familia | Peso | En presentaciones |
 |---|---|---|---|
 | **Títulos** | **Poppins** | Regular 400 · **Black 900** | Títulos, números grandes, etiquetas `{ }`. Énfasis = *Black Italic* en color de acento. |
-| **Cuerpos de texto** | **Roboto Mono** | Regular 400 | Todo texto corrido, listas, pies, migas. Monoespaciada: **más ancha** → tamaños y longitudes de línea se ajustan. |
+| **Cuerpos de texto** | **Poppins** (prioridad del usuario) | Regular 400 · Medium 500 · SemiBold 600 | Todo texto corrido, listas, pies, migas. **Roboto Mono (cuerpo del Brandbook p.10) ya no se usa** por pedido del usuario. |
 | **Destacados / Web** | **Nutmeg** | — | Frases destacadas. **Fuente comercial** (W Type Foundry); **no está licenciada en el repo** → mientras tanto cae a Poppins Black. |
 
-Archivos locales en `recursos/fonts/` (`Poppins-Regular/Black/BlackItalic.ttf`, `RobotoMono-VariableFont_wght.ttf`, licencia OFL).
+Archivos locales en `recursos/fonts/` (`Poppins-Regular/Medium/SemiBold/Black/BlackItalic.ttf`, licencia OFL).
 Se copian a `assets/fonts/` de cada deck. **Prohibido**: Playfair Display, DM Serif, Montserrat, Cambria, Calibri, Arial u otras (los
 decks previos al 2026-10-02 que las usan son legado, ver [[archivo/README]]).
 
@@ -154,7 +155,7 @@ decks previos al 2026-10-02 que las usan son legado, ver [[archivo/README]]).
 |---|---|---|
 | **`</` dorado** antes del título | p.3, 4, 9, 11, 13, 17 | Prefijo de título de sección (dorado sobre oscuro; **violeta** sobre arena). |
 | **`{ etiqueta }`** en celeste, Poppins Black | p.5–7, 12, 15 | Etiquetas/eyebrows (celeste sobre navy; violeta sobre arena; arena sobre violeta). |
-| **`<= … =>`** en Roboto Mono | índice p.3, portadas | Subtítulos y viñetas (`=>`). |
+| **`<= … =>`** en Poppins | índice p.3, portadas | Subtítulos y viñetas (`=>`). |
 | **Migas de pan** `\| campuslands \| brandbook \| guidelines \| sección \|` | encabezado de cada página | Pie de lámina: `\| campuslands \| propuesta \| cliente \| sección \|`. |
 | **Numerales grandes translúcidos** | p.3, 5–7, 12 (1–5 en gris) | Número de sección, esquina superior derecha. |
 | **Comillas doradas** | p.2 | Lámina de afirmación/cita. |

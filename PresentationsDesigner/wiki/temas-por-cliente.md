@@ -13,11 +13,11 @@
 ## Qué NO hace
 - No tiñe fondos, gradientes, acentos ni íconos.
 - No cambia tipografías.
-- No se recolorea su logo. Si no contrasta con la arena, se pide otra versión del logo (el fondo **no** cambia: tema claro obligatorio).
+- No se recolorea su logo. Si no contrasta con el blanco, se pide otra versión del logo (el fondo **no** cambia: tema claro obligatorio).
 
 ## Cómo elegir el fondo de cada lámina (en lugar de "derivar la paleta")
-1. **Fondo de toda lámina = arena** (tema claro obligatorio, web y presentación).
-2. Verificar que el **logo del cliente** contraste con la arena (WCAG ≥ 4,5 : 1 en su parte principal). Si es un logo claro/blanco, pedir la versión oscura o a color.
+1. **Fondo de toda lámina = blanco `#FFFFFF`** (tema claro obligatorio, web y presentación).
+2. Verificar que el **logo del cliente** contraste con el blanco (WCAG ≥ 4,5 : 1 en su parte principal). Si es un logo claro/blanco, pedir la versión oscura o a color.
 3. El ritmo se da con **arquetipos** distintos entre láminas contiguas y con **tarjetas navy/violeta** como acento (R3), no con cambios de fondo.
 4. Acentos: dorado/celeste/verde (+ violeta y navy sobre arena) según los pares de contraste.
 
@@ -25,7 +25,7 @@
 - [ ] PNG/SVG con **transparencia** real (ver bordes; si trae fondo blanco, recortarlo).
 - [ ] Recortado al **contenido exacto** (`getbbox`), sin padding irregular.
 - [ ] Copia **sin procesar** en `presentaciones/assets/logos/` (para el portal) y recortada en `assets/` del deck.
-- [ ] Probado sobre la arena; **área igual** a la de Campuslands (`igualar_logos.py` → `--k-cliente`; `verificar_deck.py` ±6 %).
+- [ ] Probado sobre el blanco; **área igual** a la de Campuslands (`igualar_logos.py` → `--k-cliente`; `verificar_deck.py` ±6 %).
 - [ ] Confirmado **mirando** que ninguno de los dos domina; si lo parece, se ajusta `--k-cliente` unos puntos, sin deformar.
 
 ## Portal y catálogo

@@ -19,28 +19,30 @@ trabajo de construcción, **verificación**, despliegue y mantenimiento de esta 
 Fuente normativa: **`recursos/brandbook/Campuslands_Brandbook.pdf`**, que se sigue **estrictamente** (resumen citado en `wiki/marca-campuslands.md`).
 Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo.
 
-1. **TEMA CLARO OBLIGATORIO — web Y presentación (regla del usuario, 2026-10-02).** El fondo de **toda lámina** es **arena `#E4E4DB`** (color de la paleta; con resplandores
-   de colores de la paleta) y el **visor web** (barra superior, inferior y página) también es claro. Navy `#000087` y violeta `#5E3AE2` se usan **solo como tarjetas, franjas y acentos**
-   sobre la arena; dorado `#F4B422`, celeste `#2CAAFF` y verde `#00AA80` son acentos. **Prohibido** navy/violeta/negro como fondo de lámina o del visor. **Se acabó la paleta derivada
-   del logo del cliente**: el cliente aporta su logo y su contenido, no sus colores (`wiki/temas-por-cliente.md`).
-   **Prohibido el rótulo «Confidencial»** (ni badge, ni óvalo, ni texto) en el visor y en las láminas.
-   **Fondo sin difuminación celeste** en la esquina superior derecha: el único resplandor del fondo es el violeta suave abajo-izquierda.
-2. **CO-BRANDING «Campuslands × Cliente» CON IGUAL PESO VISUAL — SOLO EN PORTADA Y CIERRE** (y en la barra del visor). Las **láminas de contenido NO llevan logos arriba a la izquierda**
-   (ni cabecera): el título abre la lámina (ajuste del usuario, 2026-10-02). Campuslands **primero** de izquierda a derecha; entre ambos logos va una **«×»** (nunca una línea divisoria),
-   **centrada siempre en vertical** respecto a los logos (tolerancia 2 px). Dos logos a igual altura no se ven iguales si sus proporciones difieren (Globant 5,09 : 1 vs Campuslands
-   3,20 : 1), por eso el tamaño se iguala por **ÁREA de caja recortada** (±6 %): `python3 herramientas/igualar_logos.py <logo-cliente.png>` da el factor `--k-cliente`
-   (alto del cliente = alto de Campuslands × k). Sin deformar, en cabecera, portada, cierre **y barra del visor**. Se **mide** (`verificar_deck.py`) y se **confirma a la vista**.
-3. **LOGO A COLOR (sobre arena).** Con tema claro el logo de Campuslands es **siempre la versión a color** (contraste 9,63 sobre arena; `herramientas/elegir_logo.py arena`);
+1. **TEMA CLARO OBLIGATORIO — web Y presentación (reglas del usuario, 2026-10-02).** El fondo de **toda lámina** y de la **página del visor web** es **BLANCO `#FFFFFF`** (ajuste del usuario;
+   antes arena). Navy `#000087`, violeta `#5E3AE2`, dorado `#F4B422`, celeste `#2CAAFF`, verde `#00AA80` y arena `#E4E4DB` se usan **solo como tarjetas, franjas, íconos y acentos** sobre el blanco.
+   **Prohibido** navy/violeta/negro/arena como fondo de lámina o del visor. **Se acabó la paleta derivada del logo del cliente**: el cliente aporta su logo y su contenido, no sus colores (`wiki/temas-por-cliente.md`).
+   **Prohibido el rótulo «Confidencial»** (ni badge, ni óvalo, ni texto). **Sin difuminación celeste** en las esquinas del fondo; el fondo de las láminas es blanco liso (las decoraciones van en los marcos, regla 5).
+2. **CO-BRANDING «Campuslands × Cliente» CON IGUAL PESO VISUAL — SOLO EN PORTADA, CIERRE Y BARRA DEL VISOR.** Las **láminas de contenido NO llevan logos** (ni cabecera): el título abre la lámina.
+   En la **barra superior del visor** los logos van **grandes** (Campuslands ≥ 40 px de alto; plantilla: 44 px). Campuslands **primero** de izquierda a derecha; entre ambos logos va una **«×»**
+   (nunca una línea divisoria), **centrada siempre en vertical** (tolerancia 2 px). A igual altura dos logos no se ven iguales si sus proporciones difieren (Globant 5,09 : 1 vs Campuslands 3,20 : 1),
+   por eso el tamaño se iguala por **ÁREA de caja recortada** (±6 %): `python3 herramientas/igualar_logos.py <logo-cliente.png>` da el factor `--k-cliente` (alto del cliente = alto de Campuslands × k).
+   Sin deformar. Se **mide** (`verificar_deck.py`) y se **confirma a la vista**.
+3. **LOGO A COLOR (sobre blanco).** Con fondo blanco el logo de Campuslands es **siempre la versión a color** (contraste 12,32 : 1 texto / 3,42 : 1 casco; `herramientas/elegir_logo.py "#FFFFFF"`);
    el logo del cliente va a color/oscuro. Dorado/verde/celeste **no** llevan logos. Los logos jamás se recolorean, rotan, recortan ni redistribuyen (Brandbook p.16).
-   Si el logo del cliente no contrasta con la arena, se pide otra versión (no se cambia el fondo).
-4. **TIPOGRAFÍA DEL BRANDBOOK.** **Poppins** (Regular/Black) en títulos · **Roboto Mono** (Regular) en cuerpos · **Nutmeg** en destacados (comercial, aún sin
-   licencia en el repo → cae a Poppins Black; avisar al usuario). **Prohibido** Playfair, DM Serif, Montserrat, Cambria, Calibri, Arial.
-5. **DINAMISMO E INNOVACIÓN.** Nada plano: alternar arquetipo entre láminas contiguas y usar el lenguaje gráfico de la marca (`</`, `{ }`, `<= =>`,
-   marco neón dorado (solo en **un dato/tarjeta clave**; **nunca** en banners/franjas), numerales grandes, comillas doradas, migas de pan, tarjetas navy/violeta como acentos).
-   **Fondo de portada y cierre** (`.deco-cover`): el estilo de la portada original —**anillos concéntricos finos + resplandor central + dos «hojas» laterales curvas**— con colores de la
-   paleta y **baja saturación** (violeta/celeste/navy con alfa bajo). **No** chevrones `<`/`>` ni manchas difuminadas. Catálogo y clases en `wiki/sistema-diseno.md`.
-   **Pie de lámina:** lema + migas de pan; **sin indicador de página «NN / TT»** (el visor ya muestra «N / total»).
-   **Portada:** el pie (Preparado para / por / Fecha) va en **Poppins** (no Roboto Mono) y «Fecha» muestra **Mes y Año** (p. ej. «Octubre 2026»), nunca solo el año.
+   Si el logo del cliente no contrasta con el blanco, se pide otra versión (no se cambia el fondo).
+4. **TIPOGRAFÍA: POPPINS EN TODA LA PRESENTACIÓN (prioridad del usuario, 2026-10-02).** Títulos **y** cuerpos en **Poppins** — Regular 400, Medium 500, SemiBold 600 para énfasis y **Black 900** (+ *Black Italic*) para títulos;
+   **Roboto Mono ya no se usa** (el verificador la rechaza). **Nutmeg** en destacados (comercial, sin licencia en el repo → cae a Poppins Black; avisar al usuario). **Prohibido** Playfair, DM Serif, Montserrat, Cambria, Calibri, Arial.
+5. **DINAMISMO E INNOVACIÓN — nada plano.** Alternar arquetipo entre láminas contiguas y usar el lenguaje gráfico de la marca (`</`, `{ }`, `<= =>`, numerales, comillas doradas, migas, tarjetas de acento).
+   - **Decoraciones en los marcos de contenido** (clase `.fx`, pseudo-elementos, nunca con texto): **anillos concéntricos** en una esquina (`.fx--arcs`, como la referencia del usuario), **puntos** (`.fx--dots`), **rayas** (`.fx--stripes`),
+     **cruces** (`.fx--plus`), **chevrones** (`.fx--chev`). Toda tarjeta importante lleva al menos una; discretas (alfa ≤ .3) y fuera del texto. (No nombrar la clase `deco`: el verificador la trata como decoración y omite sus mediciones.)
+   - **Íconos:** biblioteca de trazo uniforme en `herramientas`/plantilla (`ic` + `IC` del generador): chip redondeado de color (`.ic--violet|sky|gold|green|navy` o tintado `.ic--t-*`), un ícono **con significado** por cada elemento (nada genérico repetido).
+   - **Fondo de portada y cierre** (`.deco-cover`): anillos concéntricos finos + resplandor central + dos «hojas» laterales curvas, con colores de la paleta y **baja saturación**. **No** chevrones `<`/`>` ni manchas difuminadas.
+   - **Numeral de sección** (`.ghost`, arriba a la derecha): **pequeño (≈52 pt) y difuminado**. **No** hay indicadores de página/módulo en ninguna parte (ni «NN / TT», ni filas de puntos).
+   - **Pie:** migas `| campuslands | propuesta | cliente | sección |` **abajo a la IZQUIERDA**; el lema *Exploramos · Despegamos · Conquistamos* a la derecha.
+   - **Marco neón dorado:** solo en **un dato/tarjeta clave**; **nunca** en banners/franjas.
+   - **Portada:** pie «Preparado para / por / Fecha» en Poppins; «Fecha» = **Mes y Año** («Octubre 2026»).
+   - **Distribución:** si el usuario dice que una lámina es «plana», se **rediseña y reestructura** (otro arquetipo, jerarquía, íconos, decoración), no solo se retoca; simetría, márgenes iguales, nada superpuesto.
 6. **MÁXIMO 10 LÁMINAS.** Solo se supera si el usuario lo pide **textualmente** (y entonces uso `--max-slides N`). Antes de añadir, **fusionar** (`wiki/plantilla-base.md`).
 7. **VERIFICACIÓN VISUAL RIGUROSA** de espacios, distribución (aprovechar el espacio útil: tarjetas sin mitades vacías, tipografía lo más grande que quepa), colores y fuentes en **cada build y cada ajuste**: `verificar_deck.py` en APROBADO **y** revisión a la vista de cada
    lámina (protocolo en `wiki/verificacion.md`). No entrego nada que no haya pasado ambas.
@@ -90,7 +92,7 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 └── recursos/            # Fuentes inmutables
     ├── brandbook/Campuslands_Brandbook.pdf
     ├── logos-campuslands/   # 4 variantes oficiales (+ recortadas, vectoriales, medidas)
-    ├── fonts/               # Poppins · Roboto Mono (OFL) · legado v2 · README (Nutmeg pendiente)
+    ├── fonts/               # Poppins (todos los pesos) · legado v2 · README (Nutmeg pendiente)
     └── briefs, logos de clientes, decks de referencia
 ```
 

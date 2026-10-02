@@ -65,7 +65,7 @@ Para generar el PDF, el agente de Claude ejecutará el comando directo a través
 Tras la compilación, el agente debe validar visualmente el archivo PDF:
 1. **Número de Páginas:** Debe coincidir exactamente con el número de láminas del deck (máximo 10; p. ej. 7 láminas = 7 páginas).
 2. **Corte de Diapositiva:** Asegurarse de que el texto de una diapositiva no se desborde al inicio de la siguiente debido a un padding excesivo.
-3. **Colores y Fuentes:** Confirmar que los fondos sean los de Campuslands y que las tipografías sean **Poppins** y **Roboto Mono** (sin fuentes de respaldo). Lo comprueba `herramientas/verificar_deck.py --pdf …` (ver [[verificacion]]); aun así se mira cada lámina.
+3. **Colores y Fuentes:** Confirmar que los fondos sean los de Campuslands y que la tipografía sea **Poppins** únicamente (sin fuentes de respaldo ni Roboto Mono). Lo comprueba `herramientas/verificar_deck.py --pdf …` (ver [[verificacion]]); aun así se mira cada lámina.
 4. **Si el Browser pane no puede tomar screenshots** ("pane no desplegado"): verificar por DOM
    (`getBoundingClientRect` para overflow/gap contra el footer) + exportar a PDF y leerlo con
    PyMuPDF (`page.get_pixmap(dpi=150)` por lámina, `dpi=600` con `clip` para zoom a títulos en

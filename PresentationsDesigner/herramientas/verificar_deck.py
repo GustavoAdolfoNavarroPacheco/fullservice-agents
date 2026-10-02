@@ -7,14 +7,14 @@ Uso:
 
 Qué mide (en Chromium headless, lámina por lámina, a tamaño real 1056×594 px):
   1. Número de láminas  ≤ máximo (10 por defecto; solo se supera si el usuario lo pidió TEXTUALMENTE: --max-slides N).
-  2. Fondos: TEMA CLARO OBLIGATORIO. Toda lámina (y el visor) va sobre ARENA #E4E4DB (fondo claro de la paleta Campuslands,
-     Brandbook p.12). Navy/violeta/dorado/verde/celeste solo como tarjetas, franjas y acentos, nunca como fondo de lámina.
+  2. Fondos: TEMA CLARO OBLIGATORIO. Toda lámina (y la página del visor) va sobre BLANCO #FFFFFF (ajuste del usuario).
+     Navy/violeta/dorado/verde/celeste/arena solo como tarjetas, franjas y acentos, nunca como fondo de lámina.
   3. Logos: Campuslands y cliente con el MISMO PESO VISUAL (áreas de caja recortada iguales ±6 %: la altura se escala con
      herramientas/igualar_logos.py), Campuslands primero (izq→der), sin deformar, versión a color sobre arena.
      Entre ambos va una «×» (no una línea), centrada en vertical con los logos (±2 px). Prohibido el rótulo «Confidencial».
      Los logos van SOLO en portada y cierre (+ barra del visor): una lámina de contenido con logos arriba a la izquierda es error.
-     Sin indicador de página «NN / TT» en el pie; sin resplandor celeste en el fondo; sin borde dorado en banners/franjas.
-  4. Tipografía: solo Poppins (400/900), Roboto Mono (400) y Nutmeg (Brandbook p.10).  Tamaño mínimo 9 px.
+     Sin indicador de página/módulo (puntos, «NN / TT») en ninguna parte de la lámina (solo el numeral grande .ghost); sin resplandor celeste en el fondo; sin borde dorado en banners/franjas.
+  4. Tipografía: POPPINS en toda la presentación (400/500/600/900) y Nutmeg; Roboto Mono ya no se usa (regla del usuario).  Tamaño mínimo 9 px.
   5. Geometría: nada fuera de la lámina, nada invadiendo el pie, texto recortado, huecos verticales grandes.
   6. Contraste del texto (WCAG: 4.5:1 normal · 3:1 grande/negrita) contra su fondo real.
   7. <head>: <title> y favicon existentes.
@@ -36,10 +36,10 @@ def find_chrome():
 
 JS = r"""
 (async () => {
-  const PAL = [[94,58,226],[244,180,34],[0,170,128],[0,0,135],[44,170,255],[228,228,219]];
-  const BGREP = {navy:[[0,0,135],[94,58,226]], violet:[[94,58,226],[0,0,135]], sand:[[228,228,219]]};
+  const PAL = [[94,58,226],[244,180,34],[0,170,128],[0,0,135],[44,170,255],[228,228,219],[255,255,255]];
+  const BGREP = {navy:[[0,0,135],[94,58,226]], violet:[[94,58,226],[0,0,135]], sand:[[228,228,219]], white:[[255,255,255]]};
   const NOCONF = /confidencial/i;
-  const OKFONT = ['poppins','roboto mono','nutmeg'];
+  const OKFONT = ['poppins','nutmeg'];   // POPPINS en toda la presentación (regla del usuario); Roboto Mono ya no se usa
   const R = {slides:[], chrome:[], notes:[]};
   await document.fonts.ready; document.fonts.forEach(f=>{ try{f.load()}catch(e){} }); await document.fonts.ready;
   const parse = c => { const m = c.match(/rgba?\(([^)]+)\)/); if(!m) return null; const p=m[1].split(/[ ,\/]+/).filter(Boolean).map(Number); return {r:p[0],g:p[1],b:p[2],a:p.length>3?p[3]:1}; };
@@ -59,14 +59,18 @@ JS = r"""
     S.info.bg = root.dataset.bg || '(sin data-bg)';
     if (!cols.length) S.err.push('Fondo: no se pudo leer ningún color de fondo en la lámina.');
     if (bad.length) S.err.push('Fondo fuera de paleta Campuslands: ' + [...new Set(bad.map(c=>`rgb(${c.r},${c.g},${c.b})`))].join(', '));
-    if (!root.dataset.bg) S.warn.push('La lámina no declara data-bg="navy|violet|sand" (necesario para verificar contraste y logo).');
+    if (!root.dataset.bg) S.warn.push('La lámina no declara data-bg="white" (necesario para verificar contraste).');
     const dark = ['navy','violet'].includes(root.dataset.bg);
-    if (root.dataset.bg && root.dataset.bg !== 'sand') S.err.push(`TEMA CLARO obligatorio: la lámina declara data-bg="${root.dataset.bg}"; todo fondo de lámina debe ser arena (data-bg="sand").`);
+    if (root.dataset.bg && root.dataset.bg !== 'white') S.err.push(`FONDO BLANCO obligatorio (#FFFFFF): la lámina declara data-bg="${root.dataset.bg}"; todo fondo de lámina debe ser blanco (data-bg="white").`);
+    { const bcol = parse(cs.backgroundColor); if (bcol && bcol.a > 0 && !(bcol.r===255 && bcol.g===255 && bcol.b===255)) S.err.push(`El fondo de la lámina es rgb(${bcol.r},${bcol.g},${bcol.b}); debe ser #FFFFFF.`); }
     { const bc = cols.length ? cols[cols.length-1] : null; if (bc && lum(bc) < 0.55) S.err.push('Fondo oscuro: el tema debe ser claro (arena).'); }
     const isEdge = root.classList.contains('cover') || root.classList.contains('close');
     if (/rgba?\(\s*44\s*,\s*170\s*,\s*255/.test(bgTxt)) S.err.push('Fondo con resplandor/difuminación CELESTE: prohibido (ajuste del usuario); usar solo el resplandor violeta suave.');
     { const pi = [...sl.querySelectorAll('.ft *, .s-footer *')].find(e => /^\s*\d{1,2}\s*\/\s*\d{1,2}\s*$/.test(e.textContent) && !e.children.length);
       if (pi) S.err.push('Indicador de página «NN / TT» en el pie: prohibido (ajuste del usuario); el visor ya muestra «N / total».'); }
+    { const dots = [...sl.querySelectorAll('[class*="dots"],[class*="pager"],[class*="pagination"],[class*="stepper"]')].filter(e => !decor(e) && [...e.classList].some(c => /dots|pager|pagination|stepper/.test(c) && !/^fx/.test(c)));   // .fx--dots es decoración de marco, no un indicador
+      const txt = [...sl.querySelectorAll('*')].find(e => !e.children.length && !decor(e) && !e.closest('.ft,.s-footer') && /^\s*\d{1,2}(\s*[·,]\s*\d{1,2})*\s*\/\s*\d{1,2}\s*$/.test(e.textContent));
+      if (dots.length || txt) S.err.push('Indicador de página/módulo (puntos y/o «NN / TT») en la lámina: prohibido (ajuste del usuario); solo se conserva el numeral grande de sección (.ghost).'); }
     sl.querySelectorAll('[class*="reading"],[class*="banner"],[class*="note"],[class*="franja"]').forEach(e => { const b = getComputedStyle(e);
       const col = parse(b.borderTopColor); if (parseFloat(b.borderTopWidth) >= 1.5 && col && col.a > 0.3 && near([244,180,34],[col.r,col.g,col.b],6)) S.err.push('Banner/franja con borde dorado (neón): prohibido; el marco neón es solo para un dato/tarjeta clave (' + e.className + ').'); });
     if (NOCONF.test(sl.textContent)) S.err.push('Aparece el rótulo «Confidencial»: está prohibido (regla del usuario).');
@@ -129,8 +133,7 @@ JS = r"""
       const w = +st.fontWeight, px = parseFloat(st.fontSize);
       fontsUsed[fam + ' ' + w] = (fontsUsed[fam + ' ' + w] || 0) + 1;
       if (!OKFONT.includes(fam)) { (badFam[fam] = badFam[fam] || {n:0, ex:`<${el.tagName.toLowerCase()} class="${(el.className.baseVal ?? el.className)}">`}).n++; }
-      else if (fam === 'poppins' && ![400,900].includes(w)) { (badW['Poppins'] = badW['Poppins'] || new Set()).add(w); }
-      else if (fam === 'roboto mono' && w !== 400) { (badW['Roboto Mono'] = badW['Roboto Mono'] || new Set()).add(w); }
+      else if (fam === 'poppins' && ![400,500,600,900].includes(w)) { (badW['Poppins'] = badW['Poppins'] || new Set()).add(w); }
       if (px < 9) small.push(el.tagName.toLowerCase()+'.'+el.className+' '+px.toFixed(1)+'px');
       // contraste
       const col = parse(st.color); if (!col) return;
@@ -144,8 +147,8 @@ JS = r"""
       if (worst < need) low.push(`${(el.textContent||'').trim().slice(0,28)} → ${worst.toFixed(2)}:1 (mín ${need})`);
     });
     S.info.fonts = fontsUsed;
-    Object.entries(badFam).forEach(([f,o]) => S.err.push(`Fuente fuera del Brandbook: «${f}» en ${o.n} elemento(s), p. ej. ${o.ex}.`));
-    Object.entries(badW).forEach(([f,set]) => S.warn.push(`${f} con peso(s) ${[...set].join('/')}: el Brandbook muestra ${f==='Poppins'?'Regular 400 y Black 900':'Regular 400'}.`));
+    Object.entries(badFam).forEach(([f,o]) => S.err.push(`Fuente no permitida: «${f}» en ${o.n} elemento(s), p. ej. ${o.ex}. Usar Poppins en toda la presentación.`));
+    Object.entries(badW).forEach(([f,set]) => S.warn.push(`${f} con peso(s) ${[...set].join('/')}: el Brandbook muestra Regular 400, Medium 500, SemiBold 600 y Black 900.`));
     Object.keys(fontsUsed).forEach(k => { const [fam, w] = [k.slice(0, k.lastIndexOf(' ')), k.slice(k.lastIndexOf(' ')+1)]; if (OKFONT.includes(fam) && !document.fonts.check(`${w} 12px "${fam}"`)) S.err.push(`La fuente «${fam}» peso ${w} NO se cargó (caerá a una fuente de respaldo).`); });
     if (small.length) S.warn.push('Texto < 9 px: ' + [...new Set(small)].slice(0,4).join('; '));
     if (low.length) (low.length > 3 ? S.err : S.warn).push('Contraste insuficiente: ' + [...new Set(low)].slice(0,4).join(' | '));
@@ -209,9 +212,9 @@ JS = r"""
   const ch = [...document.querySelectorAll('.app-header img[data-logo]')];
   if (ch.length >= 2) { const a = ch.map(i => { const r = i.getBoundingClientRect(); return r.width*r.height; }), h = ch.map(i => i.getBoundingClientRect().height);
     const hb = document.querySelector('.app-header'), bg = hb ? parse(getComputedStyle(hb).backgroundColor) : null;
-    R.chrome.push({heights:h, ok: Math.abs(a[0]-a[1])/Math.max(...a) <= 0.06, light: !bg || lum(bg) > 0.55, conf: !!document.querySelector('.badge-confidential')}); }
+    R.chrome.push({heights:h, big: h[0] >= 40, ok: Math.abs(a[0]-a[1])/Math.max(...a) <= 0.06, light: !bg || lum(bg) > 0.55, conf: !!document.querySelector('.badge-confidential')}); }
   { const sepx = document.querySelector('.app-header .cobrand .x'); if (!sepx && ch.length >= 2) R.chrome.push({heights:[0,0], ok:false, msg:'Visor: falta la «×» entre los logos de la barra.'}); }
-  { const body = getComputedStyle(document.querySelector('.app-content') || document.body).backgroundColor; const c2 = parse(body); R.chromeBg = c2 && c2.a > 0 ? lum(c2) : null; }
+  { const body = getComputedStyle(document.querySelector('.app-content') || document.body).backgroundColor; const c2 = parse(body); R.chromeBg = c2 && c2.a > 0 ? lum(c2) : null; const hb2 = document.querySelector('.app-header'); const hc = hb2 ? parse(getComputedStyle(hb2).backgroundColor) : null; R.chromeWhite = !hc || (hc.r===255 && hc.g===255 && hc.b===255); R.pageWhite = !c2 || (c2.r===255 && c2.g===255 && c2.b===255); }
   // cabecera de portada: «Fecha» debe ser Mes y Año
   { const meta = [...document.querySelectorAll('.meta div')].find(d => /fecha/i.test(d.textContent)); if (meta) { const v = (meta.querySelector('span')||meta).textContent.trim(); R.fecha = v; } }
   R.title = document.title; const ic = document.querySelector('link[rel~=icon]'); R.favicon = ic ? ic.getAttribute('href') : null;
@@ -258,8 +261,10 @@ def main():
         if c['ok']: print('✓ Visor: logos de la barra superior con igual peso visual (alturas', [round(x,1) for x in c['heights']], ')')
         else: print('✗ ERROR  Visor: logos de la barra superior con distinto peso visual (alturas', [round(x,1) for x in c['heights']], ')'); errs += 1
         if not c.get('light', True): print('✗ ERROR  Visor: la barra superior debe ser CLARA (tema claro obligatorio).'); errs += 1
+        if not c.get('big', True): print('✗ ERROR  Visor: el logo de Campuslands de la barra superior debe ser GRANDE (≥ 40 px de alto); mide', round(c['heights'][0],1), 'px.'); errs += 1
         if c.get('conf'): print('✗ ERROR  Visor: el rótulo «Confidencial» está prohibido.'); errs += 1
-    if R.get('chromeBg') is not None and R['chromeBg'] < 0.55: print('✗ ERROR  Visor: el fondo de la página debe ser CLARO (tema claro obligatorio).'); errs += 1
+    if R.get('pageWhite') is False: print('✗ ERROR  Visor: el fondo de la página debe ser BLANCO #FFFFFF.'); errs += 1
+    if R.get('chromeWhite') is False: print('✗ ERROR  Visor: la barra superior debe ser BLANCA #FFFFFF.'); errs += 1
     if R.get('fecha') is not None:
         if re.fullmatch(r'\s*\d{4}\s*', R['fecha']) or not re.search(r'[A-Za-zÁÉÍÓÚáéíóúñ]{3,}.*\d{4}', R['fecha']): print(f'✗ ERROR  Portada: «Fecha» debe mostrar MES Y AÑO (p. ej. «Octubre 2026»); hay «{R["fecha"]}».'); errs += 1
         else: print(f'✓ Portada: fecha «{R["fecha"]}» (mes y año)')
