@@ -8,15 +8,15 @@ El proceso de construcción y mantenimiento de las presentaciones sigue una secu
 
 ```mermaid
 graph TD
-    A[1. Recibir Alcances e Información] --> B[2. Presentar Plan de Diapositivas]
-    B --> C{¿Usuario Aprueba Plan?}
+    A[1. Recibir alcances e información] --> B[2. Plan por lámina ≤10: contenido + fondo + logo + razón de ubicación]
+    B --> C{¿Usuario aprueba el plan?}
     C -- No --> B
-    C -- Sí --> D[3. Desarrollar Borrador HTML/CSS]
-    D --> E[4. Visualización e Iteración]
-    E --> F{¿Ajustes Necesarios?}
-    F -- Sí --> D
-    F -- No --> G[5. Exportar a PDF]
-    G --> H[6. Actualizar Bitácora log.md]
+    C -- Sí --> D[3. Copiar _plantilla-campuslands y desarrollar borrador]
+    D --> V[4. Verificar: verificar_deck.py + revisión a la vista]
+    V --> E{¿APROBADO y bien a la vista?}
+    E -- No --> D
+    E -- Sí --> F[5. Mostrar al usuario e iterar ajustes]
+    F --> G[6. Exportar PDF + registrar + push + link]
 ```
 
 ### 1. Recibir Alcances e Información
@@ -24,29 +24,29 @@ El agente recibe las métricas, dolores operativos, soluciones propuestas, módu
 * **Regla de No Invención:** Si falta información estratégica (costos, métricas base, nombres), el agente debe detenerse y solicitarla mediante el siguiente cuestionario estándar.
 
 #### Cuestionario Estándar de Levantamiento de Información
-Este cuestionario debe ser enviado al usuario por el agente para estructurar los datos antes de proponer el plan de diapositivas:
+Este cuestionario debe ser enviado al usuario por el agente para estructurar los datos antes de proponer el plan de láminas (≤ 10):
 
-1. **Datos Generales del Proyecto (Diapositiva 1):**
+1. **Datos Generales del Proyecto:**
    * Nombre completo de la empresa / cliente (ej. *UniDrogas S.A.S.*).
    * Nombre del proyecto propuesto (ej. *Plataforma de Inteligencia Financiera*).
    * Cargo y área del receptor principal (ej. *CFO / Dirección Financiera*).
    * Nombre del Consultor/Director Comercial a cargo de la cuenta.
 
-2. **Línea Base y Dolores Operativos (Diapositivas 2, 3 y 13):**
+2. **Línea Base y Dolores Operativos :**
    * ¿Cuáles son las métricas actuales del dolor? (ej. *$2.000M COP perdidos anualmente, 4 horas manuales por reporte*).
    * ¿Cuáles son los problemas cualitativos clave? (ej. *silos de datos sin conexión, procesos manuales propensos a errores*).
    * Comparación directa del cambio: ¿Cómo se resume el "Hoy" vs. "Con la plataforma"?
 
-3. **Arquitectura y Alcance de la Solución (Diapositivas 4, 5, 6 y 7):**
+3. **Arquitectura y Alcance de la Solución :**
    * ¿Qué fuentes de datos se van a conectar? (ej. *SAP, bases de datos SQL locales, archivos Excel*).
    * ¿Cuáles son los módulos principales a desarrollar? (describir de 4 a 6 módulos clave y su impacto).
    * ¿Cómo es la interacción del mockup de flujo? (ej. *Pregunta del usuario en lenguaje natural y la respuesta esperada de la IA*).
 
-4. **Retorno de Inversión (ROI) y Sector (Diapositiva 8 y 9):**
+4. **Retorno de Inversión (ROI) y Sector :**
    * ¿Qué métrica de ahorro o ROI financiero proyectamos? (ej. *25% de ahorro en costos administrativos, retorno en 8 meses*).
    * ¿Qué casos de éxito o referencias del mismo sector (avícola, financiero, etc.) usaremos para validar?
 
-5. **Condiciones Comerciales y Cronograma (Diapositivas 11, 12, 14 y 15):**
+5. **Condiciones Comerciales y Cronograma :**
    * ¿Cuál es el costo total del proyecto en COP?
    * ¿Cuál es el plazo estimado de desarrollo en meses?
    * ¿Se mantiene el esquema de pago estándar (40% anticipo, 40% hito intermedio, 20% entrega)?
@@ -70,24 +70,31 @@ Este cuestionario debe ser enviado al usuario por el agente para estructurar los
    * ¿Contamos con el logotipo del cliente en formato transparente (.png o .svg)?
 
 
-### 2. Planificación de Diapositivas (MANDATORIO)
-* **Antes de programar:** Antes de escribir una sola línea de HTML/CSS, el agente presenta al usuario una propuesta descriptiva diapositiva por diapositiva (contenido + dirección visual / diseño).
-* **Firma de aprobación:** El agente **NO** iniciará la codificación hasta que el usuario confirme y dé el visto bueno al plan.
+### 2. Plan por lámina (MANDATORIO, antes de programar)
+Antes de escribir una sola línea de HTML/CSS, el agente presenta al usuario, **lámina por lámina**:
+* **Contenido** (títulos y textos, con las cifras y su fuente).
+* **Arquetipo** de layout y **fondo** (`navy` / `violeta` / `arena`) — nada de colores del cliente (ver [[temas-por-cliente]]).
+* **Logo de Campuslands elegido** por contraste con ese fondo (`herramientas/elegir_logo.py`) y confirmación de que el logo del cliente contrasta también.
+* **Razón de ubicación** de los bloques principales (R7): por qué ahí, a ese tamaño y con ese color.
+* **Número de láminas ≤ 10.** Si el contenido no cabe, fusionar ([[plantilla-base]]); solo se pasa de 10 si el usuario lo pide **textualmente**.
+**El agente NO inicia la codificación hasta que el usuario confirme el plan.**
 
-### 3. Desarrollo de Borrador Completo
-Una vez aprobado el plan, el agente crea el directorio de la presentación bajo:
-`presentaciones/<slug-cliente>/`
-Allí genera los archivos principales:
-* `index.html` (Estructura de la presentación)
-* `styles.css` (Estilos autocontenidos y tokens)
-* `assets/` (Recursos locales específicos)
+### 3. Desarrollo del borrador completo
+Con el plan aprobado: elegir un `<slug>` corto y **copiar `presentaciones/_plantilla-campuslands/`** a `presentaciones/<slug>/`
+(no partir de un deck de otro cliente). Reemplazar contenido y logo del cliente (recortado, **mismo alto** que el de Campuslands),
+ajustar `totalSlides` en `script.js`, `<title>` (razón social del cliente) y favicon (isotipo). Fuentes locales ya incluidas.
 
-### 4. Visualización y Ajustes
-Se presenta el borrador visual al usuario. La iteración se realiza sobre el código HTML/CSS, ajustando la tipografía, márgenes, colores y distribución del texto hasta cumplir las expectativas.
+### 4. Verificación (obligatoria antes de mostrar nada)
+Seguir [[verificacion]]: `verificar_deck.py` debe dar **APROBADO** y luego se **mira cada lámina** (PNG) y el visor. Se corrige y se repite.
+No se entrega un borrador que no haya pasado ambas.
 
-### 5. Exportación a PDF
-El agente utiliza el comando automatizado de exportación (Google Chrome headless) para compilar el HTML/CSS a un archivo PDF final.
-El PDF resultante debe quedar alojado en la misma carpeta del cliente: `presentaciones/<slug-cliente>/<slug-cliente>.pdf`.
+### 5. Visualización y ajustes
+Se muestra el resultado al usuario; las iteraciones se aplican sobre el HTML/CSS y **se vuelve a verificar** tras cada cambio (un ajuste
+de texto puede romper el reparto de una lámina).
+
+### 6. Exportación a PDF
+Chrome headless (ver [[despliegue]]) → `presentaciones/<slug>/<slug>.pdf`. El PDF debe tener tantas páginas como láminas y ninguna fuente de respaldo
+(lo comprueba `verificar_deck.py --pdf`).
 
 ### 6. Registro Histórico
 Tras la entrega exitosa del PDF, el agente actualiza:

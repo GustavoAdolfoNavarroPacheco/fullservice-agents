@@ -1,0 +1,18 @@
+# Logos oficiales de Campuslands
+
+Fuente: archivos entregados por el usuario (2026-10-02) junto al Brandbook. Normativa de uso: [[marca-campuslands]] §3.
+
+| Archivo (PNG, transparente) | Contenido | Fondo donde se usa |
+|---|---|---|
+| `campuslands-horizontal-color(.png / -recortado.png)` | casco + wordmark, a color | **arena** |
+| `campuslands-horizontal-blanco(...)` | casco + wordmark, blanco | **navy**, **violeta** |
+| `campuslands-vertical-color(...)` | casco sobre wordmark, a color | **arena** |
+| `campuslands-vertical-blanco(...)` | casco sobre wordmark, blanco | **navy**, **violeta** |
+| `vectoriales/` | 2 PDF vectoriales (horizontal) + `.ai` editable (22 páginas) | impresión / escalas grandes |
+| `medidas-logos.json` | proporción y **unidad X (alto de la "m")** de cada variante | cálculo de espacio libre |
+
+- Los **`-recortado.png`** están cortados al contenido exacto (sin padding): son los que se copian a `assets/` de cada deck.
+- Elegir la variante con `python3 herramientas/elegir_logo.py <fondo>` (contraste). Dorado, verde y celeste **no** son fondos válidos para logos.
+- **Nunca** recolorear, rotar, estirar, recortar elementos ni cambiar la distribución (Brandbook p.16).
+- El horizontal blanco (5,05 : 1) y el horizontal a color (3,20 : 1) son oficiales con **proporciones distintas**; no se igualan estirando.
+- Los logos antiguos de `recursos/` (`Logo Campuslands ... Horizontal/Vertical Azul/Blanco.png`) son los mismos archivos con otros nombres; **usar esta carpeta**.

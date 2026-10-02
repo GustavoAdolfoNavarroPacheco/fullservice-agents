@@ -4,29 +4,24 @@ Esta wiki contiene el conocimiento, la marca, las especificaciones técnicas y l
 
 ## Contenido de la Wiki
 
-1. [Perfil de Usuario y Clientes](file:///c:/Users/Full%20Service/Downloads/PresentationsDesigner/wiki/perfil-usuario.md)
-   Detalla quién es el usuario, la identidad de Campuslands Full Service y el perfil de los clientes objetivos (compradores corporativos orientados al ROI).
-   
-2. [Flujo de Trabajo](file:///c:/Users/Full%20Service/Downloads/PresentationsDesigner/wiki/flujo-trabajo.md)
-   Explica la secuencia de operaciones: recolección de alcances, propuesta de estructura diapositiva por diapositiva, confirmación del usuario, desarrollo en HTML/CSS, y exportación a PDF.
-   
-3. [Marca Campuslands](file:///c:/Users/Full%20Service/Downloads/PresentationsDesigner/wiki/marca-campuslands.md)
-   Lineamientos de identidad visual: logotipos, alineaciones obligatorias, tono editorial persuasivo y data-driven.
-   
-4. [Sistema de Diseño](file:///c:/Users/Full%20Service/Downloads/PresentationsDesigner/wiki/sistema-diseno.md)
-   Tokens CSS oficiales (paleta oscura premium, tipografías seguras) y directrices estrictas para evitar patrones visuales de IA genérica.
+> **Sistema v3 (2026-10-02):** la marca es siempre **Campuslands** (Brandbook 2023). Fondos solo navy/violeta/arena, logos del mismo tamaño,
+> Poppins + Roboto Mono, máximo 10 láminas, verificación visual rigurosa. Los documentos del sistema anterior están en [`archivo/`](archivo/README.md).
 
-4b. [Temas por Cliente](file:///c:/Users/Full%20Service/Downloads/PresentationsDesigner/wiki/temas-por-cliente.md)
-   **Nuevo (2026-07-07):** cada deck usa una paleta propia derivada del logo del cliente (**fondo teñido** incluido), manteniendo el estilo. Receta, contrato de theme-tokens y catálogo de paletas. Demo: [`presentaciones/_temas-demo/`](file:///c:/Users/Full%20Service/Downloads/PresentationsDesigner/presentaciones/_temas-demo/index.html).
-   
-5. [Plantilla Base (16 Diapositivas)](file:///c:/Users/Full%20Service/Downloads/PresentationsDesigner/wiki/plantilla-base.md)
-   La estructura canónica slide-by-slide de la presentación comercial, incluyendo los pies de página requeridos y los objetivos de cada lámina.
-   
-6. [Guía de Despliegue y Exportación](file:///c:/Users/Full%20Service/Downloads/PresentationsDesigner/wiki/despliegue.md)
-   Instrucciones técnicas para compilar los archivos HTML/CSS a PDF en alta calidad mediante Chrome Headless y directivas `@page`.
-   
-7. [Bitácora de Actividades (Log)](file:///c:/Users/Full%20Service/Downloads/PresentationsDesigner/wiki/log.md)
-   Registro histórico append-only de construcciones, despliegues y ajustes.
+1. [Perfil de Usuario y Clientes](perfil-usuario.md) — quién es el usuario, la identidad de Campuslands Full Service y el perfil de los clientes objetivo.
+2. [Flujo de Trabajo](flujo-trabajo.md) — alcances → **plan por lámina (fondo + logo + razón de ubicación)** → confirmación → plantilla → **verificación** → ajustes → PDF.
+3. [**Marca Campuslands (normativa)**](marca-campuslands.md) — reglas del usuario R1–R7, logos y contraste, espacio libre, co-branding, colorimetría, tipografía, lenguaje gráfico.
+4. [**Sistema de Diseño v3**](sistema-diseno.md) — tokens, grilla, componentes de la plantilla, arquetipos y ritmo, balance de espacio, anti-patrones.
+5. [**Protocolo de Verificación**](verificacion.md) — `verificar_deck.py` + revisión a la vista lámina por lámina + registro de razón de ubicación.
+6. [Cliente ≠ paleta](temas-por-cliente.md) — el cliente aporta logo y contenido; la paleta es siempre Campuslands (reemplaza "temas por cliente").
+7. [Biblioteca narrativa ≤ 10 láminas](plantilla-base.md) — bloques, arquetipos y reglas de fusión.
+8. [Guía de Despliegue y Exportación](despliegue.md) — PDF con Chrome headless, repos Git, Vercel.
+9. [Bitácora (Log)](log.md) — registro histórico append-only.
+
+**Herramientas:** [`herramientas/verificar_deck.py`](../herramientas/verificar_deck.py) · [`herramientas/elegir_logo.py`](../herramientas/elegir_logo.py).
+**Plantilla base:** `presentaciones/_plantilla-campuslands/`. **Recursos de marca:** `recursos/brandbook/`, `recursos/logos-campuslands/`, `recursos/fonts/`.
+
+> **Decks anteriores al 2026-10-02** (listados abajo) usan el sistema v2 (paleta del cliente, Playfair/Montserrat, conteo libre de láminas): son **legado**.
+> No se migran ni se usan como base salvo pedido explícito del usuario; el verificador los rechaza por diseño.
 
 ---
 

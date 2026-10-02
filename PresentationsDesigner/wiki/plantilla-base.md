@@ -1,45 +1,27 @@
-# Estructura Narrativa (biblioteca flexible de láminas)
+# Biblioteca narrativa (≤ 10 láminas) y plantilla base
 
-> **El conteo de láminas es LIBRE.** Ya **no** son 16 fijas. Se usan las láminas que la
-> historia del proyecto necesite — pueden ser 9, 12, 18… — dividiendo o fusionando según
-> el contenido y el aire negativo (ver [[sistema-diseno]]). Esta página es una *biblioteca*
-> de bloques narrativos recomendados, no una plantilla obligatoria.
+> Reemplaza la "plantilla de 16 láminas" (archivada). **Límite: 10 láminas** salvo pedido **textual** del usuario (R4).
+> Implementación lista para copiar: `presentaciones/_plantilla-campuslands/` (7 láminas de ejemplo; ver [[sistema-diseno]]).
 
-Cada bloque indica **objetivo**, **contenido** y el **arquetipo de layout** sugerido
-(numerados en la sección 4 de [[sistema-diseno]]) para garantizar dinamismo: no repetir
-el mismo tratamiento visual en láminas contiguas.
+## Cómo mapear contenido en ≤ 10 láminas
+Elegir de la biblioteca solo lo que la historia necesita y **fusionar** antes que añadir. Los bloques ⭐ casi siempre van.
 
----
+| # | Bloque | Objetivo | Arquetipo (plantilla) | Fondo típico |
+|---|---|---|---|---|
+| 1 ⭐ | Portada | Co-branding (Campuslands primero, mismo tamaño) + título con `</` + preparado para/por/fecha | Portada | navy |
+| 2 | Contexto / reto | Qué le duele al cliente, en una frase + dato clave | Afirmación (comilla + neón) | violeta |
+| 3 ⭐ | Línea base y cifras | Números críticos de hoy / del escenario | Métricas | arena |
+| 4 ⭐ | Solución | Qué se construye y cómo encaja | Módulos / diagrama de capas | violeta o navy |
+| 5 | Cómo se hace | Método, fases, hitos | Proceso (escalera) / timeline | navy |
+| 6 | Antes / después | Cambio medible | Antes/después | arena |
+| 7 | Equipo / Campuslands | Por qué nosotros | Split / galería | navy |
+| 8 | Casos / industrias | Prueba social (logos y perfiles) | Galería de logos + tarjetas | arena |
+| 9 ⭐ | Inversión y condiciones | Total, esquema de pago, garantías (una lámina; dos solo si no cabe) | Métricas/tabla | arena |
+| 10 ⭐ | Cierre / siguiente paso | Pasos y co-branding, **sin** datos de contacto si el usuario no los pide | Cierre | navy |
+
+Reglas de fusión: contexto+reto en una; cronograma+método en una; equipo+casos en una; inversión+pago en una.
+**Cada lámina responde una pregunta** y se escribe, en el plan, su razón de ubicación (R7, [[verificacion]] §3).
 
 ## Footer de láminas internas
-La portada **no** lleva footer. Las internas llevan un footer que flota sobre el fondo
-(sin barras planas):
-* **Izquierda:** `CAMPUSLANDS · EXPLORAMOS · DESPEGAMOS · CONQUISTAMOS`
-* **Centro:** `PROPUESTA [CLIENTE] FULL SERVICE [AÑO]`
-* **Derecha:** número de lámina (el número real; no forzar a 16).
-
----
-
-## Bloques narrativos recomendados
-
-Selecciona y ordena según el caso. Los marcados con ⭐ son casi siempre necesarios.
-
-1. ⭐ **Portada** *(layout: Portada)* — título del proyecto con palabra clave en gradiente,
-   "PARA [cliente]" con logo inline, badge Confidencial, meta (Preparado para/por, Fecha, Versión).
-2. ⭐ **Lo que nos contaron / Línea base** *(Métricas)* — cifras críticas actuales en tarjetas.
-3. ⭐ **El reto del cliente** *(Split 2 columnas)* — cita/dolor a un lado, diagnóstico en viñetas al otro.
-4. ⭐ **La solución / arquitectura** *(Diagrama de capas)* — fuentes de datos → core/IA → valor al usuario; cada capa con su gradiente.
-5. **Módulos / capacidades** *(Grid de módulos)* — cuadrícula con ícono + módulo + detalle. **Divide en 2+ láminas** si son muchos (no saturar).
-6. **Demostración de flujo / mockup** *(Split o Flujo)* — interacción usuario ↔ sistema.
-7. **ROI** *(Métricas o Statement)* — impacto económico, cifras sectoriales, citas a consultoras.
-8. **El sector ya se mueve** *(Cita/statement o Grid)* — validación de mercado, casos reales.
-9. ⭐ **Quiénes somos (Campuslands)** *(Split)* — Software House, Zona Franca Santander, sectores atendidos.
-10. **El equipo** *(Grid)* — roles senior asignados.
-11. ⭐ **Cronograma** *(Timeline)* — fases mes a mes, sprints, hitos.
-12. **Antes / Después** *(Tabla antes/después)* — dolor de hoy vs con la plataforma.
-13. ⭐ **Inversión y forma de pago** *(Métricas/tabla)* — costo total COP, hitos 40/40/20, garantías. Divisible en 2 láminas.
-14. ⭐ **Cierre / próximos pasos** *(Cierre/CTA)* — aprobación → firma → kick-off; contacto.
-
-> **Regla de división:** si un bloque no respira (≥30% de aire), pártelo en láminas
-> correlativas (p. ej. *Capacidades I* y *Capacidades II*). El conteo final es el que
-> la narrativa pida — se confirma en el plan antes de construir.
+Izquierda: *Exploramos · Despegamos · Conquistamos* · centro: migas `| campuslands | propuesta | cliente | sección |` · derecha: `NN / TT`.
+Portada y cierre: sin migas (cierre lleva el pie).

@@ -1,0 +1,34 @@
+{
+  "campuslands-horizontal-color": {
+    "ancho_px": 1857,
+    "alto_px": 581,
+    "ratio_ancho_alto": 3.1962,
+    "letras": 11,
+    "M_alto_px": 134,
+    "M_como_fraccion_del_alto": 0.2306
+  },
+  "campuslands-vertical-color": {
+    "ancho_px": 487,
+    "alto_px": 534,
+    "ratio_ancho_alto": 0.912,
+    "letras": 11,
+    "M_alto_px": 61,
+    "M_como_fraccion_del_alto": 0.1142
+  },
+  "campuslands-vertical-blanco": {
+    "ancho_px": 1336,
+    "alto_px": 1463,
+    "ratio_ancho_alto": 0.9132,
+    "letras": 11,
+    "M_alto_px": 169,
+    "M_como_fraccion_del_alto": 0.1155
+  },
+  "campuslands-horizontal-blanco": {
+    "ancho_px": 1776,
+    "alto_px": 352,
+    "ratio_ancho_alto": 5.0455,
+    "letras": 11,
+    "M_alto_px": 160,
+    "M_como_fraccion_del_alto": 0.4545
+  }
+}

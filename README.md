@@ -35,14 +35,15 @@ Agente de **inteligencia comercial B2B y prospección en LinkedIn** ("Explorador
 
 ### [PresentationsDesigner](PresentationsDesigner/)
 
-Agente de **presentaciones HTML/CSS** comerciales. Construye decks de venta personalizados por cliente (paleta derivada del logo, tipografías locales, diseño premium) y los exporta a PDF.
+Agente de **presentaciones HTML/CSS** comerciales. Construye decks de venta personalizados por cliente **bajo el Brandbook de Campuslands** (fondos solo con colores de la marca, logos Campuslands y cliente del mismo tamaño, Poppins + Roboto Mono, máximo 10 láminas) y los exporta a PDF. Incluye verificación automática (`herramientas/`).
 
 - **Stack:** HTML/CSS puro, estático, autocontenido.
 - **Entregable:** PDF exportado desde el HTML (Chrome headless).
 - **Estructura interna:**
   - `presentaciones/` — Cada presentación en su subcarpeta autocontenida *(repositorio independiente, ver [Instalación](#instalación))*.
-  - `recursos/` — Logos, fuentes, assets de referencia (solo lectura).
-  - `wiki/` — Sistema de diseño, marca, bitácora y catálogo de temas.
+  - `herramientas/` — `verificar_deck.py` (mide logos, fondos, fuentes, geometría, contraste, nº de láminas, PDF) y `elegir_logo.py` (logo por contraste).
+  - `recursos/` — Brandbook, logos oficiales, fuentes, assets de referencia (solo lectura).
+  - `wiki/` — Marca (normativa), sistema de diseño v3, verificación, flujo, bitácora; `wiki/archivo/` guarda el sistema v2.
 
 ---
 
