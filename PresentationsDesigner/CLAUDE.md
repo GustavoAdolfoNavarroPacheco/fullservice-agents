@@ -29,7 +29,7 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
    **Prohibido el rótulo «Confidencial»** (ni badge, ni óvalo, ni texto). **Sin difuminación celeste** en las esquinas del fondo; el fondo de las láminas es blanco liso (las decoraciones van en los marcos, regla 5).
 2. **CO-BRANDING «Campuslands × Cliente» CON IGUAL PESO VISUAL — SOLO EN PORTADA, CIERRE Y BARRA DEL VISOR.** Las **láminas de contenido NO llevan logos** (ni cabecera): el título abre la lámina.
    En la **barra superior del visor** los logos van **grandes** (Campuslands ≥ 40 px de alto; plantilla: 44 px). Campuslands **primero** de izquierda a derecha; entre ambos logos va una **«×»**
-   (nunca una línea divisoria), **centrada siempre en vertical** (tolerancia 2 px). A igual altura dos logos no se ven iguales si sus proporciones difieren (Globant 5,09 : 1 vs Campuslands 3,20 : 1),
+   (nunca una línea divisoria), **centrada siempre en vertical** (tolerancia 2 px). A igual altura dos logos no se ven iguales si sus proporciones difieren (Globant 5,09 : 1 vs Campuslands 4,31 : 1 con el logo vigente),
    por eso el tamaño se iguala por **ÁREA de caja recortada** (±6 %): `python3 herramientas/igualar_logos.py <logo-cliente.png>` da el factor `--k-cliente` (alto del cliente = alto de Campuslands × k).
    Sin deformar. Se **mide** (`verificar_deck.py`) y se **confirma a la vista**.
 3. **LOGO A COLOR (sobre blanco).** Con fondo blanco el logo de Campuslands es **siempre la versión a color** (contraste 12,32 : 1 texto / 3,42 : 1 casco; `herramientas/elegir_logo.py "#FFFFFF"`);

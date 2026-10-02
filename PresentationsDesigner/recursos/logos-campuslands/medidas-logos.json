@@ -1,11 +1,12 @@
 {
   "campuslands-horizontal-color": {
-    "ancho_px": 1857,
-    "alto_px": 581,
-    "ratio_ancho_alto": 3.1962,
+    "ancho_px": 2000,
+    "alto_px": 464,
+    "ratio_ancho_alto": 4.3103,
     "letras": 11,
-    "M_alto_px": 134,
-    "M_como_fraccion_del_alto": 0.2306
+    "M_alto_px": 167,
+    "M_como_fraccion_del_alto": 0.3599,
+    "nota": "Reemplazo del 2026-10-02: logo entregado por el usuario (el del Brandbook está en archivo/)."
   },
   "campuslands-vertical-color": {
     "ancho_px": 487,

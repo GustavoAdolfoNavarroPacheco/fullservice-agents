@@ -52,7 +52,7 @@ Archivos en `recursos/logos-campuslands/` (maestro tal cual llegó + `-recortado
 
 | Variante | Archivo | Proporción (recortado) | Uso |
 |---|---|---|---|
-| Horizontal a color | `campuslands-horizontal-color` | 3,20 : 1 | Fondo **blanco** (tema claro). |
+| Horizontal a color | `campuslands-horizontal-color` | **4,31 : 1** (logo entregado por el usuario el 2026-10-02; el del Brandbook, 3,20 : 1, está en `archivo/`) | Fondo **blanco** (tema claro). |
 | Horizontal blanco | `campuslands-horizontal-blanco` | 5,05 : 1 | Fondos **navy** y **violeta**. |
 | Vertical a color | `campuslands-vertical-color` | 0,91 : 1 | Portadas/cierres verticales sobre arena. |
 | Vertical blanco | `campuslands-vertical-blanco` | 0,91 : 1 | Portadas/cierres verticales sobre navy/violeta. |
@@ -99,7 +99,7 @@ co-branding se usa una separación **≥ 2X** más un divisor fino, y nunca se c
 1. **Campuslands aparece primero**, de izquierda a derecha.
 2. **Semejanza total en los tamaños** → regla **R2** (ajustada por el usuario el 2026-10-02): igual **peso visual**, es decir **áreas de caja
    recortada iguales (±6 %)** en portada, cierre **y barra del visor**. A igual altura, un logo más apaisado (Globant 5,09 : 1 frente
-   a Campuslands 3,20 : 1) se ve mucho más grande; el factor lo da `herramientas/igualar_logos.py` (`k = √(ratio_Campuslands / ratio_cliente)`).
+   a Campuslands 4,31 : 1 con el logo vigente) se ve mucho más grande; el factor lo da `herramientas/igualar_logos.py` (`k = √(ratio_Campuslands / ratio_cliente)`).
 3. Los logos van **solo en portada y cierre** (y en la barra del visor); las láminas de contenido no llevan co-branding. Entre los logos va una **«×»** (SVG, clase `.x`) —**no** una línea divisoria (cambio del usuario sobre el divisor del Brandbook p.1)— y está **siempre
    centrada en vertical** respecto a los logos (±2 px). Espacio entre elementos según §3.4.
 4. Se confirma **a la vista** que ninguno de los dos logos domina; si aun así lo parece, se ajusta `--k-cliente` unos puntos y se vuelve a medir.

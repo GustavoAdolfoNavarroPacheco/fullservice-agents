@@ -2,8 +2,8 @@
 """
 igualar_logos.py — Iguala el PESO VISUAL de los logos Campuslands × Cliente (regla del usuario, 2026-10-02).
 
-Dos logos a la misma ALTURA no se ven del mismo tamaño si sus proporciones difieren (Campuslands horizontal a color es 3,20 : 1;
-Globant es 5,09 : 1 → a igual altura Globant se ve ~60 % más ancho y "más grande"). La regla es: ÁREAS DE CAJA RECORTADA IGUALES.
+Dos logos a la misma ALTURA no se ven del mismo tamaño si sus proporciones difieren (Campuslands horizontal a color vigente es 4,31 : 1;
+Globant es 5,09 : 1 → a igual altura Globant se ve ~18 % más ancho que el logo vigente de Campuslands). La regla es: ÁREAS DE CAJA RECORTADA IGUALES.
     área = ancho × alto = ratio × alto²   →   alto_cliente = alto_campuslands × √(ratio_campuslands / ratio_cliente)
 
 Uso:
