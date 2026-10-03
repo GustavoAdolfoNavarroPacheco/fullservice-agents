@@ -30,7 +30,7 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 2. **CO-BRANDING «Campuslands × Cliente» CON IGUAL PESO VISUAL — SOLO EN PORTADA, CIERRE Y BARRA DEL VISOR.** Las **láminas de contenido NO llevan logos** (ni cabecera): el título abre la lámina.
    En la **barra superior del visor** los logos van **grandes** (Campuslands ≥ 40 px de alto; plantilla: 44 px). Campuslands **primero** de izquierda a derecha; entre ambos logos va una **«×»**
    (nunca una línea divisoria), **centrada siempre en vertical** (tolerancia 2 px). A igual altura dos logos no se ven iguales si sus proporciones difieren (Globant 5,09 : 1 vs Campuslands 4,31 : 1 con el logo vigente),
-   por eso el tamaño se iguala por **ÁREA de caja recortada** (±6 %): `python3 herramientas/igualar_logos.py <logo-cliente.png>` da el factor `--k-cliente` (alto del cliente = alto de Campuslands × k).
+   por eso el tamaño se iguala por **ÁREA de caja recortada** (±6 %): `python3 herramientas/igualar_logos.py <logo-cliente.png>` da el factor `--k-cliente` (alto del cliente = alto de Campuslands × k). **Tope:** k ≤ 2,0 (logos verticales/escudos, p. ej. Girón 0,65:1): el verificador lo marca como aviso, no error, y hay que confirmar a la vista que ninguno domina.
    Sin deformar. Se **mide** (`verificar_deck.py`) y se **confirma a la vista**.
 3. **LOGO A COLOR (sobre blanco).** Con fondo blanco el logo de Campuslands es **siempre la versión a color** (contraste 12,32 : 1 texto / 3,42 : 1 casco; `herramientas/elegir_logo.py "#FFFFFF"`);
    el logo del cliente va a color/oscuro. Dorado/verde/celeste **no** llevan logos. Los logos jamás se recolorean, rotan, recortan ni redistribuyen (Brandbook p.16).

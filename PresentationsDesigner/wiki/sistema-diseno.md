@@ -19,7 +19,7 @@
 --white:#FFFFFF; --ink:#373435;                       /* fondo de lámina y de página = #FFFFFF; tinta = texto sobre blanco */
 --font-title:'Poppins'; --font-body:'Poppins'; --font-accent:'Nutmeg','Poppins';   /* POPPINS en toda la presentación */
 --logo-h-cover:64px; --logo-h-shell:44px;            /* alto del logo de Campuslands: portada/cierre · barra del visor (grande) */
---k-cliente:<√(ratio Campuslands / ratio cliente)>;   /* igualar_logos.py: alto del cliente = alto Campuslands × k → ÁREAS IGUALES */
+--k-cliente:<√(ratio Campuslands / ratio cliente)>;   /* igualar_logos.py: alto del cliente = alto Campuslands × k → ÁREAS IGUALES; tope k ≤ 2,0 para logos verticales (aviso del verificador) */
 ```
 **TEMA CLARO OBLIGATORIO (web y presentación):** el único fondo de lámina permitido es **blanco `#FFFFFF`** — `data-bg="white"` en la raíz de la lámina — y la página del visor
 (barras y fondo) también es blanca. Navy/violeta/dorado/verde/celeste/arena existen **solo como tarjetas, franjas, íconos y acentos** sobre el blanco; las tarjetas blancas se separan

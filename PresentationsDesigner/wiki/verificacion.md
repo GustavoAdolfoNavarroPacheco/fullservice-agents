@@ -15,7 +15,7 @@ Requiere Chromium y `pip install pymupdf`. Si el usuario pidió más de 10 lámi
 |---|---|---|
 | Nº de láminas | ≤ 10 | R4 |
 | Colores de fondo | **blanco `#FFFFFF`**: `data-bg="white"` en toda lámina; barra y página del visor blancas; ningún otro fondo | R1 |
-| Peso visual de logos (Campuslands vs cliente) | **áreas iguales ±6 %** (no la altura) | R2 |
+| Peso visual de logos (Campuslands vs cliente) | **áreas iguales ±6 %** (no la altura); si el logo del cliente es vertical y k>2,0, se limita a 2,0× la altura de Campuslands y sale **aviso** (no error) | R2 |
 | «×» entre logos | existe `.x`, no hay `.sep`, centrada en vertical ±2 px, entre ambos logos | R2 |
 | Rótulo «Confidencial» | no aparece (ni visor ni láminas) | R8 |
 | Logos en láminas de contenido | ninguno (solo portada/cierre, que sí deben llevarlos) | R10 |

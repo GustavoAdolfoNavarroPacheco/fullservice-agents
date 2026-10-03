@@ -100,7 +100,9 @@ JS = r"""
         const ac = rc.width*rc.height, ak = rk.width*rk.height, da = Math.abs(ac-ak)/Math.max(ac,ak);
         S.info.logos = {campuslands_h:+rc.height.toFixed(1), cliente_h:+rk.height.toFixed(1), area_dif_pct:+(da*100).toFixed(1),
                         campuslands_x:+rc.left.toFixed(0), cliente_x:+rk.left.toFixed(0)};
-        if (da > 0.06) S.err.push(`Logos con distinto peso visual: área Campuslands ${Math.round(ac)}px² vs cliente ${Math.round(ak)}px² (${(da*100).toFixed(1)} %). Escalar el logo del cliente con igualar_logos.py (--k-cliente).`);
+        const capped = rk.height >= rc.height*1.95 && ak < ac;   // logo VERTICAL: su alto se limita a 2× el de Campuslands (el área igual daría un logo desmesurado)
+        if (capped && da > 0.06) S.warn.push(`Logo del cliente vertical limitado a 2× la altura de Campuslands: su área es ${(da*100).toFixed(0)} % menor (regla de tope; confirmar a la vista que ninguno domina).`);
+        else if (da > 0.06) S.err.push(`Logos con distinto peso visual: área Campuslands ${Math.round(ac)}px² vs cliente ${Math.round(ak)}px² (${(da*100).toFixed(1)} %). Escalar el logo del cliente con igualar_logos.py (--k-cliente).`);
         if (rc.left > rk.left) S.err.push('El logo de Campuslands debe ir PRIMERO de izquierda a derecha (Brandbook p.6).');
         // separador: «×» centrada en vertical (no una línea)
         const cb = c.closest('.cobrand');
@@ -223,7 +225,7 @@ JS = r"""
   const ch = [...document.querySelectorAll('.app-header img[data-logo]')];
   if (ch.length >= 2) { const a = ch.map(i => { const r = i.getBoundingClientRect(); return r.width*r.height; }), h = ch.map(i => i.getBoundingClientRect().height);
     const hb = document.querySelector('.app-header'), bg = hb ? parse(getComputedStyle(hb).backgroundColor) : null;
-    R.chrome.push({heights:h, big: h[0] >= 40, ok: Math.abs(a[0]-a[1])/Math.max(...a) <= 0.06, light: !bg || lum(bg) > 0.55, conf: !!document.querySelector('.badge-confidential')}); }
+    R.chrome.push({heights:h, big: h[0] >= 40, ok: Math.abs(a[0]-a[1])/Math.max(...a) <= 0.06 || (h[1] >= h[0]*1.95 && a[1] < a[0]), light: !bg || lum(bg) > 0.55, conf: !!document.querySelector('.badge-confidential')}); }
   { const sepx = document.querySelector('.app-header .cobrand .x'); if (!sepx && ch.length >= 2) R.chrome.push({heights:[0,0], ok:false, msg:'Visor: falta la «×» entre los logos de la barra.'}); }
   { const body = getComputedStyle(document.querySelector('.app-content') || document.body).backgroundColor; const c2 = parse(body); R.chromeBg = c2 && c2.a > 0 ? lum(c2) : null; const hb2 = document.querySelector('.app-header'); const hc = hb2 ? parse(getComputedStyle(hb2).backgroundColor) : null; R.chromeWhite = !hc || (hc.r===255 && hc.g===255 && hc.b===255); R.pageWhite = !c2 || (c2.r===255 && c2.g===255 && c2.b===255); }
   // cabecera de portada: «Fecha» debe ser Mes y Año
