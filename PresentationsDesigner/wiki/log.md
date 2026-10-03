@@ -1945,3 +1945,8 @@ regeneró `gaspais-chilco.pdf`.
 * **Pedido:** (1) portada: «Cobro Persuasivo con Inteligencia Artificial» → «Modulo de Cobranza con Inteligencia Artificial»; (2) eliminar la lámina 2 («Qué cambia frente a la propuesta anterior»).
 * **Cambios:** el título se escribió con tilde («Módulo»; el pedido venía sin tilde, corrección ortográfica). El deck pasa de 10 a **9 láminas** (renumeradas, numerales fantasma y `totalSlides` ajustados). Portal: título «Módulo de Cobranza con Inteligencia Artificial», «9 Láminas». El `<title>` del HTML y el nombre de la carpeta no cambian.
 * **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical, láminas 1 y 9); PDF de 9 páginas solo con Poppins.
+
+## [2026-10-03] ajuste | `giron-cc`: lámina 9 con valor $209.976.550 COP y sin forma de pago
+* **Pedido:** eliminar la tarjeta «Inversión y forma de pago» (40/40/20, «por confirmar») de la lámina 9 e implementar «Valor: $209.976.550 COP».
+* **Cambios:** la tarjeta se reemplaza por una tarjeta «Valor» con la cifra. Se retira el 40/40/20 (que venía del deck v1.0, no del docx); el deck ya no afirma ningún esquema de pago. Portal: `investment` = «$209.976.550 COP». No se indica si incluye IVA, licencias o infraestructura (sin dato).
+* **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical); PDF de 9 páginas.
