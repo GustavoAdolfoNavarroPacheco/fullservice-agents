@@ -1967,3 +1967,8 @@ regeneró `gaspais-chilco.pdf`.
 * **Pedido:** mejorar el ícono de WhatsApp (el usuario adjuntó una referencia de 32×32 px: burbuja con cola abajo-izquierda y auricular) y, en el precio, quitar el halo y dejar solo sombras en los números con un color más fuerte.
 * **Cambios:** nuevo ícono `whatsapp` (burbuja de trazo con cola + auricular sólido), usado en láminas 5 (cascada y tarjeta del agente de WhatsApp). Valor: sin halo; número en marrón muy oscuro `#2B1F03` con sombras (desplazamiento dorado + dos sombras suaves marrón).
 * **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical); revisión a la vista ampliada.
+
+## [2026-10-03] nuevo | `giron-cc-v2`: copia de `giron-cc` sin el valor
+* **Pedido:** copia de la presentación bajo `/giron-cc-v2`, con la única diferencia de no llevar precio/valor.
+* **Cambios:** copia de `giron-cc/` (incluye los ajustes de iPad/celular); se elimina el bloque «Valor $209.976.550 COP» de la lámina 9 (el resto no se tocó); PDF `giron-cc-v2.pdf` regenerado y comprobado sin «$», «209.976» ni «COP». Portal: nueva tarjeta `giron-cc-v2` con `investment` vacío; el render del portal ahora omite la píldora de inversión cuando está vacío (`${deck.investment ? … : ''}`), sin afectar a los demás decks.
+* **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical); portal renderiza las 37 tarjetas sin errores de JS.
