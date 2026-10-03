@@ -1962,3 +1962,8 @@ regeneró `gaspais-chilco.pdf`.
 * **Cambios:** el valor $209.976.550 COP se muestra centrado en marrón oscuro sobre un halo dorado difuminado (contraste); la tripulación pasa a una tarjeta de 9,3 in con texto a la izquierda y las 9 funciones en rejilla de 3 columnas. Pie de cierre: «| campuslands | propuesta | giron |».
 * **Regla nueva:** el pie de la última lámina no dice «cierre» — aplicada a `_plantilla-campuslands/` y como **error** en `verificar_deck.py`. Los decks publicados con «cierre» no se tocaron.
 * **Verificado:** `verificar_deck.py` en `giron-cc` 0 errores, 2 avisos (tope de logo vertical); plantilla 0/0; PDF regenerado.
+
+## [2026-10-03] ajuste | `giron-cc`: ícono de WhatsApp y cifra del valor
+* **Pedido:** mejorar el ícono de WhatsApp (el usuario adjuntó una referencia de 32×32 px: burbuja con cola abajo-izquierda y auricular) y, en el precio, quitar el halo y dejar solo sombras en los números con un color más fuerte.
+* **Cambios:** nuevo ícono `whatsapp` (burbuja de trazo con cola + auricular sólido), usado en láminas 5 (cascada y tarjeta del agente de WhatsApp). Valor: sin halo; número en marrón muy oscuro `#2B1F03` con sombras (desplazamiento dorado + dos sombras suaves marrón).
+* **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical); revisión a la vista ampliada.
