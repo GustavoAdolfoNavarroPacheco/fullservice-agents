@@ -43,7 +43,7 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
    - **Íconos:** biblioteca de trazo uniforme en `herramientas`/plantilla (`ic` + `IC` del generador): chip redondeado de color (`.ic--violet|sky|gold|green|navy` o tintado `.ic--t-*`), un ícono **con significado** por cada elemento (nada genérico repetido).
    - **Fondo de portada y cierre** (`.deco-cover`): anillos concéntricos finos + resplandor central + dos «hojas» laterales curvas, con colores de la paleta y **baja saturación**. **No** chevrones `<`/`>` ni manchas difuminadas.
    - **Numeral de sección** (`.ghost`, arriba a la derecha): **pequeño (≈52 pt) y difuminado**. **No** hay indicadores de página/módulo en ninguna parte (ni «NN / TT», ni filas de puntos).
-   - **Pie:** migas `| campuslands | propuesta | cliente | sección |` **abajo a la IZQUIERDA**; el lema *Exploramos · Despegamos · Conquistamos* a la derecha.
+   - **Pie:** migas `| campuslands | propuesta | cliente | sección |` **abajo a la IZQUIERDA** (en la lámina de cierre **sin** la palabra «cierre»: `| campuslands | propuesta | cliente |`); el lema *Exploramos · Despegamos · Conquistamos* a la derecha.
    - **Marco neón dorado:** solo en **un dato/tarjeta clave**; **nunca** en banners/franjas.
    - **Portada:** pie «Preparado para / por / Fecha» en Poppins; «Fecha» = **Mes y Año** («Octubre 2026»).
    - **Distribución:** si el usuario dice que una lámina es «plana», se **rediseña y reestructura** (otro arquetipo, jerarquía, íconos, decoración), no solo se retoca; simetría, márgenes iguales, nada superpuesto.

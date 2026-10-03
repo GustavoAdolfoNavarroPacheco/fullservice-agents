@@ -53,6 +53,8 @@ JS = r"""
   for (const sl of slides) {
     const n = +sl.dataset.slide, S = {n, err:[], warn:[], info:{}};
     const root = sl.firstElementChild, sr = sl.getBoundingClientRect();
+    // pie de la lámina de cierre: sin la palabra «cierre» (regla del usuario, 2026-10-03)
+    if (sl === slides[slides.length-1]) { const cr = sl.querySelector('.crumbs'); if (cr && /cierre/i.test(cr.textContent)) S.err.push('El pie de la lámina de cierre no debe decir «cierre» (usar solo | campuslands | propuesta | cliente |).'); }
     const cs = getComputedStyle(root);
     // 2 · fondo
     const bgTxt = cs.backgroundImage + ' ' + cs.backgroundColor;

@@ -112,3 +112,6 @@ textual · tarjetas con 40 % de aire muerto · subrayados/`hr` decorativos bajo 
 - `script.js`: deslizar con un dedo cambia de lámina; aviso descartable «Gira el celular en horizontal…» (solo celular en vertical, JS lo crea, se recuerda con `sessionStorage`).
 - Limitación: se probó con emulación de Chromium (iPad/iPhone vertical y horizontal, y un `innerHeight` reducido que simula la barra de Safari); **no** en un iPad o iPhone reales.
 
+## Pie de la lámina de cierre (2026-10-03)
+- El pie `.ft` de la **última lámina** (cierre) **no lleva la palabra «cierre»**: solo `| campuslands | propuesta | cliente |`. Las láminas de contenido conservan su miga de sección. `verificar_deck.py` lo marca como **error**. Los decks ya publicados (globant-dojo-v3, comultrasan-normativo-vf, comultrasan-orbit) aún dicen «cierre» y lo corregirán la próxima vez que se editen.
+
