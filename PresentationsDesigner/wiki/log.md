@@ -1972,3 +1972,9 @@ regeneró `gaspais-chilco.pdf`.
 * **Pedido:** copia de la presentación bajo `/giron-cc-v2`, con la única diferencia de no llevar precio/valor.
 * **Cambios:** copia de `giron-cc/` (incluye los ajustes de iPad/celular); se elimina el bloque «Valor $209.976.550 COP» de la lámina 9 (el resto no se tocó); PDF `giron-cc-v2.pdf` regenerado y comprobado sin «$», «209.976» ni «COP». Portal: nueva tarjeta `giron-cc-v2` con `investment` vacío; el render del portal ahora omite la píldora de inversión cuando está vacío (`${deck.investment ? … : ''}`), sin afectar a los demás decks.
 * **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical); portal renderiza las 37 tarjetas sin errores de JS.
+
+## [2026-10-03] corrección | PDF en celular: rectángulos grises alrededor de las tarjetas
+* **Reporte:** al abrir los PDF en celular (no en PC) cada frame tenía un contorno/rectángulo gris (captura de la lámina 2 de `giron-cc`).
+* **Diagnóstico:** el PDF de la lámina 2 tenía 10 `SMask` de luminosidad (sombras difuminadas de Chrome). No pude abrirlo en un celular real; la relación con el síntoma es inferencia (los rectángulos coinciden con el tamaño de las sombras y los visores móviles suelen ignorar ese tipo de máscara).
+* **Cambio:** `script.js` convierte sombras difuminadas en sombras vectoriales escalonadas solo al imprimir/exportar (`beforeprint`/`afterprint`). Aplicado a `giron-cc`, `giron-cc-v2` y `_plantilla-campuslands`; PDF de ambos decks regenerados: 0 máscaras de luminosidad. Nuevo error en `verificar_deck.py` si el PDF tiene alguna.
+* **Pendiente:** los demás decks publicados conservan el problema (p. ej. `globant-dojo-v3`: 84 máscaras) hasta portarles el bloque y regenerar su PDF.

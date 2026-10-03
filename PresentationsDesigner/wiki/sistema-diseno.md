@@ -115,3 +115,9 @@ textual · tarjetas con 40 % de aire muerto · subrayados/`hr` decorativos bajo 
 ## Pie de la lámina de cierre (2026-10-03)
 - El pie `.ft` de la **última lámina** (cierre) **no lleva la palabra «cierre»**: solo `| campuslands | propuesta | cliente |`. Las láminas de contenido conservan su miga de sección. `verificar_deck.py` lo marca como **error**. Los decks ya publicados (globant-dojo-v3, comultrasan-normativo-vf, comultrasan-orbit) aún dicen «cierre» y lo corregirán la próxima vez que se editen.
 
+## PDF legible en celular: sin sombras difuminadas (2026-10-03)
+- **Síntoma (reporte del usuario):** al abrir el PDF en el celular (no en PC) cada tarjeta aparecía con un rectángulo gris translúcido alrededor.
+- **Causa (confirmada en el PDF):** Chrome exporta `box-shadow` con desenfoque como **máscaras de luminosidad** (`ExtGState /SMask /S /Luminosity`: p. ej. 10 en la lámina 2 de `giron-cc`). Varios visores móviles no las soportan y pintan el degradado como un rectángulo. En PC se ve bien.
+- **Solución:** bloque «sombras vectoriales para PDF» al final de `script.js` (plantilla): en `beforeprint` convierte las sombras con desenfoque en capas escalonadas **sin desenfoque** (vectores con transparencia constante) y las restaura en `afterprint`; la pantalla no cambia. También cubre `text-shadow` con desenfoque. El `filter: blur` del numeral fantasma se exporta como imagen con máscara (compatible) y se deja.
+- **Verificación:** `verificar_deck.py --pdf` cuenta las máscaras de luminosidad del PDF y da **error** si hay alguna (requiere `pymupdf`). Resultado actual: `giron-cc` y `giron-cc-v2` 0; `globant-dojo-v3` sigue con 84 (aún sin el bloque).
+
