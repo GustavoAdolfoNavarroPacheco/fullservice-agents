@@ -1940,3 +1940,8 @@ regeneró `gaspais-chilco.pdf`.
 * **Paleta:** dorada de Girón (#F0C24E #D9A32E #A9781A #7A5510 #4A3608) como excepción puntual a «solo colores Campuslands»; fondo #FFFFFF.
 * **Regla nueva (logos verticales):** el escudo de Girón (0,65:1) exigiría k=2,57 por área; se limita a k=2,0 (`igualar_logos.py`) y `verificar_deck.py` emite aviso (no error) cuando el tope aplica y el área queda menor (−40 %). Hay que confirmar a la vista que ninguno domina.
 * **Verificado:** `verificar_deck.py` → 0 errores, 2 avisos (los del tope, láminas 1 y 10); PDF de 10 páginas solo con Poppins; revisión a la vista de las 10 láminas. Portal: nueva tarjeta `giron-cc` (la de `giron-cobro-coactivo` se conserva).
+
+## [2026-10-03] ajuste | `giron-cc`: nuevo título de portada y se elimina la lámina 2
+* **Pedido:** (1) portada: «Cobro Persuasivo con Inteligencia Artificial» → «Modulo de Cobranza con Inteligencia Artificial»; (2) eliminar la lámina 2 («Qué cambia frente a la propuesta anterior»).
+* **Cambios:** el título se escribió con tilde («Módulo»; el pedido venía sin tilde, corrección ortográfica). El deck pasa de 10 a **9 láminas** (renumeradas, numerales fantasma y `totalSlides` ajustados). Portal: título «Módulo de Cobranza con Inteligencia Artificial», «9 Láminas». El `<title>` del HTML y el nombre de la carpeta no cambian.
+* **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical, láminas 1 y 9); PDF de 9 páginas solo con Poppins.
