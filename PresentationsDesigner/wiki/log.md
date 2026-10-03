@@ -1950,3 +1950,9 @@ regeneró `gaspais-chilco.pdf`.
 * **Pedido:** eliminar la tarjeta «Inversión y forma de pago» (40/40/20, «por confirmar») de la lámina 9 e implementar «Valor: $209.976.550 COP».
 * **Cambios:** la tarjeta se reemplaza por una tarjeta «Valor» con la cifra. Se retira el 40/40/20 (que venía del deck v1.0, no del docx); el deck ya no afirma ningún esquema de pago. Portal: `investment` = «$209.976.550 COP». No se indica si incluye IVA, licencias o infraestructura (sin dato).
 * **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical); PDF de 9 páginas.
+
+## [2026-10-03] corrección | Visor en iPad/celular: barra inferior (flechas) oculta en iPad
+* **Reporte del usuario:** al abrir `giron-cc` en un iPad no aparecían las flechas de la barra inferior; pidió además que la vista en celular sea satisfactoria sin afectar la presentación.
+* **Causa (inferida, no probada en un iPad real):** `body{height:100vh}` — en iOS/iPadOS `100vh` es mayor que el área visible y empuja la barra inferior fuera de pantalla.
+* **Cambio:** `--app-h` desde `script.js` + `height:var(--app-h,100vh)`; media queries para pantallas pequeñas/bajas (barras 60/48 px, botones de 44/40 px); deslizar para cambiar de lámina; aviso para girar el celular. Aplicado a `giron-cc/` y a la plantilla `_plantilla-campuslands/` (los decks nuevos lo heredan). **Los demás decks publicados conservan el bug** hasta que se les porte el mismo parche (`script.js` + bloque CSS 11).
+* **Verificado:** emulación (iPad 820×1180 y 1180×820, iPhone 390×844 y 844×390): barra inferior y botones dentro de la pantalla; con `innerHeight` simulado en 720 la barra queda en 720; el deslizamiento cambia de lámina. `verificar_deck.py` en `giron-cc` y en la plantilla: 0 errores.
