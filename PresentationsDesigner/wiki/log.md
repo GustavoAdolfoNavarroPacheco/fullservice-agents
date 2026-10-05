@@ -1988,3 +1988,9 @@ regeneró `gaspais-chilco.pdf`.
 * **Pedido del usuario:** quitar **todos los partners** (ninguna tarjeta debe llevarlos) y centrar los iconos de la franja «Exploramos · Despegamos · Conquistamos».
 * **Hecho:** eliminadas las 5 pastillas «Partner» (LMS, Facturación, Agente maestro, Nébula, RR. HH.) y su CSS. Con el espacio liberado, el texto del LMS sube a 8,9 pt con más aire y las cabeceras de la lámina 3 conservan altura fija. El descentrado de los iconos venía de la regla `.strip__lema span`, que también afectaba a los círculos `.ico` (los pasaba a `inline-flex` sin centrar el SVG); ahora es `.strip__lema > span`.
 * **Verificado:** comprobación DOM sin desbordes, PDF regenerado de 3 páginas y revisión a la vista de las 3 láminas.
+
+## [2026-10-05] ajuste | FullService Campuslands v2: portada sin «Software a la Medida» y descripciones nuevas de los 3 agentes
+* **Pedido del usuario:** (L1) eliminar la tarjeta «Software a la Medida» y cambiar el subtítulo a «Desarrollamos software, integramos IA real en procesos de negocio, proveemos…»; (L3) reemplazar descripción y «¿Qué incluye?» de Agente maestro con IA (6 viñetas), Nébula (6) y Agente con IA de RR. HH. (7), con textos suministrados por el usuario (tag de RR. HH.: «Contratación · Vinculación»).
+* **Hecho:** L1 queda con 3 tarjetas (Staffing azul, BPO ámbar, Consultoría azul) renumeradas 01–03 y más grandes para ocupar la columna; se retiraron con la tarjeta los enlaces «Demo Multinal» y «Demo Colbeef». L3: cabecera compacta (icono + tag en una fila, título debajo), márgenes y tipografía propios (`.port--3`, descripción 8,8 pt, viñetas 8,6 pt) porque el texto nuevo es ~2× más largo; se mantienen las tres columnas.
+* **Verificado:** comprobación DOM sin desbordes ni recortes de texto, PDF de 3 páginas regenerado, revisión a la vista de L1 y L3.
+
