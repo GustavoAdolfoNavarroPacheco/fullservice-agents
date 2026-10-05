@@ -2006,3 +2006,7 @@ regeneró `gaspais-chilco.pdf`.
 * **Decks `hubux` y `hubux-v2`:** portada → subtítulo «Ecosistema en el Hub Tecnológico de Santander»; lámina 6 → «nuestro espacio». PDFs regenerados y verificador APROBADO.
 * **Portal y wiki:** `company` → «Hubux · Ecosistema Campuslands», título → «Puestos de trabajo en el Hub…», `categoryLabel` → «Ecosistema & Hub», descripciones y keywords sin «coworking»; `wiki/index.md` y encabezado del build del 2026-10-02 actualizados; comentario de `styles.css`.
 * **Regla:** no usar «Coworking» en Hubux; usar «Ecosistema» / «espacio».
+
+## [2026-10-05] ajuste | Hubux — portada «Espacios…» y plan estándar + equipo desde $650.000
+* **hubux y hubux-v2:** subtítulo de portada → «Espacios en el Hub Tecnológico de Santander».
+* **hubux:** «Plan estándar + equipo» pasa de $750.000 a **$650.000** con «Desde» y la nota «*Valor del equipo varía acorde a especificaciones» (mismo markup y CSS que `hubux-v2`; los otros dos planes llevan «Desde» oculto para alinear los precios). Portal y wiki actualizados. Verificador APROBADO, PDFs regenerados.
