@@ -1933,7 +1933,7 @@ regeneró `gaspais-chilco.pdf`.
 * **Diseño v4:** blanco, Poppins, decoraciones, íconos, pie a la izquierda, logos con peso visual igual (`--k-cliente` 1,1993). Arquetipos: portada · cita + 4 hallazgos · diagrama del orquestador · antes/después con tira de objetivos · flujos + chat Bre-B · 3 tarjetas con cabecera · integraciones + fases opcionales + límites · métricas + 6 fases · barras de esfuerzo + inversión + pagos · cierre con contactos.
 * **Verificado:** `verificar_deck.py` APROBADO (0 errores, 0 avisos) tras corregir desbordes en las láminas 6 y 7; revisión a la vista de las 10 láminas. Portal actualizado en su sitio (misma URL): 10 láminas, $80.630.624 COP, 02 Oct 2026.
 
-## [2026-10-02] build | Hubux · Campuslands Coworking — rediseño de `Campuslands_Hubux.pdf` al sistema v4
+## [2026-10-02] build | Hubux · Ecosistema Campuslands — rediseño de `Campuslands_Hubux.pdf` al sistema v4
 * **Pedido:** rehacer la presentación del PDF (7 páginas) adaptándola al diseño actual y reubicando imágenes y textos. Tras el plan, el usuario respondió: «Adelante con el plan, solo Hubux, sin cliente destinatario, deja el contacto».
 * **Interpretación (a confirmar):** «solo Hubux» = `<title>` «Hubux» (se preguntó la razón social). La pregunta del logo no se respondió → **placa navy** para el logo de Hubux (contraste sobre blanco 1,3–1,55 : 1 < 3 : 1); si el usuario aporta una versión oscura, se quita la placa (`.chip`).
 * **Fuente:** solo el PDF. Se extrajeron fotos y logos con PyMuPDF; el logo de Hubux (377×114 sobre blanco) se reconstruyó con transparencia real (desmatte con degradé ajustado) y `--k-cliente` = **1,0568** (Campuslands 4,31 : 1 · Hubux 3,86 : 1; áreas iguales, Δ 0,1 %).
@@ -2001,3 +2001,8 @@ regeneró `gaspais-chilco.pdf`.
 * **Lámina 3:** descripción con barra de acento azul de 3 px y alto mínimo común (6 líneas) para que los «¿Qué incluye?» queden a la misma altura en las tres tarjetas; las listas se reparten con `space-between` y terminan alineadas abajo.
 * **Verificado:** comprobación DOM sin desbordes ni recortes de texto (el único «recorte» que reporta es el anillo decorativo), fuente mínima ≥ 9 px, PDF de 3 páginas y revisión a la vista de las 3 láminas.
 
+
+## [2026-10-05] ajuste | Hubux — se elimina la palabra «Coworking» (pedido de dirección)
+* **Decks `hubux` y `hubux-v2`:** portada → subtítulo «Ecosistema en el Hub Tecnológico de Santander»; lámina 6 → «nuestro espacio». PDFs regenerados y verificador APROBADO.
+* **Portal y wiki:** `company` → «Hubux · Ecosistema Campuslands», título → «Puestos de trabajo en el Hub…», `categoryLabel` → «Ecosistema & Hub», descripciones y keywords sin «coworking»; `wiki/index.md` y encabezado del build del 2026-10-02 actualizados; comentario de `styles.css`.
+* **Regla:** no usar «Coworking» en Hubux; usar «Ecosistema» / «espacio».
