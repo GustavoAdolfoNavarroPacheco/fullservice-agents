@@ -1976,3 +1976,10 @@ regeneró `gaspais-chilco.pdf`.
 * **Excepciones al Brandbook (avisadas al usuario y aceptadas por su pedido):** tema oscuro (regla 1) y Playfair Display (regla 4). Es un deck v2 «legado» (como el original), sin visor ni logo del cliente.
 * **Verificado:** `verificar_deck.py` **no aplica** a este deck (espera el visor v3 y tema claro: reporta 0 láminas y fondo no blanco); se verificó con comprobación DOM propia (nada fuera de lámina, sin recortes de texto, fuente mínima ≥ 9 px), PDF de 3 páginas con fuentes embebidas (Playfair, Montserrat, Poppins) y revisión a la vista de cada lámina.
 * **Portal:** nueva entrada `fullservice-campuslands-v2` (38 decks).
+
+## [2026-10-05] ajuste | Comultrasan (Orbit y Normativo) — lámina 9: equipo de desarrollo en vez de duración
+* **Cambio:** la tarjeta «Días de trabajo por especialidad» (barras) y el bloque «días-persona» se reemplazan por «Una tripulación dedicada» (chips de rol con iniciales + nivel + nota del modelo Campers). Orbit: se quita «2 semanas» de la franja de garantía.
+* **Normativo-vf:** la tarjeta navy de inversión ahora incluye el plan de pago 40/40/20 (antes solo estaba en Orbit); en ambos decks el plan se muestra en filas.
+* **Razón de ubicación:** equipo a la izquierda (tarjeta ancha, 2 columnas de chips) porque es el contenido que sustituye a las barras; inversión + pago a la derecha en navy como acento.
+* **Pendiente de confirmar con el usuario:** niveles de seniority (tomados de la imagen de referencia; solo «semi-senior» viene de las propuestas) y nota del modelo Campers.
+* **Verificado:** `verificar_deck.py` APROBADO en ambos (10 láminas, PDF regenerado) y revisión a la vista de la lámina 9.
