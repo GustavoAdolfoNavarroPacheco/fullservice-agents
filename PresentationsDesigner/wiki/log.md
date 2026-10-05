@@ -1983,3 +1983,8 @@ regeneró `gaspais-chilco.pdf`.
 * **Razón de ubicación:** equipo a la izquierda (tarjeta ancha, 2 columnas de chips) porque es el contenido que sustituye a las barras; inversión + pago a la derecha en navy como acento.
 * **Pendiente de confirmar con el usuario:** niveles de seniority (tomados de la imagen de referencia; solo «semi-senior» viene de las propuestas) y nota del modelo Campers.
 * **Verificado:** `verificar_deck.py` APROBADO en ambos (10 láminas, PDF regenerado) y revisión a la vista de la lámina 9.
+
+## [2026-10-05] ajuste | FullService Campuslands v2: sin partners e iconos de la franja centrados
+* **Pedido del usuario:** quitar **todos los partners** (ninguna tarjeta debe llevarlos) y centrar los iconos de la franja «Exploramos · Despegamos · Conquistamos».
+* **Hecho:** eliminadas las 5 pastillas «Partner» (LMS, Facturación, Agente maestro, Nébula, RR. HH.) y su CSS. Con el espacio liberado, el texto del LMS sube a 8,9 pt con más aire y las cabeceras de la lámina 3 conservan altura fija. El descentrado de los iconos venía de la regla `.strip__lema span`, que también afectaba a los círculos `.ico` (los pasaba a `inline-flex` sin centrar el SVG); ahora es `.strip__lema > span`.
+* **Verificado:** comprobación DOM sin desbordes, PDF regenerado de 3 páginas y revisión a la vista de las 3 láminas.
