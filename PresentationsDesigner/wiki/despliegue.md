@@ -90,16 +90,17 @@ El proyecto vive en **tres repos Git anidados**, no uno solo. Antes de commitear
   commitean en el repo **de `presentaciones/`**. Un solo `git add -A` en la carpeta equivocada
   puede arrastrar cambios sin relación de `QuoteDeveloperV2/` — usar siempre rutas de archivo
   explícitas.
-* El **portal** `presentaciones/index.html` (catálogo con login, buscador y filtros) mantiene su
-  propio arreglo `decksData` en JS con una entrada por deck (`id`, `company`, `title`, `desc`,
-  `category`, `slides`, `investment`, `cleanSlug`, `directPath`, `pdfPath`, `logo`, `monogram`,
-  `accentGrad`, `glow`, `dotColor`, `keywords`). **Registrar cada deck nuevo ahí también** (no solo
+* El **portal** `presentaciones/index.html` (login, buscador, pestañas por tipo, filtro por cliente
+  y orden; rediseño minimalista del 2026-10-05) lee su catálogo de **`assets/portal/decks.js`**
+  (`window.DECKS`, una entrada por deck: `slug`, `client`, `company`, `title`, `desc`, `category`,
+  `categoryLabel`, `slides`, `investment`, `path`, `pdf`, `logo`, `date`, `keywords`; el encabezado
+  del archivo documenta cada campo). **Registrar cada deck nuevo ahí también** (no solo
   en `wiki/index.md`) — se pasó por alto en el build inicial de FCV y hubo que agregarlo después a
   pedido del usuario. El logo del cliente para la tarjeta del portal es una copia **sin procesar**
   de `recursos/<Cliente>.png` en `presentaciones/assets/logos/` (no el PNG recortado/tratado que
   vive dentro de `presentaciones/<slug>/assets/`).
 * **URL limpia `/slug`:** para que funcione (Vercel resuelve `/slug` → `/slug/index.html` por
   defecto, sin rewrite en `vercel.json`), el nombre de la carpeta debe **ser exactamente** el
-  `cleanSlug` usado en el portal — ambos deben coincidir. Si el usuario pide cambiar la URL,
-  renombrar la carpeta (`git mv`, no copiar) y actualizar `directPath`/`pdfPath`/`cleanSlug` en el
+  `slug` usado en el portal — ambos deben coincidir. Si el usuario pide cambiar la URL,
+  renombrar la carpeta (`git mv`, no copiar) y actualizar `path`/`pdf`/`slug` en el
   portal y todas las rutas en `wiki/*.md` en el mismo cambio.

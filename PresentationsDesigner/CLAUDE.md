@@ -88,7 +88,8 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 │   ├── temas-por-cliente.md   # cliente = logo + contenido (la paleta es siempre Campuslands)
 │   └── archivo/               # documentos del sistema v2 (NO usar)
 ├── presentaciones/      # Repo Git PROPIO (github.com/.../Presentaciones) — lo que Vercel despliega (ver despliegue.md §4)
-│   ├── index.html       # Portal: arreglo JS `decksData` — TODA presentación nueva necesita su entrada (regla 3)
+│   ├── index.html       # Portal (login + buscador). Datos en assets/portal/decks.js — TODA presentación nueva necesita su entrada (regla 3)
+│   ├── assets/portal/   # decks.js (catálogo), portal.css, portal.js · 404.html y vercel.json (URLs limpias, noindex)
 │   ├── assets/logos/    # Logo del cliente SIN procesar, para las tarjetas del portal
 │   ├── _plantilla-campuslands/   # ★ PLANTILLA BASE v3 (copiar para cada deck nuevo)
 │   ├── _temas-demo/     # histórico (v2); no se agregan tiles
@@ -124,10 +125,10 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 8. Registro (regla 3) y bitácora (`log.md`: lo construido, razón de ubicación de los bloques clave, avisos justificados del verificador).
    > ⛔ **Regla 3 — Registro en DOS lugares, sin excepción** (el tile de `_temas-demo` queda en desuso):
    > (a) listar/actualizar el deck en `wiki/index.md`;
-   > (b) darlo de alta en el portal `presentaciones/index.html` — entrada en el arreglo JS `decksData` (`id`, `company`, `title`, `desc`, `category`, `categoryLabel`, `slides`, `investment`,
-   >     `cleanSlug`, `directPath`, `pdfPath`, `pdfLabel`, `logo`, `monogram`, `accentGrad`, `glow`, `dotColor`, `keywords`) con **colores de marca**
-   >     (`accentGrad: linear-gradient(100deg,#2CAAFF,#5E3AE2 60%,#000087)`, `glow: rgba(94,58,226,.25)`, `dotColor: #F4B422`), más la copia del logo del cliente **sin procesar** en
-   >     `presentaciones/assets/logos/`. Sin esto el deck funciona por su cuenta pero no aparece en el catálogo.
+   > (b) darlo de alta en el portal: UN objeto nuevo al inicio del arreglo `window.DECKS` de **`presentaciones/assets/portal/decks.js`** (el encabezado del archivo documenta cada campo:
+   >     `slug`, `client` (nombre corto; mismo texto para el mismo cliente), `company`, `title`, `desc`, `category` (`ia|software|demos|institucional`), `categoryLabel`, `slides`, `investment`,
+   >     `path`, `pdf`, `logo`, `date` `YYYY-MM-DD`, `keywords`), más la copia del logo del cliente **sin procesar** en `presentaciones/assets/logos/`.
+   >     Los colores de las tarjetas los pone el portal según `category` (ya no hay `accentGrad`/`glow`/`dotColor`). Sin esto el deck funciona por su cuenta pero no aparece en el catálogo.
 9. 🔀 **Commit y push automáticos:** dentro de `presentaciones/` (repo Git propio, ver `wiki/despliegue.md` §4):
    ```
    git add .

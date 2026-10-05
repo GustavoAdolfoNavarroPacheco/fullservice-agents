@@ -29,6 +29,6 @@
 - [ ] Confirmado **mirando** que ninguno de los dos domina; si lo parece, se ajusta `--k-cliente` unos puntos, sin deformar.
 
 ## Portal y catálogo
-- La entrada del deck en `presentaciones/index.html` usa colores de marca: `accentGrad: linear-gradient(100deg,#2CAAFF,#5E3AE2 60%,#000087)`,
-  `glow: rgba(94,58,226,.25)`, `dotColor: #F4B422`.
+- La entrada del deck en `presentaciones/assets/portal/decks.js` no lleva colores: el portal pinta cada fila con el color de marca de su `category`
+  (ia = violeta, software = celeste, demos = verde, institucional = navy).
 - `presentaciones/_temas-demo/` es **histórico**: no se agregan tiles nuevos.
