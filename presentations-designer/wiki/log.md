@@ -4,6 +4,15 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-10-09] build | Campuslands AI Academy — deck `/ai-academy` desde PDF (10 láminas) + lámina 10 editada
+
+* **Pedido:** subir al portal la presentación `Presentacion_AI_Academy_18h.pdf` y cambiar en la última lámina: Alexandra Villamizar → Gabriela Pedraza; 318 260 6525 → +57 300 3028555; «Líder Comercial del Programa de Formación en Inteligencia Artificial» → «Líder Full Service Global», **manteniendo los estilos**.
+* **Origen:** el PDF (generado en iOS, 10 págs de 1672×941) es **solo imagen**: no hay texto ni HTML. Se extrajeron los 10 JPEG incrustados con PyMuPDF (`extract_image`, sin recomprimir) y cada uno pasa a ser una lámina del visor de la plantilla (`.sl > img`, `object-fit:cover`; 1056×594 px lógicos = 16:9).
+* **Edición de la lámina 10** (sobre la imagen, tarjeta «Conversemos sobre la formación»): se borran las 3 cajas de texto rellenando con el fondo (interpolación fila a fila entre los márgenes izquierdo y derecho + grano, para conservar el degradado inferior); se redibuja el texto a 4× de supersampling con la misma altura de mayúscula (24 px nombre y teléfono, 18 px cargo), color (blanco / `#EBEFF4`), posición y base que el original, alineado con los íconos. **Tipografía:** el original es una grotesca tipo Inter/Roboto que no está instalada ni en el repo; se usó **Segoe UI** Semibold/Regular (la más cercana disponible). Quedó una sola línea de cargo (antes dos), centrada con el ícono del maletín. Teléfono tal cual lo escribió el usuario (`+57 300 3028555`).
+* **Visor:** barra superior solo con el **logo de Campuslands a color** (programa propio, sin cliente: no hay «× Cliente»); barras superior e inferior de 76 px; contador «N / 10»; navegación circular. CSS recortado a visor + láminas-imagen (solo Poppins Regular/Medium para el contador). `alt` descriptivo en cada lámina. `<title>` «Campuslands AI Academy» (no hay razón social de cliente).
+* **Excepción al Brandbook v3 (registrada):** láminas oscuras y tipografía propia del diseño entregado; el usuario pidió mantener los estilos. `verificar_deck.py` no se aplica (verificador v3).
+* **Verificación:** visor en navegador integrado (escritorio 1440 y móvil 375): 10 imágenes cargadas a 1672×941, ←/→ y botón con vuelta circular 10→1, barras de igual altura, sin errores de consola. PDF (Chrome headless, `--virtual-time-budget=8000`): **10 páginas**, una imagen nativa por página, revisado a la vista junto a la lámina 10. Portal: entrada nueva al inicio de `decks.js` (`ia` · «Formación en IA» · 10 Láminas · $1.000.000 COP por participante), 39 decks, sin slugs duplicados; el portal está tras login, por lo que se comprobó por DOM.
+
 ## [2026-10-08] ajuste | Colbeef S.A.S. — Flujo IA: capturas nuevas en láminas 4 y 6 (`colbeef-flujo-ia/`)
 
 * **Pedido:** reemplazar la imagen izquierda de la lámina 4 y la imagen de la lámina 6 por capturas nuevas del usuario, con calidad alta, **manteniendo el diseño v2 del deck** (no migrar al Brandbook v3) y sin tocar ninguna otra lámina.
