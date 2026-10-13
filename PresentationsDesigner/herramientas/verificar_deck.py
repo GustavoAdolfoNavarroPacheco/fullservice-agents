@@ -316,7 +316,7 @@ def main():
             for p in d:
                 res = d.xref_get_key(p.xref, 'Resources')[1] or ''
                 nsm += sum(1 for x in re.findall(r'/G\d+ (\d+) 0 R', res) if 'Luminosity' in d.xref_object(int(x), compressed=True))
-            if nsm: print(f'✗ ERROR  El PDF tiene {nsm} máscara(s) de luminosidad (sombras difuminadas): en visores de PDF de celular se ven como rectángulos grises. Incluir el bloque «sombras vectoriales para PDF» de la plantilla en script.js.'); errs += 1
+            if nsm: print(f'✗ ERROR  El PDF tiene {nsm} máscara(s) de luminosidad (sombras difuminadas): en visores de PDF de celular se ven como rectángulos grises. Ejecutar herramientas/arreglar_pdf_sombras.py <deck> --aplicar (inserta el bloque y regenera el PDF).'); errs += 1
             if a.png_dir:
                 os.makedirs(a.png_dir, exist_ok=True)
                 for i, p in enumerate(d, 1): p.get_pixmap(dpi=110).save(os.path.join(a.png_dir, f'lamina_{i:02d}.png'))
