@@ -78,7 +78,9 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 ├── herramientas/              # Verificación automática (v3)
 │   ├── verificar_deck.py      # mide logos, fondos, fuentes, geometría, contraste, nº de láminas, PDF
 │   ├── elegir_logo.py         # elige logo blanco/color por contraste con el fondo
-│   └── igualar_logos.py       # factor --k-cliente: iguala el PESO VISUAL (área) de ambos logos
+│   ├── igualar_logos.py       # factor --k-cliente: iguala el PESO VISUAL (área) de ambos logos
+│   ├── arreglar_pdf_sombras.py # PDF legible en celular: inserta pdf_sombras.js y regenera el PDF (0 máscaras de luminosidad)
+│   └── pdf_sombras.js         # bloque que convierte sombras difuminadas en vectoriales al exportar
 ├── wiki/
 │   ├── index.md · log.md · perfil-usuario.md · flujo-trabajo.md · despliegue.md
 │   ├── marca-campuslands.md   # NORMATIVA (Brandbook): reglas, logos, color, tipografía, lenguaje gráfico
