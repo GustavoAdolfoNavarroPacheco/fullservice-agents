@@ -2045,3 +2045,14 @@ regeneró `gaspais-chilco.pdf`.
 
 ## [2026-10-05] ajuste | Portal: segundo rediseño (UI nueva sobre decks.js)
 Se reemplaza la UI del portal por una versión con cabecera simple (marca + buscador + sesión), filtros con desplegables propios accesibles (categoría, cliente, fecha), orden, vista grilla/lista, chips de filtros activos, animaciones FLIP/escalonadas con `prefers-reduced-motion`, login en modal y estado en URL (`?q=&cat=&cli=&mes=&sort=&vista=`). Se **conserva** `assets/portal/decks.js` (esquema `window.DECKS` y Regla 3 intactos), `vercel.json` y `404.html`; el login mantiene el hash SHA-256 con sal, sesión 30 días/pestaña y bloqueo de 30 s. Paleta Brandbook, tema claro. Se retiran el panel de detalle (`#slug`), el resaltado de coincidencias y el modo oscuro del rediseño anterior. Código en `assets/portal/{portal.css,portal.js,ui.js}`.
+
+## [2026-10-13] build | Hubux — video animado de la presentación (HyperFrames)
+* **Pedido:** video de `presentaciones/hubux/` con HyperFrames, animaciones fluidas y transiciones dinámicas, con el estilo del deck (fuentes, colores, imágenes), **sin tocar la presentación**.
+* **Ubicación:** proyecto propio en `videos/hubux/`, fuera del repo `presentaciones/`, así que no se despliega en Vercel. Los recursos (Poppins, logos, fotos, logos del ecosistema) se **copiaron**; el deck quedó intacto (git sin cambios en `hubux/`). Brief en `videos/hubux/BRIEF.md`.
+* **Formato:** 1920×1080, 30 fps, 58 s, MP4 en `videos/hubux/renders/hubux-video.mp4`. Sin audio porque no se entregó música ni locución.
+* **Escenas = las 7 láminas**, con textos literales del deck, fondo blanco, tarjetas con sombra, `</`, `<= =>`, numeral fantasma y migas. Transiciones distintas entre escenas: iris con anillo dorado, empuje horizontal, fundido con desenfoque y zoom, barrido vertical con borde violeta, cortina dorada y violeta con `</>`, y zoom de salida más iris. Hay movimiento continuo: Ken Burns en las fotos, anillos que se dibujan y giran, hojas que flotan, precios y métricas que cuentan.
+* **Verificación:** `hyperframes check` sin errores. Quedan avisos aceptados: el contraste de los numerales fantasma, que son tenues por la regla 5, y la sugerencia de dividir en sub-composiciones. Revisé a la vista capturas de cada escena y de cada transición; corregí el «+60» y adelanté las entradas para que ninguna transición llegue vacía.
+
+## [2026-10-13] ajuste | Video Hubux a 60 fps
+* **Pedido:** más fluidez. La composición queda fijada en `data-fps="60"` y se re-renderizó a `videos/hubux/renders/hubux-video-60fps.mp4` (1920×1080, 3.480 fotogramas, 58 s, 50,2 MB). Medido con ffmpeg (`mpdecimate`): 60 fotogramas únicos por segundo durante las transiciones.
+* **Nota técnica:** a 60 fps la captura en disco necesita unos 7,2 GB temporales; con poco espacio libre hay que renderizar con `HF_CAPTURE_PARALLEL_STREAM=true`, que codifica en streaming sin guardar fotogramas.

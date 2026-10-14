@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>Hubux — Ecosistema Campuslands</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* ---------- Fuentes del deck (Poppins en todo el video) ---------- */
+      @font-face { font-family: "Poppins"; src: url("assets/fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; }
+      @font-face { font-family: "Poppins"; src: url("assets/fonts/Poppins-Medium.ttf") format("truetype"); font-weight: 500; font-style: normal; }
+      @font-face { font-family: "Poppins"; src: url("assets/fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; font-style: normal; }
+      @font-face { font-family: "Poppins"; src: url("assets/fonts/Poppins-Black.ttf") format("truetype"); font-weight: 900; font-style: normal; }
+      @font-face { font-family: "Poppins"; src: url("assets/fonts/Poppins-BlackItalic.ttf") format("truetype"); font-weight: 900; font-style: italic; }
+
+      /* ---------- Tokens del Brandbook (idénticos al deck) ---------- */
+      :root {
+        --violet: #5e3ae2; --gold: #f4b422; --green: #00aa80; --navy: #000087; --sky: #2caaff; --sand: #e4e4db;
+        --white: #ffffff; --ink: #373435;
+        --k-cliente: 1.0568; /* mismo peso visual del logo Hubux (herramientas/igualar_logos.py) */
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #ffffff; }
+      body { font-family: "Poppins", sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #ffffff; }
+
+      /* ---------- Escena base: fondo BLANCO liso ---------- */
+      .scene { position: absolute; inset: 0; background: #ffffff; overflow: hidden; }
+      .pad { position: absolute; inset: 0; padding: 74px 112px 44px; display: flex; flex-direction: column; }
+      .pad > * { position: relative; z-index: 2; }
+      .ghost { position: absolute !important; z-index: 1 !important; right: 100px; top: 54px; font-weight: 900; font-size: 124px; line-height: 1; letter-spacing: -0.02em; color: rgba(0, 0, 135, 0.07); filter: blur(3px); }
+      .ft { flex: none; display: flex; align-items: center; justify-content: space-between; height: 36px; font-size: 19px; letter-spacing: 0.03em; color: var(--ink); }
+      .ft i { font-style: normal; opacity: 0.5; padding: 0 0.45em; }
+      .ft .lema { opacity: 0.75; }
+
+      /* ---------- Tipografía ---------- */
+      .sec { font-weight: 900; line-height: 1.08; letter-spacing: -0.012em; color: var(--navy); }
+      .sec .mark { color: var(--violet); }
+      .sec .em { font-style: italic; color: var(--violet); }
+      .sec-top { font-size: 66px; max-width: 1480px; }
+      .t58 { font-size: 58px; }
+      .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 0.08em 0.12em 0; margin: 0 -0.08em -0.12em 0; }
+      .w > span { display: inline-block; }
+      .tagline { font-size: 27px; letter-spacing: 0.08em; font-weight: 500; }
+      .tagline::before { content: "<= "; color: var(--violet); }
+      .tagline::after { content: " =>"; color: var(--violet); }
+      .body { font-size: 23px; line-height: 1.55; }
+      .label { font-weight: 900; font-size: 19px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--violet); }
+      h3 { font-weight: 900; line-height: 1.12; }
+
+      /* ---------- Íconos (trazo uniforme, chip de color) ---------- */
+      .ic { flex: none; width: 74px; height: 74px; border-radius: 22px; display: grid; place-items: center; }
+      .ic svg { width: 38px; height: 38px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+      .ic--sm { width: 60px; height: 60px; border-radius: 19px; }
+      .ic--sm svg { width: 30px; height: 30px; }
+      .ic--violet { background: var(--violet); color: #fff; } .ic--sky { background: var(--sky); color: var(--navy); }
+      .ic--gold { background: var(--gold); color: var(--navy); } .ic--green { background: var(--green); color: #fff; }
+      .ic--t-violet { background: rgba(94, 58, 226, 0.12); color: var(--violet); } .ic--t-sky { background: rgba(44, 170, 255, 0.16); color: #0b6bc2; }
+      .ic--t-green { background: rgba(0, 170, 128, 0.14); color: #007a5c; } .ic--t-gold { background: rgba(244, 180, 34, 0.22); color: #8a5a00; }
+
+      /* ---------- Tarjetas (sombra, sin bordes) y decoraciones ---------- */
+      .card { position: relative; overflow: hidden; border-radius: 30px; background: #ffffff; color: var(--ink);
+        box-shadow: 0 22px 54px rgba(0, 0, 135, 0.13), 0 4px 12px rgba(0, 0, 135, 0.07);
+        --deco: rgba(0, 0, 135, 0.05); --deco-dot: rgba(0, 0, 135, 0.22); }
+      .card > * { position: relative; z-index: 1; }
+      .card--navy { background: var(--navy); color: #fff; box-shadow: 0 28px 64px rgba(0, 0, 135, 0.3), 0 4px 14px rgba(0, 0, 135, 0.12); --deco: rgba(255, 255, 255, 0.075); --deco-dot: rgba(255, 255, 255, 0.28); }
+      .card--violet { background: var(--violet); color: #fff; box-shadow: 0 28px 64px rgba(94, 58, 226, 0.32), 0 4px 14px rgba(94, 58, 226, 0.14); --deco: rgba(255, 255, 255, 0.12); --deco-dot: rgba(255, 255, 255, 0.34); }
+      .fx::before, .fx::after { content: ""; position: absolute; pointer-events: none; z-index: 0; }
+      .fx--arcs::before { inset: 0; background: radial-gradient(circle at var(--ax, 100%) var(--ay, 0%), transparent 0 116px, var(--deco) 116px 204px, transparent 204px 250px, var(--deco) 250px 310px, transparent 310px); }
+      .fx--arcs.bl::before { --ax: 0%; --ay: 100%; }
+      .fx--dots::after { right: 26px; bottom: 20px; width: 150px; height: 46px; background: radial-gradient(var(--deco-dot) 2.6px, transparent 3.2px) 0 0 / 20px 20px; -webkit-mask-image: linear-gradient(315deg, #000 15%, transparent 85%); mask-image: linear-gradient(315deg, #000 15%, transparent 85%); }
+      .pill { display: inline-flex; align-items: center; border-radius: 99px; font-weight: 600; font-size: 18px; letter-spacing: 0.02em; padding: 8px 20px; white-space: nowrap; }
+      .pill--gold { background: var(--gold); color: var(--navy); }
+
+      /* ---------- Co-branding Campuslands × Hubux ---------- */
+      .cobrand { --lh: 70px; display: flex; align-items: center; gap: 30px; }
+      .cobrand img { height: var(--lh); width: auto; display: block; }
+      .cobrand img.cli { height: calc(var(--lh) * var(--k-cliente)); }
+      .cobrand .x { flex: none; display: grid; place-items: center; width: calc(var(--lh) * 0.5); height: calc(var(--lh) * 0.5); color: var(--violet); }
+      .cobrand .x svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; }
+
+      /* ---------- Fotos con placa de color detrás ---------- */
+      .shot { position: relative; }
+      .shot .plate { position: absolute; inset: 28px -28px -28px 28px; border-radius: 40px; background: rgba(94, 58, 226, 0.13); }
+      .shot .dots { position: absolute; left: -44px; top: 40px; width: 124px; height: 190px; background: radial-gradient(rgba(94, 58, 226, 0.38) 3.6px, transparent 4.6px) 0 0 / 24px 24px; }
+      .shot .frame { position: absolute; inset: 0; border-radius: 40px; overflow: hidden; box-shadow: 0 30px 64px rgba(0, 0, 135, 0.2), 0 4px 14px rgba(0, 0, 135, 0.1); }
+      .shot .frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+      .tag { position: absolute; left: 26px; bottom: 26px; z-index: 3; display: inline-flex; align-items: center; gap: 12px; background: #ffffff; color: var(--navy); font-weight: 600; font-size: 21px; padding: 11px 24px 11px 16px; border-radius: 99px; box-shadow: 0 10px 28px rgba(0, 0, 60, 0.25); }
+      .tag svg { width: 26px; height: 26px; fill: none; stroke: var(--violet); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+      .tag--top { bottom: auto; top: 26px; }
+
+      /* ---------- Fondo de portada y cierre ---------- */
+      .deco-cover { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+      .deco-cover .ring { fill: none; stroke: rgba(0, 0, 135, 0.08); stroke-width: 1.6; stroke-dasharray: 1 1; }
+      .deco-cover .ring.r2 { stroke: rgba(0, 0, 135, 0.06); } .deco-cover .ring.r3 { stroke: rgba(0, 0, 135, 0.045); }
+      .deco-cover .ring.accent { stroke: rgba(94, 58, 226, 0.32); stroke-width: 2; }
+      .deco-cover .dash { fill: none; stroke: rgba(94, 58, 226, 0.3); stroke-width: 3; stroke-dasharray: 6 22; stroke-linecap: round; }
+      .deco-cover .blade { stroke-width: 1.6; }
+      .deco-cover .blade--l { fill: rgba(94, 58, 226, 0.09); stroke: rgba(94, 58, 226, 0.28); }
+      .deco-cover .blade--r { fill: rgba(44, 170, 255, 0.1); stroke: rgba(44, 170, 255, 0.38); }
+
+      /* ---------- 1 · Portada ---------- */
+      #s1 .pad { padding: 80px 112px 64px; gap: 44px; }
+      #s1 .cv { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 100px; align-items: center; }
+      #s1 .cv-l { display: flex; flex-direction: column; align-items: flex-start; gap: 50px; }
+      #s1 h1 { font-size: 100px; }
+      #s1 .cv-r { height: 100%; padding: 10px 30px 30px 0; }
+      #s1 .shot { height: 100%; }
+      .meta { flex: none; display: grid; grid-template-columns: repeat(3, 1fr); padding: 28px 30px; }
+      .meta > div { text-align: center; }
+      .meta small { display: block; font-weight: 900; font-size: 17px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--violet); margin-bottom: 8px; }
+      .meta span { font-weight: 500; font-size: 28px; color: var(--ink); }
+
+      /* ---------- 2 · Únete al Hub ---------- */
+      .split { flex: 1; min-height: 0; display: grid; grid-template-columns: 760px 1fr; gap: 96px; margin: 6px 30px 44px 0; }
+      .shot--tall { height: 100%; }
+      .strip { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; display: flex; justify-content: space-between; gap: 20px; background: var(--navy); color: #fff; font-size: 20px; padding: 22px 36px; }
+      .hub-r { display: flex; flex-direction: column; justify-content: center; gap: 24px; min-width: 0; }
+      .pts { display: flex; flex-direction: column; gap: 18px; margin-top: 8px; }
+      .pt { display: flex; align-items: center; gap: 26px; padding: 14px 28px 14px 16px; font-size: 23px; line-height: 1.4; font-weight: 500; border-radius: 26px; }
+
+      /* ---------- 3 · Galería ---------- */
+      .gal { flex: 1; min-height: 0; display: grid; grid-template-rows: 1fr 1.12fr; gap: 24px; margin: 36px 0 26px; }
+      .gal .r1 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; min-height: 0; }
+      .gal .r2 { display: grid; grid-template-columns: 1fr 1fr 0.9fr 1.5fr 1.5fr; gap: 24px; min-height: 0; }
+      .ph { position: relative; min-height: 0; }
+      .ph .frame { position: absolute; inset: 0; border-radius: 28px; overflow: hidden; box-shadow: 0 18px 42px rgba(0, 0, 135, 0.17), 0 4px 10px rgba(0, 0, 135, 0.08); }
+      .ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+      .cap { position: absolute; left: 16px; bottom: 16px; z-index: 2; background: #ffffff; color: var(--navy); font-weight: 600; font-size: 19px; padding: 7px 20px; border-radius: 99px; box-shadow: 0 8px 20px rgba(0, 0, 60, 0.25); }
+
+      /* ---------- 4 · Qué incluye ---------- */
+      .sub { margin-top: 14px; }
+      .mods { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; gap: 32px; margin: 36px 0 24px; }
+      .mod { display: grid; grid-template-columns: auto 1fr; align-content: center; align-items: center; column-gap: 26px; row-gap: 20px; padding: 32px 42px; }
+      .mod h3 { font-size: 31px; color: var(--navy); }
+      .mod.card--navy h3 { color: var(--gold); }
+      .mod p, .mod .opt { grid-column: 1 / -1; font-size: 22px; line-height: 1.55; }
+      .mod .opt { justify-self: start; font-size: 18px; line-height: 1.2; }
+
+      /* ---------- 5 · Planes ---------- */
+      .plans { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin: 36px 0 28px; }
+      .plan { display: flex; flex-direction: column; }
+      .plan--gray { box-shadow: inset 0 0 0 5px #d5d9e2, 0 22px 54px rgba(0, 0, 135, 0.13); }
+      .plan--blue { box-shadow: inset 0 0 0 5px var(--navy), 0 22px 54px rgba(0, 0, 135, 0.13); }
+      .plan--gold { box-shadow: inset 0 0 0 5px var(--gold), 0 22px 54px rgba(244, 180, 34, 0.3); }
+      .plan .pic { position: relative; flex: none; height: 40%; overflow: hidden; z-index: 0; }
+      .plan .pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+      .plan .pic img.top { object-position: 50% 47%; }
+      .plan .ring5 { position: absolute; inset: 0; border-radius: 30px; pointer-events: none; z-index: 3; }
+      .plan--gray .ring5 { box-shadow: inset 0 0 0 5px #d5d9e2; } .plan--blue .ring5 { box-shadow: inset 0 0 0 5px var(--navy); } .plan--gold .ring5 { box-shadow: inset 0 0 0 5px var(--gold); }
+      .plan .bd { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; padding: 30px 42px 26px; }
+      .plan .from { font-weight: 600; font-size: 22px; line-height: 1.1; color: var(--ink); }
+      .plan .from--ghost { opacity: 0; }
+      .plan .price { font-weight: 900; font-size: 70px; line-height: 1; letter-spacing: -0.02em; color: var(--navy); }
+      .plan .price small { display: block; margin-top: 8px; font-size: 21px; letter-spacing: 0.04em; font-weight: 600; color: var(--violet); }
+      .plan .fn { font-size: 18px; line-height: 1.4; font-weight: 500; }
+      .plan p { font-size: 22px; line-height: 1.5; margin-top: 6px; }
+      .reading { flex: none; display: flex; align-items: center; gap: 36px; padding: 26px 50px; margin-bottom: 14px; }
+      .reading b { flex: none; font-weight: 900; font-size: 25px; color: #fff; }
+      .reading span { font-size: 24px; line-height: 1.5; }
+
+      /* ---------- 6 · Ecosistema ---------- */
+      .eco { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 1fr); gap: 28px; margin: 36px 0 30px; }
+      .lg { display: grid; place-items: center; padding: 14px 22px; border-radius: 28px; }
+      .lg img { display: block; max-width: 80%; max-height: 92px; width: auto; height: auto; }
+      .lg img.t { max-height: 124px; }
+      .lg img.w { max-width: 88%; }
+      .stats { flex: none; display: grid; grid-template-columns: auto auto 1fr; gap: 60px; align-items: center; padding: 32px 150px 32px 56px; margin-bottom: 14px; }
+      .stats .neon-ring { position: absolute; inset: 0; border-radius: 30px; box-shadow: inset 0 0 0 5px var(--gold), inset 0 0 40px rgba(244, 180, 34, 0.25); z-index: 2; }
+      .stats.fx--dots::after { right: 26px; bottom: 20px; width: 80px; height: 150px; }
+      .st { display: flex; align-items: center; gap: 26px; }
+      .st b { font-weight: 900; font-size: 96px; line-height: 1; color: var(--gold); letter-spacing: -0.02em; }
+      .st span { font-size: 22px; line-height: 1.4; max-width: 250px; }
+      .st b .num { font-size: inherit; line-height: inherit; max-width: none; }
+      .stats .why { font-size: 21px; line-height: 1.5; }
+
+      /* ---------- 7 · Cierre ---------- */
+      #s7 .pad { padding: 70px 112px 44px; }
+      #s7 .mid { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 40px; }
+      #s7 h2 { font-size: 84px; }
+      .contact { width: 1460px; padding: 38px 58px; display: flex; flex-direction: column; gap: 28px; text-align: left; }
+      .contact .who { display: flex; align-items: baseline; gap: 32px; }
+      .contact .who b { font-weight: 900; font-size: 40px; color: var(--navy); }
+      .contact .who span { font-size: 26px; font-style: italic; color: var(--violet); font-weight: 500; }
+      .cts { display: grid; grid-template-columns: 1fr 1.25fr; gap: 24px 56px; }
+      .ct { display: flex; align-items: center; gap: 22px; font-size: 23px; line-height: 1.35; font-weight: 500; }
+      .ct small { display: block; font-weight: 900; font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--violet); margin-bottom: 2px; }
+
+      /* ---------- Capas de transición (sobre las escenas) ---------- */
+      .overlay { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
+      .overlay svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .iris-ring { fill: none; stroke: var(--gold); stroke-width: 7; }
+      .wipe-bar { position: absolute; left: 0; right: 0; top: 0; height: 14px; background: var(--violet); box-shadow: 0 0 30px rgba(94, 58, 226, 0.55); }
+      .panel { position: absolute; inset: 0; }
+      .panel--gold { background: var(--gold); }
+      .panel--violet { background: var(--violet); display: grid; place-items: center; }
+      .panel--violet span { font-weight: 900; font-size: 260px; color: #ffffff; letter-spacing: -0.04em; line-height: 1; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-38rt" id="root" data-composition-id="main" data-start="0" data-duration="58" data-fps="60" data-width="1920" data-height="1080">
+
+      <!-- ===================== 1 · PORTADA (0–9 s) ===================== -->
+      <section data-hf-id="hf-8tsz" id="s1" class="scene clip" data-start="0" data-duration="10" data-track-index="0">
+        <svg data-hf-id="hf-qcc0" class="deco-cover" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs data-hf-id="hf-mh0t"><radialgradient data-hf-id="hf-8vrp" id="s1-glow" cx="50%" cy="50%" r="50%"><stop data-hf-id="hf-q03h" offset="0%" stop-color="#5E3AE2" stop-opacity=".15" /><stop data-hf-id="hf-ka2y" offset="100%" stop-color="#5E3AE2" stop-opacity="0" /></radialgradient></defs>
+          <circle data-hf-id="hf-i5hl" class="glow" cx="960" cy="540" r="440" fill="url(#s1-glow)" />
+          <circle data-hf-id="hf-b723" class="ring accent" pathLength="1" cx="960" cy="540" r="272" />
+          <circle data-hf-id="hf-eat0" class="ring" pathLength="1" cx="960" cy="540" r="428" />
+          <circle data-hf-id="hf-2pvj" class="ring r2" pathLength="1" cx="960" cy="540" r="582" />
+          <circle data-hf-id="hf-e9pl" class="ring r3" pathLength="1" cx="960" cy="540" r="745" />
+          <g data-hf-id="hf-reh6" class="spin"><circle data-hf-id="hf-ndnx" class="dash" cx="960" cy="540" r="505" /></g>
+          <g data-hf-id="hf-5j9v" class="bl-l"><path data-hf-id="hf-wb6i" class="blade blade--l" transform="translate(244,244) scale(-1.177 1.236)" d="M20 10 L400 240 L20 470 Q190 240 20 10 Z" /></g>
+          <g data-hf-id="hf-a91p" class="bl-r"><path data-hf-id="hf-4adf" class="blade blade--r" transform="translate(1676,244) scale(1.177 1.236)" d="M20 10 L400 240 L20 470 Q190 240 20 10 Z" /></g>
+        </svg>
+        <div data-hf-id="hf-tjp3" class="pad">
+          <div data-hf-id="hf-fjyv" class="cv">
+            <div data-hf-id="hf-sdgc" class="cv-l">
+              <div data-hf-id="hf-15x1" class="cobrand">
+                <img data-hf-id="hf-s1md" class="cl" src="assets/logo-campuslands-color.png" alt="Campuslands">
+                <span data-hf-id="hf-i5qn" class="x"><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><path data-hf-id="hf-7jxg" d="M5 5l14 14M19 5L5 19" /></svg></span>
+                <img data-hf-id="hf-pbi8" class="cli" src="assets/logo-cliente-color.png" alt="Hubux">
+              </div>
+              <h1 data-hf-id="hf-fbix" class="sec"><span data-hf-id="hf-fr20" class="w"><span data-hf-id="hf-ucoi"><span data-hf-id="hf-919v" class="mark">&lt;/</span>Ecosistema</span></span> <span data-hf-id="hf-xths" class="w"><span data-hf-id="hf-zij8" class="em">Campuslands</span></span></h1>
+              <p data-hf-id="hf-mos4" class="tagline">Espacios en el Hub Tecnológico de Santander</p>
+            </div>
+            <div data-hf-id="hf-zefe" class="cv-r">
+              <div data-hf-id="hf-2ycw" class="shot">
+                <div data-hf-id="hf-69d8" class="plate"></div>
+                <div data-hf-id="hf-zx1w" class="dots"></div>
+                <div data-hf-id="hf-d9wv" class="frame"><img data-hf-id="hf-98vb" src="assets/photos/edificio.jpg" alt="Edificio del Hub Tecnológico"></div>
+                <span data-hf-id="hf-4d1w" class="tag"><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><path data-hf-id="hf-vtcg" d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" /><circle data-hf-id="hf-j6c5" cx="12" cy="10" r="2.5" /></svg>Zona Franca Santander</span>
+              </div>
+            </div>
+          </div>
+          <div data-hf-id="hf-qmdh" class="card meta">
+            <div data-hf-id="hf-yeow"><small data-hf-id="hf-qjpn">Ubicación</small><span data-hf-id="hf-rtlq">Zona Franca Santander</span></div>
+            <div data-hf-id="hf-y7yw"><small data-hf-id="hf-h23n">Preparado por</small><span data-hf-id="hf-aiwv">Campuslands S.A.S. BIC</span></div>
+            <div data-hf-id="hf-x11t"><small data-hf-id="hf-0t7t">Fecha</small><span data-hf-id="hf-53yn">Octubre 2026</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== 2 · ÚNETE AL HUB (9–17 s) ===================== -->
+      <section data-hf-id="hf-kic0" id="s2" class="scene clip" data-start="9" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-9xbr" class="pad">
+          <div data-hf-id="hf-b4wn" class="ghost">02</div>
+          <div data-hf-id="hf-hgc8" class="split">
+            <div data-hf-id="hf-taof" class="shot shot--tall">
+              <div data-hf-id="hf-lk78" class="plate"></div>
+              <div data-hf-id="hf-2trg" class="dots"></div>
+              <div data-hf-id="hf-w9zj" class="frame">
+                <img data-hf-id="hf-rlsg" src="assets/photos/comunidad.jpg" alt="Comunidad del Hub en el auditorio Campuslands">
+                <div data-hf-id="hf-0u8q" class="strip"><span data-hf-id="hf-21s2">Zona Franca Santander</span><span data-hf-id="hf-k52q">Torre Zenith, piso 6, Floridablanca</span></div>
+              </div>
+              <span data-hf-id="hf-uajd" class="tag tag--top"><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><path data-hf-id="hf-beaw" d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" /><circle data-hf-id="hf-9yx5" cx="12" cy="10" r="2.5" /></svg>Auditorio Campuslands</span>
+            </div>
+            <div data-hf-id="hf-vsmc" class="hub-r">
+              <h2 data-hf-id="hf-1hlt" class="sec t58"><span data-hf-id="hf-wmkp" class="w"><span data-hf-id="hf-kwwz"><span data-hf-id="hf-yolv" class="mark">&lt;/</span>Únete</span></span> <span data-hf-id="hf-x0vq" class="w"><span data-hf-id="hf-1w3o">al</span></span> <span data-hf-id="hf-vtyn" class="w"><span data-hf-id="hf-e8le" class="em">Hub</span></span> <span data-hf-id="hf-w89o" class="w"><span data-hf-id="hf-1zf2">de</span></span> <span data-hf-id="hf-v1cl" class="w"><span data-hf-id="hf-6ieg">Tecnología</span></span></h2>
+              <p data-hf-id="hf-8geb" class="body">Estamos comprometidos con impulsar la tecnología y la creatividad, construyendo juntos el futuro de la innovación en nuestro país.</p>
+              <p data-hf-id="hf-e6gl" class="body">Un ambiente diseñado para la colaboración dinámica, la co-creación de proyectos, el respaldo de inversionistas y una comunidad tecnológica; ideal para el desarrollo innovador y creativo de su equipo e invitados.</p>
+              <div data-hf-id="hf-jjqn" class="pts">
+                <div data-hf-id="hf-2viy" class="card pt"><span data-hf-id="hf-o6ox" class="ic ic--t-violet"><svg data-hf-id="hf-2man" viewBox="0 0 24 24"><rect data-hf-id="hf-80ux" x="3" y="3" width="8" height="8" rx="1.5" /><rect data-hf-id="hf-fo3d" x="13" y="3" width="8" height="5" rx="1.5" /><rect data-hf-id="hf-z0j2" x="13" y="11" width="8" height="10" rx="1.5" /><rect data-hf-id="hf-9noq" x="3" y="14" width="8" height="7" rx="1.5" /></svg></span><span data-hf-id="hf-tubu">Espacios múltiples y flexibles que se adaptan a tus necesidades</span></div>
+                <div data-hf-id="hf-5bum" class="card pt"><span data-hf-id="hf-ll5d" class="ic ic--t-green"><svg data-hf-id="hf-3t7q" viewBox="0 0 24 24"><path data-hf-id="hf-ajju" d="M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3" /><path data-hf-id="hf-mi5y" d="M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v5H2z" /><path data-hf-id="hf-jekx" d="M5 18v2M19 18v2" /></svg></span><span data-hf-id="hf-6o46">Zona de esparcimiento y descanso</span></div>
+                <div data-hf-id="hf-5q5n" class="card pt"><span data-hf-id="hf-y8wn" class="ic ic--t-sky"><svg data-hf-id="hf-3ewp" viewBox="0 0 24 24"><rect data-hf-id="hf-94ul" x="6" y="6" width="12" height="12" rx="2" /><path data-hf-id="hf-o2pe" d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" /></svg></span><span data-hf-id="hf-fk7q">Ubicado en el Hub Tecnológico de Santander</span></div>
+              </div>
+            </div>
+          </div>
+          <div data-hf-id="hf-30cm" class="ft"><span data-hf-id="hf-j75v" class="crumbs">| campuslands<i data-hf-id="hf-kshs">|</i>propuesta<i data-hf-id="hf-61x4">|</i>hubux<i data-hf-id="hf-4v01">|</i>el hub |</span><span data-hf-id="hf-gy0q" class="lema">Exploramos · Despegamos · Conquistamos</span></div>
+        </div>
+      </section>
+
+      <!-- ===================== 3 · ESPACIOS DEL HUB (17–25 s) ===================== -->
+      <section data-hf-id="hf-mv41" id="s3" class="scene clip" data-start="17" data-duration="9" data-track-index="0">
+        <div data-hf-id="hf-9j0q" class="pad">
+          <div data-hf-id="hf-bj7o" class="ghost">03</div>
+          <h2 data-hf-id="hf-wab7" class="sec sec-top"><span data-hf-id="hf-vfnm" class="w"><span data-hf-id="hf-wxcg"><span data-hf-id="hf-yaau" class="mark">&lt;/</span>Espacios</span></span> <span data-hf-id="hf-u8qj" class="w"><span data-hf-id="hf-y2fa">del</span></span> <span data-hf-id="hf-un1k" class="w"><span data-hf-id="hf-dyzq" class="em">Hub</span></span></h2>
+          <div data-hf-id="hf-633s" class="gal">
+            <div data-hf-id="hf-2svr" class="r1">
+              <figure data-hf-id="hf-eqd9" class="ph"><div data-hf-id="hf-vvoi" class="frame"><img data-hf-id="hf-7cem" src="assets/photos/sala-azul.jpg" alt="Sala de reuniones Opus"></div><figcaption data-hf-id="hf-nh5c" class="cap">Opus</figcaption></figure>
+              <figure data-hf-id="hf-5ma9" class="ph"><div data-hf-id="hf-vhdh" class="frame"><img data-hf-id="hf-psiw" src="assets/photos/cafe.jpg" alt="Café Infusión"></div><figcaption data-hf-id="hf-zcjp" class="cap">Café Infusión</figcaption></figure>
+              <figure data-hf-id="hf-6t7c" class="ph"><div data-hf-id="hf-y9io" class="frame"><img data-hf-id="hf-5r27" src="assets/photos/pingpong.jpg" alt="Zona de juegos"></div><figcaption data-hf-id="hf-obvr" class="cap">Zona de juegos</figcaption></figure>
+            </div>
+            <div data-hf-id="hf-rxe4" class="r2">
+              <figure data-hf-id="hf-6ewb" class="ph"><div data-hf-id="hf-xv7n" class="frame"><img data-hf-id="hf-p3u2" src="assets/photos/sala-amarilla.jpg" alt="Sala amarilla"></div><figcaption data-hf-id="hf-r9dj" class="cap">Sala amarilla</figcaption></figure>
+              <figure data-hf-id="hf-4fd6" class="ph"><div data-hf-id="hf-xgwm" class="frame"><img data-hf-id="hf-yxu0" src="assets/photos/sala-verde.jpg" alt="Sala verde"></div><figcaption data-hf-id="hf-hs9q" class="cap">Sala verde</figcaption></figure>
+              <figure data-hf-id="hf-4125" class="ph"><div data-hf-id="hf-x2ll" class="frame"><img data-hf-id="hf-m4sv" src="assets/photos/futbolin.jpg" alt="Futbolín"></div><figcaption data-hf-id="hf-w320" class="cap">Futbolín</figcaption></figure>
+              <figure data-hf-id="hf-57z8" class="ph"><div data-hf-id="hf-thuc" class="frame"><img data-hf-id="hf-szn4" src="assets/photos/sala-vidrio.jpg" alt="Sala Astra"></div><figcaption data-hf-id="hf-yv34" class="cap">Astra</figcaption></figure>
+              <figure data-hf-id="hf-4to7" class="ph"><div data-hf-id="hf-t3jb" class="frame"><img data-hf-id="hf-thpc" src="assets/photos/grupo.jpg" alt="Comunidad del Hub"></div><figcaption data-hf-id="hf-19oj" class="cap">Comunidad</figcaption></figure>
+            </div>
+          </div>
+          <div data-hf-id="hf-c4ga" class="ft"><span data-hf-id="hf-080k" class="crumbs">| campuslands<i data-hf-id="hf-59b2">|</i>propuesta<i data-hf-id="hf-42dz">|</i>hubux<i data-hf-id="hf-4gp0">|</i>espacios |</span><span data-hf-id="hf-9bz2" class="lema">Exploramos · Despegamos · Conquistamos</span></div>
+        </div>
+      </section>
+
+      <!-- ===================== 4 · QUÉ INCLUYE (25–33 s) ===================== -->
+      <section data-hf-id="hf-cgn6" id="s4" class="scene clip" data-start="25" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-94pp" class="pad">
+          <div data-hf-id="hf-bxip" class="ghost">04</div>
+          <h2 data-hf-id="hf-o6mg" class="sec sec-top t58"><span data-hf-id="hf-ikf4" class="w"><span data-hf-id="hf-8p7y"><span data-hf-id="hf-xvzt" class="mark">&lt;/</span>¡Experimenta</span></span> <span data-hf-id="hf-i643" class="w"><span data-hf-id="hf-y6oy">la</span></span> <span data-hf-id="hf-hrt2" class="w"><span data-hf-id="hf-zl74" class="em">excelencia</span></span> <span data-hf-id="hf-hdi1" class="w"><span data-hf-id="hf-fx3a">en</span></span> <span data-hf-id="hf-gz70" class="w"><span data-hf-id="hf-r7im">tu</span></span> <span data-hf-id="hf-gkvz" class="w"><span data-hf-id="hf-vxbk">entorno</span></span> <span data-hf-id="hf-g6ky" class="w"><span data-hf-id="hf-mfte">de</span></span> <span data-hf-id="hf-fs9x" class="w"><span data-hf-id="hf-j7dj">trabajo!</span></span></h2>
+          <p data-hf-id="hf-frcu" class="tagline sub">Infraestructura tecnológica lista para tu equipo</p>
+          <div data-hf-id="hf-77jz" class="mods">
+            <div data-hf-id="hf-ycfo" class="card mod fx fx--dots"><span data-hf-id="hf-ifhx" class="ic ic--t-violet"><svg data-hf-id="hf-4lts" viewBox="0 0 24 24"><rect data-hf-id="hf-lbj0" x="3" y="4" width="18" height="12" rx="2" /><path data-hf-id="hf-n6hi" d="M8 20h8M12 16v4" /></svg></span><h3 data-hf-id="hf-y3f8">Puesto de trabajo (1)</h3><p data-hf-id="hf-ke63">Espacio ergonómico y confortable para tu equipo.</p></div>
+            <div data-hf-id="hf-o77w" class="card mod fx fx--dots"><span data-hf-id="hf-u8pj" class="ic ic--t-sky"><svg data-hf-id="hf-47ir" viewBox="0 0 24 24"><rect data-hf-id="hf-42y4" x="4" y="3" width="16" height="18" rx="2" /><path data-hf-id="hf-vet2" d="M12 3v18M8.5 9h.01M15.5 9h.01M8.5 14v2M15.5 14v2" /></svg></span><h3 data-hf-id="hf-kvvy">Locker (1)</h3><p data-hf-id="hf-fnya">Mantén tus pertenencias seguras y organizadas con nuestros lockers exclusivos.</p></div>
+            <div data-hf-id="hf-n0at" class="card mod fx fx--dots"><span data-hf-id="hf-x139" class="ic ic--t-green"><svg data-hf-id="hf-z1je" viewBox="0 0 24 24"><path data-hf-id="hf-678g" d="M6 12h4M8 10v4" /><path data-hf-id="hf-zi9j" d="M15 13h.01M18 11h.01" /><path data-hf-id="hf-qkpc" d="M17.3 5H6.7a4 4 0 0 0-3.9 3.1l-1.4 6.4A3 3 0 0 0 4.3 18a3 3 0 0 0 2.1-.9L9 14h6l2.6 3.1a3 3 0 0 0 2.1.9 3 3 0 0 0 2.9-3.5l-1.4-6.4A4 4 0 0 0 17.3 5z" /></svg></span><h3 data-hf-id="hf-2qqd">Acceso a la Zona Hunters</h3><p data-hf-id="hf-sb0h">Disfruta de un espacio de esparcimiento diseñado para relajarte y recargar energías.</p></div>
+            <div data-hf-id="hf-nelu" class="card mod fx fx--dots"><span data-hf-id="hf-rwp6" class="ic ic--t-gold"><svg data-hf-id="hf-yn8d" viewBox="0 0 24 24"><path data-hf-id="hf-ghur" d="M12 2 4 5v6c0 5.2 3.4 9.5 8 11 4.6-1.5 8-5.8 8-11V5z" /><path data-hf-id="hf-yfzu" d="m9 12 2 2 4-4" /></svg></span><h3 data-hf-id="hf-hlk2">Seguridad 24/7</h3><p data-hf-id="hf-yeoc">Ingreso exclusivo para personas autorizadas, en un entorno seguro y controlado en todo momento.</p></div>
+            <div data-hf-id="hf-pe4z" class="card mod fx fx--dots"><span data-hf-id="hf-jmf0" class="ic ic--t-violet"><svg data-hf-id="hf-lxbj" viewBox="0 0 24 24"><path data-hf-id="hf-lzgx" d="M3 4h18M5 4v10h14V4M12 14v6M8 20h8" /></svg></span><h3 data-hf-id="hf-yk7q">Salas de reuniones equipadas</h3><p data-hf-id="hf-uc0u">Video beam, tablero, micrófono, sonido y televisión para presentaciones claras y dinámicas.</p></div>
+            <div data-hf-id="hf-3ct9" class="card mod card--navy fx fx--arcs fx--dots"><span data-hf-id="hf-leu3" class="ic ic--gold"><svg data-hf-id="hf-mbmk" viewBox="0 0 24 24"><rect data-hf-id="hf-3doj" x="2" y="4" width="14" height="10" rx="2" /><path data-hf-id="hf-ty47" d="M6 18h6M9 14v4" /><rect data-hf-id="hf-y00e" x="18" y="6" width="4" height="12" rx="1" /></svg></span><h3 data-hf-id="hf-vx9v">Equipo de cómputo</h3><p data-hf-id="hf-pu4q">Torre Ryzen MINI PC DRACO SERIES 5 5600U, 256 GB de disco y monitor de 24”.</p><span data-hf-id="hf-t2ri" class="pill pill--gold opt">Solo con plan en equipo a disponibilidad</span></div>
+          </div>
+          <div data-hf-id="hf-cirb" class="ft"><span data-hf-id="hf-whte" class="crumbs">| campuslands<i data-hf-id="hf-39rx">|</i>propuesta<i data-hf-id="hf-3o2y">|</i>hubux<i data-hf-id="hf-8u2b">|</i>alcance |</span><span data-hf-id="hf-9qa3" class="lema">Exploramos · Despegamos · Conquistamos</span></div>
+        </div>
+      </section>
+
+      <!-- ===================== 5 · PLANES (33–41 s) ===================== -->
+      <section data-hf-id="hf-0zfx" id="s5" class="scene clip" data-start="33" data-duration="9" data-track-index="0">
+        <div data-hf-id="hf-bwuw" class="pad">
+          <div data-hf-id="hf-cbtq" class="ghost">05</div>
+          <h2 data-hf-id="hf-8e4z" class="sec sec-top"><span data-hf-id="hf-fdyw" class="w"><span data-hf-id="hf-bkz7"><span data-hf-id="hf-xhos" class="mark">&lt;/</span>Elige</span></span> <span data-hf-id="hf-eznv" class="w"><span data-hf-id="hf-gppc">el</span></span> <span data-hf-id="hf-606z" class="w"><span data-hf-id="hf-0gno" class="em">plan</span></span> <span data-hf-id="hf-6ei0" class="w"><span data-hf-id="hf-twjr">para</span></span> <span data-hf-id="hf-57kx" class="w"><span data-hf-id="hf-jkya">tu</span></span> <span data-hf-id="hf-5lvy" class="w"><span data-hf-id="hf-or20">equipo</span></span></h2>
+          <div data-hf-id="hf-rjuw" class="plans">
+            <div data-hf-id="hf-r9iz" class="card plan plan--gray"><div data-hf-id="hf-m79s" class="pic"><img data-hf-id="hf-04di" src="assets/photos/puesto-estandar.jpg" alt="Puesto estándar"></div>
+              <div data-hf-id="hf-sd36" class="bd"><span data-hf-id="hf-z1p4" class="label">Plan estándar</span><span data-hf-id="hf-cutx" class="from from--ghost">Desde</span><b data-hf-id="hf-2lry" class="price">$<span data-hf-id="hf-6yam" class="num" data-to="480">480</span>.000<small data-hf-id="hf-o3dk">COP / mes</small></b><p data-hf-id="hf-ova0">Incluye 1 puesto estándar sin equipo de cómputo.</p></div><div data-hf-id="hf-f07j" class="ring5"></div></div>
+            <div data-hf-id="hf-8u8e" class="card plan plan--blue"><div data-hf-id="hf-lkiw" class="pic"><img data-hf-id="hf-dzlq" src="assets/photos/puesto-gerencial.jpg" alt="Puesto gerencial"></div>
+              <div data-hf-id="hf-qsva" class="bd"><span data-hf-id="hf-x50u" class="label">Plan gerencial</span><span data-hf-id="hf-5bgp" class="from from--ghost">Desde</span><b data-hf-id="hf-yduq" class="price">$<span data-hf-id="hf-jo2u" class="num" data-to="600">600</span>.000<small data-hf-id="hf-nnn4">COP / mes</small></b><p data-hf-id="hf-fko4">Incluye 1 puesto gerencial sin equipo de cómputo.</p></div><div data-hf-id="hf-gs8f" class="ring5"></div></div>
+            <div data-hf-id="hf-lzk0" class="card plan plan--gold"><div data-hf-id="hf-kdlt" class="pic"><img data-hf-id="hf-aazk" class="top" src="assets/photos/puesto-equipo.jpg" alt="Puesto estándar con equipo de cómputo"></div>
+              <div data-hf-id="hf-r76b" class="bd"><span data-hf-id="hf-o31y" class="label">Plan estándar + equipo</span><span data-hf-id="hf-dlg4" class="from">Desde</span><b data-hf-id="hf-ys5r" class="price">$<span data-hf-id="hf-klqi" class="num" data-to="650">650</span>.000<small data-hf-id="hf-mgq1">COP / mes</small></b><small data-hf-id="hf-wsuh" class="fn">*Valor del equipo varía acorde a especificaciones</small><p data-hf-id="hf-yqy6">Incluye 1 puesto estándar con equipo de cómputo.</p></div><div data-hf-id="hf-gdxe" class="ring5"></div></div>
+          </div>
+          <div data-hf-id="hf-ij9w" class="card card--violet fx fx--arcs bl reading"><b data-hf-id="hf-69rw">&lt;= Todos los planes</b><span data-hf-id="hf-i33b">Incluyen locker, Zona Hunters, seguridad 24/7 y salas de reuniones equipadas. =&gt;</span></div>
+          <div data-hf-id="hf-cx2c" class="ft"><span data-hf-id="hf-zl96" class="crumbs">| campuslands<i data-hf-id="hf-98dc">|</i>propuesta<i data-hf-id="hf-7fdk">|</i>hubux<i data-hf-id="hf-712j">|</i>planes |</span><span data-hf-id="hf-a4l4" class="lema">Exploramos · Despegamos · Conquistamos</span></div>
+        </div>
+      </section>
+
+      <!-- ===================== 6 · ECOSISTEMA (41–49 s) ===================== -->
+      <section data-hf-id="hf-7pdi" id="s6" class="scene clip" data-start="41" data-duration="9" data-track-index="1">
+        <div data-hf-id="hf-bijv" class="pad">
+          <div data-hf-id="hf-cq4r" class="ghost">06</div>
+          <h2 data-hf-id="hf-7zty" class="sec sec-top"><span data-hf-id="hf-4eyv" class="w"><span data-hf-id="hf-3vk5"><span data-hf-id="hf-x3dr" class="mark">&lt;/</span>Empresas</span></span> <span data-hf-id="hf-4t9w" class="w"><span data-hf-id="hf-5lfu">del</span></span> <span data-hf-id="hf-3mct" class="w"><span data-hf-id="hf-xrnw" class="em">ecosistema</span></span></h2>
+          <div data-hf-id="hf-pzjf" class="eco">
+            <div data-hf-id="hf-og5t" class="card card--navy lg"><img data-hf-id="hf-e6r8" class="t" src="assets/eco/betrmedia.png" alt="betrmedia"></div>
+            <div data-hf-id="hf-zmth" class="card card--navy lg"><img data-hf-id="hf-49wt" src="assets/eco/campuslands.png" alt="Campuslands"></div>
+            <div data-hf-id="hf-0tqk" class="card card--navy lg"><img data-hf-id="hf-8fhq" class="t" src="assets/eco/clonai.png" alt="clonai"></div>
+            <div data-hf-id="hf-0ffj" class="card card--navy lg"><img data-hf-id="hf-8lgc" class="t" src="assets/eco/conexalab.png" alt="ConexaLab"></div>
+            <div data-hf-id="hf-1mcm" class="card card--navy lg"><img data-hf-id="hf-vqne" class="t" src="assets/eco/bitz.png" alt="bitz"></div>
+            <div data-hf-id="hf-181l" class="card card--navy lg"><img data-hf-id="hf-2jfh" src="assets/eco/creditea.png" alt="Creditea.me"></div>
+            <div data-hf-id="hf-2eyo" class="card card--navy lg"><img data-hf-id="hf-eutx" class="w" src="assets/eco/sparkslab.png" alt="Sparkslab"></div>
+            <div data-hf-id="hf-20nn" class="card card--navy lg"><img data-hf-id="hf-40nt" src="assets/eco/somic.png" alt="Somic Soluciones"></div>
+            <div data-hf-id="hf-wuoa" class="card card--navy lg"><img data-hf-id="hf-50sy" src="assets/eco/pivot-power.png" alt="Pivot Power"></div>
+            <div data-hf-id="hf-wgd9" class="card card--navy lg"><img data-hf-id="hf-ena5" class="t" src="assets/eco/inversiones-santander.png" alt="Inversiones en Santander S.A.S."></div>
+          </div>
+          <div data-hf-id="hf-jpno" class="card card--navy fx fx--arcs fx--dots stats">
+            <div data-hf-id="hf-s3jn" class="neon-ring"></div>
+            <div data-hf-id="hf-fs85" class="st"><b data-hf-id="hf-x4nu" class="num" data-to="3">3</b><span data-hf-id="hf-ac6q">visitas por empresa cada semana, en promedio</span></div>
+            <div data-hf-id="hf-v6k9" class="st"><b data-hf-id="hf-vih6">+<span data-hf-id="hf-h2le" class="num" data-to="60">60</span></b><span data-hf-id="hf-vljh">visitas mensuales</span></div>
+            <p data-hf-id="hf-29gs" class="why">Al unirse a nuestro espacio, su empresa forma parte de un ecosistema empresarial: este flujo constante de empresarios y profesionales genera nuevas oportunidades de negocio y colaboración estratégica para su crecimiento.</p>
+          </div>
+          <div data-hf-id="hf-dbdd" class="ft"><span data-hf-id="hf-i90u" class="crumbs">| campuslands<i data-hf-id="hf-6mri">|</i>propuesta<i data-hf-id="hf-68gh">|</i>hubux<i data-hf-id="hf-5u5g">|</i>ecosistema |</span><span data-hf-id="hf-7cfx" class="lema">Exploramos · Despegamos · Conquistamos</span></div>
+        </div>
+      </section>
+
+      <!-- ===================== 7 · CIERRE (49–58 s) ===================== -->
+      <section data-hf-id="hf-o5ki" id="s7" class="scene clip" data-start="49" data-duration="9" data-track-index="0">
+        <svg data-hf-id="hf-ioy0" class="deco-cover" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs data-hf-id="hf-vl9d"><radialgradient data-hf-id="hf-94gj" id="s7-glow" cx="50%" cy="50%" r="50%"><stop data-hf-id="hf-qbdd" offset="0%" stop-color="#5E3AE2" stop-opacity=".15" /><stop data-hf-id="hf-a7ym" offset="100%" stop-color="#5E3AE2" stop-opacity="0" /></radialgradient></defs>
+          <circle data-hf-id="hf-ng6b" class="glow" cx="960" cy="540" r="440" fill="url(#s7-glow)" />
+          <circle data-hf-id="hf-ikvv" class="ring accent" pathLength="1" cx="960" cy="540" r="272" />
+          <circle data-hf-id="hf-69n0" class="ring" pathLength="1" cx="960" cy="540" r="428" />
+          <circle data-hf-id="hf-9tvj" class="ring r2" pathLength="1" cx="960" cy="540" r="582" />
+          <circle data-hf-id="hf-o525" class="ring r3" pathLength="1" cx="960" cy="540" r="745" />
+          <g data-hf-id="hf-vnbi" class="spin"><circle data-hf-id="hf-wzvl" class="dash" cx="960" cy="540" r="505" /></g>
+          <g data-hf-id="hf-09ir" class="bl-l"><path data-hf-id="hf-uoji" class="blade blade--l" transform="translate(244,244) scale(-1.177 1.236)" d="M20 10 L400 240 L20 470 Q190 240 20 10 Z" /></g>
+          <g data-hf-id="hf-txmp" class="bl-r"><path data-hf-id="hf-w6bn" class="blade blade--r" transform="translate(1676,244) scale(1.177 1.236)" d="M20 10 L400 240 L20 470 Q190 240 20 10 Z" /></g>
+        </svg>
+        <div data-hf-id="hf-b48u" class="pad">
+          <div data-hf-id="hf-wgyu" class="mid">
+            <p data-hf-id="hf-5c2e" class="tagline">Hablemos</p>
+            <h2 data-hf-id="hf-ctv2" class="sec"><span data-hf-id="hf-40nu" class="w"><span data-hf-id="hf-bang"><span data-hf-id="hf-wp2q" class="mark">&lt;/</span>¡Gracias</span></span> <span data-hf-id="hf-96n7" class="w"><span data-hf-id="hf-16iq">por</span></span> <span data-hf-id="hf-9ky8" class="w"><span data-hf-id="hf-o3x5">su</span></span> <span data-hf-id="hf-k3qq" class="w"><span data-hf-id="hf-53cz" class="em">atención!</span></span></h2>
+            <div data-hf-id="hf-jqoe" class="card contact">
+              <div data-hf-id="hf-xhzk" class="who"><b data-hf-id="hf-gcgt">Paola Granados</b><span data-hf-id="hf-kdf3">Comercial Process Coordinator</span></div>
+              <div data-hf-id="hf-r2fw" class="cts">
+                <div data-hf-id="hf-7nqt" class="ct"><span data-hf-id="hf-1wws" class="ic ic--sm ic--violet"><svg data-hf-id="hf-l4ph" viewBox="0 0 24 24"><path data-hf-id="hf-15j0" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" /></svg></span><span data-hf-id="hf-dkq5"><small data-hf-id="hf-6d05">Contacto</small>317 233 4221</span></div>
+                <div data-hf-id="hf-5vzd" class="ct"><span data-hf-id="hf-enrg" class="ic ic--sm ic--sky"><svg data-hf-id="hf-lj0i" viewBox="0 0 24 24"><rect data-hf-id="hf-uwav" x="3" y="5" width="18" height="14" rx="2" /><path data-hf-id="hf-cwl6" d="m3 7 9 6 9-6" /></svg></span><span data-hf-id="hf-qag1"><small data-hf-id="hf-28am">Correo</small>paola.granados@campuslands.com</span></div>
+                <div data-hf-id="hf-72wg" class="ct"><span data-hf-id="hf-k96y" class="ic ic--sm ic--green"><svg data-hf-id="hf-nijn" viewBox="0 0 24 24"><circle data-hf-id="hf-1iwn" cx="12" cy="12" r="9" /><path data-hf-id="hf-nwdx" d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" /></svg></span><span data-hf-id="hf-2xzr"><small data-hf-id="hf-zx0v">Conócenos</small>@Campuslands · campers.tribu.team</span></div>
+                <div data-hf-id="hf-6olf" class="ct"><span data-hf-id="hf-mx6v" class="ic ic--sm ic--gold"><svg data-hf-id="hf-nwuo" viewBox="0 0 24 24"><path data-hf-id="hf-a7dt" d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" /><circle data-hf-id="hf-b5u8" cx="12" cy="10" r="2.5" /></svg></span><span data-hf-id="hf-xar2"><small data-hf-id="hf-oip7">Ubicación</small>Zona Franca Santander · Torre Zenith, piso 6, Floridablanca</span></div>
+              </div>
+            </div>
+            <div data-hf-id="hf-hill" class="cobrand">
+              <img data-hf-id="hf-lmy1" class="cl" src="assets/logo-campuslands-color.png" alt="Campuslands">
+              <span data-hf-id="hf-epbj" class="x"><svg data-hf-id="hf-mpxl" viewBox="0 0 24 24"><path data-hf-id="hf-htuk" d="M5 5l14 14M19 5L5 19" /></svg></span>
+              <img data-hf-id="hf-euew" class="cli" src="assets/logo-cliente-color.png" alt="Hubux">
+            </div>
+          </div>
+          <div data-hf-id="hf-dpoe" class="ft"><span data-hf-id="hf-tfwt" class="crumbs">| campuslands<i data-hf-id="hf-5fuf">|</i>propuesta<i data-hf-id="hf-51je">|</i>hubux |</span><span data-hf-id="hf-7qqy" class="lema">Exploramos · Despegamos · Conquistamos</span></div>
+        </div>
+      </section>
+
+      <!-- ===================== Capas de transición ===================== -->
+      <div data-hf-id="hf-xade" id="iris1" class="overlay clip" data-start="9" data-duration="1.2" data-track-index="2">
+        <svg data-hf-id="hf-ff52" viewBox="0 0 1920 1080"><circle data-hf-id="hf-p7pr" class="iris-ring" cx="960" cy="540" r="0" /></svg>
+      </div>
+      <div data-hf-id="hf-fohj" id="wipe" class="overlay clip" data-start="33" data-duration="1.1" data-track-index="2">
+        <div data-hf-id="hf-6mbl" class="wipe-bar"></div>
+      </div>
+      <div data-hf-id="hf-jkaw" id="sweep" class="overlay clip" data-start="40.3" data-duration="1.8" data-track-index="2">
+        <div data-hf-id="hf-zvpo" class="panel panel--gold"></div>
+        <div data-hf-id="hf-dzg3" class="panel panel--violet"><span data-hf-id="hf-9txu">&lt;/&gt;</span></div>
+      </div>
+      <div data-hf-id="hf-r233" id="iris2" class="overlay clip" data-start="49" data-duration="1.2" data-track-index="2">
+        <svg data-hf-id="hf-ry7e" viewBox="0 0 1920 1080"><circle data-hf-id="hf-k9kf" class="iris-ring" cx="960" cy="540" r="0" /></svg>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const OUT = "power3.out";
+      const IO = "power3.inOut";
+      // Radio de circle() en % → px: el 100 % equivale a √(w²+h²)/√2 = 1557.6 px.
+      const IRIS_PCT = 72;
+      const IRIS_PX = 1557.6 * (IRIS_PCT / 100);
+
+      // ---------- helpers de entrada ----------
+      const words = (s, t) => tl.fromTo(`${s} .sec .w > span`, { yPercent: 115 }, { yPercent: 0, duration: 0.85, ease: "power4.out", stagger: 0.06 }, t);
+      const ghost = (s, t) => tl.fromTo(`${s} .ghost`, { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 1.2, ease: OUT }, t);
+      const footer = (s, t) => tl.fromTo(`${s} .ft > span`, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: OUT, stagger: 0.12 }, t);
+      const kb = (sel, t, d, a = 1.18, b = 1.03) => tl.fromTo(sel, { scale: a }, { scale: b, duration: d, ease: "none" }, t);
+      const CLIP = {
+        up: ["inset(100% 0% 0% 0% round 40px)", "inset(0% 0% 0% 0% round 40px)"],
+        down: ["inset(0% 0% 100% 0% round 40px)", "inset(0% 0% 0% 0% round 40px)"],
+        left: ["inset(0% 0% 0% 100% round 40px)", "inset(0% 0% 0% 0% round 40px)"],
+        right: ["inset(0% 100% 0% 0% round 40px)", "inset(0% 0% 0% 0% round 40px)"],
+      };
+      const reveal = (sel, t, dir = "up", d = 1.1, r = 40) => {
+        const [a, b] = CLIP[dir].map((c) => c.replace("40px", `${r}px`));
+        tl.fromTo(sel, { clipPath: a }, { clipPath: b, duration: d, ease: "expo.inOut" }, t);
+      };
+      const coverDeco = (s, t, d) => {
+        tl.fromTo(`${s} .glow`, { scale: 0.5, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 1.6, ease: OUT }, t);
+        tl.fromTo(`${s} .ring`, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut", stagger: 0.14 }, t + 0.05);
+        tl.fromTo(`${s} .spin`, { rotation: 0, opacity: 0, svgOrigin: "960 540" }, { rotation: 60, opacity: 1, duration: d, ease: "none" }, t + 0.3);
+        tl.fromTo(`${s} .bl-l`, { x: -260, opacity: 0 }, { x: 0, opacity: 1, duration: 1.4, ease: OUT }, t + 0.2);
+        tl.fromTo(`${s} .bl-r`, { x: 260, opacity: 0 }, { x: 0, opacity: 1, duration: 1.4, ease: OUT }, t + 0.2);
+        tl.to(`${s} .bl-l`, { y: -16, duration: 2.4, ease: "sine.inOut", yoyo: true, repeat: 2 }, t + 1.6);
+        tl.to(`${s} .bl-r`, { y: 16, duration: 2.4, ease: "sine.inOut", yoyo: true, repeat: 2 }, t + 1.6);
+      };
+      const cobrand = (s, t) => {
+        tl.fromTo(`${s} .cobrand .cl`, { x: -70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.9, ease: OUT }, t);
+        tl.fromTo(`${s} .cobrand .x`, { scale: 0, rotation: -180, opacity: 0 }, { scale: 1, rotation: 0, opacity: 1, duration: 0.8, ease: "back.out(2)" }, t + 0.2);
+        tl.fromTo(`${s} .cobrand .cli`, { x: 70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.9, ease: OUT }, t + 0.3);
+      };
+      const count = (sel, t, d = 1.4) => {
+        document.querySelectorAll(sel).forEach((el, i) => {
+          tl.fromTo(el, { innerText: 0 }, { innerText: Number(el.dataset.to), snap: { innerText: 1 }, duration: d, ease: "power2.out" }, t + i * 0.15);
+        });
+      };
+
+      // ================= 1 · PORTADA (0–9) =================
+      coverDeco("#s1", 0, 9.5);
+      cobrand("#s1", 0.35);
+      words("#s1", 0.75);
+      tl.fromTo("#s1 .tagline", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.9, ease: OUT }, 1.35);
+      reveal("#s1 .shot .frame", 0.45, "left", 1.3);
+      kb("#s1 .shot .frame img", 0.45, 9.5, 1.25, 1.04);
+      tl.fromTo("#s1 .shot .plate", { x: -28, y: -28, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 1.1, ease: OUT }, 1.25);
+      tl.fromTo("#s1 .shot .dots", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: OUT }, 1.4);
+      tl.fromTo("#s1 .tag", { scale: 0.5, opacity: 0, transformOrigin: "0% 100%" }, { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(2)" }, 1.75);
+      tl.fromTo("#s1 .meta", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: OUT }, 1.9);
+      tl.fromTo("#s1 .meta > div", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: OUT, stagger: 0.14 }, 2.15);
+
+      // ---- 1 → 2 · iris circular con anillo dorado (9–10) ----
+      tl.fromTo("#s1", { scale: 1, opacity: 1, filter: "blur(0px)" }, { scale: 0.9, opacity: 0, filter: "blur(8px)", duration: 1, ease: "power2.inOut" }, 9);
+      tl.fromTo("#s2", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: `circle(${IRIS_PCT}% at 50% 50%)`, duration: 1.05, ease: IO }, 9);
+      tl.fromTo("#iris1 circle", { attr: { r: 0 } }, { attr: { r: IRIS_PX }, duration: 1.05, ease: IO }, 9);
+      tl.fromTo("#iris1 circle", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "none", immediateRender: false }, 9.8);
+
+      // ================= 2 · ÚNETE AL HUB (9–17) =================
+      reveal("#s2 .shot .frame", 9.05, "up", 1.2);
+      kb("#s2 .shot .frame img", 9.05, 8.6, 1.22, 1.03);
+      tl.fromTo("#s2 .shot .plate", { x: -28, y: -28, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 1, ease: OUT }, 9.8);
+      tl.fromTo("#s2 .shot .dots", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: OUT }, 9.9);
+      tl.fromTo("#s2 .strip", { yPercent: 100 }, { yPercent: 0, duration: 0.8, ease: OUT }, 10.0);
+      tl.fromTo("#s2 .tag", { scale: 0.5, opacity: 0, transformOrigin: "0% 0%" }, { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(2)" }, 10.2);
+      ghost("#s2", 9.4);
+      words("#s2", 9.35);
+      tl.fromTo("#s2 .body", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, ease: OUT, stagger: 0.25 }, 9.85);
+      tl.fromTo("#s2 .pt", { opacity: 0, x: 90 }, { opacity: 1, x: 0, duration: 0.85, ease: OUT, stagger: 0.16 }, 10.4);
+      tl.fromTo("#s2 .pt .ic", { scale: 0, rotation: -25 }, { scale: 1, rotation: 0, duration: 0.7, ease: "back.out(2.2)", stagger: 0.16 }, 10.6);
+      footer("#s2", 10.2);
+
+      // ---- 2 → 3 · empuje horizontal (17–18) ----
+      tl.fromTo("#s2", { x: 0 }, { x: -1920, duration: 1, ease: IO, immediateRender: false }, 17);
+      tl.fromTo("#s3", { x: 1920 }, { x: 0, duration: 1, ease: IO }, 17);
+
+      // ================= 3 · ESPACIOS DEL HUB (17–25) =================
+      words("#s3", 17.1);
+      ghost("#s3", 17.25);
+      const dirs = ["up", "left", "down", "right", "up", "down", "left", "up"];
+      document.querySelectorAll("#s3 .ph .frame").forEach((f, i) => reveal(f, 17.2 + i * 0.09, dirs[i], 1.05, 28));
+      kb("#s3 .ph img", 17.2, 8.2, 1.32, 1.03);
+      tl.fromTo("#s3 .cap", { opacity: 0, y: 16, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(2)", stagger: 0.08 }, 18.25);
+      footer("#s3", 17.65);
+
+      // ---- 3 → 4 · fundido con desenfoque y zoom (25–26) ----
+      tl.fromTo("#s3", { scale: 1, opacity: 1, filter: "blur(0px)" }, { scale: 1.08, opacity: 0, filter: "blur(14px)", duration: 1, ease: "power2.inOut", immediateRender: false }, 25);
+      tl.fromTo("#s4", { scale: 0.94, opacity: 0, filter: "blur(14px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1, ease: "power2.inOut" }, 25);
+
+      // ================= 4 · QUÉ INCLUYE (25–33) =================
+      words("#s4", 25.3);
+      ghost("#s4", 25.5);
+      tl.fromTo("#s4 .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: OUT }, 25.9);
+      tl.fromTo("#s4 .mod", { opacity: 0, y: 90, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: OUT, stagger: { each: 0.11, grid: [2, 3], from: "start" } }, 26.0);
+      tl.fromTo("#s4 .mod .ic", { scale: 0, rotation: -30 }, { scale: 1, rotation: 0, duration: 0.7, ease: "back.out(2.2)", stagger: 0.11 }, 26.3);
+      tl.fromTo("#s4 .mod .opt", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.7, ease: OUT }, 27.1);
+      tl.fromTo("#s4 .card--navy", { y: 0 }, { y: -10, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: 1, immediateRender: false }, 28.2);
+      footer("#s4", 26.4);
+
+      // ---- 4 → 5 · barrido vertical con borde violeta (33–34) ----
+      tl.fromTo("#s4", { y: 0 }, { y: -320, duration: 1, ease: IO, immediateRender: false }, 33);
+      tl.fromTo("#s5", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1, ease: IO }, 33);
+      tl.fromTo("#wipe .wipe-bar", { y: 1073 }, { y: -7, duration: 1, ease: IO }, 33);
+
+      // ================= 5 · PLANES (33–41) =================
+      words("#s5", 33.15);
+      ghost("#s5", 33.3);
+      tl.fromTo("#s5 .plan", { opacity: 0, y: 120 }, { opacity: 1, y: 0, duration: 1, ease: OUT, stagger: 0.15 }, 33.3);
+      kb("#s5 .plan .pic img", 33.3, 7.9, 1.22, 1.02);
+      tl.fromTo("#s5 .plan .bd > *", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: OUT, stagger: 0.04 }, 33.7);
+      count("#s5 .num", 34.0, 1.5);
+      tl.fromTo("#s5 .plan--gold", { scale: 1 }, { scale: 1.035, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, 35.9);
+      tl.fromTo("#s5 .reading", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.9, ease: OUT }, 34.7);
+      footer("#s5", 34.3);
+
+      // ---- 5 → 6 · cortina dorada + violeta con </> (40.3–42.1) ----
+      tl.fromTo("#sweep .panel--gold", { x: 1920 }, { x: 0, duration: 0.6, ease: "power3.in" }, 40.35);
+      tl.fromTo("#sweep .panel--violet", { x: 1920 }, { x: 0, duration: 0.6, ease: "power3.in" }, 40.45);
+      tl.fromTo("#sweep .panel--violet span", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2)" }, 40.85);
+      tl.to("#sweep .panel--violet", { x: -1920, duration: 0.7, ease: "power3.out" }, 41.2);
+      tl.to("#sweep .panel--gold", { x: -1920, duration: 0.7, ease: "power3.out" }, 41.3);
+
+      // ================= 6 · ECOSISTEMA (41–49) =================
+      words("#s6", 41.45);
+      ghost("#s6", 41.6);
+      tl.fromTo("#s6 .lg", { opacity: 0, rotationY: -90, transformPerspective: 900 }, { opacity: 1, rotationY: 0, duration: 0.9, ease: OUT, stagger: { each: 0.07, from: "center" } }, 41.7);
+      tl.fromTo("#s6 .lg img", { scale: 0.7 }, { scale: 1, duration: 0.9, ease: "back.out(1.8)", stagger: { each: 0.07, from: "center" } }, 41.85);
+      tl.fromTo("#s6 .stats", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 1, ease: OUT }, 42.4);
+      count("#s6 .num", 42.8, 1.3);
+      tl.fromTo("#s6 .neon-ring", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 43.4);
+      tl.fromTo("#s6 .neon-ring", { scale: 1 }, { scale: 1.01, duration: 0.8, ease: "sine.inOut", yoyo: true, repeat: 3, immediateRender: false }, 44.0);
+      tl.fromTo("#s6 .stats .why", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.9, ease: OUT }, 43.0);
+      footer("#s6", 42.6);
+
+      // ---- 6 → 7 · zoom de salida + iris con anillo dorado (49–50) ----
+      tl.fromTo("#s6", { scale: 1, opacity: 1, filter: "blur(0px)" }, { scale: 1.25, opacity: 0, filter: "blur(10px)", duration: 1, ease: "power2.in" }, 49);
+      tl.fromTo("#s7", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: `circle(${IRIS_PCT}% at 50% 50%)`, duration: 1.05, ease: IO }, 49);
+      tl.fromTo("#iris2 circle", { attr: { r: 0 } }, { attr: { r: IRIS_PX }, duration: 1.05, ease: IO }, 49);
+      tl.fromTo("#iris2 circle", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "none", immediateRender: false }, 49.8);
+
+      // ================= 7 · CIERRE (49–58) =================
+      coverDeco("#s7", 49.0, 9);
+      tl.fromTo("#s7 .tagline", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: OUT }, 49.4);
+      words("#s7", 49.6);
+      tl.fromTo("#s7 .contact", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 1, ease: OUT }, 50.2);
+      tl.fromTo("#s7 .who > *", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.7, ease: OUT, stagger: 0.12 }, 50.5);
+      tl.fromTo("#s7 .ct", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: OUT, stagger: 0.12 }, 50.7);
+      tl.fromTo("#s7 .ct .ic", { scale: 0, rotation: -30 }, { scale: 1, rotation: 0, duration: 0.6, ease: "back.out(2.2)", stagger: 0.12 }, 50.8);
+      cobrand("#s7", 51.5);
+      footer("#s7", 51.9);
+      tl.fromTo("#s7 .mid", { scale: 1 }, { scale: 1.025, duration: 7.5, ease: "none" }, 50.2);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- La cabecera no se usa en el render: los estilos y el script van dentro de <template>. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        #s1-root { position: absolute; inset: 0; overflow: hidden; background: transparent; font-family: 'Poppins', sans-serif; color: #373435; }
+        #s1-root .deco { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+        #s1-root .ring { fill: none; stroke-width: 2.5; stroke-opacity: .3; stroke-dasharray: 1; }
+        #s1-root .cob { position: absolute; left: 0; right: 0; top: 118px; display: flex; justify-content: center; align-items: center; gap: 34px; }
+        #s1-root .cob .cp { height: 64px; width: auto; display: block; }
+        #s1-root .cob .cl { height: 128px; width: auto; display: block; }
+        #s1-root .cob .x { width: 36px; height: 36px; flex: none; }
+        #s1-root .cob .x path { fill: none; stroke: #5E3AE2; stroke-width: 2.6; stroke-linecap: round; }
+        #s1-root .title { position: absolute; left: 0; right: 0; top: 340px; text-align: center; font-weight: 900; font-size: 112px; line-height: 1.04; color: #000087; letter-spacing: -.01em; }
+        #s1-root .title .w { display: inline-block; }
+        #s1-root .title .mk { color: #5E3AE2; margin-right: .08em; }
+        #s1-root .title .em { color: #5E3AE2; font-style: italic; }
+        #s1-root .tagline { position: absolute; left: 0; right: 0; top: 700px; text-align: center; font-size: 36px; font-weight: 500; color: #373435; }
+        #s1-root .meta { position: absolute; left: 110px; right: 110px; bottom: 110px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        #s1-root .meta > div { position: relative; overflow: hidden; background: #FFFFFF; border-radius: 24px; padding: 34px 36px 28px; box-shadow: 0 24px 60px rgba(0, 0, 135, .13), 0 6px 18px rgba(0, 0, 135, .07); }
+        #s1-root .meta > div::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 7px; background: #5E3AE2; }
+        #s1-root .meta > div:nth-child(2)::before { background: #2CAAFF; }
+        #s1-root .meta > div:nth-child(3)::before { background: #F4B422; }
+        #s1-root .meta small { display: block; font-size: 16px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #5E3AE2; }
+        #s1-root .meta span { display: block; margin-top: 10px; font-size: 28px; font-weight: 600; color: #000087; }
+      </style>
+
+      <div data-hf-id="hf-eicw" id="s1-root" data-composition-id="s1" data-width="1920" data-height="1080">
+        <svg data-hf-id="hf-zmt3" class="deco" viewBox="0 0 1920 1080" aria-hidden="true">
+          <defs data-hf-id="hf-mh0t">
+            <radialGradient data-hf-id="hf-yxhh" id="s1-glow-g" cx="50%" cy="50%" r="50%">
+              <stop data-hf-id="hf-nyt8" offset="0%" stop-color="#F4B422" stop-opacity=".2" />
+              <stop data-hf-id="hf-lfjv" offset="100%" stop-color="#F4B422" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <circle data-hf-id="hf-f2wf" id="s1-glow" cx="960" cy="540" r="620" fill="url(#s1-glow-g)" />
+          <g data-hf-id="hf-k451" id="s1-rings">
+            <path data-hf-id="hf-o42k" class="ring" pathLength="1" d="M687 540a273 273 0 1 0 546 0a273 273 0 1 0-546 0" stroke="#F4B422" />
+            <path data-hf-id="hf-qiv5" class="ring" pathLength="1" d="M533 540a427 427 0 1 0 854 0a427 427 0 1 0-854 0" stroke="#5E3AE2" />
+            <path data-hf-id="hf-3kwa" class="ring" pathLength="1" d="M378 540a582 582 0 1 0 1164 0a582 582 0 1 0-1164 0" stroke="#000087" />
+            <path data-hf-id="hf-8nio" class="ring" pathLength="1" d="M215 540a745 745 0 1 0 1490 0a745 745 0 1 0-1490 0" stroke="#2CAAFF" />
+          </g>
+          <circle data-hf-id="hf-2c50" id="s1-dash" cx="960" cy="540" r="505" fill="none" stroke="#5E3AE2" stroke-width="2" stroke-dasharray="4 18" stroke-opacity=".3" />
+          <g data-hf-id="hf-uvsx" transform="translate(40 230) scale(1.5)">
+            <path data-hf-id="hf-x7r2" id="s1-blade-l" d="M20 10 L400 240 L20 470 Q190 240 20 10 Z" fill="#5E3AE2" fill-opacity=".14" />
+          </g>
+          <g data-hf-id="hf-m5w7" transform="translate(1880 230) scale(-1.5 1.5)">
+            <path data-hf-id="hf-swkc" id="s1-blade-r" d="M20 10 L400 240 L20 470 Q190 240 20 10 Z" fill="#F4B422" fill-opacity=".2" />
+          </g>
+        </svg>
+
+        <div data-hf-id="hf-o8o0" class="cob">
+          <img data-hf-id="hf-i2wh" class="cp" src="assets/logo-campuslands-color.png" alt="Campuslands" />
+          <svg data-hf-id="hf-p7tr" class="x" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-7jxg" d="M5 5l14 14M19 5L5 19" /></svg>
+          <img data-hf-id="hf-m07g" class="cl" src="assets/logo-cliente-color.png" alt="Alcaldía Municipal de Girón" />
+        </div>
+
+        <div data-hf-id="hf-j8jm" class="title">
+          <div data-hf-id="hf-htko" class="w-mask"><span data-hf-id="hf-mytp" class="w mk">&lt;/</span><span data-hf-id="hf-8036" class="w">Módulo</span> <span data-hf-id="hf-99nn" class="w">de</span> <span data-hf-id="hf-5izs" class="w">Cobranza</span></div>
+          <div data-hf-id="hf-958w" class="w-mask"><span data-hf-id="hf-i8r0" class="w">con</span> <span data-hf-id="hf-fo7c" class="w em">Inteligencia Artificial</span></div>
+        </div>
+
+        <p data-hf-id="hf-pun2" class="tagline">Industria y Comercio · Plan de desarrollo</p>
+
+        <div data-hf-id="hf-puvz" class="meta">
+          <div data-hf-id="hf-yeow"><small data-hf-id="hf-1zs4">Preparado para</small><span data-hf-id="hf-ovh2">Alcaldía Municipal de Girón</span></div>
+          <div data-hf-id="hf-y7yw"><small data-hf-id="hf-h23n">Preparado por</small><span data-hf-id="hf-aiwv">Campuslands S.A.S. BIC</span></div>
+          <div data-hf-id="hf-x11t"><small data-hf-id="hf-0t7t">Fecha</small><span data-hf-id="hf-53yn">Octubre 2026</span></div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+
+        // Anillos que se dibujan, uno tras otro
+        tl.fromTo("#s1-root .ring", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.8, stagger: 0.2, ease: "power2.inOut" }, 0.1);
+        // Anillo discontinuo que gira y resplandor que respira
+        tl.fromTo("#s1-dash", { rotation: 0 }, { rotation: 360, duration: 12, ease: "none", svgOrigin: "960 540" }, 0);
+        tl.fromTo("#s1-glow", { opacity: 0 }, { opacity: 1, duration: 1.4, ease: "power2.out" }, 0.1);
+        tl.to("#s1-glow", { scale: 1.06, svgOrigin: "960 540", duration: 2.2, yoyo: true, repeat: 2, ease: "sine.inOut" }, 3.5);
+
+        // Hojas laterales que entran y flotan
+        tl.fromTo("#s1-blade-l", { x: -120, opacity: 0 }, { x: 0, opacity: 1, duration: 1.4, ease: "power3.out" }, 0.3);
+        tl.fromTo("#s1-blade-r", { x: 120, opacity: 0 }, { x: 0, opacity: 1, duration: 1.4, ease: "power3.out" }, 0.3);
+        tl.to("#s1-blade-l", { y: -26, duration: 3.2, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.7);
+        tl.to("#s1-blade-r", { y: 26, duration: 3.2, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.9);
+
+        // Co-branding: Campuslands primero, « × » que gira y cliente
+        tl.fromTo("#s1-root .cp", { x: -90, opacity: 0 }, { x: 0, opacity: 1, duration: 1.0, ease: "power3.out" }, 0.4);
+        tl.fromTo("#s1-root .cl", { x: 90, opacity: 0 }, { x: 0, opacity: 1, duration: 1.0, ease: "power3.out" }, 0.4);
+        tl.fromTo("#s1-root .x", { rotation: -180, scale: 0, opacity: 0 }, { rotation: 0, scale: 1, opacity: 1, duration: 0.9, ease: "back.out(2)" }, 0.9);
+
+        // Título por palabras, desde una máscara
+        tl.fromTo("#s1-root .title .w", { yPercent: 115 }, { yPercent: 0, duration: 0.95, stagger: 0.12, ease: "power4.out" }, 1.2);
+
+        tl.fromTo("#s1-root .tagline", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 2.6);
+
+        // Tarjetas de metadatos que suben en cascada
+        tl.fromTo("#s1-root .meta > div", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, stagger: 0.14, ease: "power3.out" }, 3.0);
+
+        window.__timelines["s1"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
