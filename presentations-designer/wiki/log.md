@@ -2072,3 +2072,6 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 * **Hecho:** se integró el visor de la plantilla: barra superior blanca con el logo de Campuslands (sin «×» ni logo de cliente: el deck es institucional), una lámina a la vez con escalado por `zoom`, barra inferior (‹ N / 6 · progreso dorado · play/pausa 5 s ›), teclado ←/→ circular, deslizamiento táctil y aviso de giro en celular. Ambas barras miden `--bar-h` (76 px) y se separan por sombras. Cada lámina pasó a `<div class="slide" data-slide="N"><section class="sl3 …">`; `script.js` copiado de la plantilla con `totalSlides: 6` (incluye sombras vectoriales y precarga de fuentes para el PDF).
 * **Fondo:** láminas `#F2F3F5` (pedido del usuario), página del visor gris un tono más oscuro `#E6E9EE` para que el recuadro de la lámina se distinga; barras blancas.
 * **Verificado:** navegación 1→6→1 correcta, barras de 76 px, PDF de 6 páginas sin el visor (`@media print`), revisión a la vista de portada en el visor y de las láminas en el PDF.
+
+## [2026-10-14] ajuste | FullService Campuslands v3: comparativo pasa de la lámina 6 a la 4
+* **Pedido del usuario:** mover la página 6 a la 4. Orden final: 1 portada · 2 Staffing · 3 BPO · 4 comparativo + cierre (CTA) · 5 Portafolio solicitado 1 de 2 · 6 Portafolio solicitado 2 de 2. Contenido sin cambios; PDF regenerado (6 páginas).
