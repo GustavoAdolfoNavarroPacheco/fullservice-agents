@@ -2066,3 +2066,9 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 * **Excepciones al Brandbook (avisadas):** fondo gris en lugar de blanco `#FFFFFF` (regla 1, por pedido del usuario), tema de tarjetas navy y Playfair/Montserrat (heredado de la v2).
 * **Verificado:** `verificar_deck.py` no aplica (deck v2 legado: no tiene visor v3). Comprobación DOM: 6 láminas, sin solapes entre bloques, ningún texto pegado al borde, fuente mínima 9,07 px; PDF de 6 páginas con fuentes embebidas (Playfair, Montserrat, Poppins); revisión a la vista de las 6 láminas.
 * **Portal:** nueva entrada `fullservice-campuslands-v3`.
+
+## [2026-10-14] ajuste | FullService Campuslands v3: visor interactivo
+* **Pedido del usuario:** la v3 no tenía la interfaz de presentación (barra superior, controles inferiores) de los decks v3.
+* **Hecho:** se integró el visor de la plantilla: barra superior blanca con el logo de Campuslands (sin «×» ni logo de cliente: el deck es institucional), una lámina a la vez con escalado por `zoom`, barra inferior (‹ N / 6 · progreso dorado · play/pausa 5 s ›), teclado ←/→ circular, deslizamiento táctil y aviso de giro en celular. Ambas barras miden `--bar-h` (76 px) y se separan por sombras. Cada lámina pasó a `<div class="slide" data-slide="N"><section class="sl3 …">`; `script.js` copiado de la plantilla con `totalSlides: 6` (incluye sombras vectoriales y precarga de fuentes para el PDF).
+* **Fondo:** láminas `#F2F3F5` (pedido del usuario), página del visor gris un tono más oscuro `#E6E9EE` para que el recuadro de la lámina se distinga; barras blancas.
+* **Verificado:** navegación 1→6→1 correcta, barras de 76 px, PDF de 6 páginas sin el visor (`@media print`), revisión a la vista de portada en el visor y de las láminas en el PDF.
