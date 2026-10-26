@@ -4,6 +4,30 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-10-26] build | Unidrogas S.A.S. — Automatización de Contenidos y Formación con IA (`/pruebas`)
+
+* **Pedido:** Desarrollo de una presentación para la empresa Unidrogas S.A.S. con base en el Documento de Alcance Funcional entregado en PDF, bajo el slug `/pruebas` y utilizando el logo `recursos/Unidrogas.png`.
+* **Alcance:** 10 láminas (Sistema v3 · Brandbook Campuslands 2023, fondo blanco #FFFFFF, Poppins 100%, co-branding «Campuslands × Unidrogas» en portada, cierre y visor, sin líneas ni bordes en tarjetas).
+* **Contenido cubierto:**
+  - Componente A: Unidrogas Video — Automatización audiovisual asistida por IA (carga, prompts, enriquecimiento sonoro, identidad Unidrogas y benchmark de IA). Inversión: $27.393.825 COP.
+  - Componente B: Unidrogas Plataforma — 10 módulos en 4 pilares (Solicitudes inteligentes, creación de guiones con aprobación humana, formación con Crehana, diagnósticos pre/post, analítica en tiempo real, seguimiento automático, catálogo de cursos, certificación, RAG de base de conocimiento y panel de administración). Inversión: $43.358.206 COP.
+  - Metodología ágil: Kick-off, sprints quincenales, comités cada 15 días, 2 semanas de estabilización y 1 mes de soporte post go-live sin costo adicional.
+  - Tripulación dedicada: 8 roles bajo modelo Campers + seniors, transferencia de conocimiento continuo y 100% código fuente en propiedad de Unidrogas.
+* **Logo del cliente y factor visual:** `recursos/Unidrogas.png` recortado al contenido alfa (403×395 px, ratio 1.020:1). Factor calculado con `herramientas/igualar_logos.py`: `--k-cliente: 2.0554` (altura 64 px Campuslands vs 131.5 px Unidrogas para áreas visuales idénticas en portada y cierre; 44 px vs 90.4 px en visor).
+* **Razón de ubicación por lámina:**
+  - Lámina 1 (Portada): Co-branding equilibrado, título con `</` y acento violeta, meta en tarjeta blanca con sombra.
+  - Lámina 2 (Visión & Reto): Afirmación con comilla dorada + tarjeta navy con marco neón destacando la independencia y flexibilidad de las 2 cotizaciones.
+  - Lámina 3 (Componente A - Video): Escalera de 4 pasos para ilustrar la reducción de fricción operativa manual en edición.
+  - Lámina 4 (Componente B - Pilares 1 y 2): Grid de 4 tarjetas para estructurar la ingesta de requerimientos y la capacitación individual con Crehana.
+  - Lámina 5 (Componente B - Pilares 3 y 4): Grid de 4 tarjetas con tarjeta navy de gobierno/certificación para resaltar la analítica ejecutiva y el RAG corporativo.
+  - Lámina 6 (Arquitectura & Ley 1581): Comparador dual en 2 paneles (modularidad de micro-agentes a la izquierda y ecosistema seguro con Habeas Data a la derecha).
+  - Lámina 7 (Metodología & Gobierno): Escalera de 4 etapas que evidencia el acompañamiento quincenal y la garantía estándar.
+  - Lámina 8 (Equipo & Propiedad): Panel izquierdo con la tripulación de 8 perfiles Campers + panel derecho navy ratificando la entrega del 100% del código fuente a Unidrogas.
+  - Lámina 9 (Inversión & Hitos): Dos tarjetas principales con cifras exactas de cotización en COP y desglose de hitos de pago 40/40/20.
+  - Lámina 10 (Cierre & Kick-off): Pasos numerados 1-2-3 para la formalización comercial con llamado a la acción.
+* **Verificación:** `python herramientas/verificar_deck.py presentaciones/pruebas --pdf presentaciones/pruebas/pruebas.pdf --png-dir ...` terminó en **APROBADO (0 errores, 0 avisos)**. Revisión a la vista de los 10 PNGs aprobada. PDF exportado de 10 páginas, 100% Poppins sin fuentes de respaldo.
+* **Registro:** Alta en `wiki/index.md` y en `presentaciones/assets/portal/decks.js`.
+
 ## [2026-10-09] build | Campuslands AI Academy — deck `/ai-academy` desde PDF (10 láminas) + lámina 10 editada
 
 * **Pedido:** subir al portal la presentación `Presentacion_AI_Academy_18h.pdf` y cambiar en la última lámina: Alexandra Villamizar → Gabriela Pedraza; 318 260 6525 → +57 300 3028555; «Líder Comercial del Programa de Formación en Inteligencia Artificial» → «Líder Full Service Global», **manteniendo los estilos**.
