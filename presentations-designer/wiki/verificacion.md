@@ -5,7 +5,7 @@ La herramienta no sustituye la mirada: detecta lo medible; el diseño se decide 
 
 ## 1. Comando (siempre, tras cada build y tras cada ajuste)
 ```bash
-python3 herramientas/verificar_deck.py presentaciones/<slug> --pdf presentaciones/<slug>/<slug>.pdf --png-dir /tmp/<slug>-png
+python3 herramientas/verificar_deck.py presentaciones/decks/<slug> --pdf presentaciones/decks/<slug>/<slug>.pdf --png-dir /tmp/<slug>-png
 python3 herramientas/elegir_logo.py --tabla        # al decidir fondos/logos
 ```
 Debe terminar en **APROBADO (0 errores)**. Los **avisos (⚠)** se resuelven o se justifican por escrito en la bitácora.

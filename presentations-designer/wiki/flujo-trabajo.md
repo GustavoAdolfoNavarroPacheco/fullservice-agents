@@ -80,7 +80,7 @@ Antes de escribir una sola línea de HTML/CSS, el agente presenta al usuario, **
 **El agente NO inicia la codificación hasta que el usuario confirme el plan.**
 
 ### 3. Desarrollo del borrador completo
-Con el plan aprobado: elegir un `<slug>` corto y **copiar `presentaciones/_plantilla-campuslands/`** a `presentaciones/<slug>/`
+Con el plan aprobado: elegir un `<slug>` corto y **copiar `presentaciones/decks/_plantilla-campuslands/`** a `presentaciones/decks/<slug>/`
 (no partir de un deck de otro cliente). Reemplazar contenido y logo del cliente (recortado, **mismo alto** que el de Campuslands),
 ajustar `totalSlides` en `script.js`, `<title>` (razón social del cliente) y favicon (isotipo). Fuentes locales ya incluidas.
 
@@ -93,7 +93,7 @@ Se muestra el resultado al usuario; las iteraciones se aplican sobre el HTML/CSS
 de texto puede romper el reparto de una lámina).
 
 ### 6. Exportación a PDF
-Chrome headless (ver [[despliegue]]) → `presentaciones/<slug>/<slug>.pdf`. El PDF debe tener tantas páginas como láminas y ninguna fuente de respaldo
+Chrome headless (ver [[despliegue]]) → `presentaciones/decks/<slug>/<slug>.pdf`. El PDF debe tener tantas páginas como láminas y ninguna fuente de respaldo
 (lo comprueba `verificar_deck.py --pdf`).
 
 ### 6. Registro Histórico

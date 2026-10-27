@@ -1,7 +1,7 @@
 # Biblioteca narrativa (≤ 10 láminas) y plantilla base
 
 > Reemplaza la "plantilla de 16 láminas" (archivada). **Límite: 10 láminas** salvo pedido **textual** del usuario (R4).
-> Implementación lista para copiar: `presentaciones/_plantilla-campuslands/` (7 láminas de ejemplo; ver [[sistema-diseno]]).
+> Implementación lista para copiar: `presentaciones/decks/_plantilla-campuslands/` (7 láminas de ejemplo; ver [[sistema-diseno]]).
 
 ## Cómo mapear contenido en ≤ 10 láminas
 Elegir de la biblioteca solo lo que la historia necesita y **fusionar** antes que añadir. Los bloques ⭐ casi siempre van.

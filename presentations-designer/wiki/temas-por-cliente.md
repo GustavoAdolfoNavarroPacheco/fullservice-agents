@@ -24,11 +24,11 @@
 ## Logo del cliente: lista de comprobación
 - [ ] PNG/SVG con **transparencia** real (ver bordes; si trae fondo blanco, recortarlo).
 - [ ] Recortado al **contenido exacto** (`getbbox`), sin padding irregular.
-- [ ] Copia **sin procesar** en `presentaciones/assets/logos/` (para el portal) y recortada en `assets/` del deck.
+- [ ] Copia **sin procesar** en `presentaciones/decks/assets/logos/` (para el portal) y recortada en `assets/` del deck.
 - [ ] Probado sobre el blanco; **área igual** a la de Campuslands (`igualar_logos.py` → `--k-cliente`; `verificar_deck.py` ±6 %).
 - [ ] Confirmado **mirando** que ninguno de los dos domina; si lo parece, se ajusta `--k-cliente` unos puntos, sin deformar.
 
 ## Portal y catálogo
-- La entrada del deck en `presentaciones/assets/portal/decks.js` no lleva colores: el portal pinta cada fila con el color de marca de su `category`
+- La entrada del deck en `presentaciones/web/src/data/decks.ts` no lleva colores: el portal pinta cada fila con el color de marca de su `category`
   (ia = violeta, software = celeste, demos = verde, institucional = navy).
-- `presentaciones/_temas-demo/` es **histórico**: no se agregan tiles nuevos.
+- `presentaciones/decks/_temas-demo/` es **histórico**: no se agregan tiles nuevos.

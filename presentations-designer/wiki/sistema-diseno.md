@@ -1,7 +1,7 @@
 # Sistema de diseño v3 — Brandbook Campuslands
 
 > Reemplaza al sistema v2 (archivado en [[archivo/README]]). Normativa de marca: [[marca-campuslands]]. Protocolo de revisión: [[verificacion]].
-> **Punto de partida de todo deck nuevo:** copiar `presentaciones/_plantilla-campuslands/` (7 láminas de ejemplo que ya cumplen
+> **Punto de partida de todo deck nuevo:** copiar `presentaciones/decks/_plantilla-campuslands/` (7 láminas de ejemplo que ya cumplen
 > todas las reglas y pasan el verificador) y reemplazar contenido; **no** partir de un deck de cliente anterior.
 
 ---

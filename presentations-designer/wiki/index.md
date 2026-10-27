@@ -18,7 +18,7 @@ Esta wiki contiene el conocimiento, la marca, las especificaciones técnicas y l
 9. [Bitácora (Log)](log.md) — registro histórico append-only.
 
 **Herramientas:** [`herramientas/verificar_deck.py`](../herramientas/verificar_deck.py) · [`herramientas/elegir_logo.py`](../herramientas/elegir_logo.py).
-**Plantilla base:** `presentaciones/_plantilla-campuslands/`. **Recursos de marca:** `recursos/brandbook/`, `recursos/logos-campuslands/`, `recursos/fonts/`.
+**Plantilla base:** `presentaciones/decks/_plantilla-campuslands/`. **Recursos de marca:** `recursos/brandbook/`, `recursos/logos-campuslands/`, `recursos/fonts/`.
 
 > **Decks anteriores al 2026-10-02** (listados abajo) usan el sistema v2 (paleta del cliente, Playfair/Montserrat, conteo libre de láminas): son **legado**.
 > No se migran ni se usan como base salvo pedido explícito del usuario; el verificador los rechaza por diseño.

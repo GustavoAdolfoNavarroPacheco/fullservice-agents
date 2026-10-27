@@ -52,7 +52,7 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
    lámina (protocolo en `wiki/verificacion.md`). No entrego nada que no haya pasado ambas.
 8. **CADA OBJETO CON RAZÓN.** Para cada bloque debo poder decir por qué está ahí, a ese tamaño y con ese color. Lo escribo en el plan y en la bitácora; lo que no tenga razón se quita.
 
-> Punto de partida de todo deck nuevo: **copiar `presentaciones/_plantilla-campuslands/`** (ya cumple las reglas y pasa el verificador).
+> Punto de partida de todo deck nuevo: **copiar `presentaciones/decks/_plantilla-campuslands/`** (ya cumple las reglas y pasa el verificador).
 > Los decks anteriores al 2026-10-02 usan el sistema v2 (legado): **no se migran** ni se toman como base salvo pedido explícito del usuario.
 
 ---
@@ -87,13 +87,18 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 │   ├── plantilla-base.md      # biblioteca narrativa ≤10 láminas
 │   ├── temas-por-cliente.md   # cliente = logo + contenido (la paleta es siempre Campuslands)
 │   └── archivo/               # documentos del sistema v2 (NO usar)
-├── presentaciones/      # Repo Git PROPIO (github.com/.../Presentaciones) — lo que Vercel despliega (ver despliegue.md §4)
-│   ├── index.html       # Portal (login + buscador). Datos en assets/portal/decks.js — TODA presentación nueva necesita su entrada (regla 3)
-│   ├── assets/portal/   # decks.js (catálogo), portal.css, portal.js, ui.js (select/modal/toast) · 404.html y vercel.json (URLs limpias, noindex)
-│   ├── assets/logos/    # Logo del cliente SIN procesar, para las tarjetas del portal
-│   ├── _plantilla-campuslands/   # ★ PLANTILLA BASE v3 (copiar para cada deck nuevo)
-│   ├── _temas-demo/     # histórico (v2); no se agregan tiles
-│   └── <slug-cliente>/  # Cada presentación = subcarpeta autocontenida (slug = URL /<slug>): index.html, styles.css, script.js, assets/
+├── presentaciones/      # Repo Git PROPIO (github.com/.../Presentaciones) — lo que Vercel despliega (ver despliegue.md §4). Dos carpetas separadas:
+│   ├── web/             # PORTAL privado: Next.js 16 + TypeScript (login con Neon, buscador, catálogo, 404). Las presentaciones se sirven DENTRO de la web
+│   │   ├── src/data/decks.ts      # ★ CATÁLOGO (antes decks.js) — TODA presentación nueva necesita su entrada (regla 3)
+│   │   ├── src/app · components · lib   # rutas, componentes React/TS, sesión/BD
+│   │   ├── public/portal/         # logos de marca del portal (el resto de public/ es copia de decks/, NO se versiona)
+│   │   ├── scripts/               # sync-decks.ts (decks/ → public/), db-migrate.ts, create-user.ts
+│   │   └── .env.example           # DATABASE_URL (Neon) y AUTH_SECRET
+│   └── decks/           # LAS PRESENTACIONES (HTML/CSS/JS estático — siguen en su tecnología)
+│       ├── assets/      # recursos compartidos: fuentes, favicon, logos de Campuslands y assets/logos/ (logo del cliente SIN procesar)
+│       ├── _plantilla-campuslands/   # ★ PLANTILLA BASE v3 (copiar para cada deck nuevo)
+│       ├── _temas-demo/ # histórico (v2); no se agregan tiles
+│       └── <slug-cliente>/  # Cada presentación = subcarpeta autocontenida (slug = URL pública /<slug>): index.html, styles.css, script.js, assets/
 └── recursos/            # Fuentes inmutables
     ├── brandbook/Campuslands_Brandbook.pdf
     ├── logos-campuslands/   # 4 variantes oficiales (+ recortadas, vectoriales, medidas)
@@ -103,7 +108,8 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 
 ### Reglas de carpetas
 - `wiki/`, `herramientas/` y `presentaciones/` son míos para escribir; `recursos/` es solo lectura (fuente de verdad que el usuario provee).
-- Cada presentación vive en `presentaciones/<slug>/`, **autocontenida y desplegable por sí sola** (fuentes y logos dentro de su `assets/`).
+- Cada presentación vive en `presentaciones/decks/<slug>/`, **autocontenida** (lo propio en su `assets/`; fuentes y logos compartidos en `decks/assets/`, referenciados como `../assets/…`).
+- **Web y decks no se mezclan:** la tecnología nueva (Next.js/TypeScript, BD) es solo de `presentaciones/web/`; los decks siguen siendo HTML/CSS/JS puro. `web/public/` (salvo `portal/`) es una **copia generada** de `decks/` (`npm run sync:decks`): nunca se edita ni se versiona.
 - **El `<slug>` es también la URL pública** (`/<slug>`): **corto y limpio** (`fcv`, `marval`). Si cambia, `git mv` + actualizar portal y wiki en el mismo cambio.
 
 ---
@@ -116,18 +122,18 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 3. ⛔ **Plan antes de diseñar (OBLIGATORIO):** ANTES de escribir HTML/CSS le presento al usuario, **lámina por lámina** (≤ 10): contenido, arquetipo, **fondo**
    (siempre arena; qué bloques van en tarjeta navy/violeta como acento), **factor `--k-cliente`** del logo del cliente, y la **razón de ubicación** de los bloques principales.
    **NO construyo hasta que el usuario confirme.**
-4. Elijo un **slug** corto, **copio `presentaciones/_plantilla-campuslands/`** a `presentaciones/<slug>/` y construyo el **borrador completo**: contenido, logo del cliente recortado
+4. Elijo un **slug** corto, **copio `presentaciones/decks/_plantilla-campuslands/`** a `presentaciones/decks/<slug>/` y construyo el **borrador completo**: contenido, logo del cliente recortado
    al contenido exacto con el **mismo peso visual** que el de Campuslands (`igualar_logos.py` → `--k-cliente`), `totalSlides`, `<title>` y favicon.
-5. 🔍 **Verifico (regla suprema 7):** `python3 herramientas/verificar_deck.py presentaciones/<slug> --pdf presentaciones/<slug>/<slug>.pdf --png-dir /tmp/<slug>-png` → **APROBADO**,
+5. 🔍 **Verifico (regla suprema 7):** `python3 herramientas/verificar_deck.py presentaciones/decks/<slug> --pdf presentaciones/decks/<slug>/<slug>.pdf --png-dir /tmp/<slug>-png` → **APROBADO**,
    y reviso **cada PNG a la vista** con la lista de `wiki/verificacion.md` §2. Corrijo y repito hasta cumplir.
 6. Muestro el borrador al usuario. Iteramos ajustes; **tras cada ajuste vuelvo a verificar**.
 7. Exporto a **PDF** final (ver `wiki/despliegue.md`) y entrego el archivo.
 8. Registro (regla 3) y bitácora (`log.md`: lo construido, razón de ubicación de los bloques clave, avisos justificados del verificador).
    > ⛔ **Regla 3 — Registro en DOS lugares, sin excepción** (el tile de `_temas-demo` queda en desuso):
    > (a) listar/actualizar el deck en `wiki/index.md`;
-   > (b) darlo de alta en el portal: UN objeto nuevo al inicio del arreglo `window.DECKS` de **`presentaciones/assets/portal/decks.js`** (el encabezado del archivo documenta cada campo:
+   > (b) darlo de alta en el portal: UN objeto nuevo al inicio del arreglo `DECKS` de **`presentaciones/web/src/data/decks.ts`** (TypeScript tipado; el encabezado del archivo documenta cada campo:
    >     `slug`, `client` (nombre corto; mismo texto para el mismo cliente), `company`, `title`, `desc`, `category` (`ia|software|demos|institucional`), `categoryLabel`, `slides`, `investment`,
-   >     `path`, `pdf`, `logo`, `date` `YYYY-MM-DD`, `keywords`), más la copia del logo del cliente **sin procesar** en `presentaciones/assets/logos/`.
+   >     `path`, `pdf`, `logo`, `date` `YYYY-MM-DD`, `keywords`), más la copia del logo del cliente **sin procesar** en `presentaciones/decks/assets/logos/` (`logo: "/assets/logos/<Cliente>.png"`).
    >     Los colores de las tarjetas los pone el portal según `category` (ya no hay `accentGrad`/`glow`/`dotColor`). Sin esto el deck funciona por su cuenta pero no aparece en el catálogo.
 9. 🔀 **Commit y push automáticos:** dentro de `presentaciones/` (repo Git propio, ver `wiki/despliegue.md` §4):
    ```
@@ -143,7 +149,7 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 > Flujo: **alcances → plan por lámina (fondo+logo+razón) → confirmación → copiar plantilla → verificar → ajustes → PDF → registro → link.**
 
 ### ⛔ Requisitos de `<head>` (toda web)
-1. **Favicon = isotipo de Campuslands SIN texto** (el casco solo): `presentaciones/<slug>/assets/favicon.png`, `<link rel="icon" type="image/png" href="assets/favicon.png">`.
+1. **Favicon = isotipo de Campuslands SIN texto** (el casco solo): `presentaciones/decks/<slug>/assets/favicon.png`, `<link rel="icon" type="image/png" href="assets/favicon.png">`.
    Maestro: `recursos/isotipo-campuslands.png` / `recursos/favicon-campuslands.png`. (La plantilla ya lo trae.)
 2. **`<title>` = razón social COMPLETA del cliente**, con sufijo legal (`Compumax Computer S.A.S.`), sin descripción de la propuesta. Si el usuario no la dio, la **pido** (no la adivino).
 
