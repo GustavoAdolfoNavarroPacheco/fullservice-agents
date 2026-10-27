@@ -2190,3 +2190,17 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 
 ## [2026-10-27] ajuste | Portal: fondo con profundidad
 * El usuario pidió que el fondo no se viera plano. Se aplica al `body` un degradado vertical suave, dos resplandores celestes de marca (15 % y 10 %) arriba y una sombra tenue abajo, fijos al hacer scroll. El panel del login deja de pintar su propio fondo para heredarlo.
+
+## [2026-10-27] build | Portal: perfil de proyecto (paso 1)
+* **Qué:** nueva ruta privada `/proyecto/<slug>/` y las tarjetas del catálogo ahora enlazan a ella en vez de a la presentación (Web/PDF siguen directos). Contenido: cabecera de marca, acciones, vista previa viva del deck, detalles, resumen y otros proyectos del cliente.
+* **Razón de ubicación:** marca y acciones arriba (lo primero que se busca), vista previa grande a la izquierda (es lo que el cliente verá) y datos de referencia a la derecha; el resumen largo debajo en una sola columna de lectura.
+* **Verificación:** `tsc` OK; sin sesión 307 → /login/; slug inexistente → 404; clic en tarjeta → ficha y «Volver» regresa a `/?cat=ia&vista=lista` con filtros; a 375 px sin desborde ni solapes (la vista previa escala a 0,23).
+
+## [2026-10-27] ajuste | Perfil de proyecto sin vista previa
+* Se elimina la vista previa viva (iframe) de la ficha por pedido del usuario: borrado `deck-preview.tsx`, el ícono de expandir y sus estilos. La fila queda **Resumen | Detalles** (apilados en móvil: resumen primero).
+
+## [2026-10-27] ajuste | Perfil de proyecto: botón «info» con los detalles
+* Se elimina el Resumen y la fila Resumen | Detalles. Los Detalles pasan a un panel que aparece al pasar el ratón por un botón «info» (esquina superior derecha de la cabecera, a 24 px de los bordes). Hover en escritorio, clic/toque y teclado en táctil; cierra con salida del ratón, Esc o clic fuera. Probado en 1440 y 375 px (el panel cabe en pantalla).
+
+## [2026-10-27] ajuste | Perfil de proyecto: acciones debajo del banner
+* Los botones (Abrir presentación · Ver PDF · Copiar enlace) salen del banner y pasan a una fila propia debajo, a 24 px. El banner se compacta (relleno 24/32 px en lugar de 32, separación interna 16 en lugar de 20); alto de 345 a 321 px, relleno superior = inferior.
