@@ -32,3 +32,7 @@
 - La entrada del deck en `presentaciones/web/src/data/decks.ts` no lleva colores: el portal pinta cada fila con el color de marca de su `category`
   (ia = violeta, software = celeste, demos = verde, institucional = navy).
 - `presentaciones/decks/_temas-demo/` es **histórico**: no se agregan tiles nuevos.
+
+
+## Portal: franjas con los colores del cliente (2026-10-27)
+En las **láminas** el cliente sigue aportando solo logo y contenido (paleta siempre Campuslands). En el **portal**, en cambio, cada tarjeta lleva franjas verticales con los **colores de marca del cliente** (campo `colors` de `presentaciones/web/src/data/decks.ts`, sacados de su logo con `herramientas/colores_marca.py`). Detalle y medidas en `CLAUDE.md` (sección «Portal web»).

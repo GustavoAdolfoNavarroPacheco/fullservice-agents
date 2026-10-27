@@ -2115,3 +2115,78 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 * **Verificación:** `tsc` y `next build` OK; los 45 decks y 1 343 recursos referenciados responden 200 en el sitio; portal y login revisados a la vista; SQL probado en Postgres local. **Pendiente de probar:** login contra Neon real (requiere crear la BD).
 * **Rama:** `refactor/web-nextjs` (worktree `presentaciones-web/`), commit `973f801`. **Antes de fusionar a `main`:** ajustar el proyecto de Vercel (Root Directory `web`, Next.js, variables `DATABASE_URL` y `AUTH_SECRET`) y recrear los usuarios (los hashes antiguos no se migran).
 * **Documentos actualizados:** `CLAUDE.md` (árbol, reglas de carpetas, build, regla 3), `wiki/despliegue.md`, `flujo-trabajo.md`, `index.md`, `plantilla-base.md`, `sistema-diseno.md`, `temas-por-cliente.md`, `verificacion.md`. Las entradas anteriores de esta bitácora conservan las rutas históricas.
+
+## [2026-10-27] marca | Portal: diseño de waylo.ai replicado 1:1
+* **Qué:** `presentaciones/web` (login, catálogo, 404) adopta el sistema de diseño de `waylo.ai`: paleta monocroma con tema claro/oscuro (interruptor + sistema), profundidad solo por sombras (cero bordes), Manrope + Poppins (sin cursiva), hover «lift», campos hundidos con halo de foco, menús elevados con `popover-in`, pistas segmentadas con píldora, scroll con inercia (Lenis) y logo según tema.
+* **Razón de ubicación:** barra superior elevada de 80 px con 3 botones cuadrados de 48 px (buscar · tema · salir) alineados al mismo gutter que la grilla; toolbar con 4 controles de 48 px; la vista de lista usa `subgrid` para que etiquetas, fecha y botones queden alineados entre filas; login = panel de marca (38 %) + tarjeta de acceso, como `AuthShell`.
+* **Íconos:** AnimateIcons (Lucide) en todo; el «G» de Google pasa a un solo tono.
+* **Verificación:** `tsc` OK; auditoría por script (solapes, desbordes, simetría de gutters, tamaño de controles) = 0 incidencias en 375/768/1024/1280 px, grilla y lista; capturas comparadas contra waylo.ai en claro y oscuro. Único aviso: la etiqueta de inversión muy larga se recorta con elipsis (tiene `title`).
+* **Documentos actualizados:** `CLAUDE.md` (sección «Portal web»).
+
+## [2026-10-27] ajuste | Portal: solo tema claro y acento celeste #28AAFB
+* **Qué:** se eliminan el tema oscuro y su interruptor (`theme-*`, script de `<head>`, reglas `prefers-color-scheme`); el negro de waylo (botones, etiquetas de categoría, íconos de la lista, interruptor, foco, numeral 404) pasa a `#28AAFB` con texto blanco encima (por pedido del usuario; 2,6 : 1). Logos celestes horizontal/vertical provistos por el usuario reemplazan a los de color/blanco.
+* **Corrección previa:** la lista tenía 0 px entre logo y texto (el `subgrid` suma el relleno de la tarjeta a la 1.ª columna → 80 px).
+* **Aviso de contraste:** el celeste sobre blanco ronda 2,6 : 1 (foco y relleno); el texto sobre el azul es blanco por decisión del usuario; el resto de textos sigue en casi negro.
+
+## [2026-10-27] ajuste | Portal: reestructuración de la tarjeta del catálogo
+* **Qué:** logo del cliente de 56 a 88 px; fecha horizontal con ícono (`26 oct 2026`); se elimina la descripción; la inversión sale de las etiquetas y pasa a un panel propio y grande (cifra 22 px/700, rótulo «Inversión» si trae `$`, «Modalidad» si es texto); PDF en rojo `#D92D20`.
+* **Razón de ubicación:** el ojo recorre marca → qué es → cuánto cuesta → acción; los botones quedan fijos al pie para que se alineen entre tarjetas de una misma fila. Las tarjetas sin inversión (campo vacío en `decks.ts`) no muestran panel y dejan ese espacio libre en lugar de inventar un dato.
+* **Lista:** columnas logo · texto · inversión · fecha (≥1160 px) · botones, alineadas con `subgrid`; bajo 960 px de página usa la tarjeta apilada.
+
+## [2026-10-27] ajuste | Portal: tarjetas sin precio y títulos más pequeños
+* **Qué:** se elimina de todas las tarjetas el panel de inversión/modalidad (el campo `investment` de `decks.ts` se conserva y sigue alimentando el buscador); el título baja de 22 a 19 px (18 px en lista). La lista pasa a columnas logo · texto · fecha · botones desde 900 px de página.
+* **Verificación:** `tsc` OK; auditoría de solapes, recortes, centrado de íconos y alineación de columnas sin incidencias de 360 a 1264 px, grilla y lista.
+
+## [2026-10-27] ajuste | Portal: panel de filtros rediseñado
+* **Problema:** tres bandejas apiladas con filas desiguales, panel de ~700 px con scroll propio cuya barra se salía del borde redondeado.
+* **Solución:** pestañas Categoría · Cliente · Fecha (un grupo a la vez), celdas iguales, buscador de clientes con lista de scroll interno, cabecera y pie fijos con «Ver N presentaciones». Simetría medida: 24 px a cada lado y arriba/abajo; sin scroll del panel.
+
+## [2026-10-27] ajuste | Portal: panel de filtros afinado y animación de tarjetas
+* Se elimina el botón «Ver N presentaciones»; la pista de categorías/fechas queda SIEMPRE en 2 columnas (la opción impar ya no ocupa el ancho completo); buscador de clientes con 16 px arriba y 16 px abajo; barra de desplazamiento de clientes fina y dentro del marco hundido.
+* Los filtros activos pasan a la derecha del botón «Filtros» (mismo renglón; en móvil envuelven debajo).
+* Animación al filtrar: FLIP de 700 ms para las que se quedan, desvanecido en sitio de las que salen y entrada suave de las nuevas. Prueba de estrés (3 filtros en 250 ms): 0 fantasmas, 0 transformaciones residuales, 43 tarjetas al final.
+
+## [2026-10-27] ajuste | Portal: animación de tarjetas más suave
+* El deslizamiento pasa de 700 ms con curva de salida rápida a 900 ms con curva in-out (`cubic-bezier(.65,0,.35,1)`), leve escalonado de 25 ms entre tarjetas, desvanecido de las que salen en 420 ms y entrada de las nuevas a 900 ms. Estrés (3 filtros en 200 ms): 0 fantasmas, 0 transformaciones residuales.
+
+## [2026-10-27] marca | Portal: franjas de marca del cliente en todas las tarjetas
+* **Regla del usuario (demostración propia):** cada tarjeta lleva franjas verticales con los colores de la empresa, detrás del contenido: 24 px de ancho, 20 px de separación, a 30 px del borde derecho, tinte del 40 %. Quedó escrita en `CLAUDE.md` (sección «Portal web» y regla 3).
+* **Datos:** nuevo campo obligatorio `colors: string[]` en `Deck`/`decks.ts` (43 decks, 19 clientes). Extraídos de cada logo con la nueva `herramientas/colores_marca.py` (promedio real por tono, ≥ 3 % del logo, tonos distintos) y curados: Campuslands `#2CAAFF`+`#000087`, GasPaís y Green Metal recortados a 2, Ve a la Segura (sin logo) con la paleta de su `styles.css`. Unidrogas `#01ADEE`+`#ABCF40` coincide con la demostración.
+* **Layout:** el ícono de copiar enlace pasa a la derecha de las franjas; en lista ancha los botones reservan 150 px para no taparlas. Auditoría: franjas a todo el alto, 20 px entre sí, sin tapar el ícono, 0 incidencias de 360 a 1264 px.
+
+## [2026-10-27] ajuste | Portal: franjas más tenues y hundidas
+* Tinte de las franjas de 40 % a 30 % y sombra interior `--shadow-inset` (estilo del selector de vista) para dar profundidad. Regla actualizada en `CLAUDE.md`.
+
+## [2026-10-27] ajuste | Portal: sombra de las franjas solo lateral
+* La sombra interior de las franjas pasa de `--shadow-inset` (marcaba también arriba y abajo) a dos degradados horizontales: solo los lados. Regla ajustada en `CLAUDE.md`.
+
+## [2026-10-27] ajuste | Portal: franjas planas
+* Se retira toda sombra de las franjas (el usuario probó interior completa y lateral y las descartó): solo el color de marca al 30 % sobre blanco. Regla ajustada en `CLAUDE.md`.
+
+## [2026-10-27] ajuste | Portal: botón de enlace desplazado en la lista
+* **Causa:** en la lista, con 900–1000 px de contenido, la columna de botones no cabía (fecha + 150 px reservados para las franjas) y «Web»/«PDF» se apilaban; el ícono de enlace quedaba centrado entre ambos, más arriba. Además el botón sobresalía 3 px de la tarjeta.
+* **Arreglo:** cortes de la lista a 840 px (sin fecha) y 1000 px (con fecha), `flex-wrap: nowrap` en los botones y botón de enlace de 30 px dentro del borde. Barrido 360–1264 px en grilla y lista: sin botones partidos, sin solapes, sin íconos sobre franjas.
+
+## [2026-10-27] ajuste | Portal: botón de enlace de vuelta a su sitio
+* El usuario descartó el carril de 30 px: el botón de copiar enlace vuelve al extremo derecho del pie (padding de 24 px) y pasa a ser un botón elevado de 44 px como Web/PDF, para que se vea claro sobre las franjas.
+
+## [2026-10-27] ajuste | Portal: íconos animados recortados a los lados
+* **Causa:** el ícono de enlace (AnimateIcons) se desplaza fuera de su `viewBox` al animarse y el SVG lo recortaba. **Arreglo:** `overflow: visible` en los SVG de íconos. Comprobado: 223 íconos del portal sin recorte.
+
+## [2026-10-27] ajuste | Portal: transición cuadrícula ⇄ lista
+* Al cambiar de vista las tarjetas ya no aparecen de golpe: cada una se transforma en su fila (FLIP con traslación y escala, 1000 ms, curva in-out, leve escalonado). La copia del contenido anterior se desvanece encima y el contenido nuevo entra a mitad del movimiento. Las copias llevan resueltas en px las columnas del subgrid para verse igual fuera de la grilla.
+* Verificación: 43 animaciones de forma + 43 de contenido + 43 copias al cambiar; tras terminar 0 copias, 0 transformaciones residuales (solo quedan los `shimmer` de logos aún sin cargar); 5 cambios en 600 ms sin residuos.
+
+## [2026-10-27] ajuste | Portal: animaciones sin tirón al empezar
+* **Síntoma (usuario):** en el filtro y en el cambio de vista la animación «empieza, frena en seco y luego va».
+* **Causas:** retrasos escalonados con la tarjeta ya desplazada (quedaba congelada), curva in-out con inicio casi quieto, trabajo pesado en el instante del clic (clonar 43 tarjetas y animar las que ni se ven) y un posible reinicio del efecto por una segunda ejecución. Además las copias del contenido anterior se colocaban dentro de la grilla y la vista nueva les cambiaba el diseño (contenido mezclado, barra horizontal).
+* **Arreglo:** todas arrancan a la vez, curva `(.3,.2,.15,1)` a 800 ms, copias en una capa propia posicionada contra `.page` y creadas en reposo, solo se animan las visibles (9–16 tarjetas en vez de 43), efecto idempotente por clave de datos. Verificación: 0 capas, 0 transformaciones residuales y 0 contenidos ocultos tras 5 cambios de vista y 3 de filtro en 600 ms.
+
+## [2026-10-27] marca | Portal: logo horizontal con mejor relación casco/letras
+* A pedido del usuario se recompone el logo horizontal celeste: casco reducido al 75 % y letras ampliadas al 125 % (proporción 3,21 → 4,48 : 1), sin recolorear ni deformar cada parte. Alto en CSS 48 → 38 px (barra), 44 → 36 (cabecera del login), 40 → 32 (móvil): el casco se ve más pequeño y las letras más grandes que antes. El archivo original queda solo en el scratchpad de la sesión; el logo vertical no se tocó.
+
+## [2026-10-27] marca | Portal: letras del logo horizontal más grandes
+* Letras de 125 % a 150 % (casco sigue al 75 %): proporción 5,12 : 1; a 38 px de alto mide 194 px de ancho (164 px a 32 px en móvil), centrado en la barra y sin desborde.
+
+## [2026-10-27] ajuste | Portal: fondo con profundidad
+* El usuario pidió que el fondo no se viera plano. Se aplica al `body` un degradado vertical suave, dos resplandores celestes de marca (15 % y 10 %) arriba y una sombra tenue abajo, fijos al hacer scroll. El panel del login deja de pintar su propio fondo para heredarlo.
