@@ -2247,3 +2247,10 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 
 ## [2026-10-27] ajuste | Popup de color: Cuentagotas y Cargar imagen como botones 1x1
 * Pasan a círculos de 44 px (mismo `.pbtn` del banner) con rótulo al pasar el ratón; «Usar el logo» también es circular (ícono de imagen). El popup queda más bajo (~360 px). 93 pruebas y tsc en verde.
+
+## [2026-10-27] build | Editar proyecto
+* Botón de lápiz a la izquierda del «info» en la ficha (solo proyectos creados desde el portal) → `/proyecto/<slug>/editar/` con el formulario precargado; acción `editarProyectoAction` (misma validación, registra `updated_by`/`updated_at`, migración aplicada). El slug se conserva. Verificado con la base real: editar el título → vuelve a la ficha con el cambio; la ficha de un proyecto del código no muestra el botón. Fila de prueba borrada.
+
+## [2026-10-27] ajuste | Editar proyecto para TODOS (también los de decks.ts) y lápiz más pequeño
+* El botón de editar sale en la ficha de cualquier proyecto. Los del código se editan guardando una superposición en la tabla nueva `proyectos_editados` (migración aplicada); `buildCatalog(creados, cambios)` la aplica. El validador acepta como logo la ruta `/assets/logos/…` que ya tenían (con prueba de rutas peligrosas). Ícono del lápiz 24 → 18 px.
+* Verificado con la base real: se editó el título de `test-gemini` → la ficha y el catálogo lo muestran, y sus botones de archivo siguen; la fila de prueba se borró. 94 pruebas y tsc en verde.
