@@ -2204,3 +2204,24 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 
 ## [2026-10-27] ajuste | Perfil de proyecto: acciones debajo del banner
 * Los botones (Abrir presentación · Ver PDF · Copiar enlace) salen del banner y pasan a una fila propia debajo, a 24 px. El banner se compacta (relleno 24/32 px en lugar de 32, separación interna 16 en lugar de 20); alto de 345 a 321 px, relleno superior = inferior.
+
+## [2026-10-27] build | Portal: Cotizador copiado del CRM (debajo del banner) + botones circulares con «Excel»
+* **Qué:** la ficha de cada proyecto trae, bajo el banner, el Cotizador del CRM (`/fullservice/proyectos/{id}/seguimiento`, fase Cotización): Cotizador + Observaciones + Tabla de tiempos, con su exportación a PDF y los Parámetros. Los botones de acción del banner pasan a **círculos 1×1** abajo a la derecha y se añade **Excel** (sin funcionalidad por ahora).
+* **Decisiones del usuario:** datos en la **base Neon del portal** (tablas nuevas `cotizaciones` y `parametros_cotizacion`, migración aplicada); **sin roles** (toda persona con sesión puede todo); se traen **las 3 secciones**.
+* **Fidelidad:** lógica copiada sin cambios (`verificar_cotizador.py`: 0 diferencias en altas/bajas/edición, cálculo de costos y precio, estado inicial, exportación, formato, parámetros y PDF); las 24 pruebas del CRM corren sin cambios en el portal y se suman 36 propias (componente completo, diálogo de parámetros —adaptado de la prueba del CRM— y validación de servidor): 60 en total.
+* **Verificación en navegador con la base real:** DB 2 d + UX 3 d = $1.994.903, ÷0,6 = $3.324.839 y ÷0,5 = $3.989.806 (a mano coincide); guardar → recargar → mismos valores; fila en Neon con quien guardó; PDF real de 214 KB sin errores; Parámetros: valor inválido marca el campo y enfoca, coma decimal, recálculo, «Valores guardados.», Esc cierra. Datos de prueba borrados de la base.
+* **Manías del CRM conservadas** (comprobadas en el CRM real): clic en el texto de un módulo del modal de exportar no cambia la selección; margen 0 se reabre como 40.
+
+## [2026-10-27] ajuste | Cotizador: se quita la sección «Observaciones y notas»
+* A pedido del usuario se elimina de la interfaz (queda Cotizador + Tabla de tiempos). El estado `observaciones` se conserva sin setter, para no alterar el guardado ni el PDF; `verificar_cotizador.py` admite esa única diferencia. 60 pruebas y `tsc` en verde; comprobado en el navegador (sin desbordes).
+
+## [2026-10-27] ajuste | Cotizador: botones de la cabecera en la esquina superior del recuadro
+* **Parámetros** y **Exportar PDF** pasan a círculos 1×1 de 44 px (mismo `.pbtn` del banner, rótulo al pasar el ratón, que aquí sale hacia ABAJO para no quedar fuera del recuadro); **Módulo principal** y **Guardar** siguen como píldoras. Todos en una sola fila arriba a la derecha (nunca bajan bajo el título en escritorio); ≤ 760 px ocupan el ancho y se reparten en dos filas dentro del recuadro. Lógica intacta.
+
+## [2026-10-27] ajuste | Cotizador: diálogo de Parámetros sin textos de ayuda
+* A pedido del usuario se quitan las descripciones: la línea bajo el título («Aún no hay valores guardados…»), las de cada sección y las de cada campo (Divisor del costo mensual, Por persona, etc.). Se conservan los mensajes de error de validación. El diálogo ya no recibe la prop `guardados`. Lógica intacta; 60 pruebas y `tsc` en verde.
+
+## [2026-10-27] ajuste | Scroll suave en toda la interfaz (ficha + Cotizador)
+* **Causa:** Lenis ya movía la página, pero las tablas del Cotizador llevaban `data-lenis-prevent` aunque solo desplazan en horizontal: encima de ellas (gran parte de la ficha) la rueda iba al scroll nativo, a saltos. Se quita el atributo de esas dos tablas.
+* **Áreas internas** (cuerpo de los diálogos, lista de módulos del PDF, listas de los selectores y del filtro de clientes): oyente de rueda delegado en `smooth-scroll.tsx` que las desliza con la misma inercia (constante de 95 ms) y no intercepta al llegar al extremo; apagado con `prefers-reduced-motion`.
+* **Verificado:** rueda sobre la tabla la intercepta Lenis; en el diálogo de Parámetros el cuerpo llega exactamente al destino sin mover la página. La animación fotograma a fotograma no se pudo medir en el panel del navegador (rAF limitado a ~2 fps sin foco): conviene confirmarla a mano.
