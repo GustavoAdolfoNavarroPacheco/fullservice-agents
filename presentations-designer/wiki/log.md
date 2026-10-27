@@ -2225,3 +2225,25 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 * **Causa:** Lenis ya movía la página, pero las tablas del Cotizador llevaban `data-lenis-prevent` aunque solo desplazan en horizontal: encima de ellas (gran parte de la ficha) la rueda iba al scroll nativo, a saltos. Se quita el atributo de esas dos tablas.
 * **Áreas internas** (cuerpo de los diálogos, lista de módulos del PDF, listas de los selectores y del filtro de clientes): oyente de rueda delegado en `smooth-scroll.tsx` que las desliza con la misma inercia (constante de 95 ms) y no intercepta al llegar al extremo; apagado con `prefers-reduced-motion`.
 * **Verificado:** rueda sobre la tabla la intercepta Lenis; en el diálogo de Parámetros el cuerpo llega exactamente al destino sin mover la página. La animación fotograma a fotograma no se pudo medir en el panel del navegador (rAF limitado a ~2 fps sin foco): conviene confirmarla a mano.
+
+## [2026-10-27] ajuste | Catálogo: tarjetas sin botones Web / PDF / copiar enlace
+* Ya están en la ficha del proyecto, así que se quitan de la tarjeta (cuadrícula y lista). La tarjeta queda: logo + fecha → cliente, título y etiquetas; todo clic abre la ficha. Se eliminan el pie, el manejador de copiar y su CSS; en lista se reservan 150 px a la derecha para las franjas de marca. `tsc` y 60 pruebas en verde; revisado a 1024 y 375 px.
+
+## [2026-10-27] build | Portal: botón «Crear proyecto» (1×1 celeste) con selector de colores de marca
+* **Qué:** a la izquierda de «Ordenar», botón 1×1 celeste que abre el formulario de proyecto nuevo. Obligatorios: cliente, razón social, categoría, título, fecha (automática o manual). Opcionales: logo y hasta 3 colores de marca, con selector propio (cuadro SV + matiz, RGB/HSL/hex, cuentagotas del navegador e imagen temporal para tomar colores).
+* **Datos:** tabla nueva `proyectos` en Neon (migración aplicada); el catálogo mezcla `decks.ts` + base (`buildCatalog`); `catalog.ts` dejó de depender de un arreglo global (filtros, clientes y meses salen del catálogo recibido). El slug sale del título.
+* **Verificado:** `tsc` y 87 pruebas (color, validación de proyectos, slugs, fechas en hora de Colombia); en el navegador con la base real: validación de vacíos, selector de colores (clic, matiz, hex `3f48cc` → RGB/HSL correctos), imagen temporal (`#E14FD1` exacto), creación → aparece primero en el catálogo y su ficha abre sin botones de archivo. Fila de prueba borrada.
+* **Pendiente a propósito:** editar/borrar proyectos creados; la presentación de un proyecto creado se sigue construyendo como siempre (se vincula al registrarla en `decks.ts`).
+
+## [2026-10-27] ajuste | «Crear proyecto» pasa de ventana a página `/nuevo-proyecto/` con vista previa
+* Izquierda: vista previa de la tarjeta (logo editable con clic, como un perfil) y, debajo, los colores de marca; el selector (con Cuentagotas e imagen temporal) es una ventana emergente que cabe sin scroll. Derecha: formulario con título grande, asteriscos rojos, *placeholders* y Fecha rediseñada (campo + interruptor «Automática»). Al crear va a la ficha. Se protegió la ruta en `proxy.ts`.
+* Corrección vista en la prueba del usuario: textos largos sin espacios se salían de la tarjeta (columna `1fr` → `minmax(0,1fr)` y `overflow-wrap: anywhere`); aplica también al catálogo.
+* Verificado con la base real: crear → redirige a su ficha; sin desbordes a 1024 px; popup de color sin scroll (con imagen temporal incluida). Fila de prueba borrada.
+
+## [2026-10-27] ajuste | «Crear proyecto»: calendario propio, interruptor separado y campos blancos
+* **Calendario** `DatePicker` (como el de waylo.ai pero sin dependencias): campo con ícono y chevrón; ventana con flechas de mes, menús de **mes y año** (variante `compact` del `Select`), días desde el lunes, hoy subrayado, elegido en celeste, días de otros meses atenuados, límites mín./máx. y apertura hacia arriba si no cabe. Teclado completo. 6 pruebas nuevas (93 en total).
+* **«Automática»** ya no está dentro del campo: va en la línea de la etiqueta «Fecha»; con ella encendida el campo muestra hoy y queda bloqueado.
+* Los inputs de la página pasan a **blanco**.
+
+## [2026-10-27] ajuste | Popup de color: Cuentagotas y Cargar imagen como botones 1x1
+* Pasan a círculos de 44 px (mismo `.pbtn` del banner) con rótulo al pasar el ratón; «Usar el logo» también es circular (ícono de imagen). El popup queda más bajo (~360 px). 93 pruebas y tsc en verde.
