@@ -2254,3 +2254,27 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 ## [2026-10-27] ajuste | Editar proyecto para TODOS (también los de decks.ts) y lápiz más pequeño
 * El botón de editar sale en la ficha de cualquier proyecto. Los del código se editan guardando una superposición en la tabla nueva `proyectos_editados` (migración aplicada); `buildCatalog(creados, cambios)` la aplica. El validador acepta como logo la ruta `/assets/logos/…` que ya tenían (con prueba de rutas peligrosas). Ícono del lápiz 24 → 18 px.
 * Verificado con la base real: se editó el título de `test-gemini` → la ficha y el catálogo lo muestran, y sus botones de archivo siguen; la fila de prueba se borró. 94 pruebas y tsc en verde.
+
+## [2026-10-28] ajuste | «Volver» al inicio y Tabla de tiempos desplegable desde el Cotizador
+* El botón de la barra superior de la ficha (y de «Crear»/«Editar») ahora es un enlace a `/` («Volver al inicio»), no un retroceso del historial.
+* La Tabla de tiempos pasa a ser un panel **dentro de la tarjeta del Cotizador**: una franja hundida al pie (título, duración estimada, chevrón) que al pulsarla despliega la tabla hacia abajo (animación de alto con `grid-template-rows`, contenido `inert` y oculto al plegar). Se prueba el plegado/desplegado y se adaptó la prueba de duración. 95 pruebas y tsc en verde; `verificar_cotizador.py`: lógica idéntica.
+* Servidor local: `.claude/launch.json` en `presentaciones/` (excluido de git con `.git/info/exclude`), `npm --prefix web run dev` en el puerto 3000.
+
+## [2026-10-28] ajuste | Tabla de tiempos: panel blanco y filas alternas en las dos tablas
+* El panel desplegado de la Tabla de tiempos es blanco (como el resto del Cotizador); solo la franja que lo abre mantiene su gris. Las tablas de costos y de tiempos alternan filas blanco / gris (`nth-child`), con campos blancos sobre las filas grises y el resaltado al pasar el ratón intacto. Revisado a la vista y por colores calculados.
+
+* Ajuste: en las filas grises el campo de **nombre** (texto, `.cz-in--ghost`) queda transparente, sin fondo blanco; solo los campos numéricos de las filas grises pasan a blanco.
+
+## [2026-10-28] ajuste | Ancho completo en todas las páginas, 4 por fila en el inicio y Detalles a la derecha en la ficha
+* Sin `max-width`: `.page` y la barra superior llenan el ancho. Inicio: 4 columnas (≥ 1100 px de contenido; 3/2/1 al estrechar) y tarjetas que se ensanchan; a 1651 px cada una mide ~371 px.
+* Ficha: se quita el botón «info»; sus Detalles pasan a una tarjeta a la derecha del banner, que conserva ~1200 px; el lápiz pasa a la esquina superior derecha. Detalles en dos líneas por dato para que los valores no se partan.
+* Cotizador y Tabla de tiempos: columnas en %, con mínimos (cabe sin scroll horizontal a 1280 px). Verificado a 1651/1280/768/375 px: sin desbordes; ficha apilada en móvil.
+
+## [2026-10-28] ajuste | Etiquetas del banner a su tamaño y sin «Archivos» en Detalles
+* Las etiquetas (categoría, láminas, fecha) se veían de ~48 px porque el banner, estirado a la altura de los Detalles, repartía el espacio sobrante entre sus filas (`align-content: stretch`). Con `align-content: start` vuelven a 32 px. Se elimina el dato «Archivos» de Detalles (quedan 5): banner y Detalles miden lo mismo (364 px). tsc y 95 pruebas en verde.
+
+## [2026-10-28] ajuste | Cuadro del margen del Cotizador más angosto
+* El margen admite 2 dígitos (0–99): el cuadro baja de 112 a 80 px (relleno 12 / 28 px para el «%»). Verificado con 99 sin recorte.
+
+## [2026-10-28] ajuste | Banner con su distribución y altura de antes
+* El banner volvió a su altura natural (321 px, la de la referencia del usuario): los Detalles se compactaron (separación 12 px, letra .75/.875 rem, título con menos margen) para medir lo mismo o menos (316 px) en vez de estirar el banner (364 px). Etiquetas a 32 px. Verificado en local.
