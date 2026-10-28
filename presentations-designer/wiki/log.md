@@ -2278,3 +2278,42 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 
 ## [2026-10-28] ajuste | Banner con su distribución y altura de antes
 * El banner volvió a su altura natural (321 px, la de la referencia del usuario): los Detalles se compactaron (separación 12 px, letra .75/.875 rem, título con menos margen) para medir lo mismo o menos (316 px) en vez de estirar el banner (364 px). Etiquetas a 32 px. Verificado en local.
+
+## [2026-10-28] build | Botón «Cotización» con link configurable
+* El botón «Excel» pasa a llamarse **«Cotización»**. Crear/Editar proyecto traen el campo opcional **«Link de cotización»**: debe empezar por `https://docs.google.com/spreadsheets/` (aviso «El link no es correcto…» al escribir y bloqueo al guardar; el servidor valida de nuevo: https, sin espacios, URL válida, ≤ 500). Columna `cotizacion_url` en `proyectos` y `proyectos_editados` (migración aplicada).
+* En la ficha: con link, el botón abre la hoja en pestaña nueva; sin link queda gris, deshabilitado y con `cursor: not-allowed`. 107 pruebas (12 nuevas de validación) y tsc en verde; verificado en el navegador (aviso, guardado y botón). El link de prueba se borró de la base.
+
+## [2026-10-28] ajuste | Campos incorrectos en rojo y con borde parejo
+* El estado inválido pasa de negro (con la sombra hundida sumada al anillo: grosor desigual arriba/abajo) a **rojo** con un anillo uniforme de 2 px y un halo suave (`--ring-error`); los avisos `.pf-error` también en rojo. Aplica a campos de texto, selector de categoría, calendario, campos de color y login. Verificado a la vista en Crear proyecto.
+
+## [2026-10-28] ajuste | Animación suave de los avisos rojos
+* El texto de aviso (`.pf-error`) entra con `error-in` (opacidad + desliz de 6 px + alto) y el anillo rojo de los campos inválidos crece con `ring-in` (de 0 al anillo completo), en 420 ms con la curva estándar; con «reducir movimiento» las duraciones son 0. Comprobado en Crear proyecto: ambas animaciones corren y terminan en el estado correcto.
+
+## [2026-10-28] ajuste | Animación de los avisos rojos más suave
+* Nuevo `FieldError`: el aviso se anima en dos tiempos (primero se abre su espacio con `grid-template-rows 0fr→1fr`, sin salto del contenido de abajo; luego el texto se desvanece y baja 10 px, con 90 ms de retraso) y el anillo crece con `ring-in`. Duración 595 ms con curva de frenado largo (antes 420 ms y el alto se animaba con `max-height`, que terminaba pronto). Muestreado con la API de animaciones: alto 0 → 12 → 18 → 21 px, opacidad 0 → .19 → .68 → 1. 107 pruebas y tsc en verde.
+
+## [2026-10-28] build | Web, Enlace y PDF configurables (como Cotización) y PDF subido
+* Crear/Editar proyecto: campo único «Link de la presentación» (alimenta «Web» y «Copiar enlace») y subida de PDF. Sin configurar, los botones quedan grises y bloqueados; los proyectos del código conservan su presentación y su PDF por defecto (el link predeterminado se muestra precargado y no se guarda si no se cambia).
+* PDF: se guarda en Neon por partes de 1 MiB (tablas `proyecto_pdfs`, `proyecto_pdf_partes`; migración aplicada), subida por `/api/pdf/<slug>/` y lectura por flujo. Probado de punta a punta con un PDF de 2,5 MB: 3 partes, descarga idéntica (2.621.440 bytes, `application/pdf`); se rechazan archivos que no son PDF.
+* El botón de PDF del formulario es un círculo rojo 1×1 a la derecha de los colores de marca, y se quitaron los paréntesis de los textos («opcional · …»). 119 pruebas y tsc en verde; datos de prueba borrados.
+
+## [2026-10-28] ajuste | Sin textos de «opcional» en Crear/Editar proyecto
+* Se quitan también los textos que acompañaban a las etiquetas («opcional · sirve para «Web» y «Copiar enlace»», «opcional»): quedan «Link de la presentación» y «Link de cotización».
+
+## [2026-10-28] ajuste | «Presentación»: botón del PDF alineado con los colores de marca
+* Los colores de marca y el botón del PDF comparten fila, con título propio («Colores de marca» / «Presentación», a la izquierda) y una división sutil de 1 px; ambos controles de 44 px y a la misma altura (medido: top 500, alto 44). Se quita el texto «Se usa el PDF de la presentación» y se añade un punto verde/gris que indica si hay PDF. 119 pruebas y tsc en verde.
+
+* Corrección: «Presentación» (título y botón) va **alineada a la derecha**, pegada al borde derecho de la tarjeta; la división queda a su izquierda.
+
+* Corrección: la división va **centrada horizontalmente** (rejilla `1fr auto 1fr`; medido: centro de la fila 257,5 px = centro de la división). «Presentación» sigue pegada a la derecha.
+
+## [2026-10-28] ajuste | El link de la presentación debe empezar por https://fullservicepresentations.vercel.app/
+* Antes valía cualquier http(s). Ahora `esLinkPresentacion` exige ese prefijo (más: sin espacios, URL válida, ≤ 500). Cliente y servidor muestran «El link no es correcto: debe empezar por https://fullservicepresentations.vercel.app/»; el *placeholder* del campo lleva el prefijo. El link predeterminado de los proyectos del código (`CANON` + su ruta) ya cumple. 122 pruebas y tsc en verde; comprobado en el formulario.
+
+## [2026-10-28] build | Candado: lo que sube el agente no se edita (fecha, link de la presentación y PDF)
+* Regla nueva en `CLAUDE.md` (Regla 3 del flujo de construcción y sección del portal): los proyectos registrados por el agente en `decks.ts` traen **bloqueados** la fecha (`date`), el link de la presentación (`path`) y el PDF (`pdf`). En Editar proyecto salen con candado y deshabilitados; el servidor lo hace cumplir (la superposición ignora fecha y link, `guardarEdicion` conserva la fecha de `decks.ts`, la API del PDF responde 403 en POST/finalizar/DELETE). Los proyectos creados por una persona desde el portal no tienen candados.
+* Se corrigió un error mío anterior: el `INSERT` de `proyectos_editados` no llevaba el valor de `presentacion_url`, así que guardar la edición de un proyecto del código habría fallado. Verificado: guardar sin cambios ahora funciona y la base conserva fecha 2026-10-26 y links vacíos.
+
+* Ajuste visual del candado: el icono va a la **izquierda** del texto en los tres campos; el rótulo del botón del PDF se acorta a «Bloqueado por el agente» y se ancla a su borde derecho, debajo del botón (antes un rótulo largo se salía de la columna y tapaba el formulario).
+
+* Corrección: el candado a la izquierda del texto aplica **solo a «Presentación»**; en «Fecha» y «Link de la presentación» va a la derecha de la etiqueta.
