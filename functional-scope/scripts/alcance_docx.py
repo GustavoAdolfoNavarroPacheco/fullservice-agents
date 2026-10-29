@@ -3,8 +3,8 @@
 Parte de `recursos/plantilla/Plantilla Word - Campuslands.docx` (membrete como imagen de fondo en el
 encabezado de sección, márgenes y pie con número de página) y le aplica:
   * estilos del documento (cuerpo justificado, jerarquía de títulos tipo APA, tablas APA, estados),
-  * la portada estándar,
-  * control documental y tabla de contenido.
+  * la portada estándar (una hoja), la carta de presentación (una hoja) y la tabla de contenido (una hoja),
+  * el apartado de firma al final del documento.
 
 Uso (desde `functional-scope/`):
     python scripts/alcance_docx.py plantilla     # plantillas/Alcance Funcional - Plantilla.docx
@@ -15,7 +15,9 @@ La tabla de contenido se genera como campo de Word: al abrir el .docx, clic dere
 from __future__ import annotations
 
 import re
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 from docx import Document
@@ -27,6 +29,7 @@ from docx.shared import Pt, RGBColor, Twips
 
 RAIZ = Path(__file__).resolve().parent.parent
 PLANTILLA_BASE = RAIZ / "recursos" / "plantilla" / "Plantilla Word - Campuslands.docx"
+SOFFICE = Path(r"C:\Program Files\LibreOffice\program\soffice.exe")
 
 # Paleta tomada del membrete de la plantilla (azul y verde de la imagen de fondo).
 AZUL = "0D497B"
@@ -282,6 +285,27 @@ def aplicar_estilos(doc) -> None:
     _fuente(t, 9, GRIS)
     _parrafo(t, alin=WD_ALIGN_PARAGRAPH.JUSTIFY, antes=4, despues=12, interlineado=1.08)
 
+    # Carta de presentación (una hoja): cuerpo algo mayor y más aireado para repartir bien la página.
+    t = _nuevo(doc, "Carta Cuerpo")
+    _fuente(t, 11, TINTA)
+    _parrafo(t, alin=WD_ALIGN_PARAGRAPH.JUSTIFY, antes=0, despues=8, interlineado=1.25)
+    t = _nuevo(doc, "Carta Datos")
+    _fuente(t, 11, TINTA)
+    _parrafo(t, alin=WD_ALIGN_PARAGRAPH.LEFT, antes=0, despues=0, interlineado=1.25)
+    t = _nuevo(doc, "Carta Viñeta", base="Viñeta")
+    _fuente(t, 11, TINTA)
+    _parrafo(t, alin=WD_ALIGN_PARAGRAPH.JUSTIFY, antes=0, despues=4, interlineado=1.25)
+
+    # Tabla de contenido (estilos «toc 1» y «toc 2» de Word, para que al actualizar el campo conserve el formato).
+    for nombre, tam, neg, antes, sangria in (("toc 1", 10, True, 3, 0), ("toc 2", 8.5, False, 0, 360)):
+        try:
+            t = doc.styles[nombre]
+        except KeyError:
+            t = _nuevo(doc, nombre)
+        _fuente(t, tam, TINTA, negrita=neg)
+        _parrafo(t, antes=antes, despues=0.5, interlineado=1.0, sangria_izq=sangria)
+        t.paragraph_format.tab_stops.add_tab_stop(Twips(ANCHO_TEXTO), WD_TAB_ALIGNMENT.RIGHT, WD_TAB_LEADER.DOTS)
+
     # Referencias (APA: sangría francesa de 1,27 cm, alineadas a la izquierda).
     t = _nuevo(doc, "Referencia")
     _fuente(t, 11, TINTA)
@@ -312,10 +336,19 @@ class Alcance:
                 cuerpo.remove(hijo)
         aplicar_estilos(self.doc)
         self._n_tabla = 0
+        self._toc = None
+        self._toc_nums = []
 
     # -- texto
     def _texto(self, par, texto: str) -> None:
-        """Agrega texto resaltando [PENDIENTE DE VALIDACIÓN] y los estados CONFIRMADO/PROPUESTO/PENDIENTE."""
+        """Agrega texto resaltando [PENDIENTE DE VALIDACIÓN] y los estados CONFIRMADO/PROPUESTO/PENDIENTE.
+        Con `self.resaltar = False` (transcripción literal de un archivo) lo agrega tal cual, respetando los «\\n»."""
+        if not getattr(self, "resaltar", True):
+            for i, parte in enumerate(texto.split("\n")):
+                if i:
+                    par.add_run().add_break()
+                par.add_run(parte)
+            return
         pos = 0
         for m in _MARCAS.finditer(texto):
             if m.start() > pos:
@@ -396,19 +429,21 @@ class Alcance:
         if encabezado:
             trpr.append(_el("w:tblHeader"))
 
-    def _rellenar(self, celda, texto: str, estilo: str) -> None:
-        p = celda.paragraphs[0]
-        p.style = estilo
-        self._texto(p, texto)
+    def _rellenar(self, celda, texto, estilo: str) -> None:
+        for i, t in enumerate(texto if isinstance(texto, list) else [texto]):
+            p = celda.paragraphs[0] if i == 0 else celda.add_paragraph()
+            p.style = estilo
+            self._texto(p, t)
 
     def tabla(self, titulo: str, encabezados: list[str], filas: list[list[str]], pesos: list[float],
               nota: str | None = None) -> None:
         """Tabla en formato APA: «Tabla N» en negrita, título en cursiva, reglas horizontales, nota debajo."""
-        self._n_tabla += 1
-        p = self.doc.add_paragraph(style="Tabla Número")
-        p.add_run("Tabla ")
-        _campo(p, "SEQ Tabla \\* ARABIC", str(self._n_tabla))
-        self.doc.add_paragraph(titulo, style="Tabla Título")
+        if titulo is not None:      # sin título, la tabla va sola (transcripción literal: no se agrega texto)
+            self._n_tabla += 1
+            p = self.doc.add_paragraph(style="Tabla Número")
+            p.add_run("Tabla ")
+            _campo(p, "SEQ Tabla \\* ARABIC", str(self._n_tabla))
+            self.doc.add_paragraph(titulo, style="Tabla Título")
 
         anchos = [round(ANCHO_TEXTO * w / sum(pesos)) for w in pesos]
         anchos[-1] += ANCHO_TEXTO - sum(anchos)
@@ -445,7 +480,7 @@ class Alcance:
         r.font.color.rgb = _color("FFFFFF")
         r.font.size = Pt(10.5)
         self._celda(cab, AZUL, v_centro=True)
-        self._fila(t.rows[0])
+        self._fila(t.rows[0], encabezado=True)   # el encabezado se repite si la ficha continúa en otra página
         t.rows[0].cells[0].paragraphs[0].paragraph_format.keep_with_next = True
         for i, (etq, val) in enumerate(campos, start=1):
             ultima = i == len(campos)
@@ -455,15 +490,17 @@ class Alcance:
             self._rellenar(c1, val, "Tabla Texto")
             self._celda(c1, bordes={"bottom": (REGLA if not ultima else AZUL, 4 if not ultima else 10)})
             self._fila(t.rows[i])
-            if not ultima:
-                for c in (c0, c1):
-                    c.paragraphs[0].paragraph_format.keep_with_next = True
+            # Encabezado + dos primeras filas juntos; el resto fluye sin dejar huecos. Se fija explícito porque el
+            # estilo «Tabla Encabezado» ya trae «mantener con el siguiente» y encadenaría toda la ficha.
+            for c in (c0, c1):
+                c.paragraphs[0].paragraph_format.keep_with_next = i <= 2 and not ultima
         self.doc.add_paragraph(style="Tabla Nota")
 
     # -- portada (diseño definitivo)
     def portada(self, d: dict) -> None:
-        """Portada estándar. Campos: titulo, cliente (obligatorios); tipo, area, proveedor, version, fecha,
-        clasificacion, estado, nota (con valores por defecto)."""
+        """Portada estándar (una hoja). Campos: titulo, cliente (obligatorios); tipo, area, proveedor, fecha, nota
+        (con valores por defecto). Tarjetas: «Preparado por» y «Fecha». No lleva versión, clasificación, estado ni
+        «Preparado para» (el destinatario ya figura en la portada)."""
         tipo = d.get("tipo", "Documento de alcance funcional")
         self.doc.add_paragraph(tipo, style="Portada Tipo")
         self.doc.add_paragraph(d["titulo"], style="Portada Titulo")
@@ -473,12 +510,8 @@ class Alcance:
             self.doc.add_paragraph(d["area"], style="Portada Area")
 
         celdas = [
-            ("Preparado para", d["cliente"]),
             ("Preparado por", d.get("proveedor", "Campuslands S.A.S. BIC · Full Service")),
-            ("Versión", d.get("version", PENDIENTE_TXT)),
             ("Fecha", d.get("fecha", PENDIENTE_TXT)),
-            ("Clasificación", d.get("clasificacion", "Confidencial")),
-            ("Estado del documento", d.get("estado", "Borrador")),
         ]
         sep = self.doc.add_paragraph(style="Salto")
         sep.paragraph_format.space_before = Pt(0)
@@ -487,7 +520,7 @@ class Alcance:
         sep.paragraph_format.space_before = Pt(50)
 
         ancho = 7800
-        t = self._tabla(3, [ancho // 2, ancho // 2], centrada=True)
+        t = self._tabla((len(celdas) + 1) // 2, [ancho // 2, ancho // 2], centrada=True)
         blanco = ("FFFFFF", 24)
         for i, (etq, val) in enumerate(celdas):
             c = t.rows[i // 2].cells[i % 2]
@@ -513,49 +546,200 @@ class Alcance:
         m.append(_el("w:bottom", w_w=abajo, w_type="dxa"))
         return m
 
-    # -- control documental y contenido
-    def control_documental(self, d: dict) -> None:
-        self.h1("Control documental", nueva_pagina=True)
-        self.h2("Responsables")
-        pend = PENDIENTE_TXT
-        self.tabla(
-            "Responsables y revisiones del documento",
-            ["Rol", "Nombre", "Cargo o área", "Revisión"],
-            [
-                ["Autor del alcance", d.get("autor", pend), "Campuslands Full Service", "Redacción"],
-                ["Líder técnico", pend, pend, "Técnica"],
-                ["Responsable comercial", pend, pend, "Comercial"],
-                ["Asesoría jurídica", pend, pend, "Jurídica"],
-                ["Patrocinador (cliente)", pend, pend, "Validación del alcance"],
-            ],
-            [2.0, 2.6, 2.6, 1.6],
-            nota="Una versión solo se declara apta para revisión final cuando no quedan pendientes críticos.",
-        )
-        self.h2("Historial de cambios")
-        self.tabla(
-            "Versiones del documento",
-            ["Versión", "Fecha", "Autor", "Descripción del cambio", "Estado"],
-            [[d.get("version", pend), d.get("fecha", pend), d.get("autor", pend), pend, d.get("estado", "Borrador")]],
-            [0.9, 2.1, 2.1, 2.7, 1.2],
-        )
-        self.h2("Estados de la información")
-        self.tabla(
-            "Estados usados en este documento",
-            ["Estado", "Significado"],
-            [
-                ["CONFIRMADO", "Respaldado por una fuente citada o por una aprobación expresa."],
-                ["PROPUESTO", "Recomendación del equipo, aún sin aceptación del cliente."],
-                ["PENDIENTE", "Dato o decisión por definir; se marca como " + PENDIENTE_TXT + "."],
-            ],
-            [1.6, 6.4],
-        )
+    # -- carta de presentación (una hoja)
+    def carta_presentacion(self, d: dict) -> None:
+        """Carta de presentación de una hoja, repartida para aprovechar la página. Campos: lugar_fecha,
+        destinatario (lista de líneas; la última en negrita), asunto, parrafos (lista), vinetas (opcional:
+        lista que se muestra tras el primer párrafo, p. ej. qué contiene el documento), firmante (dict con
+        nombre, cargo, entidad, correo)."""
+        p = self.doc.add_paragraph("Carta de presentación", style="Título Sin Numerar")
+        p.paragraph_format.page_break_before = True
 
-    def tabla_de_contenido(self) -> None:
+        def linea(texto, negrita=False, antes=0, color=None, estilo="Carta Datos"):
+            q = self.doc.add_paragraph(style=estilo)
+            q.paragraph_format.space_before = Pt(antes)
+            r = q.add_run(texto)
+            r.bold = negrita
+            if color:
+                r.font.color.rgb = _color(color)
+            return q
+
+        linea(d["lugar_fecha"], antes=14)
+        for i, txt in enumerate(d["destinatario"]):
+            linea(txt, negrita=i == len(d["destinatario"]) - 1, antes=16 if i == 0 else 0)
+        if d.get("asunto"):
+            q = self.doc.add_paragraph(style="Carta Datos")
+            q.paragraph_format.space_before = Pt(18)
+            q.paragraph_format.space_after = Pt(4)
+            q.add_run("Asunto: ").bold = True
+            self._texto(q, d["asunto"])
+        for i, texto in enumerate(d["parrafos"]):
+            q = self.parrafo(texto, "Carta Cuerpo")
+            if i == 0:
+                q.paragraph_format.space_before = Pt(10)
+            if i == 0 and d.get("vinetas"):
+                for v in d["vinetas"]:
+                    self.parrafo(v, "Carta Viñeta")
+                self.doc.paragraphs[-1].paragraph_format.space_after = Pt(10)
+        q = linea("Atentamente,", antes=14)
+        q.paragraph_format.space_after = Pt(46)
+        f = d["firmante"]
+        linea(f["nombre"], negrita=True, color=AZUL)
+        for txt in (f["cargo"], f["entidad"], f.get("correo", "")):
+            if txt:
+                linea(txt)
+
+    # -- bloque de firma literal (sin título ni etiquetas añadidas)
+    def firmas_lineas(self, izq: list[str], der: list[str], imagen_izq: Path | None = None) -> None:
+        """Dos columnas con espacio de firma y línea, y debajo las líneas de texto de cada parte tal como vienen en la
+        fuente (la primera en azul y negrita, la última en negrita). No agrega título ni etiquetas."""
+        ancho_col = 4000
+        hueco = ANCHO_TEXTO - 2 * ancho_col
+        t = self._tabla(2, [ancho_col, hueco, ancho_col])
+        sin_borde = {"top": (None, 0), "left": (None, 0), "right": (None, 0), "bottom": (None, 0)}
+        for fila in t.rows:
+            for c in fila.cells:
+                self._celda(c, bordes=sin_borde)
+        t.rows[0]._tr.get_or_add_trPr().append(_el("w:trHeight", w_val=950, w_hRule="atLeast"))
+        for fila in t.rows:
+            self._fila(fila)
+        for col, lineas, imagen in ((0, izq, imagen_izq), (2, der, None)):
+            c = t.rows[0].cells[col]
+            self._celda(c, bordes={"bottom": (TINTA, 8)})
+            _insertar_ordenado(c._tc.get_or_add_tcPr(), _el("w:vAlign", w_val="bottom"), _TCPR_ORDEN)
+            p = c.paragraphs[0]
+            p.paragraph_format.space_after = Pt(2)
+            if imagen:
+                p.add_run().add_picture(str(imagen), height=Twips(820))
+            c = t.rows[1].cells[col]
+            for i, txt in enumerate(lineas):
+                q = c.paragraphs[0] if i == 0 else c.add_paragraph()
+                q.style = "Normal"
+                q.alignment = WD_ALIGN_PARAGRAPH.LEFT
+                q.paragraph_format.space_before = Pt(5 if i == 0 else 0)
+                q.paragraph_format.space_after = Pt(0)
+                r = q.add_run(txt)
+                if i == 0:
+                    r.bold = True
+                    r.font.color.rgb = _color(AZUL)
+                elif i == len(lineas) - 1:
+                    r.bold = True
+        for c in t.rows[0].cells:                # el espacio de firma no se separa de los nombres
+            for q in c.paragraphs:
+                q.paragraph_format.keep_with_next = True
+        self._cierre_minimo()
+
+    def _cierre_minimo(self) -> None:
+        """Último párrafo del documento (Word exige uno tras una tabla): de 1 pt y sin espacios, para que no genere una hoja en blanco."""
+        par = self.doc.add_paragraph(style="Normal")
+        par.paragraph_format.space_before = Pt(0)
+        par.paragraph_format.space_after = Pt(0)
+        par.paragraph_format.line_spacing = Pt(1)
+        ppr = par._p.get_or_add_pPr()
+        rpr = OxmlElement("w:rPr")
+        rpr.append(_el("w:sz", w_val=2))
+        ppr.append(rpr)
+
+    # -- apartado de firma (última hoja)
+    def firmas(self, izq: dict, der: dict, imagen_izq: Path | None = None, lugar_fecha: str | None = None,
+               texto: str | None = None) -> None:
+        """Apartado de firma. `izq` es la parte fija (Campuslands) y `der` la que varía según el proyecto.
+        Cada parte: etiqueta, nombre, documento, cargo, entidad. `imagen_izq` es opcional: la firma escaneada de la
+        parte izquierda solo se inserta en documentos que el usuario pida preparar para firma, nunca en borradores."""
+        self.h1("Aprobación y firmas")
+        if texto:
+            self.parrafo(texto).paragraph_format.keep_with_next = True
+        if lugar_fecha:
+            q = self.parrafo(lugar_fecha)
+            q.paragraph_format.space_after = Pt(8)
+            q.paragraph_format.keep_with_next = True
+        ancho_col = 4000
+        hueco = ANCHO_TEXTO - 2 * ancho_col
+        t = self._tabla(3, [ancho_col, hueco, ancho_col])
+        sin_borde = {"top": (None, 0), "left": (None, 0), "right": (None, 0), "bottom": (None, 0)}
+        for fila in t.rows:
+            for c in fila.cells:
+                self._celda(c, bordes=sin_borde)
+        t.rows[1]._tr.get_or_add_trPr().append(_el("w:trHeight", w_val=780, w_hRule="atLeast"))
+        for fila in t.rows:
+            self._fila(fila)
+        for col, parte, imagen in ((0, izq, imagen_izq), (2, der, None)):
+            # fila 0: etiqueta de la parte
+            p = t.rows[0].cells[col].paragraphs[0]
+            p.style = "Portada Etiqueta"
+            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+            p.add_run(parte["etiqueta"])
+            # fila 1: espacio de firma con su línea
+            c = t.rows[1].cells[col]
+            self._celda(c, bordes={"bottom": (TINTA, 8)})
+            _insertar_ordenado(c._tc.get_or_add_tcPr(), _el("w:vAlign", w_val="bottom"), _TCPR_ORDEN)
+            p = c.paragraphs[0]
+            p.paragraph_format.space_after = Pt(2)
+            if imagen:
+                p.add_run().add_picture(str(imagen), height=Twips(1100))
+            # fila 2: nombre, documento, cargo y entidad
+            c = t.rows[2].cells[col]
+            for i, (txt, neg, color) in enumerate(((parte["nombre"], True, AZUL), (parte["documento"], False, TINTA),
+                                                    (parte["cargo"], False, TINTA), (parte["entidad"], True, TINTA))):
+                q = c.paragraphs[0] if i == 0 else c.add_paragraph()
+                q.style = "Normal"
+                q.alignment = WD_ALIGN_PARAGRAPH.LEFT
+                q.paragraph_format.space_before = Pt(5 if i == 0 else 0)
+                q.paragraph_format.space_after = Pt(0)
+                self._texto(q, txt)
+                for r in q.runs:
+                    if r.style.name == "Default Paragraph Font":
+                        r.bold = neg
+                        r.font.color.rgb = _color(color)
+        for fila in t.rows:                      # el bloque de firma no se parte entre páginas
+            for c in fila.cells:
+                for q in c.paragraphs:
+                    q.paragraph_format.keep_with_next = True
+        self._cierre_minimo()
+
+    def tabla_de_contenido(self, niveles: int = 2) -> None:
+        """Una hoja con la tabla de contenido. Se genera al guardar: las entradas salen de los títulos 1 y 2 (sin los
+        «Anexo X», que cuelgan de la sección Anexos para que la tabla quepa en una hoja) y los
+        números de página de una vista de LibreOffice. Queda como campo TOC de Word, que puede actualizarse
+        (clic derecho → Actualizar campo) si en Word la paginación varía."""
         p = self.doc.add_paragraph("Tabla de contenido", style="Título Sin Numerar")
         p.paragraph_format.page_break_before = True
-        p = self.doc.add_paragraph(style="Normal")
-        _campo(p, 'TOC \\o "1-3" \\h \\z \\u',
-               "Clic derecho sobre este texto → Actualizar campo, para generar la tabla de contenido.")
+        self._toc = (self.doc.add_paragraph(style="Normal"), niveles)
+
+    def _armar_toc(self) -> None:
+        marcador, niveles = self._toc
+        entradas = []
+        for par in self.doc.paragraphs:
+            nombre = par.style.name
+            if nombre == "Heading 1" or (nombre == "Heading 2" and niveles >= 2 and not par.text.startswith("Anexo ")):
+                entradas.append((1 if nombre == "Heading 1" else 2, par.text))
+        if len(entradas) <= 42:        # pocas entradas: letra más grande para aprovechar la hoja
+            for nombre, tam, antes in (("toc 1", 10.5, 4), ("toc 2", 9.5, 0)):
+                est = self.doc.styles[nombre]
+                est.font.size = Pt(tam)
+                est.paragraph_format.space_before = Pt(antes)
+                est.paragraph_format.space_after = Pt(1)
+        nuevos = []
+        for i, (nivel, texto) in enumerate(entradas):
+            par = self.doc.add_paragraph(style=f"toc {nivel}")
+            if i == 0:
+                par.add_run()._r.append(_el("w:fldChar", w_fldCharType="begin"))
+                it = OxmlElement("w:instrText")
+                it.set(qn("xml:space"), "preserve")
+                it.text = f' TOC \\o "1-{niveles}" \\h \\z \\u '
+                par.add_run()._r.append(it)
+                par.add_run()._r.append(_el("w:fldChar", w_fldCharType="separate"))
+            par.add_run(texto)
+            par.add_run().add_tab()
+            num = par.add_run("0")
+            self._toc_nums.append((texto, num))
+            if i == len(entradas) - 1:
+                par.add_run()._r.append(_el("w:fldChar", w_fldCharType="end"))
+            nuevos.append(par)
+        for par in nuevos:
+            marcador._p.addprevious(par._p)
+        marcador._p.getparent().remove(marcador._p)
+        self._toc = None
 
     def guardar(self, ruta: Path, titulo: str, tema: str = "Alcance funcional") -> Path:
         cp = self.doc.core_properties
@@ -565,43 +749,98 @@ class Alcance:
         cp.last_modified_by = "Campuslands Full Service"
         cp.language = "es-CO"
         ruta.parent.mkdir(parents=True, exist_ok=True)
+        if self._toc:
+            self._armar_toc()
+            if self._toc_nums and SOFFICE.exists():
+                with tempfile.TemporaryDirectory() as tmp:
+                    prov = Path(tmp) / "paginas.docx"
+                    self.doc.save(str(prov))
+                    mapa = paginar(prov, [t for t, _ in self._toc_nums])
+                for texto, run in self._toc_nums:
+                    run.text = str(mapa.get(texto, ""))
         self.doc.save(str(ruta))
         return ruta
 
 
+def paginar(docx: Path, titulos: list[str]) -> dict[str, int]:
+    """Página en que empieza cada título, según un PDF de LibreOffice del documento (busca después de la tabla de contenido)."""
+    import pypdfium2 as pdfium
+
+    subprocess.run([str(SOFFICE), "--headless", "--convert-to", "pdf", "--outdir", str(docx.parent), str(docx)],
+                   check=True, capture_output=True, timeout=240)
+    pdf = pdfium.PdfDocument(str(docx.with_suffix(".pdf")))
+    norm = lambda t: re.sub(r"\s+", " ", t).strip()
+    paginas = []
+    for i in range(len(pdf)):
+        pagina = pdf[i]
+        tp = pagina.get_textpage()
+        texto = tp.get_text_range()
+        tp.close()
+        pagina.close()
+        paginas.append((norm(texto), {norm(l) for l in texto.splitlines()}))
+    pdf.close()
+    inicio = next((i + 1 for i, (t, _) in enumerate(paginas) if "Tabla de contenido" in t), 1)
+    mapa = {}
+    for titulo in titulos:
+        n = norm(titulo)
+        for i in range(inicio, len(paginas)):
+            if n in paginas[i][1]:
+                mapa[titulo] = i + 1
+                break
+        else:
+            for i in range(inicio, len(paginas)):
+                if n in paginas[i][0]:
+                    mapa[titulo] = i + 1
+                    break
+    return mapa
+
+
 # ---------------------------------------------------------------- documentos de ejemplo
 
+def _carta_modelo() -> dict:
+    return {
+        "lugar_fecha": "[Ciudad], [día de mes de año]",
+        "destinatario": ["Señores", "[RAZÓN SOCIAL DEL CLIENTE]"],
+        "asunto": "Documento de alcance funcional — [nombre del proyecto]",
+        "parrafos": [
+            "[Presentación breve del documento: qué es, para quién y qué cubre, en el mismo tono comercial de la propuesta. Termina anunciando lo que contiene:]",
+            "[Qué es el servicio en una frase, qué no hace y sobre qué infraestructura opera, tomado de la fuente.]",
+            "[Qué se espera del cliente (revisión y validación) y cómo se resuelven los datos marcados como pendientes.]",
+        ],
+        "vinetas": ["[Contenido 1, con las secciones donde está]", "[Contenido 2]", "[Contenido 3]", "[Contenido 4]"],
+        "firmante": {"nombre": "[NOMBRE]", "cargo": "[Cargo]", "entidad": "Campuslands S.A.S. BIC", "correo": "[correo]"},
+    }
+
+
+FIRMA_IZQ = {"etiqueta": "POR CAMPUSLANDS", "nombre": "YESENIA MERCHÁN", "documento": "C.C. No. 1.065.866.676",
+             "cargo": "Representante Legal", "entidad": "CAMPUSLANDS S.A.S. BIC"}
+FIRMA_IMAGEN = RAIZ / "recursos" / "marca" / "firma-representante-legal-campuslands.jpg"
+_FIRMA_DER_MODELO = {"etiqueta": "POR [CLIENTE]", "nombre": "[NOMBRE DEL FIRMANTE]", "documento": "C.C. No. [número]",
+                     "cargo": "[Cargo]", "entidad": "[ENTIDAD DEL CLIENTE]"}
+
+
 def construir_plantilla(salida: Path) -> Path:
+    """Estructura estándar: portada · carta de presentación · tabla de contenido · contenido · apartado de firma."""
     a = Alcance()
-    a.portada({
-        "titulo": "[Nombre del proyecto]",
-        "cliente": "[Razón social del cliente]",
-        "area": "[Dependencia o unidad del cliente]",
-        "version": "[0.1]",
-        "fecha": "[Día de mes de año]",
-    })
-    a.control_documental({"version": "[0.1]", "fecha": "[Día de mes de año]", "autor": "[Nombre del autor]"})
+    a.portada({"titulo": "[Nombre del proyecto]", "cliente": "[Razón social del cliente]",
+               "area": "[Dependencia o unidad del cliente]", "fecha": "[Día de mes de año]"})
+    a.carta_presentacion(_carta_modelo())
     a.tabla_de_contenido()
+    a.h1("1. [Primera sección del contenido]")
+    a.parrafo("[El contenido sigue las 16 secciones del manual §4, sin límite de hojas.]")
+    a.firmas(FIRMA_IZQ, _FIRMA_DER_MODELO, lugar_fecha="En [municipio], a los ____ días del mes de ____________ de ____.")
     return a.guardar(salida, "Alcance Funcional — Plantilla")
 
 
 def construir_muestra(salida: Path) -> Path:
-    """Portada del proyecto de referencia (contenido de `Portada.docx`) + páginas que muestran cada estilo."""
+    """Estructura estándar con una página de contenido que muestra cada estilo."""
     a = Alcance()
-    datos = {
-        "titulo": "Servicio inteligente de cobro persuasivo y fiscalización tributaria con IA",
-        "cliente": "Alcaldía Municipal de Girón",
-        "area": "Industria y Comercio (ICA)",
-        "version": "2.0",
-        "fecha": "28 de octubre de 2026",
-        "autor": PENDIENTE_TXT,
-        "nota": "Documento confidencial — Para revisión técnica, jurídica, financiera y contractual",
-    }
-    a.portada(datos)
-    a.control_documental(datos)
+    a.portada({"titulo": "[Nombre del proyecto de ejemplo]", "cliente": "[Cliente de ejemplo]",
+               "area": "[Dependencia de ejemplo]", "fecha": "29 de octubre de 2026"})
+    a.carta_presentacion(_carta_modelo())
     a.tabla_de_contenido()
 
-    a.h1("1. Resumen ejecutivo", nueva_pagina=True)
+    a.h1("1. Resumen ejecutivo")
     a.parrafo("Este párrafo de muestra ilustra el formato del cuerpo del texto: Calibri 11 pt, interlineado de "
               "1,15, seis puntos de espacio posterior y alineación justificada, de modo que el bloque de texto "
               "conserve márgenes limpios a izquierda y derecha. El contenido de esta página es solo de ejemplo "
@@ -643,6 +882,8 @@ def construir_muestra(salida: Path) -> Path:
         "Apellido, N. (2026). Título de la fuente en cursiva. Editorial. https://ejemplo.org",
         "Entidad. (2026, 28 de octubre). Título del documento [Acta de reunión]. Campuslands.",
     ])
+    a.firmas(FIRMA_IZQ, _FIRMA_DER_MODELO, texto="[Texto de formalización tomado de la propuesta, si lo trae.]",
+             lugar_fecha="En [municipio], a los ____ días del mes de ____________ de ____.")
     return a.guardar(salida, "Alcance Funcional — Muestra de formato")
 
 

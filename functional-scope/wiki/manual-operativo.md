@@ -2,7 +2,9 @@
 
 Fuente: `recursos/Manual_Agente_Alcances_Funcionales_Campuslands.docx` (v1.0, octubre 2026). Este resumen no lo sustituye; ante duda, manda el manual.
 
-## 1. Bloques de la entrevista y qué debe resolver cada uno (manual §3)
+## 1. Bloques de revisión y qué debe cubrir cada uno (manual §3)
+
+> Ajuste del usuario (2026-10-29): estos bloques **ya no se usan como entrevista**. Son una lista de revisión del documento: cada bloque se llena con lo que diga la fuente o se marca `[PENDIENTE DE VALIDACIÓN]`; no se le preguntan al usuario.
 
 | Bloque | Preguntas que debe resolver |
 |---|---|
@@ -22,7 +24,7 @@ Fuente: `recursos/Manual_Agente_Alcances_Funcionales_Campuslands.docx` (v1.0, oc
 
 | Sección | Contenido |
 |---|---|
-| Portada y control documental | Proyecto, cliente, proveedor, versión, fecha, clasificación, responsables; historial de cambios |
+| Portada · Carta de presentación · Tabla de contenido | Una hoja cada una. Portada: título, cliente, y solo las tarjetas «Preparado por» y «Fecha» (**sin Preparado para, estado, versión ni clasificación**); la tabla de contenido va ya generada. Ya no hay página de control documental (ajuste del usuario, 2026-10-29) |
 | 1. Resumen ejecutivo | Problema, solución, beneficios esperados y alcance en lenguaje de negocio; **sin garantías de resultados no aprobadas** |
 | 2. Contexto y objetivos | Situación actual, objetivos específicos, indicadores de éxito, restricciones y dependencias |
 | 3. Alcance y límites | Módulos incluidos, fuera de alcance, fases futuras y mapa general de procesos |
@@ -38,7 +40,7 @@ Fuente: `recursos/Manual_Agente_Alcances_Funcionales_Campuslands.docx` (v1.0, oc
 | 13. Garantía, soporte y operación | Cobertura, exclusiones, inicio, duración, canales, severidades y SLA **únicamente si están acordados** |
 | 14. Condiciones comerciales | Precio, impuestos, hitos, costos de terceros, infraestructura, licencias y condiciones de pago **confirmadas** |
 | 15. Supuestos, exclusiones y riesgos | Responsabilidades del cliente, límites, dependencias externas y consecuencias de cambios |
-| 16. Aprobación y anexos | Firmas o validaciones, glosario, matriz de requisitos, integraciones, pruebas y registro de decisiones |
+| 16. Anexos (y, al final, apartado de firma) | Glosario, matriz de requisitos, integraciones, pruebas y registro de decisiones; la hoja «Aprobación y firmas» cierra el documento |
 
 ## 3. Decisiones de interpretación del agente (no vienen literales del manual)
 
@@ -50,3 +52,9 @@ Estas son mis decisiones operativas para aplicar el manual; si el usuario las co
 | Identificadores | RF / MOD / INT / DEC / PEN / CON, estables | El manual exige ID en fichas y matrices, sin esquema |
 | Columna «Criticidad» en la matriz de pendientes | Añadida a las 5 columnas del manual | Ordenar las preguntas por BLOQUEANTE/IMPORTANTE/EDITORIAL (§7) |
 | Estados del documento | Borrador · Apto para revisión final · Aprobado por cliente | El manual habla de «borrador», «apta para revisión final» y «lista para firma» |
+| Preguntas al usuario | **Ninguna por defecto**; si hay archivo, se redacta el borrador en el mismo turno y los vacíos se marcan pendientes | Instrucción del usuario, 2026-10-29: «si se te compartió un archivo, lo más seguro es que no haya más». Sustituye al manual §2 etapa 4 y §10 |
+| Estructura del documento | Portada · Carta de presentación · Tabla de contenido · Contenido · Apartado de firma | Instrucción del usuario, 2026-10-29 |
+| Versión y clasificación | No aparecen dentro del documento (ni en la portada); la versión vive en el nombre del archivo y la wiki | Instrucción del usuario, 2026-10-29 |
+| Firma | Columna izquierda fija (Campuslands); derecha por proyecto; firma escaneada solo en documentos listos para firma | Instrucción del usuario, 2026-10-29 |
+| Palabra «borrador» | No aparece dentro del documento; el estado vive en el chat, la wiki y el control de calidad | Instrucción del usuario, 2026-10-29 (segunda ronda) |
+| Espacios vacíos | Sin saltos de página forzados entre secciones; fichas que fluyen; se revisa la ocupación de cada página | Instrucción del usuario, 2026-10-29 (segunda ronda) |

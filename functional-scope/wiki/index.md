@@ -11,7 +11,7 @@ Catálogo de proyectos. Una línea por proyecto, actualizada en cada entrega. La
 
 | Cliente / proyecto | Versión vigente | Fecha | Estado | Pendientes BLOQUEANTES | Notas |
 |---|---|---|---|---|---|
-| *(aún no hay proyectos)* | | | | | |
+| [Alcaldía de Girón — cobro persuasivo con IA (ICA)](../alcances/giron-cobro-persuasivo-ica/entrega/Alcance%20Funcional%20-%20Alcald%C3%ADa%20de%20Gir%C3%B3n%20-%20v0.1%20-%202026-10-29.docx) | v0.1 | 2026-10-29 | Borrador | 12 | Basado solo en la propuesta del 2026-10-28 (sin firma, sin actas ni cotización); pendientes en [03-pendientes.md](../alcances/giron-cobro-persuasivo-ica/trabajo/03-pendientes.md) |
 
 ## Páginas de la wiki
 - [manual-operativo.md](manual-operativo.md) — resumen de consulta rápida del manual.
