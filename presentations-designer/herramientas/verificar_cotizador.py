@@ -55,6 +55,20 @@ for nombre, ini, fin, fin_portal in [
     total += comparar(nombre, normalizar(bloque(crm_fase, ini, fin)), normalizar(bloque(portal_fase, ini, fin_portal)),
                       permitidas=('//', 'const [observaciones'))  # sin setter: la sección «Observaciones» se quitó de la interfaz
 
+# Parámetros por proyecto (2026-10-28): estas líneas de FaseCotizacion.tsx deben estar tal cual en el componente del portal.
+LINEAS_PARAMETROS_PROYECTO = [
+    "const parametros = useMemo(() => combinarParametrosCotizacion(",
+    "const tieneParametrosPropios = useMemo(() => diferenciasParametrosCotizacion(parametrosPorDefecto, parametros) !== null",
+    "const rolesCotizacion = parametros.roles;",
+    "const jornada = parametros.jornada;",
+]
+portal_norm = "|".join(normalizar(portal_fase))
+for linea in LINEAS_PARAMETROS_PROYECTO:
+    esta_crm = linea in "|".join(normalizar(crm_fase))
+    esta_portal = linea in portal_norm
+    print(f'{"OK " if esta_crm and esta_portal else "DIF"} parámetros por proyecto: {linea[:70]}')
+    total += 0 if (esta_crm and esta_portal) else 1
+
 # Módulos copiados enteros: solo cambian rutas de importación, el logo del PDF y la tipografía de tuplas (`as const`).
 PERMITIDAS = ("from '@/types'", "from './tipos'", "cotizacionFormato", "./formato", "logo.png", "logo-cotizacion", ' as const')
 for nombre, original, copia in [
