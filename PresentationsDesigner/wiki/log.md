@@ -4,6 +4,15 @@ Registro cronológico de las construcciones, despliegues y mantenimiento de la w
 
 ---
 
+## [2026-10-29] build | Alcaldía Municipal de Girón — Propuesta Comercial y Técnica (`/giron-gg`, 57 láminas)
+
+* **Fuente:** `Propuesta_Alcaldia_Giron_Campuslands_2027_Actualizada.docx` (v2.0, 28-oct-2026), texto **íntegro, sin resumir ni modificar** (extraído con `python-docx` y volcado a HTML en orden original). Del PDF `Propuesta_Comercial_Alcaldia_Giron_Campus.pdf` (versión enviada) solo se tomó el apartado **Formalización de la propuesta** y el bloque de **firmas** (incluye la firma de Yesenia Merchán, `assets/firma-yesenia-merchan.png`), colocado al final, tras «Entregables del servicio y criterios de aceptación».
+* **Pedidos del usuario:** portada rehecha con co-branding Campuslands × Girón (título «PROPUESTA COMERCIAL Y TÉCNICA» + subtítulo del documento + «Preparado para / por / Fecha»); **carta de presentación en una sola lámina**; formalización y firmas al final.
+* **Excepción a la regla 6 (máx. 10 láminas):** el usuario pidió textualmente no resumir nada, así que el contenido se reparte en 57 láminas de documento (una sección o subsección por lámina; las largas se parten en varias con el mismo título).
+* **Ajuste automático de tamaño:** cada lámina usa `--fs` (de 16 pt a 9 pt) calculado midiendo el desborde del cuerpo y de cada tarjeta en Chromium; ninguna queda bajo 9,75 pt.
+* **Diferencias respecto al texto fuente (a revisar con el usuario):** (1) el .docx trae un marcador literal «[embedded content: arquitectura …]» sin diagrama real: se omitió; (2) se limpió el artefacto `&#32;` del .docx; (3) el apartado del PDF se numeró **13** porque el .docx ya usa «12. Anexo técnico integral» (el PDF lo llamaba 12); (4) la fecha de firma conserva «veintitrés (23) de octubre de 2026» del PDF, mientras el .docx está fechado el 28-oct; (5) la leyenda «Documento confidencial…» se mantuvo como texto pequeño en portada por ser contenido del documento, aunque la regla 1 prohíbe el rótulo «Confidencial»; (6) la firma de Diego Tarazona del PDF **no** se añadió a la carta (el .docx no la trae).
+* **Despliegue:** `decks/giron-gg/` en el repo `Presentaciones` (commit `f004b4f` en `main`) + entrada en `web/src/data/decks.ts`. URL: `https://fullservicepresentations.vercel.app/giron-gg/`. PDF: `giron-gg/giron-gg.pdf` (57 págs, solo Poppins). El visor usa `--k-cliente:2` y barras de 92 px por el escudo vertical de Girón.
+
 ## [2026-09-22] build | Alcaldía de Girón — Cobro Coactivo con IA (deck individual, 10 láminas)
 
 * **Fuente:** XLSX nuevo de cotización (`FullServices Cotización Alcaldia de Girón.xlsx`), una sola hoja "Cobro Coactivo" con ~190 funcionalidades en 14 submódulos (Levantamiento → Despliegue). Total `Y1`=`$99.295.168,59` (`=SUMIFS(...)`, ya con margen comercial completo, verificado contra `AC1`=`SUM(AC2:AC219)`), redondeado a `$99.295.169 COP`, pago 40/40/20.
