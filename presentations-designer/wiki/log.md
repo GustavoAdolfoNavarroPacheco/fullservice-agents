@@ -2317,3 +2317,15 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 * Ajuste visual del candado: el icono va a la **izquierda** del texto en los tres campos; el rótulo del botón del PDF se acorta a «Bloqueado por el agente» y se ancla a su borde derecho, debajo del botón (antes un rótulo largo se salía de la columna y tapaba el formulario).
 
 * Corrección: el candado a la izquierda del texto aplica **solo a «Presentación»**; en «Fecha» y «Link de la presentación» va a la derecha de la etiqueta.
+
+## [2026-10-29] build | Cotizador: cambios de cálculo del CRM (AIU y parámetros por proyecto)
+* Se detectaron con `verificar_cotizador.py` (51 diferencias en `parametros.ts`) y con `git log` del CRM: `169956c` (AIU del 10 % en el valor hora, tomado de la hoja «Comultrasan Digital») y `d123912` (parámetros propios por proyecto + botón «Valores por defecto»).
+* Traído: `parametros.ts` es de nuevo copia literal del CRM; tipo `ParametrosPropiosCotizacion`; columna `cotizaciones.parametros` (migración aplicada); acción `guardarParametrosProyectoAction` (limpia y recalcula las diferencias en el servidor); diálogo con campo «AIU (%)» y alcance proyecto/global; botones «Parámetros» y «Valores por defecto» (círculos 1×1) y la línea «Este proyecto usa…». Las pruebas del CRM se portaron (datos, hoja de Excel, diálogo, componente): 154 en total.
+* Verificado: `verificar_cotizador.py` = lógica idéntica (ahora también comprueba las líneas de parámetros por proyecto); en el navegador, DB 5 días = $3.012.061 con AIU 10 % y $3.285.884 con AIU 20 % propio del proyecto (coincide con la fórmula); en la base solo queda la diferencia `{aiu: 0.2, resto null}`. Datos de prueba borrados.
+* Corregido de paso: el `INSERT` de «Crear proyecto» no llevaba el valor de `presentacion_url` (crear habría fallado); verificado creando un proyecto.
+
+## [2026-10-29] build | Alcaldía de Girón — Propuesta comercial y técnica v2.0 (`giron-propuesta`)
+* Fuente: docx v2.0 (28-oct-2026) + PDF final enviado a la Alcaldía (solo la «Formalización de la propuesta» y las firmas, añadidas al final tras «Entregables del servicio y criterios de aceptación»). Texto **literal**, sin resumir; por eso 47 láminas (`--max-slides 60`) y plan no consultado previamente: el usuario pidió máxima velocidad y subir primero.
+* Portada nueva (Preparado para/por, fecha «Octubre 2026», versión 2.0); se omitió la palabra «Documento confidencial» por la regla del Brandbook (se conserva «Para revisión técnica, jurídica, financiera y contractual»). Carta en una sola lámina. El diagrama «arquitectura» embebido del docx no se pudo extraer: se rehízo como esquema con las mismas palabras de la sección.
+* Logo cliente: `giron-cc-logo-cliente-color.png`, `--k-cliente:2.5729` (área igual). Verificador APROBADO (0 errores, 0 avisos); PDF 47 págs. Registrado en `decks.ts` (candado: fecha 2026-10-29, link y PDF) y desplegado (HTTP 200).
+* Pendientes para el usuario: fecha de firma del PDF (23-oct) ≠ fecha del docx (28-oct); «C.C. No.» del Alcalde en blanco como en el PDF; erratas literales no corregidas («Implementacion», «Telynx», «Twilio o telnyx», «sistema operativo»).
