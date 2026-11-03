@@ -594,3 +594,52 @@ detalle del documento de arquitectura, sin esperar el diccionario de datos.
 - **Verificación**: hojas de otros clientes eliminadas (solo `Plantilla`); `recalc.py` (con parches de Windows: guard de `socket.AF_UNIX` y sin `SAL_USE_VCLPLUGIN`) → exactamente los 5 `#NAME?` preexistentes en `A140:A144`, cero errores nuevos. `Y122 = =Y1/0.6`, `R123 = 0.1` (AIU 10%, confirmado que estaba en 0.4 antes de escribir). Ningún submódulo con días; las 20 funcionalidades tienen días (piso 0.5). Precios del PDF leídos de la columna A recalculada; cada línea del PDF coincide con el XLSX y los subtotales de módulo coinciden con la suma de sus líneas. **Diferencia de $1 COP** entre la suma de líneas redondeadas ($27.706.103) y el TOTAL del XLSX ($27.706.103,68 → $27.706.104) por redondeo de las 4 filas transversales; el PDF muestra el TOTAL exacto del XLSX.
 - **Nota de contexto en el PDF**: cronograma en paralelo (semana 2 / semana 4), insumos requeridos del evento y cambio de alcance = nueva estimación — todo tomado del documento fuente. Sin logo de cliente (no provisto).
 - **Entregables**: `cotizaciones/feria-magica-juguetes/Cotizacion.xlsx` y `cotizaciones/feria-magica-juguetes/Cotizacion de Alcance.pdf` — TOTAL **$27.706.104 COP** (M1 $8.017.202 · M2 $3.471.136 · M3 $14.026.639 · transversales $2.191.126).
+
+## [2026-10-21] build | Colbeef S.A.S — 6 tareas de mejora del agente y chats
+
+- **Origen**: `Tareas — Colbeef.pdf` (21 de octubre de 2026): 6 tareas con área (Backend, Front o
+  Agente) y tiempo en horas (112 h ≈ 14 días hábiles). El documento trae el esfuerzo por tarea pero
+  no el desglose por especialidad.
+- **Criterio de estimación** (se avanzó sin consulta previa, el esfuerzo ya venía en la fuente):
+  días de cada módulo = horas de la fuente / 8 (3, 4, 2.5, 0.5, 3 y 1 día). Dentro de cada módulo,
+  Backend → BS/BM, Front → FM, Agente → IA; el modelo usuario ↔ clientes → DB. Filas transversales
+  2-5 estimadas en 3 días en total (DB 1, UX 0.5, IM 1, IA 0.5) por regla de la plantilla. Todo esto
+  queda por validar con el usuario.
+- **Granularidad**: el módulo 4 (0.5 día) quedó como una sola funcionalidad. Sus dos bullets (nombre
+  en la bienvenida y caso multicliente) no se pueden separar en filas de 0.5 día sin inflar el total,
+  porque el piso mínimo es 0.5 por celda.
+- **Posible doble conteo**: el bullet "manejar el caso de usuario con varios clientes" del módulo 4
+  se parece al cambio de cliente del módulo 2. Se cotizó tal cual viene en la fuente; confirmar si
+  ya está cubierto por el módulo 2.
+- **XLSX**: copia de la plantilla con una sola hoja (`Plantilla`). Filas 8-47 (6 módulos, 15
+  submódulos, 19 funcionalidades). `Y122 = =Y1/0.6` y `R123 = 0.1` (confirmadas en 0.4 antes de
+  escribir). Recalculado: 0 errores fuera de `A140:A144`. Verificado contra la plantilla: 540
+  fórmulas idénticas, fuentes L/M/N correctas y ningún submódulo con días.
+  - Efecto de LibreOffice: al recalcular reescribe los booleanos de la columna AB (checkboxes) como
+    `=TRUE()` / `=FALSE()`. Mismo valor; no se corrigió.
+- **PDF**: generado con reportlab a partir de precios leídos del XLSX recalculado. Doble verificación:
+  los 30 precios de línea, subtotales y total salen en la misma secuencia que el XLSX; `Y1` = `AC1` =
+  $6.787.920; módulos + transversales = total. El módulo 3 tiene $1 de diferencia por redondeo (suma
+  de líneas $994.518 frente a subtotal $994.517); se anotó en las notas del PDF.
+- **Recalc en Windows** (dos trampas, ninguna está en el repo): (1) agregar LibreOffice al *inicio* del
+  PATH hace que su Python sombree al del sistema (sin openpyxl); hay que agregarlo al *final*. (2)
+  `office/soffice.py` falla en Windows por `socket.AF_UNIX`; se usó un wrapper que reemplaza
+  `get_soffice_env` y `run_soffice` antes de correr `recalc.py`, sin tocar el skill. El repo no tiene
+  carpeta `scripts/`, así que `CLAUDE.md` apunta a un script que no existe aquí.
+- **Entregables**: `cotizaciones/colbeef/Cotizacion de Alcance.pdf` y `cotizaciones/colbeef/Cotizacion.xlsx`.
+  TOTAL **$6.787.920 COP** (módulos $5.522.908 · transversales $1.265.012). Sin logo de cliente.
+- **Pendiente para el usuario**: (1) validar la distribución de días por especialidad; (2) confirmar
+  el posible doble conteo entre módulo 2 y módulo 4; (3) el formato del estado de cuenta ("formato
+  definido") no viene en el documento fuente; (4) confirmar los 3 días transversales; (5) logo de
+  Colbeef, si lo hay.
+- **Lint observado**: `CLAUDE.md` menciona `wiki/flujo-trabajo.md`, que no existe en el repo.
+
+## [2026-10-29] build | Hooy App — Portal Manager y APIs
+
+- **Origen**: `Cotización Campuslands – Hooy App Portal Manager y APIs.docx` (14 de octubre de 2026, firmado por el equipo Campuslands): 9 requerimientos con horas por rol (Backend / Manager / QA) = 111 h; los Req. 4 y 5 son solo de la app móvil (sin desarrollo aquí) y la app móvil se cotiza aparte con el proveedor móvil. El documento fuente trae su propia propuesta económica (tarifa de $74.200 por hora, $8.236.200 + IVA); **no se usó** en el PDF: los precios salen del XLSX (plantilla Campus).
+- **Criterio de estimación** (se avanzó sin consulta previa, el esfuerzo venía en la fuente): días = horas del rol ÷ 8, con piso de 0.5 por especialidad. Backend → BS (la fuente dice "Backend Senior"), Manager → FM, QA → QA. "Integración y despliegue" (8 h, Backend) → BS. Dentro de cada módulo las horas se repartieron entre funcionalidades atómicas; donde la fuente da menos de 4 h para un rol (Req. 1, 2, 3, 6, 9 y varios QA) aplica el piso de 0.5. Resultado: módulos = 16,75 días frente a los 13,9 de la fuente (las diferencias vienen del piso y de dividir bullets compuestos). Filas transversales 2-5 = 2,5 días (DB 1, UX 0.5, IM 0.5, DB 0.5 en la fila 5) por regla de la plantilla; el proyecto no tiene agente IA, por eso la fila 5 se cargó en DB (como en Relia) y no en IA.
+- **Estructura**: 8 módulos / 13 submódulos / 17 funcionalidades (filas 8-51). Módulos M1-M7 = Req. 1, 2, 3, 6, 7, 8 y 9; M8 = Integración y despliegue. Aparente solapamiento entre la fila transversal 4 (despliegue) y la funcionalidad "Despliegue en QA y producción" de M8 (la fuente lo trae dentro de las 8 h de Backend).
+- **XLSX**: copia de la plantilla con una sola hoja (`Plantilla`). `Y122 = =Y1/0.6` y `R123 = 0.1` (confirmada en 0.4 con `Q123 = AIU` antes de escribir). `recalc.py` con wrapper de Windows → exactamente los 5 `#NAME?` preexistentes en `A140:A144`, cero errores nuevos. 543 fórmulas de la plantilla idénticas; fuentes L/M/N correctas (Arial 11 negrita / 10 negrita / 10 regular); ningún submódulo con días; las 17 funcionalidades tienen días ≥ 0.5.
+- **PDF**: generado con reportlab leyendo estructura y precios directamente del XLSX recalculado (3 páginas). Doble verificación: suma de módulos + transversales = `Y1` = `AC1`. Diferencias de $1 por redondeo en M4 y M6 (suma de líneas frente al subtotal del módulo) y entre la suma de líneas redondeadas ($7.777.220) y el TOTAL ($7.777.221); el PDF muestra el TOTAL exacto del XLSX y lo anota. Se incluyeron cronograma, supuestos y condiciones comerciales de la fuente, con los "Req. N" reescritos como "M1-M7" y sin la tarifa por hora.
+- **Entregables**: `cotizaciones/hooy/Cotizacion.xlsx` y `cotizaciones/hooy/Cotizacion de Alcance.pdf` — TOTAL **$7.777.221 COP** (módulos $6.549.900: M1 $391.300 · M2 $556.228 · M3 $622.306 · M4 $1.034.626 · M5 $1.117.091 · M6 $1.117.091 · M7 $1.249.246 · M8 $462.012 · transversales $1.227.321). Sin logo de cliente.
+- **Pendiente para el usuario**: (1) decidir si el precio final es el del XLSX ($7.777.221) o el del documento fuente ($8.236.200 + IVA) y si el XLSX incluye IVA; (2) validar la distribución de días por especialidad y las 2,5 días transversales; (3) la validez de 10 días de la fuente se contó desde la fecha del PDF (29 de octubre), no desde el 14 de octubre; (4) logo de Hooy, si lo hay.
