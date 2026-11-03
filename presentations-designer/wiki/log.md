@@ -2370,3 +2370,63 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 * **Hecho:** nuevo deck `palmera-jr` (7 + 8 láminas, `data-scenario` a/b y `data-slide` global 1–15 para que el verificador las vea todas). Switch en la barra del visor con el mismo patrón de Marval (`switchScenario`, píldora deslizante) pero en v3: píldora violeta, pista hundida por sombra, sin bordes; `?escenario=2` abre el segundo; el contador y la navegación circular son por escenario. Se eliminaron `palmera-escenario-1` y `palmera-escenario-2` (sus URLs dejan de existir) y el catálogo quedó con UNA entrada.
 * **PDF:** un solo `palmera-jr.pdf` de 15 páginas con ambos escenarios (la portada de cada uno abre su bloque); el portal admite un solo PDF por proyecto.
 * **Verificación:** `verificar_deck.py --max-slides 15` APROBADO (el tope de 10 aplica a cada escenario: 7 y 8) y prueba en navegador: cambio de escenario, contador «1 / 8», vuelta circular y píldora bien ubicada.
+
+## [2026-10-03] actualización | Girón — `giron-cc`: copia actualizada «Cobro persuasivo» desde el .docx
+* **Pedido:** crear `/giron-cc` como copia/actualización de `giron-cobro-coactivo`, con el diseño v4 vigente, **conservando los dorados** de Girón, a partir del .docx «Plan de desarrollo — Cobro persuasivo de Industria y Comercio (ajustado)»; el logo de Girón ya estaba en `/recursos`.
+* **Contenido:** 10 láminas (portada · qué cambia vs. la propuesta anterior · 4 fases · Fase 1 ×2 · Fase 2 en cascada · Fase 3 · Fase 4 · fuera de alcance e insumos · cierre). Las marcas «(nuevo)/(ajustado)» del docx se muestran como insignias NUEVO/AJUSTADO.
+* **Sin dato en el docx (no inventado):** precio → «por confirmar» (el deck v1.0 decía $99.295.169 COP para otro alcance). Se **conservaron del deck v1.0** el esquema de pago 40/40/20 y el equipo/modelo Campers; hay que confirmarlos con el usuario.
+* **Paleta:** dorada de Girón (#F0C24E #D9A32E #A9781A #7A5510 #4A3608) como excepción puntual a «solo colores Campuslands»; fondo #FFFFFF.
+* **Regla nueva (logos verticales):** el escudo de Girón (0,65:1) exigiría k=2,57 por área; se limita a k=2,0 (`igualar_logos.py`) y `verificar_deck.py` emite aviso (no error) cuando el tope aplica y el área queda menor (−40 %). Hay que confirmar a la vista que ninguno domina.
+* **Verificado:** `verificar_deck.py` → 0 errores, 2 avisos (los del tope, láminas 1 y 10); PDF de 10 páginas solo con Poppins; revisión a la vista de las 10 láminas. Portal: nueva tarjeta `giron-cc` (la de `giron-cobro-coactivo` se conserva).
+
+## [2026-10-03] ajuste | `giron-cc`: nuevo título de portada y se elimina la lámina 2
+* **Pedido:** (1) portada: «Cobro Persuasivo con Inteligencia Artificial» → «Modulo de Cobranza con Inteligencia Artificial»; (2) eliminar la lámina 2 («Qué cambia frente a la propuesta anterior»).
+* **Cambios:** el título se escribió con tilde («Módulo»; el pedido venía sin tilde, corrección ortográfica). El deck pasa de 10 a **9 láminas** (renumeradas, numerales fantasma y `totalSlides` ajustados). Portal: título «Módulo de Cobranza con Inteligencia Artificial», «9 Láminas». El `<title>` del HTML y el nombre de la carpeta no cambian.
+* **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical, láminas 1 y 9); PDF de 9 páginas solo con Poppins.
+
+## [2026-10-03] ajuste | `giron-cc`: lámina 9 con valor $209.976.550 COP y sin forma de pago
+* **Pedido:** eliminar la tarjeta «Inversión y forma de pago» (40/40/20, «por confirmar») de la lámina 9 e implementar «Valor: $209.976.550 COP».
+* **Cambios:** la tarjeta se reemplaza por una tarjeta «Valor» con la cifra. Se retira el 40/40/20 (que venía del deck v1.0, no del docx); el deck ya no afirma ningún esquema de pago. Portal: `investment` = «$209.976.550 COP». No se indica si incluye IVA, licencias o infraestructura (sin dato).
+* **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical); PDF de 9 páginas.
+
+## [2026-10-03] corrección | Visor en iPad/celular: barra inferior (flechas) oculta en iPad
+* **Reporte del usuario:** al abrir `giron-cc` en un iPad no aparecían las flechas de la barra inferior; pidió además que la vista en celular sea satisfactoria sin afectar la presentación.
+* **Causa (inferida, no probada en un iPad real):** `body{height:100vh}` — en iOS/iPadOS `100vh` es mayor que el área visible y empuja la barra inferior fuera de pantalla.
+* **Cambio:** `--app-h` desde `script.js` + `height:var(--app-h,100vh)`; media queries para pantallas pequeñas/bajas (barras 60/48 px, botones de 44/40 px); deslizar para cambiar de lámina; aviso para girar el celular. Aplicado a `giron-cc/` y a la plantilla `_plantilla-campuslands/` (los decks nuevos lo heredan). **Los demás decks publicados conservan el bug** hasta que se les porte el mismo parche (`script.js` + bloque CSS 11).
+* **Verificado:** emulación (iPad 820×1180 y 1180×820, iPhone 390×844 y 844×390): barra inferior y botones dentro de la pantalla; con `innerHeight` simulado en 720 la barra queda en 720; el deslizamiento cambia de lámina. `verificar_deck.py` en `giron-cc` y en la plantilla: 0 errores.
+
+## [2026-10-03] ajuste | `giron-cc`: píldoras, texto, lámina 9 rediseñada y pie sin «cierre»
+* **Pedido:** (lám. 2) eliminar las píldoras «30 días / 30 días / Piloto / Posterior»; (lám. 4) «Asistente para funcionarios (texto)» → «Asistente para funcionarios»; (lám. 9) «Valor» debajo de los pasos 1-3, sin marco, con fondo difuminado solo en el número; «Una tripulación dedicada» debajo del valor, más ancha y con mejor distribución; eliminar el texto «cierre» del pie y aplicarlo a futuras presentaciones.
+* **Cambios:** el valor $209.976.550 COP se muestra centrado en marrón oscuro sobre un halo dorado difuminado (contraste); la tripulación pasa a una tarjeta de 9,3 in con texto a la izquierda y las 9 funciones en rejilla de 3 columnas. Pie de cierre: «| campuslands | propuesta | giron |».
+* **Regla nueva:** el pie de la última lámina no dice «cierre» — aplicada a `_plantilla-campuslands/` y como **error** en `verificar_deck.py`. Los decks publicados con «cierre» no se tocaron.
+* **Verificado:** `verificar_deck.py` en `giron-cc` 0 errores, 2 avisos (tope de logo vertical); plantilla 0/0; PDF regenerado.
+
+## [2026-10-03] ajuste | `giron-cc`: ícono de WhatsApp y cifra del valor
+* **Pedido:** mejorar el ícono de WhatsApp (el usuario adjuntó una referencia de 32×32 px: burbuja con cola abajo-izquierda y auricular) y, en el precio, quitar el halo y dejar solo sombras en los números con un color más fuerte.
+* **Cambios:** nuevo ícono `whatsapp` (burbuja de trazo con cola + auricular sólido), usado en láminas 5 (cascada y tarjeta del agente de WhatsApp). Valor: sin halo; número en marrón muy oscuro `#2B1F03` con sombras (desplazamiento dorado + dos sombras suaves marrón).
+* **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical); revisión a la vista ampliada.
+
+## [2026-10-03] nuevo | `giron-cc-v2`: copia de `giron-cc` sin el valor
+* **Pedido:** copia de la presentación bajo `/giron-cc-v2`, con la única diferencia de no llevar precio/valor.
+* **Cambios:** copia de `giron-cc/` (incluye los ajustes de iPad/celular); se elimina el bloque «Valor $209.976.550 COP» de la lámina 9 (el resto no se tocó); PDF `giron-cc-v2.pdf` regenerado y comprobado sin «$», «209.976» ni «COP». Portal: nueva tarjeta `giron-cc-v2` con `investment` vacío; el render del portal ahora omite la píldora de inversión cuando está vacío (`${deck.investment ? … : ''}`), sin afectar a los demás decks.
+* **Verificado:** `verificar_deck.py` 0 errores, 2 avisos (tope de logo vertical); portal renderiza las 37 tarjetas sin errores de JS.
+
+## [2026-10-03] corrección | PDF en celular: rectángulos grises alrededor de las tarjetas
+* **Reporte:** al abrir los PDF en celular (no en PC) cada frame tenía un contorno/rectángulo gris (captura de la lámina 2 de `giron-cc`).
+* **Diagnóstico:** el PDF de la lámina 2 tenía 10 `SMask` de luminosidad (sombras difuminadas de Chrome). No pude abrirlo en un celular real; la relación con el síntoma es inferencia (los rectángulos coinciden con el tamaño de las sombras y los visores móviles suelen ignorar ese tipo de máscara).
+* **Cambio:** `script.js` convierte sombras difuminadas en sombras vectoriales escalonadas solo al imprimir/exportar (`beforeprint`/`afterprint`). Aplicado a `giron-cc`, `giron-cc-v2` y `_plantilla-campuslands`; PDF de ambos decks regenerados: 0 máscaras de luminosidad. Nuevo error en `verificar_deck.py` si el PDF tiene alguna.
+* **Pendiente:** los demás decks publicados conservan el problema (p. ej. `globant-dojo-v3`: 84 máscaras) hasta portarles el bloque y regenerar su PDF.
+
+## [2026-10-03] reparación | PDF en celular: todos los decks publicados
+* **Pedido:** reparar los PDF del resto de decks (incluidos `hubux` y `hubux-v2`) para que no muestren rectángulos grises en celular.
+* **Método:** nueva herramienta `arreglar_pdf_sombras.py` (+ `pdf_sombras.js`): inserta el bloque en `index.html` (solo inserciones, 30 archivos, 0 líneas borradas) y regenera cada PDF con Chrome headless (el mismo que generó los originales: Skia/PDF). Descubierto en el camino: además de `box-shadow`, causaban máscaras las sombras `inset` y las de `::before/::after`; y los decks sin `preloadAllFonts` caían a fuentes de respaldo, por lo que el bloque también precarga las `@font-face`.
+* **Resultado:** el total de máscaras de luminosidad en los PDF de `Presentaciones` pasó de cientos (p. ej. comultrasan-orbit 105, globant-dojo-v3 84, hubux 82, giron-cobro-coactivo 54, landcargo 50) a **0**, salvo `multinal-escenario-c`.
+* **No se pudo / decisiones:** (1) `multinal-escenario-c.pdf` **no se reemplazó**: el PDF publicado tiene 26 páginas y el HTML actual genera 18 (el PDF está desactualizado respecto al deck); conserva 3 máscaras. Regenerarlo cambia el contenido: requiere decisión del usuario. (2) Los PDF de `fcv`, `marval`, `marval-fase1` y `miami-aqua-tracking` se reemplazaron con cambio de fuentes: los originales habían caído a Georgia/Segoe UI/Consolas (por no precargar fuentes o por fuentes de Windows) y ahora salen con las del diseño (Playfair/Poppins/Montserrat); `miami-aqua-tracking` usa DejaVu Sans Mono en lugar de Consolas (no instalada aquí). Cambios de texto menores por el reflujo (p. ej. marval lám. 9). (3) Comprobado por PDF: mismas páginas y diferencia visual máxima ≤ 9,4/255 salvo los PDF con fuentes cambiadas (fcv 15,6; landcargo 6,2).
+* **Sin probar en un celular real.** Decks nuevos: `_plantilla-campuslands/`, `giron-cc/` y `giron-cc-v2/` ya traen el bloque actualizado (cubre inset y pseudoelementos).
+
+## [2026-10-13] reparación | PDF en celular: también `fullservice-campuslands-v2` y rebase sobre los cambios nuevos de `main`
+* **Pedido:** «Repara también la de FullService» (se interpretó como `fullservice-campuslands-v2`, el deck nuevo de FullService; el v1 `fullservice-campuslands` ya tenía 0 máscaras). Con eso se abre PR y merge.
+* **Hallazgo:** `fullservice-campuslands-v2.pdf` tenía **70** máscaras de luminosidad (deck oscuro con muchas sombras) → ahora 0 (3 páginas, diferencia visual máx 1,3/255).
+* **Rebase:** mientras tanto `main` recibió cambios de otras sesiones (portal nuevo, `ai-academy`, `fullservice-campuslands-v2`, Hubux, Comultrasan, Colbeef con PDF regenerados). Se descartó la rama anterior y se **repitió la reparación completa sobre el `main` actual** con `arreglar_pdf_sombras.py`; los PDF salen del HTML vigente. Conteo final: **0 máscaras en todos los PDF salvo `multinal-escenario-c.pdf` (3; PDF desactualizado 26 pág. vs 18 del HTML, no se reemplazó).**
+* **Bloque actualizado** (cubre `inset` y `::before/::after`, y precarga fuentes) en `_plantilla-campuslands/`, `giron-cc/`, `giron-cc-v2/` y `ai-academy/`.
+* **Sin probar en un celular real.**

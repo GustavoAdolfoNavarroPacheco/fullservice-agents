@@ -19,7 +19,7 @@
 --white:#FFFFFF; --ink:#373435;                       /* fondo de lámina y de página = #FFFFFF; tinta = texto sobre blanco */
 --font-title:'Poppins'; --font-body:'Poppins'; --font-accent:'Nutmeg','Poppins';   /* POPPINS en toda la presentación */
 --logo-h-cover:64px; --logo-h-shell:44px;            /* alto del logo de Campuslands: portada/cierre · barra del visor (grande) */
---k-cliente:<√(ratio Campuslands / ratio cliente)>;   /* igualar_logos.py: alto del cliente = alto Campuslands × k → ÁREAS IGUALES */
+--k-cliente:<√(ratio Campuslands / ratio cliente)>;   /* igualar_logos.py: alto del cliente = alto Campuslands × k → ÁREAS IGUALES; tope k ≤ 2,0 para logos verticales (aviso del verificador) */
 ```
 **TEMA CLARO OBLIGATORIO (web y presentación):** el único fondo de lámina permitido es **blanco `#FFFFFF`** — `data-bg="white"` en la raíz de la lámina — y la página del visor
 (barras y fondo) también es blanca. Navy/violeta/dorado/verde/celeste/arena existen **solo como tarjetas, franjas, íconos y acentos** sobre el blanco; las tarjetas blancas se separan
@@ -105,3 +105,20 @@ Usar solo los pares de [[marca-campuslands]] §4 (✅). Sobre blanco: títulos n
 Fondos que no sean blanco `#FFFFFF` · Roboto Mono u otra fuente que no sea Poppins · numeral de sección grande y nítido · pie a la derecha · tarjetas planas sin decoración ni íconos · logos pequeños en la barra del visor · indicadores de página/módulo («NN / TT», filas de puntos; solo vale el numeral grande `.ghost`) · rótulo «Confidencial» · línea divisoria `|` entre logos (va «×») · «×» descentrada · logos de distinto peso visual (misma altura con proporciones distintas) o deformados · chevrones laterales o manchas difuminadas en la portada · logos arriba a la izquierda en láminas de contenido · difuminación celeste arriba a la derecha · indicador de página «NN / TT» · borde dorado en banners · tarjetas que se pisan o texto que se sale de su tarjeta · pie de portada en Roboto Mono o fecha solo con el año · Playfair/Montserrat/
 otras tipografías · todas las láminas con el mismo arquetipo · texto corrido centrado · decoración sobre texto · más de 10 láminas sin pedido
 textual · tarjetas con 40 % de aire muerto · subrayados/`hr` decorativos bajo títulos · color plano donde la marca pide el recurso gráfico.
+
+## Visor en iPad / celular (2026-10-03)
+- **Causa del bug «no salen las flechas en iPad»:** `body{height:100vh}`; en iOS/iPadOS `100vh` incluye la zona bajo la barra de Safari y la barra inferior queda fuera de pantalla. **Solución:** `script.js` fija `--app-h` = alto visible real (`visualViewport.height`/`innerHeight`) y el CSS usa `height:var(--app-h,100vh)` (solo `@media screen`).
+- Bloque CSS «11. VISOR EN iPad / CELULAR» (plantilla `_plantilla-campuslands/styles.css`): barras de 60 px (48 px en alto ≤ 480 px) y logos de barra más pequeños en pantallas ≤ 900 px o de poca altura, botones táctiles de 44 px, `touch-action`. No altera el escritorio ni el PDF.
+- `script.js`: deslizar con un dedo cambia de lámina; aviso descartable «Gira el celular en horizontal…» (solo celular en vertical, JS lo crea, se recuerda con `sessionStorage`).
+- Limitación: se probó con emulación de Chromium (iPad/iPhone vertical y horizontal, y un `innerHeight` reducido que simula la barra de Safari); **no** en un iPad o iPhone reales.
+
+## Pie de la lámina de cierre (2026-10-03)
+- El pie `.ft` de la **última lámina** (cierre) **no lleva la palabra «cierre»**: solo `| campuslands | propuesta | cliente |`. Las láminas de contenido conservan su miga de sección. `verificar_deck.py` lo marca como **error**. Los decks ya publicados (globant-dojo-v3, comultrasan-normativo-vf, comultrasan-orbit) aún dicen «cierre» y lo corregirán la próxima vez que se editen.
+
+## PDF legible en celular: sin sombras difuminadas (2026-10-03)
+- **Síntoma (reporte del usuario):** al abrir el PDF en el celular (no en PC) cada tarjeta aparecía con un rectángulo gris translúcido alrededor.
+- **Causa (confirmada en el PDF):** Chrome exporta `box-shadow` con desenfoque como **máscaras de luminosidad** (`ExtGState /SMask /S /Luminosity`: p. ej. 10 en la lámina 2 de `giron-cc`). Varios visores móviles no las soportan y pintan el degradado como un rectángulo. En PC se ve bien.
+- **Solución:** bloque «sombras vectoriales para PDF» al final de `script.js` (plantilla): en `beforeprint` convierte las sombras con desenfoque en capas escalonadas **sin desenfoque** (vectores con transparencia constante) y las restaura en `afterprint`; la pantalla no cambia. También cubre `text-shadow` con desenfoque. El `filter: blur` del numeral fantasma se exporta como imagen con máscara (compatible) y se deja.
+- **Verificación:** `verificar_deck.py --pdf` cuenta las máscaras de luminosidad del PDF y da **error** si hay alguna (requiere `pymupdf`). Resultado actual: `giron-cc` y `giron-cc-v2` 0; `globant-dojo-v3` sigue con 84 (aún sin el bloque).
+- **Herramienta (2026-10-03):** `python3 herramientas/arreglar_pdf_sombras.py <deck> --aplicar` inserta el bloque (`herramientas/pdf_sombras.js`, que cubre elementos, `::before/::after` y sombras `inset`) en el `index.html` si falta, regenera el PDF con Chrome y solo lo reemplaza si no cambia el nº de páginas, no entran fuentes de respaldo y hay 0 máscaras; admite `--pdf nombre.pdf?query` (p. ej. `?escenario=b`) y `nombre.pdf@1` (solo la página 1). Además fuerza la carga de todas las `@font-face` (sin eso los PDF de láminas ocultas caían a Georgia/Liberation).
+

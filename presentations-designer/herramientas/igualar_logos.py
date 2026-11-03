@@ -32,8 +32,9 @@ def main():
     rc_file, rc_ink = ratio(a.campuslands); rk_file, rk_ink = ratio(a.cliente)
     if abs(rk_file - rk_ink) / rk_ink > 0.03:
         print(f'⚠ El logo del cliente NO está recortado a su contenido (archivo {rk_file:.2f}:1, tinta {rk_ink:.2f}:1): recórtalo antes de medir.')
-    k = math.sqrt(rc_file / rk_file)
-    print(f'Campuslands {rc_file:.3f}:1 · cliente {rk_file:.3f}:1  →  k = √({rc_file:.3f}/{rk_file:.3f}) = {k:.4f}')
+    k_area = math.sqrt(rc_file / rk_file); k = min(k_area, 2.0)   # tope 2×: con logos verticales el área igual daría un logo desmesurado
+    capped = k < k_area
+    print(f'Campuslands {rc_file:.3f}:1 · cliente {rk_file:.3f}:1  →  k = √({rc_file:.3f}/{rk_file:.3f}) = {k_area:.4f}' + (f'  → LIMITADO a {k:.2f} (logo vertical: tope de 2× la altura de Campuslands; el área queda {(1-k*k*rk_file/rc_file)*100:.0f} % menor)' if capped else ''))
     print(f'CSS:  :root{{ --k-cliente:{k:.4f}; }}')
     for nombre, h in (('cabecera', 30), ('portada/cierre', 64), ('visor', 26)):
         hk = h * k

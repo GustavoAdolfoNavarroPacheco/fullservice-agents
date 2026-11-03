@@ -30,7 +30,7 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 2. **CO-BRANDING «Campuslands × Cliente» CON IGUAL PESO VISUAL — SOLO EN PORTADA, CIERRE Y BARRA DEL VISOR.** Las **láminas de contenido NO llevan logos** (ni cabecera): el título abre la lámina.
    En la **barra superior del visor** los logos van **grandes** (Campuslands ≥ 40 px de alto; plantilla: 44 px). Campuslands **primero** de izquierda a derecha; entre ambos logos va una **«×»**
    (nunca una línea divisoria), **centrada siempre en vertical** (tolerancia 2 px). A igual altura dos logos no se ven iguales si sus proporciones difieren (Globant 5,09 : 1 vs Campuslands 4,31 : 1 con el logo vigente),
-   por eso el tamaño se iguala por **ÁREA de caja recortada** (±6 %): `python3 herramientas/igualar_logos.py <logo-cliente.png>` da el factor `--k-cliente` (alto del cliente = alto de Campuslands × k).
+   por eso el tamaño se iguala por **ÁREA de caja recortada** (±6 %): `python3 herramientas/igualar_logos.py <logo-cliente.png>` da el factor `--k-cliente` (alto del cliente = alto de Campuslands × k). **Tope:** k ≤ 2,0 (logos verticales/escudos, p. ej. Girón 0,65:1): el verificador lo marca como aviso, no error, y hay que confirmar a la vista que ninguno domina.
    Sin deformar. Se **mide** (`verificar_deck.py`) y se **confirma a la vista**.
 3. **LOGO A COLOR (sobre blanco).** Con fondo blanco el logo de Campuslands es **siempre la versión a color** (contraste 12,32 : 1 texto / 3,42 : 1 casco; `herramientas/elegir_logo.py "#FFFFFF"`);
    el logo del cliente va a color/oscuro. Dorado/verde/celeste **no** llevan logos. Los logos jamás se recolorean, rotan, recortan ni redistribuyen (Brandbook p.16).
@@ -43,7 +43,7 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
    - **Íconos:** biblioteca de trazo uniforme en `herramientas`/plantilla (`ic` + `IC` del generador): chip redondeado de color (`.ic--violet|sky|gold|green|navy` o tintado `.ic--t-*`), un ícono **con significado** por cada elemento (nada genérico repetido).
    - **Fondo de portada y cierre** (`.deco-cover`): anillos concéntricos finos + resplandor central + dos «hojas» laterales curvas, con colores de la paleta y **baja saturación**. **No** chevrones `<`/`>` ni manchas difuminadas.
    - **Numeral de sección** (`.ghost`, arriba a la derecha): **pequeño (≈52 pt) y difuminado**. **No** hay indicadores de página/módulo en ninguna parte (ni «NN / TT», ni filas de puntos).
-   - **Pie:** migas `| campuslands | propuesta | cliente | sección |` **abajo a la IZQUIERDA**; el lema *Exploramos · Despegamos · Conquistamos* a la derecha.
+   - **Pie:** migas `| campuslands | propuesta | cliente | sección |` **abajo a la IZQUIERDA** (en la lámina de cierre **sin** la palabra «cierre»: `| campuslands | propuesta | cliente |`); el lema *Exploramos · Despegamos · Conquistamos* a la derecha.
    - **Marco neón dorado:** solo en **un dato/tarjeta clave**; **nunca** en banners/franjas.
    - **Portada:** pie «Preparado para / por / Fecha» en Poppins; «Fecha» = **Mes y Año** («Octubre 2026»).
    - **Distribución:** si el usuario dice que una lámina es «plana», se **rediseña y reestructura** (otro arquetipo, jerarquía, íconos, decoración), no solo se retoca; simetría, márgenes iguales, nada superpuesto.
@@ -80,7 +80,9 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
 │   ├── elegir_logo.py         # elige logo blanco/color por contraste con el fondo
 │   ├── igualar_logos.py       # factor --k-cliente: iguala el PESO VISUAL (área) de ambos logos
 │   ├── colores_marca.py       # 1–3 colores de marca de un logo → campo `colors` del portal (franjas de la tarjeta)
-│   └── verificar_cotizador.py # compara la lógica del Cotizador del portal con la del CRM (debe salir «idéntica»)
+│   ├── verificar_cotizador.py # compara la lógica del Cotizador del portal con la del CRM (debe salir «idéntica»)
+│   ├── arreglar_pdf_sombras.py # PDF legible en celular: inserta pdf_sombras.js y regenera el PDF (0 máscaras de luminosidad)
+│   └── pdf_sombras.js         # bloque que convierte sombras difuminadas en vectoriales al exportar
 ├── wiki/
 │   ├── index.md · log.md · perfil-usuario.md · flujo-trabajo.md · despliegue.md
 │   ├── marca-campuslands.md   # NORMATIVA (Brandbook): reglas, logos, color, tipografía, lenguaje gráfico

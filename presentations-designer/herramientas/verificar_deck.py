@@ -57,6 +57,8 @@ JS = r"""
   for (const sl of slides) {
     const n = +sl.dataset.slide, S = {n, err:[], warn:[], info:{}};
     const root = sl.firstElementChild, sr = sl.getBoundingClientRect();
+    // pie de la lámina de cierre: sin la palabra «cierre» (regla del usuario, 2026-10-03)
+    if (sl === slides[slides.length-1]) { const cr = sl.querySelector('.crumbs'); if (cr && /cierre/i.test(cr.textContent)) S.err.push('El pie de la lámina de cierre no debe decir «cierre» (usar solo | campuslands | propuesta | cliente |).'); }
     const cs = getComputedStyle(root);
     // 2 · fondo
     const bgTxt = cs.backgroundImage + ' ' + cs.backgroundColor;
@@ -104,7 +106,9 @@ JS = r"""
         const ac = rc.width*rc.height, ak = rk.width*rk.height, da = Math.abs(ac-ak)/Math.max(ac,ak);
         S.info.logos = {campuslands_h:+rc.height.toFixed(1), cliente_h:+rk.height.toFixed(1), area_dif_pct:+(da*100).toFixed(1),
                         campuslands_x:+rc.left.toFixed(0), cliente_x:+rk.left.toFixed(0)};
-        if (da > 0.06) S.err.push(`Logos con distinto peso visual: área Campuslands ${Math.round(ac)}px² vs cliente ${Math.round(ak)}px² (${(da*100).toFixed(1)} %). Escalar el logo del cliente con igualar_logos.py (--k-cliente).`);
+        const capped = rk.height >= rc.height*1.95 && ak < ac;   // logo VERTICAL: su alto se limita a 2× el de Campuslands (el área igual daría un logo desmesurado)
+        if (capped && da > 0.06) S.warn.push(`Logo del cliente vertical limitado a 2× la altura de Campuslands: su área es ${(da*100).toFixed(0)} % menor (regla de tope; confirmar a la vista que ninguno domina).`);
+        else if (da > 0.06) S.err.push(`Logos con distinto peso visual: área Campuslands ${Math.round(ac)}px² vs cliente ${Math.round(ak)}px² (${(da*100).toFixed(1)} %). Escalar el logo del cliente con igualar_logos.py (--k-cliente).`);
         if (rc.left > rk.left) S.err.push('El logo de Campuslands debe ir PRIMERO de izquierda a derecha (Brandbook p.6).');
         // separador: «×» centrada en vertical (no una línea)
         const cb = c.closest('.cobrand');
@@ -227,7 +231,7 @@ JS = r"""
   const ch = [...document.querySelectorAll('.app-header img[data-logo]')];
   if (ch.length >= 2) { const a = ch.map(i => { const r = i.getBoundingClientRect(); return r.width*r.height; }), h = ch.map(i => i.getBoundingClientRect().height);
     const hb = document.querySelector('.app-header'), bg = hb ? parse(getComputedStyle(hb).backgroundColor) : null;
-    R.chrome.push({heights:h, big: h[0] >= 40, ok: Math.abs(a[0]-a[1])/Math.max(...a) <= 0.06, light: !bg || lum(bg) > 0.55, conf: !!document.querySelector('.badge-confidential')}); }
+    R.chrome.push({heights:h, big: h[0] >= 40, ok: Math.abs(a[0]-a[1])/Math.max(...a) <= 0.06 || (h[1] >= h[0]*1.95 && a[1] < a[0]), light: !bg || lum(bg) > 0.55, conf: !!document.querySelector('.badge-confidential')}); }
   { const sepx = document.querySelector('.app-header .cobrand .x'); if (!sepx && ch.length >= 2) R.chrome.push({heights:[0,0], ok:false, msg:'Visor: falta la «×» entre los logos de la barra.'}); }
   { const body = getComputedStyle(document.querySelector('.app-content') || document.body).backgroundColor; const c2 = parse(body); R.chromeBg = c2 && c2.a > 0 ? lum(c2) : null; const hb2 = document.querySelector('.app-header'); const hc = hb2 ? parse(getComputedStyle(hb2).backgroundColor) : null; R.chromeWhite = !hc || (hc.r===255 && hc.g===255 && hc.b===255); R.pageWhite = !c2 || (c2.r===255 && c2.g===255 && c2.b===255); }
   // cabecera de portada: «Fecha» debe ser Mes y Año
@@ -311,6 +315,12 @@ def main():
             if len(d) != R['count']: print(f'✗ ERROR  El PDF tiene {len(d)} páginas y el deck {R["count"]} láminas.'); errs += 1
             badf = [n for n in names if re.search(r'Liberation|Georgia|Times|Arial|DejaVu|Helvetica|Segoe', n)]
             if badf: print('✗ ERROR  Fuentes de respaldo en el PDF (fuente no cargada):', ', '.join(badf)); errs += 1
+            # máscaras de luminosidad (SMask) = sombras difuminadas que varios visores de PDF de celular pintan como rectángulos grises
+            nsm = 0
+            for p in d:
+                res = d.xref_get_key(p.xref, 'Resources')[1] or ''
+                nsm += sum(1 for x in re.findall(r'/G\d+ (\d+) 0 R', res) if 'Luminosity' in d.xref_object(int(x), compressed=True))
+            if nsm: print(f'✗ ERROR  El PDF tiene {nsm} máscara(s) de luminosidad (sombras difuminadas): en visores de PDF de celular se ven como rectángulos grises. Ejecutar herramientas/arreglar_pdf_sombras.py <deck> --aplicar (inserta el bloque y regenera el PDF).'); errs += 1
             if a.png_dir:
                 os.makedirs(a.png_dir, exist_ok=True)
                 for i, p in enumerate(d, 1): p.get_pixmap(dpi=110).save(os.path.join(a.png_dir, f'lamina_{i:02d}.png'))
