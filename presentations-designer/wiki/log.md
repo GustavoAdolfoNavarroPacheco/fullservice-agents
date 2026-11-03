@@ -2357,3 +2357,10 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 * **Hecho:** `project-actions.tsx` (reutiliza `RowMenu` con botón grande y «Eliminar» bloqueable), `eliminarProyecto` + `eliminarProyectoAction` (exige rol que pueda escribir). Borra PDF, cotización, cambios guardados y por último el proyecto; luego vuelve al catálogo con aviso.
 * **Decisión tomada (revisable):** los proyectos registrados por el agente en `decks.ts` no se eliminan desde el portal (son código y carpeta de presentación); su opción «Eliminar» sale atenuada con la razón y el servidor también lo rechaza.
 * **Verificación:** `tsc` limpio, 206 pruebas y navegador: menú, pop-up, eliminación real de un proyecto de prueba (las cuatro tablas quedaron sin rastro) y bloqueo en un proyecto del agente. Proyecto de prueba ya borrado.
+
+## [2026-11-03] build | Palmera Junior S.A.S.: dos decks de actualización a Laravel 13
+* **Pedido:** dos presentaciones (Escenario 1 y 2) con precios $15.571.428,57 y $17.857.142,86; contenido de «Propuesta actualización Palmera Soft.pdf»; logo en `recursos/`.
+* **Hecho:** `palmera-escenario-1` (7 láminas) y `palmera-escenario-2` (8) desde `_plantilla-campuslands`, generados con un script (fuera del repo). Logo `.webp` convertido a PNG y recortado (1,43 : 1); `igualar_logos.py` → `--k-cliente 1,7381`; como el logo del cliente queda de ~73 px en la barra, se subió `--bar-h` a 88 px (barra superior e inferior iguales) y `--logo-h-cover` a 52 px. Total único por escenario (sin desglose por fase; la propuesta decía «Por definir») y pago 40/40/20 por defecto, sin montos por hito para evitar descuadre de centavos.
+* **Razón de ubicación:** PHP2Shell abre (es el motivo); 71/9/9/2028 en métricas (riesgo medido); 8 entregables en cuadrícula (ítems paralelos); precio con marco neón (único dato clave).
+* **Verificación:** `verificar_deck.py` APROBADO en ambos (PDF 7 y 8 págs, solo Poppins) y revisión a la vista de cada lámina. Se quitó una flecha «→» (caía a SegoeUI) y se corrigieron overflow del «T1 2028» y contraste de las semanas.
+* **Registro:** `decks.ts` (categoría software, colores `#00AC4B`/`#2E2E2E`) e `index.md`.
