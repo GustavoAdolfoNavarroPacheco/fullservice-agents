@@ -8,8 +8,8 @@
 <link rel="stylesheet" href="../assets/estilo.css">
 </head>
 <body>
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-usuario.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></header>
-<div class="shell"><aside class="toc"><p>En esta guía</p><ol><li><a href="#en-resumen">En resumen</a></li><li><a href="#para-que-sirve">Para qué sirve</a></li><li><a href="#antes-de-empezar">Antes de empezar</a></li><li><a href="#paso-a-paso">Paso a paso</a></li><li><a href="#ejemplos-de-conversacion">Ejemplos de conversación</a></li><li><a href="#que-recibes">Qué recibes</a></li><li><a href="#como-revisar-la-cotizacion">Cómo revisar la cotización</a></li><li><a href="#como-pedir-ajustes">Cómo pedir ajustes</a></li><li><a href="#lo-que-el-agente-no-hace">Lo que el agente no hace</a></li><li><a href="#preguntas-frecuentes">Preguntas frecuentes</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#si-algo-no-funciona">Si algo no funciona</a></li></ol></aside>
+<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-usuario.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
+<div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol><li><a href="#en-resumen">En resumen</a></li><li><a href="#para-que-sirve">Para qué sirve</a></li><li><a href="#antes-de-empezar">Antes de empezar</a></li><li><a href="#paso-a-paso">Paso a paso</a></li><li><a href="#ejemplos-de-conversacion">Ejemplos de conversación</a></li><li><a href="#que-recibes">Qué recibes</a></li><li><a href="#como-revisar-la-cotizacion">Cómo revisar la cotización</a></li><li><a href="#como-pedir-ajustes">Cómo pedir ajustes</a></li><li><a href="#lo-que-el-agente-no-hace">Lo que el agente no hace</a></li><li><a href="#preguntas-frecuentes">Preguntas frecuentes</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#si-algo-no-funciona">Si algo no funciona</a></li></ol></aside>
 <article>
 <p class="kicker">Guía de usuario · Desarrollador de Cotizaciones</p>
 <h1>Desarrollador de Cotizaciones: cómo obtener el PDF y el Excel de una cotización</h1>
@@ -18,13 +18,13 @@
 <h2 id="en-resumen">En resumen</h2>
 <p>El <strong>Desarrollador de Cotizaciones</strong> convierte lo que tu cliente necesita en dos archivos que cuentan lo mismo: un <strong>PDF</strong> con el alcance del proyecto dividido por módulos y con su precio, y un <strong>Excel</strong> con las horas de trabajo de cada especialidad y el costo calculado por las fórmulas del equipo.</p>
 <p>Tú compartes los alcances; el agente redacta, estima y llena los archivos. Primero validas el contenido del PDF y después se calculan los precios, para que nunca discutas un precio sobre un alcance que todavía no estaba claro.</p>
-<div class="stats"><div><b>2</b><span>archivos que recibes: un PDF de alcance y un Excel de cotización</span></div><div><b>0</b><span>alcance inventado: solo escribe lo que tú le diste o confirmaste</span></div><div><b>3</b><span>niveles de detalle: módulo, submódulo y funcionalidad</span></div></div>
+<div class="stats n3"><div><b>2</b><span>archivos que recibes: un PDF de alcance y un Excel de cotización</span></div><div><b>0</b><span>alcance inventado: solo escribe lo que tú le diste o confirmaste</span></div><div><b>3</b><span>niveles de detalle: módulo, submódulo y funcionalidad</span></div></div>
 <div class="callout tip"><span class="t">Si solo tienes un minuto</span><p>Pásale el documento de alcances y el nombre completo del cliente. Si algo no está claro, te lo preguntará antes de estimar.</p></div>
 <h2 id="para-que-sirve">Para qué sirve</h2>
 <p>Úsalo cuando tengas el alcance de un proyecto y necesites <strong>cotizarlo</strong>: describir qué se va a construir, cuánto esfuerzo requiere cada parte y cuánto cuesta. Funciona para proyectos pequeños, de un solo módulo, y para portafolios grandes de varios proyectos.</p>
 <h3 id="como-se-organiza-una-cotizacion">Cómo se organiza una cotización</h3>
 <p>Toda cotización tiene la misma estructura, de lo general a lo específico:</p>
-<ol class="flow"><li><b>Módulo</b><span>Una gran área del proyecto. Por ejemplo, «Gestión de usuarios».</span></li><li><b>Submódulo</b><span>Una agrupación dentro del módulo. Por ejemplo, «Roles y permisos».</span></li><li><b>Funcionalidad</b><span>Una capacidad concreta, con su propio esfuerzo y su propio precio.</span></li></ol>
+<ol class="flow c3"><li><b>Módulo</b><span>Una gran área del proyecto. Por ejemplo, «Gestión de usuarios».</span></li><li><b>Submódulo</b><span>Una agrupación dentro del módulo. Por ejemplo, «Roles y permisos».</span></li><li><b>Funcionalidad</b><span>Una capacidad concreta, con su propio esfuerzo y su propio precio.</span></li></ol>
 <p>La cantidad de funcionalidades que tiene cada submódulo <strong>depende de lo que el alcance realmente describe</strong>: una, o varias. El agente nunca fuerza un número fijo, ni junta varias cosas distintas en una para ahorrar espacio.</p>
 <h2 id="antes-de-empezar">Antes de empezar</h2>
 <p>Reúne:</p>
@@ -54,7 +54,7 @@
 <h3 id="ver-el-total">Ver el total</h3>
 <div class="chat"><div class="u"><b>Tú</b>¿Cuánto da el total del proyecto y qué parte son los costos transversales?</div><div class="g"><b>Agente</b>El total es el calculado por el Excel. Los transversales (estructura, diseño base, implementación y agente de IA) suman el valor que aparece en la banda correspondiente del PDF.</div></div>
 <h2 id="que-recibes">Qué recibes</h2>
-<div class="cards"><div><b>PDF de cotización de alcance</b><span>Módulos, submódulos y funcionalidades, cada una con su precio, los subtotales por módulo y el total general.</span></div><div><b>Excel de cotización</b><span>El esfuerzo en días por especialidad y el costo calculado con las fórmulas del equipo Campus.</span></div><div><b>Lista de pendientes</b><span>Lo que conviene que valides: distribución de días, posibles solapamientos entre módulos y datos que falten.</span></div></div>
+<div class="cards "><div><b>PDF de cotización de alcance</b><span>Módulos, submódulos y funcionalidades, cada una con su precio, los subtotales por módulo y el total general.</span></div><div><b>Excel de cotización</b><span>El esfuerzo en días por especialidad y el costo calculado con las fórmulas del equipo Campus.</span></div><div><b>Lista de pendientes</b><span>Lo que conviene que valides: distribución de días, posibles solapamientos entre módulos y datos que falten.</span></div></div>
 <h3 id="los-costos-que-siempre-aparecen">Los costos que siempre aparecen</h3>
 <p>Además de los módulos del cliente, toda cotización incluye <strong>cuatro costos transversales</strong> que no vienen de una funcionalidad concreta, sino del proyecto como un todo:</p>
 <div class="tw"><table><thead><tr><th>Costo transversal</th><th>Qué cubre</th></tr></thead><tbody><tr><td>Estructura del proyecto</td><td>Arranque, liderazgo, arquitectura y organización del trabajo</td></tr><tr><td>UX y esquema del proyecto</td><td>Diseño de la experiencia y de la interfaz base de todo el sistema</td></tr><tr><td>Implementación y entrega del sistema</td><td>Despliegue, entrega y capacitación general</td></tr><tr><td>Estructura del agente de IA</td><td>La base del asistente de IA, si el proyecto lo incluye</td></tr></tbody></table></div>
@@ -79,6 +79,8 @@
 <p>Si los totales no cuadran, si falta una funcionalidad o si el agente no responde como esperas, descríbele el problema con el módulo o la funcionalidad concreta. Si el comportamiento se repite, avisa a quien mantiene el agente; su guía técnica explica cómo se verifican el PDF y el Excel.</p>
 <div class="more"><span>¿Buscas la otra mirada de este agente?</span><nav><a class="btn ghost" href="guia-dev.html">Guía Dev</a><a class="btn ghost" href="../index.html">Todas las guías</a></nav></div>
 </article></div>
+<script src="../assets/lenis.min.js"></script>
+<script src="../assets/suave.js"></script>
 <script>
 (function(){var l=[].slice.call(document.querySelectorAll('.toc a'));if(!l.length||!('IntersectionObserver'in window))return;
 var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});

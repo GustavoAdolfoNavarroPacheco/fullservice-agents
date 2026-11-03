@@ -57,8 +57,13 @@ def head(title, rel):
 
 def topbar(rel, pdf=None):
     btn = ('<a class="btn" href="%s" download>%s Descargar PDF</a>' % (pdf, DL)) if pdf else ''
-    return ('<header class="top"><a class="brand" href="%sindex.html"><img src="%sassets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a>'
-            '<nav><a href="%sindex.html">Todas las guías</a>%s</nav></header>\n' % (rel, rel, rel, btn))
+    return ('<header class="top"><div class="top-in"><a class="brand" href="%sindex.html"><img src="%sassets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a>'
+            '<nav><a href="%sindex.html">Todas las guías</a>%s</nav></div></header>\n' % (rel, rel, rel, btn))
+
+
+def scripts(rel):
+    """Scroll suave (Lenis) en todas las páginas; suave.js lo activa."""
+    return '<script src="%sassets/lenis.min.js"></script>\n<script src="%sassets/suave.js"></script>' % (rel, rel)
 
 
 def guide_page(ag, kind, meta, body, toc, words):
@@ -67,40 +72,44 @@ def guide_page(ag, kind, meta, body, toc, words):
     title = meta.get('titulo', ag['nombre'])
     tocs = ''.join('<li><a href="#%s">%s</a></li>' % (i, html.escape(t)) for i, t in toc)
     page = head('%s — %s' % (title, ag['nombre']), '../') + topbar('../', 'guia-%s.pdf' % kind)
-    page += ('<div class="shell"><aside class="toc"><p>En esta guía</p><ol>%s</ol></aside>\n<article>\n'
+    page += ('<div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol>%s</ol></aside>\n<article>\n'
              '<p class="kicker">%s · %s</p>\n<h1>%s</h1>\n<p class="dek">%s</p>\n'
              '<div class="chips"><span>%s</span><span>%s</span><span>%s</span><span>%d min de lectura</span></div>\n%s\n'
              '<div class="more"><span>¿Buscas la otra mirada de este agente?</span><nav>'
-             '<a class="btn ghost" href="guia-%s.html">%s</a><a class="btn ghost" href="../index.html">Todas las guías</a></nav></div>\n</article></div>\n%s\n</body>\n</html>\n'
+             '<a class="btn ghost" href="guia-%s.html">%s</a><a class="btn ghost" href="../index.html">Todas las guías</a></nav></div>\n</article></div>\n%s\n%s\n</body>\n</html>\n'
              % (tocs, TIPOS[kind], html.escape(ag['nombre']), md.inline(title), md.inline(meta.get('resumen', '')),
-                FECHA, TIPOS[kind], html.escape(ag['slug']), mins, body, other, TIPOS[other], JS))
+                FECHA, TIPOS[kind], html.escape(ag['slug']), mins, body, other, TIPOS[other], scripts('../'), JS))
     return page
 
 
 def index_page(items):
-    rows = ''
-    for ag in AGENTES:
-        rows += ('<div class="ag"><div><h3>%s</h3><small>%s · %s</small></div><p>%s</p><div class="go">'
-                 '<a class="btn ghost" href="%s/guia-usuario.html">Usuario</a><a class="btn ghost" href="%s/guia-dev.html">Dev</a></div></div>\n'
-                 % (html.escape(ag['nombre']), html.escape(ag['rol']), html.escape(ag['plataforma']), html.escape(ag['resumen']), ag['slug'], ag['slug']))
+    by = {(ag['slug'], m['tipo']): (m, w) for ag, m, w in items}
 
-    def cards(kind):
+    def rows(kind):
         out = ''
-        for ag, meta, words in items:
-            if meta['tipo'] != kind:
+        for ag in AGENTES:
+            if (ag['slug'], kind) not in by:
                 continue
-            out += ('<a class="item" href="%s/guia-%s.html"><h3>%s</h3><p>%s</p><div class="m"><span>%s</span><span>%d min de lectura</span><span>%s</span></div></a>\n'
-                    % (ag['slug'], kind, md.inline(meta['titulo']), md.inline(meta['resumen']), html.escape(ag['nombre']), max(1, round(words / 210)), html.escape(ag['plataforma'])))
+            m, w = by[(ag['slug'], kind)]
+            base = '%s/guia-%s' % (ag['slug'], kind)
+            nice = '%s - %s.pdf' % ('Guia Dev' if kind == 'dev' else 'Guia Usuario', ag['nombre'])
+            out += ('<div class="ag"><div><h3>%s</h3><small>%s · %s</small></div><p><b>%s</b>%s</p>'
+                    '<div class="go"><small>%d min</small><a class="btn" href="%s.html">Leer</a>'
+                    '<a class="btn ghost" href="%s.pdf" download="%s" aria-label="Descargar PDF de %s">PDF</a></div></div>\n'
+                    % (html.escape(ag['nombre']), html.escape(ag['rol']), html.escape(ag['plataforma']), md.inline(m['titulo']), md.inline(m['resumen']),
+                       max(1, round(w / 210)), base, base, html.escape(nice), html.escape(ag['nombre'])))
         return out
     page = head('Guías de los agentes — FullService', '') + topbar('')
     page += ('<main class="home"><p class="kicker">Campuslands · Full Service</p><h1>Guías de uso de los agentes</h1>'
              '<p class="dek">Siete agentes, dos guías cada uno: una para quien los usa todos los días y otra para quien los mantiene.</p>'
              '<div class="chips"><span>%s</span><span>7 agentes</span><span>14 guías</span></div>'
-             '<h2>Guías de usuario</h2><p class="sub">Sin tecnicismos: qué le pides al agente, qué necesita de ti, qué recibes y cómo lo revisas.</p><div class="list">%s</div>'
-             '<h2>Guías Dev</h2><p class="sub">Para developers: carpetas, ciclos de trabajo, formatos, reglas, scripts, verificación y mantenimiento.</p><div class="list">%s</div>'
-             '<h2>Los siete agentes</h2><p class="sub">En el orden del flujo comercial.</p><div class="agents">%s</div></main>\n'
-             '<footer class="site"><span>Campuslands S.A.S. BIC · Full Service</span><span>Exploramos · Despegamos · Conquistamos</span></footer>\n</body>\n</html>\n'
-             % (FECHA, cards('usuario'), cards('dev'), rows))
+             '<div class="pick">'
+             '<a href="#usuario"><small>Para usar el agente</small><b>Guías de usuario</b><span>Qué entregarle, cómo pedirlo, qué recibes y cómo revisarlo. Sin tecnicismos.</span><em>Ver las 7 guías →</em></a>'
+             '<a href="#dev"><small>Para mantenerlo</small><b>Guías Dev</b><span>Arquitectura, ciclos de trabajo, formatos, reglas, scripts y verificación.</span><em>Ver las 7 guías →</em></a></div>'
+             '<h2 id="usuario">Guías de usuario</h2><p class="sub">En el orden del flujo comercial, de la prospección al contrato.</p><div class="agents">%s</div>'
+             '<h2 id="dev">Guías Dev</h2><p class="sub">Cómo está construido cada agente y cómo se mantiene.</p><div class="agents">%s</div></main>\n'
+             '<footer class="site"><span>Campuslands S.A.S. BIC · Full Service</span><span>Exploramos · Despegamos · Conquistamos</span></footer>\n%s\n</body>\n</html>\n'
+             % (FECHA, rows('usuario'), rows('dev'), scripts('')))
     return page
 
 
@@ -137,6 +146,7 @@ def build(only=None, pdf=True):
     check_scale()
     (ROOT / 'assets').mkdir(exist_ok=True)
     (ROOT / 'assets' / 'estilo.css').write_text((SRC / 'estilo.css').read_text(encoding='utf-8'), encoding='utf-8')
+    (ROOT / 'assets' / 'suave.js').write_text((SRC / 'suave.js').read_text(encoding='utf-8'), encoding='utf-8')
     items = []
     for ag in AGENTES:
         for kind in ('dev', 'usuario'):

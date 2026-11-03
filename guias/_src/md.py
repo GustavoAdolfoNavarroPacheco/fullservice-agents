@@ -73,7 +73,9 @@ def fence(kind, body):
         vertical = bool(body and body[0].strip() == '@vertical')
         items = _pairs(body[1:] if vertical else body)
         lis = ''.join('<li><b>%s</b><span>%s</span></li>' % (inline(a), inline(b)) for a, b in items)
-        return '<ol class="flow%s">%s</ol>' % (' v' if vertical else '', lis)
+        n = len(items)
+        cols = 2 if n <= 2 else (n if n <= 4 else (3 if n <= 6 else 4))        # filas equilibradas; sin flecha al final de fila
+        return '<ol class="flow%s">%s</ol>' % (' v' if vertical else ' c%d' % cols, lis)
     if kind == 'lanes':
         steps = _pairs(body)
         actors = []
@@ -96,9 +98,17 @@ def fence(kind, body):
         return '<div class="chat">%s</div>' % ''.join(
             '<div class="%s"><b>%s</b>%s</div>' % ('u' if a.lower() in ('tú', 'tu', 'usuario', 'yo') else 'g', html.escape(a), inline(t)) for a, t in msgs)
     if kind == 'stats':
-        return '<div class="stats">%s</div>' % ''.join('<div><b>%s</b><span>%s</span></div>' % (html.escape(a), inline(b)) for a, b in _pairs(body))
+        items = _pairs(body)
+        n = len(items)
+        cls = 'n%d' % n if n in (2, 3, 4) else ''
+        if n == 4 and max(len(b) for _, b in items) > 60:
+            cls += ' w'                                                         # textos largos: 2 × 2 en lugar de 4 columnas
+        return '<div class="stats %s">%s</div>' % (cls, ''.join('<div><b>%s</b><span>%s</span></div>' % (html.escape(a), inline(b)) for a, b in items))
     if kind == 'cards':
-        return '<div class="cards">%s</div>' % ''.join('<div><b>%s</b><span>%s</span></div>' % (inline(a), inline(b)) for a, b in _pairs(body))
+        items = _pairs(body)
+        n = len(items)
+        cls = 'c1' if n == 1 else ('c2' if n in (2, 4) else '')                 # 2 o 4 tarjetas: 2 columnas; el resto: 3
+        return '<div class="cards %s">%s</div>' % (cls, ''.join('<div><b>%s</b><span>%s</span></div>' % (inline(a), inline(b)) for a, b in items))
     return '<pre><code>%s</code></pre>' % html.escape('\n'.join(body))
 
 
