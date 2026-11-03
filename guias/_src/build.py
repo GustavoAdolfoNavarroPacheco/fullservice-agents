@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""build.py — genera las guías (HTML) y el portal a partir de agentes/*.py.
+"""build.py — genera las guías (web + PDF) y el índice a partir de contenido/<agente>/{dev,usuario}.md
 
-Uso:   python guias/_src/build.py [slug ...]     (sin argumentos: las 7 guías x 2 + portal)
-Luego: python guias/_src/verificar.py [slug ...] (verificador de presentations-designer + PDF)
+Uso:  python -X utf8 guias/_src/build.py [slug ...] [--sin-pdf]
+Salida: guias/<agente>/guia-{dev,usuario}.html y .pdf · guias/index.html
 """
-import importlib
+import html
 import pathlib
 import sys
 
@@ -16,65 +16,148 @@ for _s in (sys.stdout, sys.stderr):
         _s.reconfigure(encoding='utf-8')
     except Exception:
         pass
+import md  # noqa: E402
 
-import kit  # noqa: E402
+CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
+FECHA = '3 nov 2026'
 
 # orden del pipeline comercial
-AGENTES = ['prospection-agent', 'intelligence-commercial', 'presentations-designer', 'functional-scope',
-           'quote-developer-v2', 'bidding-agent', 'contract-perfectionist']
-MAX_SLIDES = {'dev': 12, 'usuario': 10}
+AGENTES = [
+    dict(slug='prospection-agent', nombre='Radar de Campus', rol='Prospección de empresas', plataforma='Perplexity',
+         resumen='Busca en la web abierta las empresas que encajan con el perfil de cliente de Campuslands y entrega un listado con datos públicos verificables.'),
+    dict(slug='intelligence-commercial', nombre='Explorador de Campus', rol='Inteligencia comercial en LinkedIn', plataforma='Perplexity',
+         resumen='Toma una lista de empresas, encuentra a los contactos clave de cada una y les envía solicitudes de conexión personalizadas.'),
+    dict(slug='presentations-designer', nombre='Estudio de Presentaciones', rol='Presentaciones comerciales', plataforma='Claude Code',
+         resumen='Construye presentaciones comerciales por cliente bajo el Brandbook de Campuslands, las exporta a PDF y las publica con un link.'),
+    dict(slug='functional-scope', nombre='Alcances Funcionales', rol='Documentos de alcance funcional', plataforma='Claude Code',
+         resumen='Lee las fuentes de un proyecto, detecta contradicciones y vacíos y redacta el alcance funcional para el cliente, sin inventar compromisos.'),
+    dict(slug='quote-developer-v2', nombre='Desarrollador de Cotizaciones', rol='Cotizaciones: PDF + XLSX', plataforma='Claude Code',
+         resumen='A partir de los alcances genera el PDF de cotización de alcance y llena la plantilla XLSX de costos del equipo Campus.'),
+    dict(slug='bidding-agent', nombre='Agente Licitatorio', rol='Licitaciones y preventa técnica', plataforma='Claude Code',
+         resumen='Analiza los cuatro documentos de una licitación y construye la propuesta técnica, la estimación de horas y el análisis de IA.'),
+    dict(slug='contract-perfectionist', nombre='Contract Perfectionist', rol='Redacción de contratos', plataforma='Claude Code',
+         resumen='Redacta el contrato final de un proyecto a partir de los alcances, la cotización y el contrato madre, listo para firma.'),
+]
+TIPOS = {'dev': 'Guía Dev', 'usuario': 'Guía de usuario'}
+DL = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>'
+
+JS = """<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.toc a'));if(!l.length||!('IntersectionObserver'in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-80px 0px -70% 0px'});
+document.querySelectorAll('article h2').forEach(function(h){o.observe(h)})})();
+</script>"""
 
 
-def load(slug):
-    return importlib.import_module('agentes.' + slug.replace('-', '_'))
+def head(title, rel):
+    return ('<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+            '<title>%s</title>\n<link rel="icon" type="image/png" href="%sassets/img/favicon.png">\n<link rel="stylesheet" href="%sassets/estilo.css">\n</head>\n<body>\n'
+            % (html.escape(title), rel, rel))
 
 
-def check_glyphs(doc, name):
-    """Falla si el texto usa glifos que Poppins no tiene (el PDF caería a Segoe UI)."""
-    from fontTools.ttLib import TTFont
-    global _CMAP
-    if '_CMAP' not in globals():
-        _CMAP = set()
-        for w in ('Regular', 'Medium', 'SemiBold', 'Black', 'BlackItalic'):
-            cm = set(TTFont(str(ROOT / 'assets' / 'fonts' / ('Poppins-%s.ttf' % w))).getBestCmap())
-            _CMAP = cm if not _CMAP else (_CMAP & cm)
+def topbar(rel, pdf=None):
+    btn = ('<a class="btn" href="%s" download>%s Descargar PDF</a>' % (pdf, DL)) if pdf else ''
+    return ('<header class="top"><a class="brand" href="%sindex.html"><img src="%sassets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a>'
+            '<nav><a href="%sindex.html">Todas las guías</a>%s</nav></header>\n' % (rel, rel, rel, btn))
+
+
+def guide_page(ag, kind, meta, body, toc, words):
+    other = 'usuario' if kind == 'dev' else 'dev'
+    mins = max(1, round(words / 210))
+    title = meta.get('titulo', ag['nombre'])
+    tocs = ''.join('<li><a href="#%s">%s</a></li>' % (i, html.escape(t)) for i, t in toc)
+    page = head('%s — %s' % (title, ag['nombre']), '../') + topbar('../', 'guia-%s.pdf' % kind)
+    page += ('<div class="shell"><aside class="toc"><p>En esta guía</p><ol>%s</ol></aside>\n<article>\n'
+             '<p class="kicker">%s · %s</p>\n<h1>%s</h1>\n<p class="dek">%s</p>\n'
+             '<div class="chips"><span>%s</span><span>%s</span><span>%s</span><span>%d min de lectura</span></div>\n%s\n'
+             '<div class="more"><span>¿Buscas la otra mirada de este agente?</span><nav>'
+             '<a class="btn ghost" href="guia-%s.html">%s</a><a class="btn ghost" href="../index.html">Todas las guías</a></nav></div>\n</article></div>\n%s\n</body>\n</html>\n'
+             % (tocs, TIPOS[kind], html.escape(ag['nombre']), md.inline(title), md.inline(meta.get('resumen', '')),
+                FECHA, TIPOS[kind], html.escape(ag['slug']), mins, body, other, TIPOS[other], JS))
+    return page
+
+
+def index_page(items):
+    rows = ''
+    for ag in AGENTES:
+        rows += ('<div class="ag"><div><h3>%s</h3><small>%s · %s</small></div><p>%s</p><div class="go">'
+                 '<a class="btn ghost" href="%s/guia-usuario.html">Usuario</a><a class="btn ghost" href="%s/guia-dev.html">Dev</a></div></div>\n'
+                 % (html.escape(ag['nombre']), html.escape(ag['rol']), html.escape(ag['plataforma']), html.escape(ag['resumen']), ag['slug'], ag['slug']))
+
+    def cards(kind):
+        out = ''
+        for ag, meta, words in items:
+            if meta['tipo'] != kind:
+                continue
+            out += ('<a class="item" href="%s/guia-%s.html"><h3>%s</h3><p>%s</p><div class="m"><span>%s</span><span>%d min de lectura</span><span>%s</span></div></a>\n'
+                    % (ag['slug'], kind, md.inline(meta['titulo']), md.inline(meta['resumen']), html.escape(ag['nombre']), max(1, round(words / 210)), html.escape(ag['plataforma'])))
+        return out
+    page = head('Guías de los agentes — FullService', '') + topbar('')
+    page += ('<main class="home"><p class="kicker">Campuslands · Full Service</p><h1>Guías de uso de los agentes</h1>'
+             '<p class="dek">Siete agentes, dos guías cada uno: una para quien los usa todos los días y otra para quien los mantiene.</p>'
+             '<div class="chips"><span>%s</span><span>7 agentes</span><span>14 guías</span></div>'
+             '<h2>Guías de usuario</h2><p class="sub">Sin tecnicismos: qué le pides al agente, qué necesita de ti, qué recibes y cómo lo revisas.</p><div class="list">%s</div>'
+             '<h2>Guías Dev</h2><p class="sub">Para developers: carpetas, ciclos de trabajo, formatos, reglas, scripts, verificación y mantenimiento.</p><div class="list">%s</div>'
+             '<h2>Los siete agentes</h2><p class="sub">En el orden del flujo comercial.</p><div class="agents">%s</div></main>\n'
+             '<footer class="site"><span>Campuslands S.A.S. BIC · Full Service</span><span>Exploramos · Despegamos · Conquistamos</span></footer>\n</body>\n</html>\n'
+             % (FECHA, cards('usuario'), cards('dev'), rows))
+    return page
+
+
+def make_pdf(html_path, pdf_path, title):
+    from playwright.sync_api import sync_playwright
+    hdr = ('<div style="width:100%%;padding:0 20mm;font:8px Arial,sans-serif;color:#87867f">%s</div>' % html.escape(title))
+    ftr = ('<div style="width:100%;padding:0 20mm;font:8px Arial,sans-serif;color:#87867f;text-align:right">'
+           'Página <span class="pageNumber"></span> de <span class="totalPages"></span></div>')
+    with sync_playwright() as p:
+        b = p.chromium.launch(executable_path=CHROME)
+        pg = b.new_page()
+        pg.goto(html_path.as_uri())
+        pg.emulate_media(media='print')
+        pg.evaluate('document.fonts.ready')
+        pg.wait_for_timeout(500)
+        pg.pdf(path=str(pdf_path), format='A4', print_background=True, display_header_footer=True, header_template=hdr, footer_template=ftr,
+               margin=dict(top='22mm', bottom='20mm', left='20mm', right='20mm'))
+        b.close()
+
+
+def check_scale():
+    """La hoja de estilos solo puede usar la escala tipográfica (variables --t-*): evita tamaños sueltos."""
     import re
-    text = re.sub(r'<svg.*?</svg>|<style.*?</style>', '', doc, flags=re.S)
-    bad = sorted({ch for ch in text if ord(ch) > 127 and ord(ch) not in _CMAP})
+    css = (SRC / 'estilo.css').read_text(encoding='utf-8')
+    css = re.sub(r'/\*.*?\*/', '', css, flags=re.S)
+    css = re.sub(r':root\{[^}]*\}', '', css)            # definiciones de la escala
+    css = re.sub(r'@media[^{]*\{\s*:root\{[^}]*\}', '@media{', css)   # redefiniciones por ancho / impresión
+    bad = [v for v in re.findall(r'font-size:\s*([^;}]+)', css) if not (v.strip().startswith('var(--t-') or v.strip() == 'inherit')]
     if bad:
-        raise SystemExit('%s: glifos fuera de Poppins: %s' % (name, ' '.join('%s(U+%04X)' % (c, ord(c)) for c in bad)))
+        raise SystemExit('estilo.css usa tamaños fuera de la escala: %s' % sorted(set(bad)))
 
 
-def build(only=None):
-    css = (SRC / 'base.css').read_text(encoding='utf-8') + (SRC / 'extras.css').read_text(encoding='utf-8')
-    (ROOT / 'assets' / 'styles.css').write_text(css, encoding='utf-8')
-    done = []
-    for slug in AGENTES:
-        if only and slug not in only:
-            continue
-        try:
-            mod = load(slug)
-        except ModuleNotFoundError as e:
-            print('  (pendiente)', slug, '->', e)
-            continue
+def build(only=None, pdf=True):
+    check_scale()
+    (ROOT / 'assets').mkdir(exist_ok=True)
+    (ROOT / 'assets' / 'estilo.css').write_text((SRC / 'estilo.css').read_text(encoding='utf-8'), encoding='utf-8')
+    items = []
+    for ag in AGENTES:
         for kind in ('dev', 'usuario'):
-            slides = getattr(mod, kind)()
-            doc, n = kit.render_deck(mod.META, kind, slides)
-            check_glyphs(doc, '%s/%s' % (slug, kind))
-            out = ROOT / slug / kind
-            out.mkdir(parents=True, exist_ok=True)
-            (out / 'index.html').write_text(doc, encoding='utf-8')
-            flag = '' if n <= MAX_SLIDES[kind] else '  ⚠ excede %d' % MAX_SLIDES[kind]
-            print('  %-26s %-8s %2d láminas%s' % (slug, kind, n, flag))
-        done.append(slug)
-    try:
-        import portal
-        portal.render(ROOT, [load(s).META for s in AGENTES if (ROOT / s / 'dev' / 'index.html').exists()])
-        print('  portal: index.html')
-    except ModuleNotFoundError:
-        pass
-    return done
+            src = SRC / 'contenido' / ag['slug'] / ('%s.md' % kind)
+            if not src.exists():
+                continue
+            meta, body, toc, words = md.convert(src.read_text(encoding='utf-8'))
+            meta['tipo'] = kind
+            items.append((ag, meta, words))
+            if only and ag['slug'] not in only:
+                continue
+            out = ROOT / ag['slug']
+            out.mkdir(exist_ok=True)
+            hp = out / ('guia-%s.html' % kind)
+            hp.write_text(guide_page(ag, kind, meta, body, toc, words), encoding='utf-8')
+            print('  %-26s %-8s %5d palabras · %d secciones' % (ag['slug'], kind, words, len(toc)))
+            if pdf:
+                make_pdf(hp, out / ('guia-%s.pdf' % kind), '%s · %s' % (ag['nombre'], TIPOS[kind]))
+    (ROOT / 'index.html').write_text(index_page(items), encoding='utf-8')
 
 
 if __name__ == '__main__':
-    build(sys.argv[1:] or None)
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    build(args or None, '--sin-pdf' not in sys.argv)

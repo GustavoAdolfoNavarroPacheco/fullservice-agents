@@ -1,11 +1,11 @@
 # Guías de los agentes
 
-Dos guías por agente (7 agentes, 14 guías), en **visor web** y **PDF**, con el sistema de diseño v3 de `presentations-designer` (láminas 1056 × 594 px, Poppins, fondo blanco, sombras en lugar de bordes, logo de Campuslands a color).
+Dos guías por agente (7 agentes, 14 guías), en **web** y **PDF**, con un estilo editorial inspirado en los documentos de Claude Docs y el blog de Anthropic: títulos en serif, texto en sans, fondo blanco, tablas crema, avisos y diagramas ligeros.
 
-| Guía | Para quién | Láminas |
+| Guía | Para quién | Extensión aproximada |
 |---|---|---|
-| **Guía Dev** | Quien mantiene el agente: carpetas, ciclos de trabajo, reglas, scripts, verificación y mantenimiento | 12 |
-| **Guía de usuario** | Cualquier persona: qué darle, cómo se usa, qué escribirle, qué recibe y cómo revisarlo | 9–10 |
+| **Guía Dev** | Quien mantiene el agente: arquitectura, ciclos de trabajo, formatos, reglas, scripts, verificación, mantenimiento y problemas frecuentes | 2.700–4.000 palabras · 11–14 páginas |
+| **Guía de usuario** | Cualquier persona: qué darle, cómo se usa, ejemplos de conversación, qué recibe y cómo revisarlo | 1.600–2.000 palabras · 8–9 páginas |
 
 ## Agentes cubiertos
 
@@ -15,46 +15,71 @@ Dos guías por agente (7 agentes, 14 guías), en **visor web** y **PDF**, con el
 
 ## Abrir
 
-- **Portal:** abrir [`index.html`](index.html) (funciona sin servidor, también desde un hosting estático).
-- **Una guía:** `<agente>/dev/index.html` o `<agente>/usuario/index.html`; teclas ← → para cambiar de lámina.
-- **PDF:** `<agente>/dev/guia-dev.pdf` y `<agente>/usuario/guia-usuario.pdf`.
+- **Índice:** [`index.html`](index.html) (funciona sin servidor).
+- **Una guía:** `<agente>/guia-dev.html` o `<agente>/guia-usuario.html`, con índice lateral que sigue la lectura.
+- **PDF (A4):** `<agente>/guia-dev.pdf` y `<agente>/guia-usuario.pdf`, con encabezado y «Página X de Y».
 
 ## Estructura
 
 ```
 guias/
-├── index.html                 portal (generado)
-├── assets/                    estilos, visor, fuentes Poppins, logo (compartidos)
-├── <agente>/dev/              index.html + guia-dev.pdf
-├── <agente>/usuario/          index.html + guia-usuario.pdf
+├── index.html                 índice (generado)
+├── assets/                    estilo, fuentes (OFL) y logo
+├── <agente>/guia-*.html/pdf   guías generadas
 └── _src/                      fuente: se edita aquí, no en los HTML
-    ├── kit.py                 arquetipos de lámina, íconos, ensamblador
-    ├── base.css · extras.css  CSS de la plantilla v3 + componentes de guías
-    ├── portal.py              landing
-    ├── agentes/<agente>.py    contenido de las dos guías de cada agente
-    ├── build.py               genera los HTML
-    └── verificar.py           verificar_deck.py + PDF + hojas de contacto
+    ├── contenido/<agente>/dev.md · usuario.md    el texto de cada guía (Markdown)
+    ├── estilo.css             sistema visual y escala tipográfica
+    ├── md.py                  convertidor Markdown → HTML (sin dependencias)
+    └── build.py               genera web, PDF e índice
 ```
 
 ## Regenerar
 
 ```bash
-python -X utf8 guias/_src/build.py                   # todas las guías y el portal
-python -X utf8 guias/_src/build.py quote-developer-v2  # solo un agente
-python -X utf8 guias/_src/verificar.py               # verificador oficial + PDF de las 14
+python -X utf8 guias/_src/build.py                      # todas las guías, PDF e índice
+python -X utf8 guias/_src/build.py quote-developer-v2   # solo un agente
+python -X utf8 guias/_src/build.py --sin-pdf            # solo HTML
 ```
 
-`verificar.py` ejecuta `presentations-designer/herramientas/verificar_deck.py` (necesita Chrome y Playwright) y exporta el PDF de cada guía. Tras un cambio de contenido hay que **regenerar y volver a mirar las láminas**: un texto más largo puede romper el reparto.
+Requiere Python 3, Chrome y `playwright` (para exportar los PDF).
 
-## Reglas aplicadas (y dónde se apartan)
+## Cómo se escribe una guía
 
-Se siguen las reglas de `presentations-designer/CLAUDE.md`: tema claro, Poppins en todo, tarjetas sin bordes, decoración `.fx`, un ícono con significado por elemento, numeral `.ghost`, migas en el pie, `verificar_deck.py` en APROBADO y revisión a la vista.
+Cada guía es un Markdown con una cabecera mínima:
 
-Diferencias deliberadas respecto a un deck comercial:
+```
+---
+titulo: Título de la guía
+resumen: Una o dos frases que aparecen bajo el título y en el índice.
+---
 
-- **Sin logo de cliente:** son documentos internos; la portada y el cierre llevan solo el logo de Campuslands (el verificador lo marca como aviso, no como error).
-- **Hasta 12 láminas** en las guías Dev (`--max-slides 12`); las de usuario no pasan de 10. La regla de 10 es de los decks comerciales.
+## Primera sección
+```
+
+Además del Markdown habitual (títulos `##` y `###`, listas, tablas, `**negrita**` y `` `código` ``), hay bloques propios:
+
+| Bloque | Qué dibuja |
+|---|---|
+| `> [!nota]`, `[!importante]`, `[!tip]`, `[!cuidado]` | Aviso con fondo de color |
+| ` ```stats ` | Cifras destacadas (`valor \| descripción`) |
+| ` ```cards ` | Tarjetas (`título \| texto`) |
+| ` ```flow ` | Diagrama de pasos numerados (`título \| texto`) |
+| ` ```lanes ` | Carriles: quién hace qué (`Actor \| paso`) |
+| ` ```chat ` | Conversación de ejemplo (`Tú: …` y `Agente: …`) |
+| ` ```tree ` | Árbol de carpetas, con comentarios tras `#` |
+
+## Reglas de estilo
+
+- **Escala tipográfica única de 7 tamaños** (más las cifras grandes), definida en `:root` de `estilo.css`: display, H2, lead, cuerpo, interfaz y meta. El generador **falla** si la hoja de estilos declara un tamaño fuera de esa escala, para que no vuelvan a colarse variaciones sueltas. En el PDF la escala es la misma, en puntos.
+- Los subtítulos (h3) usan el tamaño del cuerpo en semibold; la jerarquía se marca con peso, no con tamaños casi iguales.
+- El generador también comprueba la hoja de estilos al construir; si el texto usa un glifo que Inter o Source Serif no tienen, hay que reemplazarlo por uno que sí exista.
 
 ## Mantener las guías al día
 
-Las guías resumen el `CLAUDE.md` / `Perplexity.md` de cada agente a noviembre de 2026. Si cambia la configuración de un agente, actualizar su `_src/agentes/<agente>.py` y regenerar. Hallazgos de lint que ya constan en las guías Dev (sección «Síntomas frecuentes»): `presentations-designer/CLAUDE.md` cita `wiki/verificacion.md` y `wiki/temas-por-cliente.md`, y `quote-developer-v2/CLAUDE.md` cita `wiki/flujo-trabajo.md` y `scripts/recalc.py`; ninguno existe hoy en esas carpetas.
+Las guías resumen la configuración de cada agente (`CLAUDE.md`, `Perplexity.md`, habilidades y wiki) a **noviembre de 2026**. Si cambia un agente, se edita el Markdown de su guía y se regenera. Los datos que más caducan: los precios de IA de `bidding-agent`, las rutas y archivos citados y las reglas de marca de `presentations-designer`.
+
+Cada guía Dev incluye, cuando aplica, una sección «Cosas que no están alineadas» con inconsistencias reales entre archivos del propio agente, verificadas contra los archivos.
+
+## Fuentes tipográficas
+
+[Source Serif 4](https://fonts.google.com/specimen/Source+Serif+4) e [Inter](https://fonts.google.com/specimen/Inter), ambas con licencia SIL Open Font License, en `assets/fonts/`. Reemplazan a las tipografías propietarias de Anthropic, que no se pueden redistribuir.

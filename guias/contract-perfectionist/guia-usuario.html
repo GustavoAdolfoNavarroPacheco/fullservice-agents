@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contract Perfectionist: cómo obtener el contrato de un proyecto — Contract Perfectionist</title>
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<link rel="stylesheet" href="../assets/estilo.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-usuario.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></header>
+<div class="shell"><aside class="toc"><p>En esta guía</p><ol><li><a href="#en-resumen">En resumen</a></li><li><a href="#para-que-sirve">Para qué sirve</a></li><li><a href="#antes-de-empezar">Antes de empezar</a></li><li><a href="#paso-a-paso">Paso a paso</a></li><li><a href="#ejemplos-de-conversacion">Ejemplos de conversación</a></li><li><a href="#que-recibes">Qué recibes</a></li><li><a href="#los-datos-pendientes">Los datos pendientes</a></li><li><a href="#como-revisar-el-contrato">Cómo revisar el contrato</a></li><li><a href="#estados-de-un-contrato">Estados de un contrato</a></li><li><a href="#cambios-y-modificaciones">Cambios y modificaciones</a></li><li><a href="#lo-que-el-agente-no-hace">Lo que el agente no hace</a></li><li><a href="#preguntas-frecuentes">Preguntas frecuentes</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#si-algo-no-funciona">Si algo no funciona</a></li></ol></aside>
+<article>
+<p class="kicker">Guía de usuario · Contract Perfectionist</p>
+<h1>Contract Perfectionist: cómo obtener el contrato de un proyecto</h1>
+<p class="dek">Qué documentos entregarle, qué datos revisar, qué recibes y cómo revisar el contrato antes de firmarlo.</p>
+<div class="chips"><span>3 nov 2026</span><span>Guía de usuario</span><span>contract-perfectionist</span><span>8 min de lectura</span></div>
+<h2 id="en-resumen">En resumen</h2>
+<p><strong>Contract Perfectionist</strong> redacta el contrato de un proyecto a partir de tres cosas: los <strong>alcances</strong> (qué se va a construir), la <strong>cotización</strong> (cuánto cuesta, cómo se paga y cuándo se entrega) y el <strong>contrato madre</strong> (el esquema de cláusulas estándar de la empresa). El resultado es un documento de Word con el membrete de Campuslands y líneas para firmar.</p>
+<p>Su objetivo es que <strong>ambas partes, al terminar de leer, sepan exactamente</strong> qué se entrega, cuándo, por cuánto, bajo qué condiciones y qué pasa si algo falla.</p>
+<div class="stats"><div><b>3</b><span>cosas que necesita: alcances, cotización y los datos de las partes</span></div><div><b>0</b><span>datos inventados: lo que falta queda marcado y te lo pregunta</span></div><div><b>1</b><span>documento Word con membrete y líneas de firma</span></div></div>
+<div class="callout tip"><span class="t">Si solo tienes un minuto</span><p>Deja los alcances y la cotización del cliente en sus carpetas y pídele el contrato. Todo lo que no encuentre en ellos, te lo preguntará.</p></div>
+<h2 id="para-que-sirve">Para qué sirve</h2>
+<p>Úsalo cuando un proyecto ya tiene <strong>alcance definido y cotización aprobada</strong> y llegó el momento de formalizar el acuerdo. También sirve cuando el contrato ya está firmado y hace falta una modificación: en ese caso se prepara un <strong>otrosí</strong>, sin tocar el contrato original.</p>
+<h3 id="que-no-es">Qué no es</h3>
+<p>No reemplaza la revisión legal. El agente verifica que el contrato sea fiel a tus documentos y que cumpla las reglas de formato de la empresa, pero la <strong>validación jurídica</strong> sigue siendo tuya.</p>
+<h2 id="antes-de-empezar">Antes de empezar</h2>
+<p>Reúne en las carpetas del cliente:</p>
+<ul><li><strong>Los alcances del proyecto:</strong> el documento que describe qué se va a construir, los módulos, las integraciones y lo que queda excluido.</li><li><strong>La cotización aprobada:</strong> con el valor, la forma de pago, el cronograma y las condiciones de mantenimiento.</li><li><strong>Los datos del cliente:</strong> razón social, NIT y representante legal. Si ya hubo un contrato anterior con el mismo cliente, el agente reutiliza esos datos.</li></ul>
+<div class="callout importante"><span class="t">Sin alcances y cotización, no hay contrato</span><p>El agente nunca redacta un contrato sin al menos un documento de alcance y uno de cotización de ese cliente. El contrato madre ya lo tiene incorporado.</p></div>
+<h3 id="donde-dejar-los-archivos">Dónde dejar los archivos</h3>
+<pre class="tree"><code><span class="d">recursos/</span>
+  <span class="d">alcances/</span>
+    <span class="d">&lt;nombre-del-cliente&gt;/</span>         <span class="c"># documentos de alcance</span>
+  <span class="d">cotizaciones/</span>
+    <span class="d">&lt;nombre-del-cliente&gt;/</span>         <span class="c"># cotización aprobada</span></code></pre>
+<h2 id="paso-a-paso">Paso a paso</h2>
+<div class="lanes" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="a" style="grid-row:1;grid-column:1">Tú</div><div class="a" style="grid-row:1;grid-column:2">Agente</div><div class="s l0" style="grid-row:2;grid-column:1"><i>1</i>Deja los alcances y la cotización en las carpetas del cliente</div><div class="s l0" style="grid-row:3;grid-column:1"><i>2</i>Pídele el contrato</div><div class="s l1" style="grid-row:4;grid-column:2"><i>3</i>Revisa los documentos y te pregunta lo que falte</div><div class="s l0" style="grid-row:5;grid-column:1"><i>4</i>Responde y confirma los datos de las partes</div><div class="s l1" style="grid-row:6;grid-column:2"><i>5</i>Redacta el contrato, lo compara con las fuentes y lo verifica</div><div class="s l0" style="grid-row:7;grid-column:1"><i>6</i>Revisa el documento y lo envía a revisión legal</div></div>
+<h3 id="1-deja-los-documentos">1. Deja los documentos</h3>
+<p>Copia los alcances y la cotización a las carpetas del cliente.</p>
+<h3 id="2-pide-el-contrato">2. Pide el contrato</h3>
+<p>Dile el nombre del cliente. Si ya existe un contrato anterior con ese cliente, el agente lo tiene en cuenta para no repetirte preguntas.</p>
+<h3 id="3-responde-lo-que-falte">3. Responde lo que falte</h3>
+<p>El agente arma una lista con los datos necesarios: razón social, NIT, representante legal, objeto, alcance, cronograma, valor, forma de pago, mantenimiento y garantías. Si falta algo, o si un documento se puede leer de dos maneras, <strong>se detiene y te pregunta</strong> antes de escribir esa parte.</p>
+<h3 id="4-revisa-el-borrador">4. Revisa el borrador</h3>
+<p>Recibes el contrato en Word y un archivo de verificación que muestra, dato por dato, que lo escrito coincide con tus documentos.</p>
+<h3 id="5-revision-legal-y-firma">5. Revisión legal y firma</h3>
+<p>El agente deja el contrato listo para firma, pero antes debe pasar tu validación legal. El estado del contrato (borrador, pendiente de revisión legal, pendiente de firma o firmado) queda registrado en el índice.</p>
+<h2 id="ejemplos-de-conversacion">Ejemplos de conversación</h2>
+<h3 id="empezar">Empezar</h3>
+<div class="chat"><div class="u"><b>Tú</b>Redacta el contrato de Colbeef con los alcances y la cotización que dejé en recursos.</div><div class="g"><b>Agente</b>Revisé los documentos. Para redactar con precisión necesito confirmar dos datos: el representante legal que firmará por el cliente y la forma de entrega de la última fase. El resto lo tomo de la cotización y los alcances.</div></div>
+<h3 id="completar-un-dato">Completar un dato</h3>
+<div class="chat"><div class="u"><b>Tú</b>El NIT del cliente es 900.000.000-0 y firma su gerente general.</div><div class="g"><b>Agente</b>Gracias. Reemplacé el dato pendiente del NIT y registré al gerente general como firmante por el cliente.</div></div>
+<h3 id="ajustar-una-condicion">Ajustar una condición</h3>
+<div class="chat"><div class="u"><b>Tú</b>Para este proyecto el soporte dura 6 meses, no 12. Actualiza el contrato.</div><div class="g"><b>Agente</b>Actualicé la cláusula de mantenimiento y soporte, y la de vigencia, que dependía de ese plazo. Volví a verificar el contrato contra la cotización.</div></div>
+<h3 id="un-cambio-tras-la-firma">Un cambio tras la firma</h3>
+<div class="chat"><div class="u"><b>Tú</b>El cliente pidió un módulo nuevo. Prepara el otrosí.</div><div class="g"><b>Agente</b>Preparo el Otrosí 1 con el alcance y el valor adicionales. El contrato original firmado no se modifica.</div></div>
+<h2 id="que-recibes">Qué recibes</h2>
+<div class="cards"><div><b>El contrato en Word</b><span>Con el membrete de Campuslands, todas las cláusulas y líneas de firma sobre el nombre de cada representante.</span></div><div><b>La verificación cruzada</b><span>Una tabla que compara cada dato (valor, plazos, alcance…) entre tus documentos y el contrato.</span></div><div><b>La ficha del cliente</b><span>Los datos legales y condiciones confirmadas, que se reutilizan en próximos contratos.</span></div></div>
+<h3 id="como-esta-organizado-el-contrato">Cómo está organizado el contrato</h3>
+<p>El contrato sigue siempre el mismo orden, que viene del contrato madre:</p>
+<ol><li><strong>Partes y consideraciones:</strong> quiénes firman y por qué.</li><li><strong>Objeto:</strong> qué se compromete a entregar el contratista.</li><li><strong>Naturaleza jurídica:</strong> el tipo de obligación asumida.</li><li><strong>Alcance, cronograma, valor y forma de pago:</strong> lo que sale de tus documentos.</li><li><strong>Mantenimiento, soporte y garantías:</strong> qué ocurre después de la entrega.</li><li><strong>Obligaciones de cada parte y aceptación de entregables.</strong></li><li><strong>Propiedad intelectual, datos personales, reserva de información y servicios de terceros.</strong></li><li><strong>Suspensión, terminación, fuerza mayor y cláusula penal.</strong></li><li><strong>Vigencia, ley aplicable y firmas.</strong></li></ol>
+<div class="callout nota"><span class="t">Qué sale de tus documentos y qué es estándar</span><p>Las cláusulas sobre alcance, cronograma, valor y pago se escriben con <strong>tus</strong> documentos. Las de protección (propiedad intelectual, reserva de información, terceros, fuerza mayor, terminación, cláusula penal y ley aplicable) vienen del contrato madre y se mantienen igual salvo que tú indiques lo contrario para ese proyecto.</p></div>
+<h2 id="los-datos-pendientes">Los datos pendientes</h2>
+<p>Cuando el agente no encuentra un dato en tus documentos, <strong>no lo inventa</strong>: deja una marca como esta en el texto.</p>
+<div class="callout cuidado"><span class="t">Cómo se ve un dato pendiente</span><p><code>[PENDIENTE: NIT del cliente]</code></p></div>
+<p>El agente te lo avisa y te lo pregunta. <strong>Un contrato con marcas pendientes no puede entregarse como final</strong>: el control automático lo detecta y lo bloquea.</p>
+<h2 id="como-revisar-el-contrato">Cómo revisar el contrato</h2>
+<ul><li><strong>Las partes:</strong> razón social, NIT y representante legal de ambas empresas, bien escritos.</li><li><strong>El objeto:</strong> que describa el proyecto que acordaron, no otro.</li><li><strong>Los valores y los pagos:</strong> que coincidan al peso con la cotización, incluidos los hitos y los porcentajes.</li><li><strong>El cronograma:</strong> fases y plazos iguales a la cotización.</li><li><strong>El soporte y la garantía:</strong> duración y alcance correctos.</li><li><strong>Las exclusiones:</strong> que lo que no está incluido quede dicho con claridad.</li><li><strong>Ninguna marca pendiente:</strong> busca la palabra «PENDIENTE» en el documento.</li><li><strong>Las firmas:</strong> una línea sobre el nombre de cada representante, con espacio para firmar.</li><li><strong>La verificación cruzada:</strong> que no tenga filas marcadas con ✗.</li></ul>
+<div class="callout importante"><span class="t">Mira el alcance con especial atención</span><p>Un contrato con un alcance equivocado es un riesgo serio. En una ocasión, un borrador salió con un alcance que no correspondía al proyecto real; se detectó y quedó marcado como no vigente. Compara siempre los módulos del contrato con los de tus alcances.</p></div>
+<h2 id="estados-de-un-contrato">Estados de un contrato</h2>
+<div class="tw"><table><thead><tr><th>Estado</th><th>Qué significa</th></tr></thead><tbody><tr><td>Borrador</td><td>Todavía en redacción o sin pasar los controles</td></tr><tr><td>Pendiente revisión legal</td><td>Pasó los controles automáticos; falta la revisión legal externa</td></tr><tr><td>Pendiente firma</td><td>Revisado; falta solo la fecha y la firma de las partes</td></tr><tr><td>Firmado</td><td>Contrato ejecutado; es la versión final</td></tr></tbody></table></div>
+<h2 id="cambios-y-modificaciones">Cambios y modificaciones</h2>
+<div class="tw"><table><thead><tr><th>Situación</th><th>Qué hace el agente</th></tr></thead><tbody><tr><td>Quieres cambiar algo en un contrato sin firmar</td><td>Genera una nueva versión (<code>v2</code>, <code>v3</code>…) y conserva la anterior hasta que la nueva sea definitiva</td></tr><tr><td>El contrato ya está firmado y hay cambios</td><td>Prepara un <strong>otrosí</strong> numerado (<code>Otrosi 1</code>, <code>Otrosi 2</code>…); nunca modifica el original firmado</td></tr><tr><td>Quieres cambiar una cláusula estándar solo para este proyecto</td><td>Lo hace si tú lo indicas, y puede dejarlo registrado como ajuste reutilizable si lo validas</td></tr></tbody></table></div>
+<h2 id="lo-que-el-agente-no-hace">Lo que el agente no hace</h2>
+<div class="tw"><table><thead><tr><th>Si le pides…</th><th>Qué pasa</th><th>Qué hacer</th></tr></thead><tbody><tr><td>Que complete un dato «con lo más probable»</td><td>No lo hace: lo marca como pendiente y pregunta</td><td>Aporta el dato o el documento donde aparece</td></tr><tr><td>Que copie el contrato de otro cliente</td><td>No lo hace: cada proyecto es reservado</td><td>Aporta los alcances y la cotización del cliente actual</td></tr><tr><td>Que omita una cláusula de protección</td><td>Solo si tú lo indicas para ese proyecto</td><td>Dilo expresamente; quedará registrado</td></tr><tr><td>Que entregue el contrato aunque tenga marcas pendientes</td><td>No lo hace: el control lo bloquea</td><td>Resuelve primero los datos faltantes</td></tr><tr><td>Que reemplace la validación legal</td><td>No lo hace</td><td>Envía el contrato a revisión jurídica</td></tr><tr><td>Que modifique un contrato ya firmado</td><td>No lo hace</td><td>Pide un otrosí</td></tr></tbody></table></div>
+<h2 id="preguntas-frecuentes">Preguntas frecuentes</h2>
+<p><strong>¿Qué significa «[PENDIENTE: …]»?</strong> Que ese dato no estaba en tus documentos. El agente te lo pedirá y lo reemplazará.</p>
+<p><strong>¿Puedo editar el Word directamente?</strong> Es mejor pedirle el cambio al agente: así se conserva el membrete, pasa los controles y la verificación se actualiza. Si editas a mano, avísale para que lo revise.</p>
+<p><strong>¿El agente conoce los datos de Campuslands?</strong> Sí: están registrados en la wiki. Aun así, <strong>antes de usarlos</strong> te confirmará que el representante legal y el domicilio siguen vigentes.</p>
+<p><strong>¿Qué pasa si el cliente ya tuvo un contrato conmigo?</strong> El agente consulta la ficha de ese cliente y reutiliza los datos legales confirmados, para no repetirte preguntas.</p>
+<p><strong>¿Qué otros documentos puede preparar?</strong> Además de contratos, se han preparado con este agente documentos como acuerdos de aceptación de inicio de desarrollo y documentos de aceptación y entrega. Pídelo con claridad y dale los insumos.</p>
+<p><strong>¿Dónde queda el contrato?</strong> En la carpeta del cliente dentro de <code>contratos</code>, con el nombre <code>Contrato - &lt;Cliente&gt; - &lt;fecha&gt;.docx</code>.</p>
+<h2 id="glosario">Glosario</h2>
+<div class="tw"><table><thead><tr><th>Término</th><th>Qué significa</th></tr></thead><tbody><tr><td>Contrato madre</td><td>La plantilla de cláusulas estándar de la empresa</td></tr><tr><td>Contratista</td><td>Quien presta el servicio (Campuslands)</td></tr><tr><td>Objeto</td><td>Lo que se compromete a entregar el contratista</td></tr><tr><td>Cláusula penal</td><td>La consecuencia económica de un incumplimiento grave</td></tr><tr><td>Otrosí</td><td>Una modificación formal a un contrato ya firmado</td></tr><tr><td>NIT</td><td>Número de identificación tributaria de una empresa</td></tr><tr><td>Verificación cruzada</td><td>La comparación dato por dato entre el contrato y tus documentos</td></tr><tr><td>Gate</td><td>El control automático que bloquea un contrato incompleto</td></tr></tbody></table></div>
+<h2 id="si-algo-no-funciona">Si algo no funciona</h2>
+<p>Si el agente no encuentra tus documentos, revisa que estén en las carpetas del cliente. Si el control automático rechaza el contrato, el agente te explicará qué falta (casi siempre un dato pendiente). Si algo se repite o parece una falla, avisa a quien mantiene el agente; su guía técnica explica los controles y el montaje.</p>
+<div class="more"><span>¿Buscas la otra mirada de este agente?</span><nav><a class="btn ghost" href="guia-dev.html">Guía Dev</a><a class="btn ghost" href="../index.html">Todas las guías</a></nav></div>
+</article></div>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.toc a'));if(!l.length||!('IntersectionObserver'in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-80px 0px -70% 0px'});
+document.querySelectorAll('article h2').forEach(function(h){o.observe(h)})})();
+</script>
+</body>
+</html>
