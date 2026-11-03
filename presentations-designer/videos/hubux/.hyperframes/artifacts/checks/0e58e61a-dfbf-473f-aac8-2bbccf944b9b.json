@@ -1,0 +1,2142 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 21,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "duplicate_media_discovery_risk",
+        "severity": "warning",
+        "message": "Detected 2 matching img entries with the same source/start/duration.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Avoid duplicated media nodes that can be discovered twice during compilation."
+      },
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#s2\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#s2",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 9s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      },
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#iris1 circle\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#iris1 circle",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 9s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      },
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#s3\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#s3",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 17s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      },
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#s4\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#s4",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 25s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      },
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#s6 .neon-ring\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#s6 .neon-ring",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 43.4s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      },
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#iris2 circle\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#iris2 circle",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 49s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      },
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 380 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split coherent scenes or layers into separate .html files under compositions/, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 0 has 4 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into separate .html files under compositions/ and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 2 has 4 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into separate .html files under compositions/ and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s1\"> is a timeline element that contains nested <svg>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s1",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s1\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s2\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s2",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s2\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s3\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s3",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s3\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s4\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s4",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s4\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s5\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s5",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s5\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s6\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s6",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s6\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s7\"> is a timeline element that contains nested <svg>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s7",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s7\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"iris1\"> is a timeline element that contains nested <svg>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#iris1",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"iris1\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"wipe\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#wipe",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"wipe\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"sweep\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#sweep",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"sweep\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"iris2\"> is a timeline element that contains nested <svg>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#iris2",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Full Service\\dev\\fullservice-agents\\presentations-designer\\videos\\hubux\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"iris2\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 3,
+    "infoCount": 37,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "warning",
+        "time": 25.5,
+        "selector": "#s3 > div:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 137.95,
+          "top": 55.36,
+          "right": 449.93,
+          "bottom": 137.7,
+          "width": 311.98,
+          "height": 82.34
+        },
+        "containerSelector": "#s4 > div:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1)",
+        "text": "</Espacios",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 137.95,
+          "y": 55.36,
+          "width": 311.98,
+          "height": 82.34
+        },
+        "firstSeen": 25.5,
+        "lastSeen": 25.625,
+        "occurrences": 2,
+        "heldMs": 125,
+        "times": [
+          25.5,
+          25.625
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "warning",
+        "time": 25.5,
+        "selector": "#s3 > div:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(2) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 460.78,
+          "top": 55.36,
+          "right": 569.38,
+          "bottom": 137.7,
+          "width": 108.6,
+          "height": 82.34
+        },
+        "containerSelector": "#s4 > div:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1)",
+        "text": "del",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 460.78,
+          "y": 55.36,
+          "width": 108.6,
+          "height": 82.34
+        },
+        "firstSeen": 25.5,
+        "lastSeen": 25.625,
+        "occurrences": 2,
+        "heldMs": 125,
+        "times": [
+          25.5,
+          25.625
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "warning",
+        "time": 33.75,
+        "selector": "div.mods > div:nth-of-type(1) > h3:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 254,
+          "top": 79.43,
+          "right": 583.94,
+          "bottom": 123.43,
+          "width": 329.94,
+          "height": 44
+        },
+        "containerSelector": "#s5 > div:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(2) > span:nth-of-type(1)",
+        "text": "Puesto de trabajo (1)",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 254,
+          "y": 79.43,
+          "width": 329.94,
+          "height": 44
+        },
+        "firstSeen": 33.75,
+        "lastSeen": 33.875,
+        "occurrences": 2,
+        "heldMs": 125,
+        "times": [
+          33.75,
+          33.875
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 3.222,
+        "selector": "#s1 > svg:nth-of-type(1) > circle:nth-of-type(4)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 378,
+          "top": -42,
+          "right": 1542,
+          "bottom": 1122,
+          "width": 1164,
+          "height": 1164
+        },
+        "containerSelector": "#s1 > svg:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 42,
+          "bottom": 42
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 378,
+          "y": -42,
+          "width": 1164,
+          "height": 1164
+        },
+        "firstSeen": 3.222,
+        "lastSeen": 3.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          3.222
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 3.222,
+        "selector": "#s1 > svg:nth-of-type(1) > circle:nth-of-type(5)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 215,
+          "top": -205,
+          "right": 1705,
+          "bottom": 1285,
+          "width": 1490,
+          "height": 1490
+        },
+        "containerSelector": "#s1 > svg:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 205,
+          "bottom": 205
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215,
+          "y": -205,
+          "width": 1490,
+          "height": 1490
+        },
+        "firstSeen": 3.222,
+        "lastSeen": 3.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          3.222
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 3.222,
+        "selector": "#s1 > svg:nth-of-type(1) > g:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 321.89,
+          "top": -98.11,
+          "right": 1598.11,
+          "bottom": 1178.11,
+          "width": 1276.23,
+          "height": 1276.23
+        },
+        "containerSelector": "#s1 > svg:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "top": 98.11,
+          "bottom": 98.11
+        },
+        "dataAttributes": {
+          "data-svg-origin": "960 540"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 321.89,
+          "y": -98.11,
+          "width": 1276.23,
+          "height": 1276.23
+        },
+        "firstSeen": 3.222,
+        "lastSeen": 3.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          3.222
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 3.222,
+        "selector": "#s1 > svg:nth-of-type(1) > g:nth-of-type(2)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -226.8,
+          "top": 244.36,
+          "right": 220.46,
+          "bottom": 812.92,
+          "width": 447.26,
+          "height": 568.56
+        },
+        "containerSelector": "#s1 > svg:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 226.8
+        },
+        "dataAttributes": {
+          "data-svg-origin": "-226.80001831054688 256.3599853515625"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -226.8,
+          "y": 244.36,
+          "width": 447.26,
+          "height": 568.56
+        },
+        "firstSeen": 3.222,
+        "lastSeen": 3.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          3.222
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 3.222,
+        "selector": "#s1 > svg:nth-of-type(1) > g:nth-of-type(3)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 1699.54,
+          "top": 268.36,
+          "right": 2146.8,
+          "bottom": 836.92,
+          "width": 447.26,
+          "height": 568.56
+        },
+        "containerSelector": "#s1 > svg:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "right": 226.8
+        },
+        "dataAttributes": {
+          "data-svg-origin": "1699.5400390625 256.3599853515625"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1699.54,
+          "y": 268.36,
+          "width": 447.26,
+          "height": 568.56
+        },
+        "firstSeen": 3.222,
+        "lastSeen": 3.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          3.222
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 3.222,
+        "selector": "div.cv-r > div:nth-of-type(1) > div:nth-of-type(3) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 1024.69,
+          "top": 21.89,
+          "right": 1843.1,
+          "bottom": 878.11,
+          "width": 818.41,
+          "height": 856.22
+        },
+        "containerSelector": "div.cv-r > div:nth-of-type(1) > div:nth-of-type(3)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 1089.8,
+          "top": 90,
+          "right": 1778,
+          "bottom": 810,
+          "width": 688.2,
+          "height": 720
+        },
+        "overflow": {
+          "left": 65.11,
+          "right": 65.1,
+          "top": 68.11,
+          "bottom": 68.11
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1024.69,
+          "y": 21.89,
+          "width": 818.41,
+          "height": 856.22
+        },
+        "firstSeen": 3.222,
+        "lastSeen": 3.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          3.222
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "h1.sec > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 264.02,
+          "top": 368.92,
+          "right": 810.07,
+          "bottom": 496.99,
+          "width": 546.05,
+          "height": 128.07
+        },
+        "containerSelector": "#s2",
+        "text": "Ecosistema",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 264.02,
+          "y": 368.92,
+          "width": 546.05,
+          "height": 128.07
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "h1.sec > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 184.25,
+          "top": 368.92,
+          "right": 264.02,
+          "bottom": 496.99,
+          "width": 79.77,
+          "height": 128.07
+        },
+        "containerSelector": "#s2",
+        "text": "</",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 184.25,
+          "y": 368.92,
+          "width": 79.77,
+          "height": 128.07
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "h1.sec > span:nth-of-type(2) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 184.25,
+          "top": 467.72,
+          "right": 851.24,
+          "bottom": 595.79,
+          "width": 666.99,
+          "height": 128.07
+        },
+        "containerSelector": "#s2",
+        "text": "Campuslands",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 184.25,
+          "y": 467.72,
+          "width": 666.99,
+          "height": 128.07
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "div.cv-l > p:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 230.85,
+          "top": 627.81,
+          "right": 882.5,
+          "bottom": 661.65,
+          "width": 651.65,
+          "height": 33.85
+        },
+        "containerSelector": "#s2",
+        "text": "Espacios en el Hub Tecnológico de Santander",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 230.85,
+          "y": 627.81,
+          "width": 651.65,
+          "height": 33.85
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "div.cv-r > div:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1151.92,
+          "top": 725.7,
+          "right": 1381.61,
+          "bottom": 752.23,
+          "width": 229.69,
+          "height": 26.53
+        },
+        "containerSelector": "#s2",
+        "text": "Zona Franca Santander",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1151.92,
+          "y": 725.7,
+          "width": 229.69,
+          "height": 26.53
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "div.card.meta > div:nth-of-type(1) > small:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 402.7,
+          "top": 881.22,
+          "right": 519.55,
+          "bottom": 903.18,
+          "width": 116.85,
+          "height": 21.96
+        },
+        "containerSelector": "#s2",
+        "text": "Ubicación",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 402.7,
+          "y": 881.22,
+          "width": 116.85,
+          "height": 21.96
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "div.card.meta > div:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 309.28,
+          "top": 912.32,
+          "right": 612.96,
+          "bottom": 948,
+          "width": 303.68,
+          "height": 35.68
+        },
+        "containerSelector": "div.shot.shot--tall > div:nth-of-type(3) > img:nth-of-type(1)",
+        "text": "Zona Franca Santander",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 309.28,
+          "y": 912.32,
+          "width": 303.68,
+          "height": 35.68
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "div.card.meta > div:nth-of-type(2) > small:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 875.32,
+          "top": 881.22,
+          "right": 1044.66,
+          "bottom": 903.18,
+          "width": 169.34,
+          "height": 21.96
+        },
+        "containerSelector": "#s2",
+        "text": "Preparado por",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 875.32,
+          "y": 881.22,
+          "width": 169.34,
+          "height": 21.96
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "div.card.meta > div:nth-of-type(2) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 806.7,
+          "top": 912.32,
+          "right": 1113.29,
+          "bottom": 948,
+          "width": 306.59,
+          "height": 35.68
+        },
+        "containerSelector": "div.shot.shot--tall > div:nth-of-type(3) > img:nth-of-type(1)",
+        "text": "Campuslands S.A.S. BIC",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 806.7,
+          "y": 912.32,
+          "width": 306.59,
+          "height": 35.68
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "div.card.meta > div:nth-of-type(3) > small:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1425.32,
+          "top": 881.22,
+          "right": 1492.39,
+          "bottom": 903.18,
+          "width": 67.07,
+          "height": 21.96
+        },
+        "containerSelector": "#s2",
+        "text": "Fecha",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1425.32,
+          "y": 881.22,
+          "width": 67.07,
+          "height": 21.96
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "div.card.meta > div:nth-of-type(3) > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1372,
+          "top": 912.32,
+          "right": 1545.7,
+          "bottom": 948,
+          "width": 173.7,
+          "height": 35.68
+        },
+        "containerSelector": "#s2",
+        "text": "Octubre 2026",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1372,
+          "y": 912.32,
+          "width": 173.7,
+          "height": 35.68
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "div.hub-r > h2:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 968,
+          "top": 171.88,
+          "right": 1193.98,
+          "bottom": 234.5,
+          "width": 225.98,
+          "height": 62.63
+        },
+        "containerSelector": "div.hub-r > h2:nth-of-type(1) > span:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 968,
+          "top": 137.45,
+          "right": 1198.61,
+          "bottom": 207.03,
+          "width": 230.61,
+          "height": 69.58
+        },
+        "overflow": {
+          "bottom": 27.47
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 968,
+          "y": 171.88,
+          "width": 225.98,
+          "height": 62.63
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "div.hub-r > h2:nth-of-type(1) > span:nth-of-type(2) > span:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 1203.16,
+          "top": 188.46,
+          "right": 1259.89,
+          "bottom": 251.09,
+          "width": 56.73,
+          "height": 62.63
+        },
+        "containerSelector": "div.hub-r > h2:nth-of-type(1) > span:nth-of-type(2)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 1203.16,
+          "top": 137.45,
+          "right": 1264.52,
+          "bottom": 207.03,
+          "width": 61.36,
+          "height": 69.58
+        },
+        "overflow": {
+          "bottom": 44.06
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1203.16,
+          "y": 188.46,
+          "width": 56.73,
+          "height": 62.63
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 9.667,
+        "selector": "#iris1 > svg:nth-of-type(1) > circle:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -2.09,
+          "top": -422.09,
+          "right": 1922.09,
+          "bottom": 1502.09,
+          "width": 1924.19,
+          "height": 1924.19
+        },
+        "containerSelector": "#iris1 > svg:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 2.09,
+          "right": 2.09,
+          "top": 422.09,
+          "bottom": 422.09
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -2.09,
+          "y": -422.09,
+          "width": 1924.19,
+          "height": 1924.19
+        },
+        "firstSeen": 9.667,
+        "lastSeen": 9.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          9.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 16.111,
+        "selector": "div.shot.shot--tall > div:nth-of-type(3) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 87.26,
+          "top": 51.49,
+          "right": 896.74,
+          "bottom": 984.51,
+          "width": 809.48,
+          "height": 933.03
+        },
+        "containerSelector": "div.shot.shot--tall > div:nth-of-type(3)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 112,
+          "top": 80,
+          "right": 872,
+          "bottom": 956,
+          "width": 760,
+          "height": 876
+        },
+        "overflow": {
+          "left": 24.74,
+          "right": 24.74,
+          "top": 28.51,
+          "bottom": 28.51
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 87.26,
+          "y": 51.49,
+          "width": 809.48,
+          "height": 933.03
+        },
+        "firstSeen": 16.111,
+        "lastSeen": 16.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          16.111
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 22.556,
+        "selector": "div.r1 > figure:nth-of-type(1) > div:nth-of-type(1) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 74.34,
+          "top": 156.41,
+          "right": 698.98,
+          "bottom": 568.73,
+          "width": 624.64,
+          "height": 412.32
+        },
+        "containerSelector": "div.r1 > figure:nth-of-type(1) > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 112,
+          "top": 181.27,
+          "right": 661.33,
+          "bottom": 543.88,
+          "width": 549.33,
+          "height": 362.61
+        },
+        "overflow": {
+          "left": 37.66,
+          "right": 37.65,
+          "top": 24.86,
+          "bottom": 24.85
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 74.34,
+          "y": 156.41,
+          "width": 624.64,
+          "height": 412.32
+        },
+        "firstSeen": 22.556,
+        "lastSeen": 22.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          22.556
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 22.556,
+        "selector": "div.r1 > figure:nth-of-type(2) > div:nth-of-type(1) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 647.67,
+          "top": 156.41,
+          "right": 1272.31,
+          "bottom": 568.73,
+          "width": 624.64,
+          "height": 412.32
+        },
+        "containerSelector": "div.r1 > figure:nth-of-type(2) > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 685.33,
+          "top": 181.27,
+          "right": 1234.66,
+          "bottom": 543.88,
+          "width": 549.33,
+          "height": 362.61
+        },
+        "overflow": {
+          "left": 37.66,
+          "right": 37.65,
+          "top": 24.86,
+          "bottom": 24.85
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 647.67,
+          "y": 156.41,
+          "width": 624.64,
+          "height": 412.32
+        },
+        "firstSeen": 22.556,
+        "lastSeen": 22.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          22.556
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 22.556,
+        "selector": "div.r1 > figure:nth-of-type(3) > div:nth-of-type(1) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 1221,
+          "top": 156.41,
+          "right": 1845.64,
+          "bottom": 568.73,
+          "width": 624.64,
+          "height": 412.32
+        },
+        "containerSelector": "div.r1 > figure:nth-of-type(3) > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 1258.66,
+          "top": 181.27,
+          "right": 1807.98,
+          "bottom": 543.88,
+          "width": 549.33,
+          "height": 362.61
+        },
+        "overflow": {
+          "left": 37.66,
+          "right": 37.66,
+          "top": 24.86,
+          "bottom": 24.85
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1221,
+          "y": 156.41,
+          "width": 624.64,
+          "height": 412.32
+        },
+        "firstSeen": 22.556,
+        "lastSeen": 22.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          22.556
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 22.556,
+        "selector": "div.r2 > figure:nth-of-type(1) > div:nth-of-type(1) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 93.41,
+          "top": 540.04,
+          "right": 401.76,
+          "bottom": 1001.84,
+          "width": 308.35,
+          "height": 461.8
+        },
+        "containerSelector": "div.r2 > figure:nth-of-type(1) > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 112,
+          "top": 567.88,
+          "right": 383.17,
+          "bottom": 974,
+          "width": 271.17,
+          "height": 406.13
+        },
+        "overflow": {
+          "left": 18.59,
+          "right": 18.59,
+          "top": 27.84,
+          "bottom": 27.84
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 93.41,
+          "y": 540.04,
+          "width": 308.35,
+          "height": 461.8
+        },
+        "firstSeen": 22.556,
+        "lastSeen": 22.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          22.556
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 22.556,
+        "selector": "div.r2 > figure:nth-of-type(2) > div:nth-of-type(1) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 388.58,
+          "top": 540.04,
+          "right": 696.95,
+          "bottom": 1001.84,
+          "width": 308.37,
+          "height": 461.8
+        },
+        "containerSelector": "div.r2 > figure:nth-of-type(2) > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 407.17,
+          "top": 567.88,
+          "right": 678.36,
+          "bottom": 974,
+          "width": 271.19,
+          "height": 406.13
+        },
+        "overflow": {
+          "left": 18.59,
+          "right": 18.59,
+          "top": 27.84,
+          "bottom": 27.84
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 388.58,
+          "y": 540.04,
+          "width": 308.37,
+          "height": 461.8
+        },
+        "firstSeen": 22.556,
+        "lastSeen": 22.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          22.556
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 22.556,
+        "selector": "div.r2 > figure:nth-of-type(3) > div:nth-of-type(1) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 685.63,
+          "top": 540.04,
+          "right": 963.17,
+          "bottom": 1001.84,
+          "width": 277.54,
+          "height": 461.8
+        },
+        "containerSelector": "div.r2 > figure:nth-of-type(3) > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 702.36,
+          "top": 567.88,
+          "right": 946.44,
+          "bottom": 974,
+          "width": 244.08,
+          "height": 406.13
+        },
+        "overflow": {
+          "left": 16.73,
+          "right": 16.73,
+          "top": 27.84,
+          "bottom": 27.84
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 685.63,
+          "y": 540.04,
+          "width": 277.54,
+          "height": 461.8
+        },
+        "firstSeen": 22.556,
+        "lastSeen": 22.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          22.556
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 22.556,
+        "selector": "div.r2 > figure:nth-of-type(4) > div:nth-of-type(1) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 942.55,
+          "top": 540.04,
+          "right": 1405.1,
+          "bottom": 1001.84,
+          "width": 462.55,
+          "height": 461.8
+        },
+        "containerSelector": "div.r2 > figure:nth-of-type(4) > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 970.44,
+          "top": 567.88,
+          "right": 1377.22,
+          "bottom": 974,
+          "width": 406.78,
+          "height": 406.13
+        },
+        "overflow": {
+          "left": 27.89,
+          "right": 27.88,
+          "top": 27.84,
+          "bottom": 27.84
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 942.55,
+          "y": 540.04,
+          "width": 462.55,
+          "height": 461.8
+        },
+        "firstSeen": 22.556,
+        "lastSeen": 22.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          22.556
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 22.556,
+        "selector": "div.r2 > figure:nth-of-type(5) > div:nth-of-type(1) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 1373.33,
+          "top": 540.04,
+          "right": 1835.87,
+          "bottom": 1001.84,
+          "width": 462.53,
+          "height": 461.8
+        },
+        "containerSelector": "div.r2 > figure:nth-of-type(5) > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 1401.22,
+          "top": 567.88,
+          "right": 1807.98,
+          "bottom": 974,
+          "width": 406.77,
+          "height": 406.13
+        },
+        "overflow": {
+          "left": 27.89,
+          "right": 27.89,
+          "top": 27.84,
+          "bottom": 27.84
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1373.33,
+          "y": 540.04,
+          "width": 462.53,
+          "height": 461.8
+        },
+        "firstSeen": 22.556,
+        "lastSeen": 22.556,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          22.556
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 25.625,
+        "selector": "#s3 > div:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(3) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 573.12,
+          "top": 46.27,
+          "right": 719.69,
+          "bottom": 130.16,
+          "width": 146.57,
+          "height": 83.89
+        },
+        "containerSelector": "#s4 > div:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(2) > span:nth-of-type(1)",
+        "text": "Hub",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 573.12,
+          "y": 46.27,
+          "width": 146.57,
+          "height": 83.89
+        },
+        "firstSeen": 25.625,
+        "lastSeen": 25.625,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          25.625
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 33.875,
+        "selector": "div.mods > div:nth-of-type(2) > p:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 730,
+          "top": 130.61,
+          "right": 1117.02,
+          "bottom": 229.79,
+          "width": 387.02,
+          "height": 99.18
+        },
+        "containerSelector": "#s5 > div:nth-of-type(1) > h2:nth-of-type(1) > span:nth-of-type(6) > span:nth-of-type(1)",
+        "text": "Mantén tus pertenencias seguras y organizadas con nuestros lockers exclusivos.",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 730,
+          "y": 130.61,
+          "width": 387.02,
+          "height": 99.18
+        },
+        "firstSeen": 33.875,
+        "lastSeen": 33.875,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          33.875
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 35.444,
+        "selector": "div.plans > div:nth-of-type(1) > div:nth-of-type(1) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 65.73,
+          "top": 157.67,
+          "right": 696.93,
+          "bottom": 479.55,
+          "width": 631.2,
+          "height": 321.88
+        },
+        "containerSelector": "div.plans > div:nth-of-type(1) > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 112,
+          "top": 181.27,
+          "right": 650.66,
+          "bottom": 455.95,
+          "width": 538.66,
+          "height": 274.69
+        },
+        "overflow": {
+          "left": 46.27,
+          "right": 46.27,
+          "top": 23.6,
+          "bottom": 23.6
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 65.73,
+          "y": 157.67,
+          "width": 631.2,
+          "height": 321.88
+        },
+        "firstSeen": 35.444,
+        "lastSeen": 35.444,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          35.444
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 35.444,
+        "selector": "div.plans > div:nth-of-type(2) > div:nth-of-type(1) > img:nth-of-type(1)",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 644.38,
+          "top": 157.67,
+          "right": 1275.6,
+          "bottom": 479.55,
+          "width": 631.22,
+          "height": 321.88
+        },
+        "containerSelector": "div.plans > div:nth-of-type(2) > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 690.66,
+          "top": 181.27,
+          "right": 1229.33,
+          "bottom": 455.95,
+          "width": 538.67,
+          "height": 274.69
+        },
+        "overflow": {
+          "left": 46.28,
+          "right": 46.27,
+          "top": 23.6,
+          "bottom": 23.6
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 644.38,
+          "y": 157.67,
+          "width": 631.22,
+          "height": 321.88
+        },
+        "firstSeen": 35.444,
+        "lastSeen": 35.444,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          35.444
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 35.444,
+        "selector": "img.top",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 1223.06,
+          "top": 157.67,
+          "right": 1854.27,
+          "bottom": 479.55,
+          "width": 631.22,
+          "height": 321.88
+        },
+        "containerSelector": "div.plans > div:nth-of-type(3) > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 1269.33,
+          "top": 181.27,
+          "right": 1808,
+          "bottom": 455.95,
+          "width": 538.67,
+          "height": 274.69
+        },
+        "overflow": {
+          "left": 46.27,
+          "right": 46.27,
+          "top": 23.6,
+          "bottom": 23.6
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1223.06,
+          "y": 157.67,
+          "width": 631.22,
+          "height": 321.88
+        },
+        "firstSeen": 35.444,
+        "lastSeen": 35.444,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          35.444
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 41.889,
+        "selector": "div.panel.panel--violet > span:nth-of-type(1)",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": -1125.49,
+          "top": 358,
+          "right": -794.51,
+          "bottom": 722,
+          "width": 330.98,
+          "height": 364
+        },
+        "containerSelector": "#root",
+        "text": "</>",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 1125.49
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -1125.49,
+          "y": 358,
+          "width": 330.98,
+          "height": 364
+        },
+        "firstSeen": 41.889,
+        "lastSeen": 41.889,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          41.889
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 41.889,
+        "selector": "div.panel.panel--gold",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": -1917.47,
+          "top": 0,
+          "right": 2.53,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "containerSelector": "#sweep",
+        "text": "",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -1917.47,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "firstSeen": 41.889,
+        "lastSeen": 41.889,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          41.889
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 41.889,
+        "selector": "div.panel.panel--violet",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": -1919.99,
+          "top": 0,
+          "right": 0.01,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "containerSelector": "#sweep",
+        "text": "</>",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -1919.99,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "firstSeen": 41.889,
+        "lastSeen": 41.889,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          41.889
+        ]
+      }
+    ],
+    "duration": 58,
+    "samples": [
+      3.222,
+      9.667,
+      16.111,
+      22.556,
+      29,
+      35.444,
+      41.889,
+      48.333,
+      54.778
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 40,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 3,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.16:1; WCAG AA requires 3:1.",
+        "text": "02",
+        "fg": "rgb(237,237,247)",
+        "bg": "rgb(255,255,255)",
+        "ratio": 1.16,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(148,148,154)",
+        "large": true,
+        "selector": "div > section:nth-of-type(2) > div > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1672.6875,
+          "y": 54,
+          "width": 147.3125,
+          "height": 124
+        },
+        "time": 16.111,
+        "times": [
+          16.111
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.16:1; WCAG AA requires 3:1.",
+        "text": "04",
+        "fg": "rgb(237,237,247)",
+        "bg": "rgb(255,255,255)",
+        "ratio": 1.16,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(148,148,154)",
+        "large": true,
+        "selector": "div > section:nth-of-type(4) > div > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1655.5625,
+          "y": 54,
+          "width": 164.4375,
+          "height": 124
+        },
+        "time": 29,
+        "times": [
+          29
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.16:1; WCAG AA requires 3:1.",
+        "text": "06",
+        "fg": "rgb(237,237,247)",
+        "bg": "rgb(255,255,255)",
+        "ratio": 1.16,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(148,148,154)",
+        "large": true,
+        "selector": "div > section:nth-of-type(6) > div > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1693.6510009765625,
+          "y": 54,
+          "width": 155.625,
+          "height": 124
+        },
+        "time": 41.889,
+        "times": [
+          41.889
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      3.222,
+      16.111,
+      29,
+      41.889,
+      54.778
+    ],
+    "checked": 77,
+    "passed": 74
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

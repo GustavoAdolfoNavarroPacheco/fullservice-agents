@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agente Licitatorio: cómo preparar la propuesta de una licitación — Agente Licitatorio</title>
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<link rel="stylesheet" href="../assets/estilo.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-usuario.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></header>
+<div class="shell"><aside class="toc"><p>En esta guía</p><ol><li><a href="#en-resumen">En resumen</a></li><li><a href="#para-que-sirve">Para qué sirve</a></li><li><a href="#que-necesitas-darle">Qué necesitas darle</a></li><li><a href="#paso-a-paso">Paso a paso</a></li><li><a href="#ejemplos-de-conversacion">Ejemplos de conversación</a></li><li><a href="#que-recibes">Qué recibes</a></li><li><a href="#como-revisar-la-propuesta">Cómo revisar la propuesta</a></li><li><a href="#cuando-el-plazo-no-alcanza">Cuando el plazo no alcanza</a></li><li><a href="#lo-que-el-agente-no-hace">Lo que el agente no hace</a></li><li><a href="#preguntas-frecuentes">Preguntas frecuentes</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#si-algo-no-funciona">Si algo no funciona</a></li></ol></aside>
+<article>
+<p class="kicker">Guía de usuario · Agente Licitatorio</p>
+<h1>Agente Licitatorio: cómo preparar la propuesta de una licitación</h1>
+<p class="dek">Qué documentos entregarle, cómo responder sus preguntas, qué recibes y cómo revisar la propuesta antes de radicarla.</p>
+<div class="chips"><span>3 nov 2026</span><span>Guía de usuario</span><span>bidding-agent</span><span>8 min de lectura</span></div>
+<h2 id="en-resumen">En resumen</h2>
+<p>El <strong>Agente Licitatorio</strong> te ayuda a responder una licitación de software. Tú le entregas los <strong>cuatro documentos oficiales</strong> del proceso; él los lee completos, detecta contradicciones y huecos, y construye la propuesta: el documento técnico, la estimación de horas, las consideraciones técnicas, un análisis de inteligencia artificial si hace falta y los dos modelos de costos llenados.</p>
+<p>Su principio es que la propuesta debe poder <strong>defenderse ante el comité evaluador</strong>: cada afirmación se apoya en un documento oficial, y nada se inventa.</p>
+<div class="stats"><div><b>4</b><span>documentos oficiales es todo lo que necesita para empezar</span></div><div><b>0</b><span>requerimientos olvidados: cada uno tiene su fila de respuesta</span></div><div><b>2</b><span>modelos de costos que se llenan y se concilian</span></div></div>
+<div class="callout tip"><span class="t">Lo más importante</span><p>Dale <strong>siempre</strong> las aclaraciones del proceso junto con el RFP. Si cotizas sobre un alcance que las aclaraciones ya cambiaron, el error sale caro.</p></div>
+<h2 id="para-que-sirve">Para qué sirve</h2>
+<p>Úsalo cuando Campuslands decida participar en un proceso de licitación o convocatoria formal con requisitos escritos, plazos y un formato oficial de costos. No es para propuestas comerciales informales: para esas están los agentes de presentaciones y de cotizaciones.</p>
+<h3 id="que-pasa-si-los-documentos-se-contradicen">Qué pasa si los documentos se contradicen</h3>
+<p>Hay un orden de prioridad que el agente aplica siempre:</p>
+<ol class="flow"><li><b>Aclaraciones</b><span>Gana siempre: es lo más reciente y vinculante.</span></li><li><b>Adendas</b><span>Modificaciones formales al RFP.</span></li><li><b>RFP original</b><span>La base del alcance.</span></li><li><b>Modelo de costos oficial</b><span>Solo manda en la forma de costear.</span></li></ol>
+<p>Si una contradicción cambia el alcance o el precio de forma importante, el agente <strong>no decide por su cuenta</strong>: te la presenta y te pregunta.</p>
+<h2 id="que-necesitas-darle">Qué necesitas darle</h2>
+<p>Los <strong>cuatro documentos</strong> del proceso, sin excepción:</p>
+<div class="cards"><div><b>1 · El RFP</b><span>El documento oficial con el alcance, los requerimientos, los plazos y los criterios de evaluación.</span></div><div><b>2 · Las aclaraciones</b><span>Las preguntas y respuestas del proceso. Pueden cambiar el alcance y prevalecen sobre el RFP.</span></div><div><b>3 · El modelo de costos oficial</b><span>El formato de costos que exige la empresa que licita. Es el que se radica.</span></div><div><b>4 · El modelo de costos de cotización</b><span>La plantilla interna de Campuslands con la que se calcula el precio real.</span></div></div>
+<h3 id="donde-dejarlos">Dónde dejarlos</h3>
+<p>En la carpeta del proceso, dentro de los recursos del agente, con un nombre que identifique la licitación:</p>
+<pre class="tree"><code><span class="d">recursos/</span>
+  <span class="d">licitaciones/</span>
+    <span class="d">&lt;nombre-del-proceso&gt;/</span>         <span class="c"># por ejemplo: ipa-pr10598</span>
+      RFP.pdf
+      Aclaraciones.pdf
+      Modelo de costos oficial.xlsx
+      Modelo de costos de cotizacion.xlsx</code></pre>
+<div class="callout importante"><span class="t">Si falta uno, el agente se detiene</span><p>Si no están los cuatro, te lo dirá y preguntará antes de construir. Si realmente un documento no existe en ese proceso, díselo con claridad: quedará registrado.</p></div>
+<h2 id="paso-a-paso">Paso a paso</h2>
+<div class="lanes" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="a" style="grid-row:1;grid-column:1">Tú</div><div class="a" style="grid-row:1;grid-column:2">Agente</div><div class="s l0" style="grid-row:2;grid-column:1"><i>1</i>Deja los cuatro documentos en la carpeta del proceso</div><div class="s l1" style="grid-row:3;grid-column:2"><i>2</i>Los lee completos y arma el análisis documental</div><div class="s l1" style="grid-row:4;grid-column:2"><i>3</i>Te presenta juntas las dudas que bloquean el avance</div><div class="s l0" style="grid-row:5;grid-column:1"><i>4</i>Respóndelas</div><div class="s l1" style="grid-row:6;grid-column:2"><i>5</i>Construye la matriz, la propuesta, las horas y los costos</div><div class="s l1" style="grid-row:7;grid-column:2"><i>6</i>Verifica todo con una revisión cruzada</div><div class="s l0" style="grid-row:8;grid-column:1"><i>7</i>Revisa y decide si radicas</div></div>
+<h3 id="1-entrega-los-documentos">1. Entrega los documentos</h3>
+<p>Cuando estén en la carpeta, dile el nombre del proceso y que quieres preparar la propuesta.</p>
+<h3 id="2-el-agente-lee-y-analiza">2. El agente lee y analiza</h3>
+<p>Lee los cuatro documentos completos y en orden, numera cada requerimiento con su cita (por ejemplo, «RFP §4.2» o «Aclaración P-17»), y detecta plazos, criterios de evaluación y contradicciones. El resultado es el <strong>análisis documental</strong>.</p>
+<h3 id="3-responde-las-dudas">3. Responde las dudas</h3>
+<p>Los documentos de licitación casi siempre tienen huecos, y el agente no los rellena por su cuenta. Te presentará <strong>las preguntas juntas</strong>, indicando qué impacto tiene cada una (en alcance, precio o plazo). Mientras tanto, seguirá avanzando en todo lo que no dependa de tus respuestas.</p>
+<h3 id="4-se-construye-la-propuesta">4. Se construye la propuesta</h3>
+<p>Con tus respuestas, el agente construye en orden: la matriz de cumplimiento, la propuesta técnica, la estimación de horas, las consideraciones técnicas, el análisis de IA (si aplica) y los dos modelos de costos.</p>
+<h3 id="5-revisa-y-decide">5. Revisa y decide</h3>
+<p>Recibes todo con una <strong>verificación cruzada</strong> que demuestra que los documentos se corresponden entre sí. Tú decides si se radica.</p>
+<h2 id="ejemplos-de-conversacion">Ejemplos de conversación</h2>
+<h3 id="empezar">Empezar</h3>
+<div class="chat"><div class="u"><b>Tú</b>Analiza la licitación ipa-pr10598. Los cuatro documentos ya están en la carpeta de recursos.</div><div class="g"><b>Agente</b>Verifiqué los cuatro documentos y los leí completos. Numeré los requerimientos y encontré tres contradicciones entre el RFP y las aclaraciones. Tengo cinco preguntas bloqueantes, agrupadas con su impacto en alcance, precio y plazo.</div></div>
+<h3 id="responder-las-dudas">Responder las dudas</h3>
+<div class="chat"><div class="u"><b>Tú</b>Sobre tus preguntas: 1) 200 usuarios concurrentes, 2) 12 meses de operación incluidos, 3) los datos deben quedar en Colombia.</div><div class="g"><b>Agente</b>Gracias. Registré las tres respuestas en la ficha de la licitación y continúo con la matriz de cumplimiento.</div></div>
+<h3 id="llego-una-adenda">Llegó una adenda</h3>
+<div class="chat"><div class="u"><b>Tú</b>Llegó una adenda al RFP. Vuelve a revisar el alcance y ajusta la propuesta.</div><div class="g"><b>Agente</b>Reanalicé el alcance con la adenda. Cambia dos requerimientos y agrega uno nuevo. Actualicé la matriz, la propuesta y la estimación de horas.</div></div>
+<h3 id="preguntar-por-el-plazo">Preguntar por el plazo</h3>
+<div class="chat"><div class="u"><b>Tú</b>¿El cronograma cabe en el plazo que exige el RFP?</div><div class="g"><b>Agente</b>Con las horas estimadas y el equipo propuesto, el plazo es factible. El cálculo está en el archivo de estimación: horas totales, días hábiles exigidos, y personas requeridas frente a las propuestas.</div></div>
+<h2 id="que-recibes">Qué recibes</h2>
+<p>Todo queda en una carpeta propia del proceso, con archivos numerados:</p>
+<div class="tw"><table><thead><tr><th>Archivo</th><th>Qué contiene</th></tr></thead><tbody><tr><td><code>00 - Analisis Documental</code></td><td>Los requerimientos, plazos, criterios de evaluación, contradicciones, supuestos y dudas</td></tr><tr><td><code>01 - Matriz de Cumplimiento</code></td><td>Cada requerimiento, si se cumple y cómo, y dónde se responde en la propuesta</td></tr><tr><td><code>02 - Propuesta Tecnica</code></td><td>El documento principal: módulos, arquitectura, metodología, cronograma y equipo</td></tr><tr><td><code>03 - Estimacion de Horas</code></td><td>Las horas por módulo y por especialidad, validadas contra el plazo</td></tr><tr><td><code>04 - Consideraciones Tecnicas</code></td><td>Todo lo técnico que hay que tener en cuenta, y la conclusión sobre IA</td></tr><tr><td><code>05 - Analisis IA y Tokens</code></td><td>Qué actividades usan IA y cuánto costaría (solo si el alcance la requiere)</td></tr><tr><td><code>06 - Modelo de Costos Oficial</code></td><td>El formato que exige la empresa, llenado: es el que se radica</td></tr><tr><td><code>07 - Modelo de Costos Cotizacion</code></td><td>El modelo interno con el precio real, llenado</td></tr><tr><td><code>verificacion-cruzada</code></td><td>La evidencia de que todo cuadra entre sí</td></tr></tbody></table></div>
+<h3 id="una-conclusion-sobre-ia-siempre">Una conclusión sobre IA, siempre</h3>
+<p>Toda propuesta dice por escrito si el alcance requiere servicios de inteligencia artificial y por qué. Si <strong>no</strong> los requiere, el archivo <code>05</code> no se genera, pero la razón queda en las consideraciones técnicas. «No se mencionó» nunca es una respuesta.</p>
+<h2 id="como-revisar-la-propuesta">Cómo revisar la propuesta</h2>
+<ul><li><strong>La matriz de cumplimiento:</strong> ¿cada requerimiento tiene respuesta? Fíjate en los que dicen <strong>«Cumple parcialmente»</strong> o <strong>«No cumple»</strong>: el agente los declara a propósito para que tú decidas qué hacer.</li><li><strong>Los obligatorios que no se cumplen</strong> son un bloqueante: pueden significar que el proceso no es viable tal como está planteado.</li><li><strong>El plazo:</strong> ¿el cronograma cabe en lo que exige el RFP con el equipo propuesto?</li><li><strong>Las aclaraciones:</strong> ¿la propuesta refleja la versión vigente del proceso?</li><li><strong>Los dos modelos de costos:</strong> los totales deben cuadrar, y cualquier diferencia debe estar explicada.</li><li><strong>Los pendientes:</strong> busca las marcas <code>[PENDIENTE: ...]</code> y resuélvelas antes de radicar.</li><li><strong>La conclusión sobre IA:</strong> ¿dice sí o no, y por qué?</li></ul>
+<div class="callout nota"><span class="t">La matriz es una herramienta de decisión</span><p>No es un documento de ventas. Si el agente marcara todo como «Cumple», la matriz perdería su valor. Prefiere decirte con claridad qué no se puede cumplir.</p></div>
+<h2 id="cuando-el-plazo-no-alcanza">Cuando el plazo no alcanza</h2>
+<p>Si las horas necesarias no caben en el plazo con el equipo propuesto, el agente <strong>te lo dice con los números</strong> y te presenta las opciones reales: ampliar el equipo (con su impacto en el precio), negociar plazo o alcance mediante aclaraciones, o desistir del proceso. <strong>No ajusta la estimación para que el cronograma «cuadre».</strong></p>
+<h2 id="lo-que-el-agente-no-hace">Lo que el agente no hace</h2>
+<div class="tw"><table><thead><tr><th>Si le pides…</th><th>Qué pasa</th><th>Qué hacer</th></tr></thead><tbody><tr><td>Que invente una certificación, una referencia o una capacidad</td><td>No lo hace: solo usa los documentos y el brief de la empresa</td><td>Aporta el soporte o déjalo como pendiente</td></tr><tr><td>Que ignore una aclaración «para simplificar»</td><td>No lo hace: las aclaraciones prevalecen</td><td>Si crees que hay un error, plantéalo con la cita</td></tr><tr><td>Que marque un requerimiento como cumplido sin sustento</td><td>No lo hace</td><td>Dale la información de cómo se cumple</td></tr><tr><td>Que entregue solo el modelo de costos de cotización</td><td>No lo hace: los dos se llenan y se concilian</td><td>Asegúrate de tener ambos modelos</td></tr><tr><td>Que acorte la estimación para que quepa en el plazo</td><td>No lo hace</td><td>Decide entre ampliar equipo, negociar o desistir</td></tr><tr><td>Que use información de otra licitación</td><td>No lo hace: cada proceso es reservado</td><td>Aporta los datos del proceso actual</td></tr></tbody></table></div>
+<h2 id="preguntas-frecuentes">Preguntas frecuentes</h2>
+<p><strong>¿Por qué hace tantas preguntas?</strong> Porque los documentos casi siempre tienen huecos y él no los rellena por su cuenta. Las agrupa para que respondas todo de una vez.</p>
+<p><strong>¿Y si las aclaraciones cambian el alcance?</strong> Prevalecen. Si el cambio afecta de forma importante el precio o el alcance, te consulta antes de decidir.</p>
+<p><strong>¿Por qué no hay análisis de IA?</strong> Porque el alcance no la requiere. La razón queda escrita en las consideraciones técnicas; solo se genera el archivo de IA cuando sí hace falta.</p>
+<p><strong>¿Qué es la verificación cruzada?</strong> Una revisión final que comprueba que todo coincide: que cada requerimiento tiene respuesta, que las horas corresponden a los módulos, que el cronograma cabe en el plazo y que los totales cuadran.</p>
+<p><strong>¿Se mezclan datos entre licitaciones?</strong> No. Cada proceso vive en su propia carpeta y su información es reservada.</p>
+<p><strong>¿Puedo cambiar algo después de la verificación?</strong> Sí, pero pídele que vuelva a verificar: un cambio puede afectar las horas, los costos o la matriz.</p>
+<h2 id="glosario">Glosario</h2>
+<div class="tw"><table><thead><tr><th>Término</th><th>Qué significa</th></tr></thead><tbody><tr><td>RFP</td><td><em>Request for Proposal</em>: el documento oficial que describe lo que la empresa necesita</td></tr><tr><td>Aclaraciones</td><td>Preguntas y respuestas del proceso, que pueden cambiar el alcance</td></tr><tr><td>Adenda</td><td>Una modificación formal al documento original</td></tr><tr><td>Matriz de cumplimiento</td><td>La tabla que responde cada requerimiento del RFP</td></tr><tr><td>Modelo de costos</td><td>La plantilla de Excel donde se calcula el precio</td></tr><tr><td>Conciliar</td><td>Comparar dos totales y explicar cada diferencia</td></tr><tr><td>Tokens</td><td>La unidad en que se mide el uso de los modelos de IA</td></tr><tr><td>Radicar</td><td>Presentar formalmente la propuesta a la entidad</td></tr></tbody></table></div>
+<h2 id="si-algo-no-funciona">Si algo no funciona</h2>
+<p>Si el agente no encuentra un documento, revisa que esté en la carpeta del proceso con un nombre claro. Si los totales no cuadran o la propuesta parece incompleta, revisa la verificación cruzada: ahí quedan los hallazgos. Si el problema persiste, avisa a quien mantiene el agente; su guía técnica explica cada habilidad en detalle.</p>
+<div class="more"><span>¿Buscas la otra mirada de este agente?</span><nav><a class="btn ghost" href="guia-dev.html">Guía Dev</a><a class="btn ghost" href="../index.html">Todas las guías</a></nav></div>
+</article></div>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.toc a'));if(!l.length||!('IntersectionObserver'in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-80px 0px -70% 0px'});
+document.querySelectorAll('article h2').forEach(function(h){o.observe(h)})})();
+</script>
+</body>
+</html>

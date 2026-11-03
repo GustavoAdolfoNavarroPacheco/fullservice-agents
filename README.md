@@ -47,6 +47,19 @@ Agente de **presentaciones HTML/CSS** comerciales. Construye decks de venta pers
 
 ---
 
+### [functional-scope](functional-scope/)
+
+Agente de **alcances funcionales**. Actúa como Product Manager senior y analista de negocio: lee las fuentes de un proyecto (propuestas, actas, cotizaciones, notas), detecta contradicciones y vacíos, entrevista al usuario por bloques priorizados y redacta el documento de alcance funcional para el cliente, sin inventar compromisos (estados CONFIRMADO / PROPUESTO / PENDIENTE). Se rige por el *Manual maestro para el agente generador de alcances funcionales* (`recursos/`).
+
+- **Entregable:** documento de alcance funcional editable + resumen ejecutivo de cambios + registro de pendientes.
+- **Estructura interna:**
+  - `alcances/` — Carpeta por cliente con `fuentes/`, `trabajo/` y `entrega/`.
+  - `plantillas/` — Ficha funcional, matriz de trazabilidad, matriz de riesgos y pendientes, y matrices de trabajo.
+  - `recursos/` — Manual y marca Campuslands (solo lectura).
+  - `wiki/` — Índice de proyectos, bitácora y resumen operativo del manual.
+
+---
+
 ### [QuoteDeveloper](QuoteDeveloper/)
 
 Agente **desarrollador de cotizaciones**. A partir de los alcances de un proyecto, genera un PDF de cotización de alcance (desglose por módulos) y rellena el XLSX estipulado por el equipo de Campus con las estimaciones de esfuerzo por especialidad.
