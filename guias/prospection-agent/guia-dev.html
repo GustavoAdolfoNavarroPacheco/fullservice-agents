@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Radar de Campus: guía técnica — Radar de Campus</title>
+<title>prospection-agent: guía técnica · Gus.dev</title>
 <link rel="icon" type="image/png" href="../assets/img/favicon.png">
 <link rel="stylesheet" href="../assets/estilo.css">
 </head>
 <body>
-<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
+<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Gus.dev</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
 <div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol><li><a href="#en-resumen">En resumen</a></li><li><a href="#que-hace-y-que-no-hace">Qué hace y qué no hace</a></li><li><a href="#como-corre-perplexity-y-perplexity-md">Cómo corre: Perplexity y Perplexity.md</a></li><li><a href="#estructura-del-repositorio">Estructura del repositorio</a></li><li><a href="#el-ciclo-de-trabajo">El ciclo de trabajo</a></li><li><a href="#las-cuatro-habilidades">Las cuatro habilidades</a></li><li><a href="#el-formulario-de-entrada">El formulario de entrada</a></li><li><a href="#formatos-de-salida">Formatos de salida</a></li><li><a href="#fuentes-de-datos">Fuentes de datos</a></li><li><a href="#el-perfil-de-empresa-objetivo-icp">El perfil de empresa objetivo (ICP)</a></li><li><a href="#reglas-duras">Reglas duras</a></li><li><a href="#como-se-verifica-un-lote">Cómo se verifica un lote</a></li><li><a href="#mantenimiento-y-cambios">Mantenimiento y cambios</a></li><li><a href="#problemas-frecuentes">Problemas frecuentes</a></li><li><a href="#relacion-con-el-resto-del-pipeline">Relación con el resto del pipeline</a></li></ol></aside>
 <article>
-<p class="kicker">Guía Dev · Radar de Campus</p>
-<h1>Radar de Campus: guía técnica</h1>
+<p class="kicker">Guía Dev · prospection-agent</p>
+<h1>prospection-agent: guía técnica</h1>
 <p class="dek">Cómo está construido el agente de prospección de empresas, qué hace cada habilidad, qué formatos entrega y cómo se mantiene.</p>
-<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>prospection-agent</span><span>14 min de lectura</span></div>
+<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>Perplexity</span><span>14 min de lectura</span></div>
 <h2 id="en-resumen">En resumen</h2>
-<p><strong>Radar de Campus</strong> es el agente de prospección de empresas de Campuslands. Dado un criterio de búsqueda (sector, ciudad, tamaño…), recorre la web abierta, filtra las empresas que encajan con el perfil de cliente de Full Service, completa cada una con datos públicos verificables y entrega un listado en tabla y en CSV.</p>
+<p><strong>Radar de Campus</strong> (<code>prospection-agent</code>) es el agente de prospección de empresas de Campuslands. Dado un criterio de búsqueda (sector, ciudad, tamaño…), recorre la web abierta, filtra las empresas que encajan con el perfil de cliente de Full Service, completa cada una con datos públicos verificables y entrega un listado en tabla y en CSV.</p>
 <p>Esta guía explica <strong>cómo funciona por dentro</strong>: los archivos que lo gobiernan, el ciclo de trabajo en tres fases, las cuatro habilidades que lo componen, los formatos de entrada y salida, las reglas que no se negocian y cómo modificarlo sin romperlo. Está pensada para quien mantiene el agente. Si solo necesitas usarlo, la guía de usuario es más corta y no requiere conocimientos técnicos.</p>
 <div class="stats n4 w"><div><b>1.º</b><span>eslabón del pipeline comercial: su salida alimenta a Explorador de Campus</span></div><div><b>3</b><span>fases por búsqueda: intake, búsqueda y enriquecimiento, entrega</span></div><div><b>4</b><span>habilidades (skills) encadenadas en <code>habilidades/</code></span></div><div><b>6</b><span>datos fijos en el formulario de entrada</span></div></div>
 <div class="callout importante"><span class="t">Lo esencial en tres líneas</span><p>Trabaja a nivel <strong>empresa</strong>, nunca a nivel persona. Busca solo en la <strong>web abierta</strong>: LinkedIn y Sales Navigator están prohibidos. Y <strong>no inventa datos</strong>: sin fuente verificable, la celda queda vacía.</p></div>

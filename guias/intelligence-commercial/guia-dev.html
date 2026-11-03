@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Explorador de Campus: guía técnica — Explorador de Campus</title>
+<title>intelligence-commercial: guía técnica · Gus.dev</title>
 <link rel="icon" type="image/png" href="../assets/img/favicon.png">
 <link rel="stylesheet" href="../assets/estilo.css">
 </head>
 <body>
-<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
+<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Gus.dev</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
 <div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol><li><a href="#en-resumen">En resumen</a></li><li><a href="#que-prospecta-y-a-quien">Qué prospecta y a quién</a></li><li><a href="#como-corre-perplexity-y-perplexity-md">Cómo corre: Perplexity y Perplexity.md</a></li><li><a href="#estructura-del-repositorio">Estructura del repositorio</a></li><li><a href="#el-ciclo-de-trabajo">El ciclo de trabajo</a></li><li><a href="#las-cuatro-habilidades">Las cuatro habilidades</a></li><li><a href="#filtros-de-linkedin">Filtros de LinkedIn</a></li><li><a href="#los-cinco-perfiles-de-comprador">Los cinco perfiles de comprador</a></li><li><a href="#formatos-de-salida">Formatos de salida</a></li><li><a href="#decisiones-fundacionales">Decisiones fundacionales</a></li><li><a href="#salvaguardas-de-la-cuenta">Salvaguardas de la cuenta</a></li><li><a href="#como-se-verifica-un-lote">Cómo se verifica un lote</a></li><li><a href="#mantenimiento-y-cambios">Mantenimiento y cambios</a></li><li><a href="#problemas-frecuentes">Problemas frecuentes</a></li><li><a href="#cosas-a-tener-presentes">Cosas a tener presentes</a></li><li><a href="#relacion-con-el-resto-del-pipeline">Relación con el resto del pipeline</a></li></ol></aside>
 <article>
-<p class="kicker">Guía Dev · Explorador de Campus</p>
-<h1>Explorador de Campus: guía técnica</h1>
+<p class="kicker">Guía Dev · intelligence-commercial</p>
+<h1>intelligence-commercial: guía técnica</h1>
 <p class="dek">Cómo funciona por dentro el agente de inteligencia comercial: fases, habilidades, filtros de LinkedIn, formatos, salvaguardas y mantenimiento.</p>
-<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>intelligence-commercial</span><span>14 min de lectura</span></div>
+<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>Perplexity</span><span>14 min de lectura</span></div>
 <h2 id="en-resumen">En resumen</h2>
-<p><strong>Explorador de Campus</strong> es el agente de inteligencia comercial B2B y prospección saliente (<em>outbound</em>) de Campuslands. Parte de una lista de empresas objetivo, la enriquece, identifica a los contactos clave de cada empresa, detecta en qué idioma escribe cada persona y le envía, <strong>de forma autónoma</strong>, una solicitud de conexión de LinkedIn con una nota personalizada.</p>
+<p><strong>Explorador de Campus</strong> (<code>intelligence-commercial</code>) es el agente de inteligencia comercial B2B y prospección saliente (<em>outbound</em>) de Campuslands. Parte de una lista de empresas objetivo, la enriquece, identifica a los contactos clave de cada empresa, detecta en qué idioma escribe cada persona y le envía, <strong>de forma autónoma</strong>, una solicitud de conexión de LinkedIn con una nota personalizada.</p>
 <p>Esta guía describe cómo está construido: los archivos que lo gobiernan, las cuatro fases del ciclo de trabajo, las cuatro habilidades que se encadenan, los filtros de LinkedIn, los formatos de salida, las salvaguardas para no poner en riesgo la cuenta del usuario y cómo modificarlo con seguridad. Está pensada para quien lo mantiene.</p>
 <div class="stats n4 w"><div><b>2.º</b><span>eslabón del pipeline de prospección; recibe el listado de Radar de Campus</span></div><div><b>4</b><span>fases por lote: enriquecer, clasificar, conectar e informar</span></div><div><b>4</b><span>habilidades encadenadas y 4 CSV numerados por lote</span></div><div><b>5</b><span>perfiles de comprador válidos para clasificar contactos</span></div></div>
 <div class="callout importante"><span class="t">Lo esencial</span><p>El envío es <strong>autónomo</strong> (sin aprobación por contacto ni por lote), pero <strong>nunca masivo</strong>: siempre en lotes pequeños con pausas. El agente jamás escribe credenciales ni resuelve CAPTCHA, y si LinkedIn muestra un límite o una verificación, <strong>se detiene y avisa</strong>.</p></div>

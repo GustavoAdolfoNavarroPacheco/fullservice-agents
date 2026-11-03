@@ -1,11 +1,11 @@
 ---
-titulo: Radar de Campus: cómo buscar empresas prospecto
+titulo: prospection-agent: cómo buscar empresas prospecto
 resumen: Qué necesitas decirle, qué recibes y cómo revisar la lista de empresas que te entrega el agente de prospección.
 ---
 
 ## En resumen
 
-**Radar de Campus** es el agente que te ayuda a encontrar empresas que podrían ser clientes de Campuslands. Tú le dices qué tipo de empresas buscas (por ejemplo, «constructoras medianas en Bogotá») y él te devuelve una lista ordenada, con datos públicos de cada empresa y la fecha de la búsqueda.
+**Radar de Campus** (`prospection-agent`) es el agente que te ayuda a encontrar empresas que podrían ser clientes de Campuslands. Tú le dices qué tipo de empresas buscas (por ejemplo, «constructoras medianas en Bogotá») y él te devuelve una lista ordenada, con datos públicos de cada empresa y la fecha de la búsqueda.
 
 No necesitas saber de programación para usarlo. Basta con escribirle como le escribirías a un compañero que va a investigar por ti.
 

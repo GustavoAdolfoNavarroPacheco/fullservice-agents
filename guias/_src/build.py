@@ -6,6 +6,7 @@ Salida: guias/<agente>/guia-{dev,usuario}.html y .pdf · guias/index.html
 """
 import html
 import pathlib
+import re
 import sys
 
 SRC = pathlib.Path(__file__).resolve().parent
@@ -57,7 +58,7 @@ def head(title, rel):
 
 def topbar(rel, pdf=None):
     btn = ('<a class="btn" href="%s" download>%s Descargar PDF</a>' % (pdf, DL)) if pdf else ''
-    return ('<header class="top"><div class="top-in"><a class="brand" href="%sindex.html"><img src="%sassets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a>'
+    return ('<header class="top"><div class="top-in"><a class="brand" href="%sindex.html"><img src="%sassets/img/logo-campuslands-color.png" alt="Campuslands"><span>Gus.dev</span></a>'
             '<nav><a href="%sindex.html">Todas las guías</a>%s</nav></div></header>\n' % (rel, rel, rel, btn))
 
 
@@ -71,15 +72,21 @@ def guide_page(ag, kind, meta, body, toc, words):
     mins = max(1, round(words / 210))
     title = meta.get('titulo', ag['nombre'])
     tocs = ''.join('<li><a href="#%s">%s</a></li>' % (i, html.escape(t)) for i, t in toc)
-    page = head('%s — %s' % (title, ag['nombre']), '../') + topbar('../', 'guia-%s.pdf' % kind)
+    page = head('%s · Gus.dev' % re.sub(r'<[^>]+>', '', md.inline(title)), '../') + topbar('../', 'guia-%s.pdf' % kind)
     page += ('<div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol>%s</ol></aside>\n<article>\n'
              '<p class="kicker">%s · %s</p>\n<h1>%s</h1>\n<p class="dek">%s</p>\n'
              '<div class="chips"><span>%s</span><span>%s</span><span>%s</span><span>%d min de lectura</span></div>\n%s\n'
              '<div class="more"><span>¿Buscas la otra mirada de este agente?</span><nav>'
              '<a class="btn ghost" href="guia-%s.html">%s</a><a class="btn ghost" href="../index.html">Todas las guías</a></nav></div>\n</article></div>\n%s\n%s\n</body>\n</html>\n'
-             % (tocs, TIPOS[kind], html.escape(ag['nombre']), md.inline(title), md.inline(meta.get('resumen', '')),
-                FECHA, TIPOS[kind], html.escape(ag['slug']), mins, body, other, TIPOS[other], scripts('../'), JS))
+             % (tocs, TIPOS[kind], html.escape(ag['slug']), md.inline(title), md.inline(meta.get('resumen', '')),
+                FECHA, TIPOS[kind], html.escape(ag['plataforma']), mins, body, other, TIPOS[other], scripts('../'), JS))
     return page
+
+
+def corto(titulo):
+    """Título sin el prefijo «<repo>: » (en el índice el nombre del repo ya va a la izquierda de la fila)."""
+    t = re.sub(r'^[^:]+:\s*', '', titulo)
+    return t[:1].upper() + t[1:]
 
 
 def index_page(items):
@@ -92,14 +99,14 @@ def index_page(items):
                 continue
             m, w = by[(ag['slug'], kind)]
             base = '%s/guia-%s' % (ag['slug'], kind)
-            nice = '%s - %s.pdf' % ('Guia Dev' if kind == 'dev' else 'Guia Usuario', ag['nombre'])
+            nice = '%s - %s.pdf' % ('Guia Dev' if kind == 'dev' else 'Guia Usuario', ag['slug'])
             out += ('<div class="ag"><div><h3>%s</h3><small>%s · %s</small></div><p><b>%s</b>%s</p>'
                     '<div class="go"><small>%d min</small><a class="btn" href="%s.html">Leer</a>'
                     '<a class="btn ghost" href="%s.pdf" download="%s" aria-label="Descargar PDF de %s">PDF</a></div></div>\n'
-                    % (html.escape(ag['nombre']), html.escape(ag['rol']), html.escape(ag['plataforma']), md.inline(m['titulo']), md.inline(m['resumen']),
-                       max(1, round(w / 210)), base, base, html.escape(nice), html.escape(ag['nombre'])))
+                    % (html.escape(ag['slug']), html.escape(ag['nombre']), html.escape(ag['plataforma']), md.inline(corto(m['titulo'])), md.inline(m['resumen']),
+                       max(1, round(w / 210)), base, base, html.escape(nice), html.escape(ag['slug'])))
         return out
-    page = head('Guías de los agentes — FullService', '') + topbar('')
+    page = head('Guías de los agentes · Gus.dev', '') + topbar('')
     page += ('<main class="home"><p class="kicker">Campuslands · Full Service</p><h1>Guías de uso de los agentes</h1>'
              '<p class="dek">Siete agentes, dos guías cada uno: una para quien los usa todos los días y otra para quien los mantiene.</p>'
              '<div class="chips"><span>%s</span><span>7 agentes</span><span>14 guías</span></div>'
@@ -164,7 +171,7 @@ def build(only=None, pdf=True):
             hp.write_text(guide_page(ag, kind, meta, body, toc, words), encoding='utf-8')
             print('  %-26s %-8s %5d palabras · %d secciones' % (ag['slug'], kind, words, len(toc)))
             if pdf:
-                make_pdf(hp, out / ('guia-%s.pdf' % kind), '%s · %s' % (ag['nombre'], TIPOS[kind]))
+                make_pdf(hp, out / ('guia-%s.pdf' % kind), '%s · %s' % (ag['slug'], TIPOS[kind]))
     (ROOT / 'index.html').write_text(index_page(items), encoding='utf-8')
 
 

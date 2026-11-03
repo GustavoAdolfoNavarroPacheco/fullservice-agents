@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agente Licitatorio: guía técnica — Agente Licitatorio</title>
+<title>bidding-agent: guía técnica · Gus.dev</title>
 <link rel="icon" type="image/png" href="../assets/img/favicon.png">
 <link rel="stylesheet" href="../assets/estilo.css">
 </head>
 <body>
-<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
+<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Gus.dev</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
 <div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol><li><a href="#en-resumen">En resumen</a></li><li><a href="#que-hace-y-que-no-hace">Qué hace y qué no hace</a></li><li><a href="#como-corre-claude-code-y-claude-md">Cómo corre: Claude Code y CLAUDE.md</a></li><li><a href="#los-documentos-de-entrada">Los documentos de entrada</a></li><li><a href="#estructura-del-repositorio">Estructura del repositorio</a></li><li><a href="#el-flujo-de-trabajo">El flujo de trabajo</a></li><li><a href="#las-cinco-habilidades">Las cinco habilidades</a></li><li><a href="#la-propuesta-tecnica">La propuesta técnica</a></li><li><a href="#las-consideraciones-tecnicas">Las consideraciones técnicas</a></li><li><a href="#la-verificacion-cruzada">La verificación cruzada</a></li><li><a href="#las-reglas-duras">Las reglas duras</a></li><li><a href="#mantenimiento">Mantenimiento</a></li><li><a href="#problemas-frecuentes">Problemas frecuentes</a></li><li><a href="#referencia-rapida-de-archivos">Referencia rápida de archivos</a></li></ol></aside>
 <article>
-<p class="kicker">Guía Dev · Agente Licitatorio</p>
-<h1>Agente Licitatorio: guía técnica</h1>
+<p class="kicker">Guía Dev · bidding-agent</p>
+<h1>bidding-agent: guía técnica</h1>
 <p class="dek">Cómo analiza el agente los cuatro documentos de una licitación y construye la propuesta, la estimación, las consideraciones técnicas, el análisis de IA y los dos modelos de costos.</p>
-<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>bidding-agent</span><span>18 min de lectura</span></div>
+<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>Claude Code</span><span>18 min de lectura</span></div>
 <h2 id="en-resumen">En resumen</h2>
-<p>El <strong>Agente Licitatorio</strong> es el especialista en licitaciones, preventa técnica, arquitectura de soluciones y estimación de proyectos de software de Campuslands Full Service. A partir de la documentación oficial de un proceso, lo analiza de forma integral y produce <strong>cuatro entregables</strong>: la propuesta técnica, la estimación de horas, las consideraciones técnicas y el análisis de inteligencia artificial, además de los soportes (análisis documental, matriz de cumplimiento y los dos modelos de costos llenados y conciliados).</p>
+<p>El <strong>Agente Licitatorio</strong> (<code>bidding-agent</code>) es el especialista en licitaciones, preventa técnica, arquitectura de soluciones y estimación de proyectos de software de Campuslands Full Service. A partir de la documentación oficial de un proceso, lo analiza de forma integral y produce <strong>cuatro entregables</strong>: la propuesta técnica, la estimación de horas, las consideraciones técnicas y el análisis de inteligencia artificial, además de los soportes (análisis documental, matriz de cumplimiento y los dos modelos de costos llenados y conciliados).</p>
 <p>Esta guía explica cómo está construido: los insumos y su jerarquía, el flujo de tres fases y catorce pasos, las cinco habilidades que lo componen, las reglas duras, la verificación cruzada y cómo mantenerlo. Está pensada para quien mantiene el agente.</p>
 <div class="stats n4 w"><div><b>4</b><span>documentos oficiales de entrada por licitación</span></div><div><b>4</b><span>entregables, más los soportes y los dos modelos de costos</span></div><div><b>14</b><span>pasos en tres fases: ingesta, entregables y verificación</span></div><div><b>0</b><span>requerimientos omitidos: la matriz de cumplimiento es el gate</span></div></div>
 <div class="callout importante"><span class="t">Lo esencial</span><p>La propuesta debe ser <strong>defendible ante el comité evaluador</strong>: cada afirmación se rastrea a un documento oficial. Por eso la fuente de verdad es solo la documentación suministrada, nada se inventa, y <strong>las aclaraciones prevalecen sobre el RFP</strong>: cotizar un alcance que las aclaraciones ya modificaron es el error más costoso del proceso.</p></div>

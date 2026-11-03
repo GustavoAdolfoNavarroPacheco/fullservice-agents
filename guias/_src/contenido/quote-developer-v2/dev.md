@@ -1,11 +1,11 @@
 ---
-titulo: Desarrollador de Cotizaciones: guía técnica
+titulo: quote-developer-v2: guía técnica
 resumen: Cómo genera el agente el PDF de cotización de alcance y llena la plantilla XLSX del equipo Campus, qué celdas puede tocar y cómo se verifica que ambos cuadren.
 ---
 
 ## En resumen
 
-El **Agente Desarrollador de Cotizaciones** convierte los alcances de un proyecto en dos entregables que deben contar exactamente el mismo alcance: un **PDF de cotización de alcance** con el desglose por módulos y precios, y el **XLSX de cotización** del equipo Campus, que corre el modelo de costos con las estimaciones de esfuerzo por especialidad.
+El **Agente Desarrollador de Cotizaciones** (`quote-developer-v2`) convierte los alcances de un proyecto en dos entregables que deben contar exactamente el mismo alcance: un **PDF de cotización de alcance** con el desglose por módulos y precios, y el **XLSX de cotización** del equipo Campus, que corre el modelo de costos con las estimaciones de esfuerzo por especialidad.
 
 Esta guía explica cómo está construido: la jerarquía de módulos, submódulos y funcionalidades que comparten el PDF y el Excel, qué celdas de la plantilla puede llenar y cuáles son intocables, cómo se estiman los días, cómo se diseña el PDF y cómo se comprueba que todo cuadre antes de entregar. Está pensada para quien mantiene el agente.
 

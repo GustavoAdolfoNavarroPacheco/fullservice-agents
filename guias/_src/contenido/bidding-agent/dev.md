@@ -1,11 +1,11 @@
 ---
-titulo: Agente Licitatorio: guía técnica
+titulo: bidding-agent: guía técnica
 resumen: Cómo analiza el agente los cuatro documentos de una licitación y construye la propuesta, la estimación, las consideraciones técnicas, el análisis de IA y los dos modelos de costos.
 ---
 
 ## En resumen
 
-El **Agente Licitatorio** es el especialista en licitaciones, preventa técnica, arquitectura de soluciones y estimación de proyectos de software de Campuslands Full Service. A partir de la documentación oficial de un proceso, lo analiza de forma integral y produce **cuatro entregables**: la propuesta técnica, la estimación de horas, las consideraciones técnicas y el análisis de inteligencia artificial, además de los soportes (análisis documental, matriz de cumplimiento y los dos modelos de costos llenados y conciliados).
+El **Agente Licitatorio** (`bidding-agent`) es el especialista en licitaciones, preventa técnica, arquitectura de soluciones y estimación de proyectos de software de Campuslands Full Service. A partir de la documentación oficial de un proceso, lo analiza de forma integral y produce **cuatro entregables**: la propuesta técnica, la estimación de horas, las consideraciones técnicas y el análisis de inteligencia artificial, además de los soportes (análisis documental, matriz de cumplimiento y los dos modelos de costos llenados y conciliados).
 
 Esta guía explica cómo está construido: los insumos y su jerarquía, el flujo de tres fases y catorce pasos, las cinco habilidades que lo componen, las reglas duras, la verificación cruzada y cómo mantenerlo. Está pensada para quien mantiene el agente.
 

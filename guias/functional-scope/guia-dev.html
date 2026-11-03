@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alcances Funcionales: guía técnica — Alcances Funcionales</title>
+<title>functional-scope: guía técnica · Gus.dev</title>
 <link rel="icon" type="image/png" href="../assets/img/favicon.png">
 <link rel="stylesheet" href="../assets/estilo.css">
 </head>
 <body>
-<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
+<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Gus.dev</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
 <div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol><li><a href="#en-resumen">En resumen</a></li><li><a href="#que-hace-y-que-no-hace">Qué hace y qué no hace</a></li><li><a href="#como-corre-claude-code-y-claude-md">Cómo corre: Claude Code y CLAUDE.md</a></li><li><a href="#estructura-del-repositorio">Estructura del repositorio</a></li><li><a href="#el-flujo-de-ocho-etapas">El flujo de ocho etapas</a></li><li><a href="#los-tres-estados-y-la-politica-de-faltantes">Los tres estados y la política de faltantes</a></li><li><a href="#las-reglas-duras">Las reglas duras</a></li><li><a href="#el-documento-al-cliente">El documento al cliente</a></li><li><a href="#las-plantillas-de-trabajo">Las plantillas de trabajo</a></li><li><a href="#el-documento-word">El documento Word</a></li><li><a href="#herramientas">Herramientas</a></li><li><a href="#control-de-calidad">Control de calidad</a></li><li><a href="#convenciones">Convenciones</a></li><li><a href="#mantenimiento">Mantenimiento</a></li><li><a href="#problemas-frecuentes">Problemas frecuentes</a></li><li><a href="#cosas-que-no-estan-alineadas">Cosas que no están alineadas</a></li><li><a href="#referencia-rapida-de-archivos">Referencia rápida de archivos</a></li></ol></aside>
 <article>
-<p class="kicker">Guía Dev · Alcances Funcionales</p>
-<h1>Alcances Funcionales: guía técnica</h1>
+<p class="kicker">Guía Dev · functional-scope</p>
+<h1>functional-scope: guía técnica</h1>
 <p class="dek">Cómo analiza el agente las fuentes de un proyecto, qué flujo sigue, cómo construye el documento Word y qué controles aplica antes de entregarlo.</p>
-<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>functional-scope</span><span>16 min de lectura</span></div>
+<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>Claude Code</span><span>16 min de lectura</span></div>
 <h2 id="en-resumen">En resumen</h2>
-<p>El <strong>Agente de Alcances Funcionales</strong> actúa como Product Manager senior, analista de negocio y consultor de soluciones de software. Lee las fuentes de un proyecto (propuestas, actas, cotizaciones, notas), extrae hechos y decisiones con su fuente, detecta contradicciones y vacíos, y redacta el <strong>documento de alcance funcional</strong> dirigido al cliente, <strong>sin inventar compromisos</strong>.</p>
+<p>El <strong>Agente de Alcances Funcionales</strong> (<code>functional-scope</code>) actúa como Product Manager senior, analista de negocio y consultor de soluciones de software. Lee las fuentes de un proyecto (propuestas, actas, cotizaciones, notas), extrae hechos y decisiones con su fuente, detecta contradicciones y vacíos, y redacta el <strong>documento de alcance funcional</strong> dirigido al cliente, <strong>sin inventar compromisos</strong>.</p>
 <p>Su prioridad es un alcance comprensible para el cliente, verificable para el equipo técnico y delimitado para la gestión comercial. No reemplaza la aprobación del líder técnico, comercial, jurídico ni del cliente: la pide donde aplica.</p>
 <p>Esta guía explica cómo está construido: las reglas del manual que lo gobiernan, el flujo de ocho etapas, el sistema de tres estados, la estructura del documento, el constructor del Word, el control de calidad y cómo mantenerlo. Está pensada para quien mantiene el agente.</p>
 <div class="stats n4"><div><b>3</b><span>estados siempre visibles: CONFIRMADO, PROPUESTO y PENDIENTE</span></div><div><b>8</b><span>etapas del flujo, de la recepción a la entrega</span></div><div><b>16</b><span>secciones de contenido en el documento al cliente</span></div><div><b>14</b><span>reglas duras que no se negocian</span></div></div>

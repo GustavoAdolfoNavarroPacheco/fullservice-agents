@@ -1,11 +1,11 @@
 ---
-titulo: Alcances Funcionales: cómo obtener el documento de alcance de un proyecto
+titulo: functional-scope: cómo obtener el documento de alcance de un proyecto
 resumen: Qué archivos entregarle, qué recibes, cómo leer los estados y los pendientes y cómo revisar el documento antes de enviarlo al cliente.
 ---
 
 ## En resumen
 
-El **Agente de Alcances Funcionales** lee los archivos de un proyecto (propuestas, actas de reunión, cotizaciones, notas, correos) y redacta con ellos el **documento de alcance funcional** que se entrega al cliente: qué incluye el proyecto, qué no, cómo se aceptará cada entrega y qué falta por definir.
+El **Agente de Alcances Funcionales** (`functional-scope`) lee los archivos de un proyecto (propuestas, actas de reunión, cotizaciones, notas, correos) y redacta con ellos el **documento de alcance funcional** que se entrega al cliente: qué incluye el proyecto, qué no, cómo se aceptará cada entrega y qué falta por definir.
 
 Su regla principal es **no inventar compromisos**. Todo lo que escribe sale de tus archivos; lo que no está, queda marcado como pendiente para que alguien lo resuelva. Y trabaja rápido: analiza todo y te entrega un borrador en el mismo momento, sin entrevistarte.
 

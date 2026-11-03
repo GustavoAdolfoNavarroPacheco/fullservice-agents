@@ -1,11 +1,11 @@
 ---
-titulo: Explorador de Campus: cómo conectar con los contactos clave
+titulo: intelligence-commercial: cómo conectar con los contactos clave
 resumen: Qué necesita el agente de prospección en LinkedIn, cómo se usa, qué mensajes envía y cómo revisar lo que hizo en tu nombre.
 ---
 
 ## En resumen
 
-**Explorador de Campus** toma una lista de empresas, encuentra a las personas indicadas dentro de cada una y les envía una invitación de LinkedIn con una nota escrita a su medida, en el idioma en que cada persona escribe. Al final te entrega un informe con todo lo que envió.
+**Explorador de Campus** (`intelligence-commercial`) toma una lista de empresas, encuentra a las personas indicadas dentro de cada una y les envía una invitación de LinkedIn con una nota escrita a su medida, en el idioma en que cada persona escribe. Al final te entrega un informe con todo lo que envió.
 
 Es la segunda etapa de la prospección: primero Radar de Campus encuentra las empresas, y después Explorador se acerca a las personas.
 

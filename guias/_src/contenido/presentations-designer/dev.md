@@ -1,11 +1,11 @@
 ---
-titulo: Estudio de Presentaciones: guía técnica
+titulo: presentations-designer: guía técnica
 resumen: Cómo está construido el agente que diseña, verifica, exporta y publica las presentaciones comerciales de Campuslands, y cómo se mantiene.
 ---
 
 ## En resumen
 
-El **Estudio de Presentaciones** es el agente que construye las presentaciones comerciales de Campuslands Full Service. Recibe los alcances de un cliente, propone un plan lámina por lámina, y una vez aprobado construye el deck en **HTML y CSS puros**, lo verifica con una herramienta y a la vista, lo exporta a **PDF** y lo publica en Vercel con un link para compartir con el cliente.
+El **Estudio de Presentaciones** (`presentations-designer`) es el agente que construye las presentaciones comerciales de Campuslands Full Service. Recibe los alcances de un cliente, propone un plan lámina por lámina, y una vez aprobado construye el deck en **HTML y CSS puros**, lo verifica con una herramienta y a la vista, lo exporta a **PDF** y lo publica en Vercel con un link para compartir con el cliente.
 
 Esta guía explica cómo funciona por dentro: las reglas de marca que gobiernan el diseño, la estructura del repositorio, el flujo de construcción de diez pasos, el verificador automático, la exportación a PDF, el registro obligatorio en el portal y los puntos donde conviene tener cuidado. Está pensada para quien mantiene el agente o necesita entender por qué un deck se ve como se ve.
 

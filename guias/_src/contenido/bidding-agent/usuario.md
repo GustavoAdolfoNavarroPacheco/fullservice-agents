@@ -1,11 +1,11 @@
 ---
-titulo: Agente Licitatorio: cómo preparar la propuesta de una licitación
+titulo: bidding-agent: cómo preparar la propuesta de una licitación
 resumen: Qué documentos entregarle, cómo responder sus preguntas, qué recibes y cómo revisar la propuesta antes de radicarla.
 ---
 
 ## En resumen
 
-El **Agente Licitatorio** te ayuda a responder una licitación de software. Tú le entregas los **cuatro documentos oficiales** del proceso; él los lee completos, detecta contradicciones y huecos, y construye la propuesta: el documento técnico, la estimación de horas, las consideraciones técnicas, un análisis de inteligencia artificial si hace falta y los dos modelos de costos llenados.
+El **Agente Licitatorio** (`bidding-agent`) te ayuda a responder una licitación de software. Tú le entregas los **cuatro documentos oficiales** del proceso; él los lee completos, detecta contradicciones y huecos, y construye la propuesta: el documento técnico, la estimación de horas, las consideraciones técnicas, un análisis de inteligencia artificial si hace falta y los dos modelos de costos llenados.
 
 Su principio es que la propuesta debe poder **defenderse ante el comité evaluador**: cada afirmación se apoya en un documento oficial, y nada se inventa.
 

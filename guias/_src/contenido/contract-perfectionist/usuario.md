@@ -1,11 +1,11 @@
 ---
-titulo: Contract Perfectionist: cómo obtener el contrato de un proyecto
+titulo: contract-perfectionist: cómo obtener el contrato de un proyecto
 resumen: Qué documentos entregarle, qué datos revisar, qué recibes y cómo revisar el contrato antes de firmarlo.
 ---
 
 ## En resumen
 
-**Contract Perfectionist** redacta el contrato de un proyecto a partir de tres cosas: los **alcances** (qué se va a construir), la **cotización** (cuánto cuesta, cómo se paga y cuándo se entrega) y el **contrato madre** (el esquema de cláusulas estándar de la empresa). El resultado es un documento de Word con el membrete de Campuslands y líneas para firmar.
+**Contract Perfectionist** (`contract-perfectionist`) redacta el contrato de un proyecto a partir de tres cosas: los **alcances** (qué se va a construir), la **cotización** (cuánto cuesta, cómo se paga y cuándo se entrega) y el **contrato madre** (el esquema de cláusulas estándar de la empresa). El resultado es un documento de Word con el membrete de Campuslands y líneas para firmar.
 
 Su objetivo es que **ambas partes, al terminar de leer, sepan exactamente** qué se entrega, cuándo, por cuánto, bajo qué condiciones y qué pasa si algo falla.
 

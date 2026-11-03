@@ -13,6 +13,8 @@ Dos guías por agente (7 agentes, 14 guías), en **web** y **PDF**, con un estil
 
 > `quote-developer/` (v1) queda fuera: es el legado congelado de `quote-developer-v2/`.
 
+**Nombres:** cada guía se identifica con el nombre de la carpeta del agente en el repo (título, etiquetas, índice y encabezado del PDF), para saber siempre a cuál se refiere. El nombre descriptivo (por ejemplo, «Radar de Campus») queda como apoyo en el índice y en la primera mención del texto. La marca de la cabecera es «Campuslands | Gus.dev».
+
 ## Abrir
 
 - **Índice:** [`index.html`](index.html) (funciona sin servidor).

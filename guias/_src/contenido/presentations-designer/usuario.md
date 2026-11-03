@@ -1,11 +1,11 @@
 ---
-titulo: Estudio de Presentaciones: cómo crear la presentación de un cliente
+titulo: presentations-designer: cómo crear la presentación de un cliente
 resumen: Qué necesitas darle al agente, cómo aprobar el plan, cómo pedir ajustes y qué recibes: un PDF y un link listos para enviar.
 ---
 
 ## En resumen
 
-El **Estudio de Presentaciones** convierte la información de tu cliente en una presentación comercial con el diseño oficial de Campuslands. Tú le compartes los alcances; él te propone primero un **plan lámina por lámina**, y solo cuando lo apruebas construye el borrador. Al final recibes un **PDF** y un **link web** para enviar.
+El **Estudio de Presentaciones** (`presentations-designer`) convierte la información de tu cliente en una presentación comercial con el diseño oficial de Campuslands. Tú le compartes los alcances; él te propone primero un **plan lámina por lámina**, y solo cuando lo apruebas construye el borrador. Al final recibes un **PDF** y un **link web** para enviar.
 
 No necesitas saber de diseño ni de programación: el agente se ocupa del formato, la marca y la verificación. Tu trabajo es aportar la información correcta y decidir.
 

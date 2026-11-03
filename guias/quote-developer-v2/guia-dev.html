@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Desarrollador de Cotizaciones: guía técnica — Desarrollador de Cotizaciones</title>
+<title>quote-developer-v2: guía técnica · Gus.dev</title>
 <link rel="icon" type="image/png" href="../assets/img/favicon.png">
 <link rel="stylesheet" href="../assets/estilo.css">
 </head>
 <body>
-<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
+<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Gus.dev</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
 <div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol><li><a href="#en-resumen">En resumen</a></li><li><a href="#que-hace-y-que-no-hace">Qué hace y qué no hace</a></li><li><a href="#como-corre-claude-code-y-claude-md">Cómo corre: Claude Code y CLAUDE.md</a></li><li><a href="#estructura-del-repositorio">Estructura del repositorio</a></li><li><a href="#el-flujo-de-trabajo">El flujo de trabajo</a></li><li><a href="#la-plantilla-xlsx">La plantilla XLSX</a></li><li><a href="#la-estimacion-de-dias">La estimación de días</a></li><li><a href="#el-pdf-de-cotizacion">El PDF de cotización</a></li><li><a href="#verificacion-obligatoria">Verificación obligatoria</a></li><li><a href="#entorno-y-herramientas">Entorno y herramientas</a></li><li><a href="#mantenimiento">Mantenimiento</a></li><li><a href="#problemas-frecuentes">Problemas frecuentes</a></li><li><a href="#cosas-que-no-estan-alineadas">Cosas que no están alineadas</a></li><li><a href="#referencia-rapida-de-archivos">Referencia rápida de archivos</a></li></ol></aside>
 <article>
-<p class="kicker">Guía Dev · Desarrollador de Cotizaciones</p>
-<h1>Desarrollador de Cotizaciones: guía técnica</h1>
+<p class="kicker">Guía Dev · quote-developer-v2</p>
+<h1>quote-developer-v2: guía técnica</h1>
 <p class="dek">Cómo genera el agente el PDF de cotización de alcance y llena la plantilla XLSX del equipo Campus, qué celdas puede tocar y cómo se verifica que ambos cuadren.</p>
-<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>quote-developer-v2</span><span>15 min de lectura</span></div>
+<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>Claude Code</span><span>15 min de lectura</span></div>
 <h2 id="en-resumen">En resumen</h2>
-<p>El <strong>Agente Desarrollador de Cotizaciones</strong> convierte los alcances de un proyecto en dos entregables que deben contar exactamente el mismo alcance: un <strong>PDF de cotización de alcance</strong> con el desglose por módulos y precios, y el <strong>XLSX de cotización</strong> del equipo Campus, que corre el modelo de costos con las estimaciones de esfuerzo por especialidad.</p>
+<p>El <strong>Agente Desarrollador de Cotizaciones</strong> (<code>quote-developer-v2</code>) convierte los alcances de un proyecto en dos entregables que deben contar exactamente el mismo alcance: un <strong>PDF de cotización de alcance</strong> con el desglose por módulos y precios, y el <strong>XLSX de cotización</strong> del equipo Campus, que corre el modelo de costos con las estimaciones de esfuerzo por especialidad.</p>
 <p>Esta guía explica cómo está construido: la jerarquía de módulos, submódulos y funcionalidades que comparten el PDF y el Excel, qué celdas de la plantilla puede llenar y cuáles son intocables, cómo se estiman los días, cómo se diseña el PDF y cómo se comprueba que todo cuadre antes de entregar. Está pensada para quien mantiene el agente.</p>
 <div class="stats n4"><div><b>2</b><span>entregables que deben contar el mismo alcance: PDF y XLSX</span></div><div><b>3</b><span>niveles de detalle: módulo, submódulo y funcionalidad</span></div><div><b>10</b><span>especialidades para estimar días, de las columnas B a K</span></div><div><b>0,5</b><span>días es el piso mínimo de cualquier estimación</span></div></div>
 <div class="callout importante"><span class="t">Lo esencial</span><p><strong>Nunca inventa alcance.</strong> Toda la información técnica sale de lo que el usuario comparte; ante la duda, pregunta. Y <strong>nunca toca las fórmulas</strong> de la plantilla: solo llena las celdas de datos permitidas y dos celdas obligatorias explícitamente autorizadas.</p></div>

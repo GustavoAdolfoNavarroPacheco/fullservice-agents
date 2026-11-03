@@ -1,11 +1,11 @@
 ---
-titulo: Desarrollador de Cotizaciones: cómo obtener el PDF y el Excel de una cotización
+titulo: quote-developer-v2: cómo obtener el PDF y el Excel de una cotización
 resumen: Qué necesitas darle al agente, qué recibes, cómo validar el alcance y los precios, y cómo pedir ajustes.
 ---
 
 ## En resumen
 
-El **Desarrollador de Cotizaciones** convierte lo que tu cliente necesita en dos archivos que cuentan lo mismo: un **PDF** con el alcance del proyecto dividido por módulos y con su precio, y un **Excel** con las horas de trabajo de cada especialidad y el costo calculado por las fórmulas del equipo.
+El **Desarrollador de Cotizaciones** (`quote-developer-v2`) convierte lo que tu cliente necesita en dos archivos que cuentan lo mismo: un **PDF** con el alcance del proyecto dividido por módulos y con su precio, y un **Excel** con las horas de trabajo de cada especialidad y el costo calculado por las fórmulas del equipo.
 
 Tú compartes los alcances; el agente redacta, estima y llena los archivos. Primero validas el contenido del PDF y después se calculan los precios, para que nunca discutas un precio sobre un alcance que todavía no estaba claro.
 

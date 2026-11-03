@@ -1,11 +1,11 @@
 ---
-titulo: Contract Perfectionist: guía técnica
+titulo: contract-perfectionist: guía técnica
 resumen: Cómo redacta el agente el contrato final de un proyecto, qué insumos usa, cómo se monta el Word sobre la plantilla corporativa y qué controles debe pasar antes de entregarse.
 ---
 
 ## En resumen
 
-**Contract Perfectionist** redacta el **contrato final** de un proyecto a partir de tres insumos: los **alcances** (qué se va a construir), la **cotización** (valores, forma de pago y cronograma) y el **contrato madre** (la plantilla estructural con las cláusulas estándar de la empresa). El resultado es un contrato en `contratos/<cliente>/` donde ambas partes quedan enteradas del objeto, el alcance, el cronograma, los valores y las reglas del proyecto, **sin ambigüedad**.
+**Contract Perfectionist** (`contract-perfectionist`) redacta el **contrato final** de un proyecto a partir de tres insumos: los **alcances** (qué se va a construir), la **cotización** (valores, forma de pago y cronograma) y el **contrato madre** (la plantilla estructural con las cláusulas estándar de la empresa). El resultado es un contrato en `contratos/<cliente>/` donde ambas partes quedan enteradas del objeto, el alcance, el cronograma, los valores y las reglas del proyecto, **sin ambigüedad**.
 
 Esta guía explica cómo está construido: los insumos, el flujo de seis pasos, las nueve reglas duras, la arquitectura de cláusulas, el script que monta el documento Word y ejecuta los controles, la verificación cruzada y cómo mantenerlo. Está pensada para quien mantiene el agente.
 

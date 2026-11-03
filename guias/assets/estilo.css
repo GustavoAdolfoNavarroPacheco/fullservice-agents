@@ -67,7 +67,7 @@ html.lenis{ scroll-behavior:auto !important; }
 .top-in{ max-width:var(--page-w); margin:0 auto; height:var(--bar-h); display:flex; align-items:center; justify-content:space-between; gap:16px; }
 .brand{ display:flex; align-items:center; gap:14px; text-decoration:none; color:var(--ink); font-weight:500; }
 .brand img{ height:28px; width:auto; }
-.brand span{ color:var(--muted); padding-left:14px; border-left:1px solid var(--line); }
+.brand span{ font-family:var(--sans); font-weight:600; letter-spacing:-.005em; color:var(--ink); padding-left:14px; border-left:1px solid var(--line); }
 .top nav{ display:flex; align-items:center; gap:20px; }
 .top nav a{ text-decoration:none; color:var(--muted); }
 .top nav a:hover{ color:var(--ink); }

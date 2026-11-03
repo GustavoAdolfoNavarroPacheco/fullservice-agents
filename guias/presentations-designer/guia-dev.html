@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Estudio de Presentaciones: guía técnica — Estudio de Presentaciones</title>
+<title>presentations-designer: guía técnica · Gus.dev</title>
 <link rel="icon" type="image/png" href="../assets/img/favicon.png">
 <link rel="stylesheet" href="../assets/estilo.css">
 </head>
 <body>
-<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Guías de los agentes</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
+<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>Gus.dev</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-dev.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a></nav></div></header>
 <div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol><li><a href="#en-resumen">En resumen</a></li><li><a href="#que-hace-y-que-no-hace">Qué hace y qué no hace</a></li><li><a href="#como-corre-claude-code-y-claude-md">Cómo corre: Claude Code y CLAUDE.md</a></li><li><a href="#estructura-del-repositorio">Estructura del repositorio</a></li><li><a href="#el-flujo-de-construccion">El flujo de construcción</a></li><li><a href="#las-ocho-reglas-supremas">Las ocho reglas supremas</a></li><li><a href="#el-sistema-de-diseno">El sistema de diseño</a></li><li><a href="#el-visor-interactivo">El visor interactivo</a></li><li><a href="#herramientas">Herramientas</a></li><li><a href="#exportacion-a-pdf">Exportación a PDF</a></li><li><a href="#verificacion">Verificación</a></li><li><a href="#registro-y-publicacion">Registro y publicación</a></li><li><a href="#el-portal-web">El portal web</a></li><li><a href="#mantenimiento">Mantenimiento</a></li><li><a href="#problemas-frecuentes">Problemas frecuentes</a></li><li><a href="#cosas-que-no-estan-alineadas">Cosas que no están alineadas</a></li><li><a href="#referencia-rapida-de-archivos">Referencia rápida de archivos</a></li></ol></aside>
 <article>
-<p class="kicker">Guía Dev · Estudio de Presentaciones</p>
-<h1>Estudio de Presentaciones: guía técnica</h1>
+<p class="kicker">Guía Dev · presentations-designer</p>
+<h1>presentations-designer: guía técnica</h1>
 <p class="dek">Cómo está construido el agente que diseña, verifica, exporta y publica las presentaciones comerciales de Campuslands, y cómo se mantiene.</p>
-<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>presentations-designer</span><span>19 min de lectura</span></div>
+<div class="chips"><span>3 nov 2026</span><span>Guía Dev</span><span>Claude Code</span><span>19 min de lectura</span></div>
 <h2 id="en-resumen">En resumen</h2>
-<p>El <strong>Estudio de Presentaciones</strong> es el agente que construye las presentaciones comerciales de Campuslands Full Service. Recibe los alcances de un cliente, propone un plan lámina por lámina, y una vez aprobado construye el deck en <strong>HTML y CSS puros</strong>, lo verifica con una herramienta y a la vista, lo exporta a <strong>PDF</strong> y lo publica en Vercel con un link para compartir con el cliente.</p>
+<p>El <strong>Estudio de Presentaciones</strong> (<code>presentations-designer</code>) es el agente que construye las presentaciones comerciales de Campuslands Full Service. Recibe los alcances de un cliente, propone un plan lámina por lámina, y una vez aprobado construye el deck en <strong>HTML y CSS puros</strong>, lo verifica con una herramienta y a la vista, lo exporta a <strong>PDF</strong> y lo publica en Vercel con un link para compartir con el cliente.</p>
 <p>Esta guía explica cómo funciona por dentro: las reglas de marca que gobiernan el diseño, la estructura del repositorio, el flujo de construcción de diez pasos, el verificador automático, la exportación a PDF, el registro obligatorio en el portal y los puntos donde conviene tener cuidado. Está pensada para quien mantiene el agente o necesita entender por qué un deck se ve como se ve.</p>
 <div class="stats n4 w"><div><b>10</b><span>láminas como máximo por presentación, salvo pedido textual del usuario</span></div><div><b>8</b><span>reglas supremas de diseño, con prioridad sobre cualquier otra</span></div><div><b>2</b><span>entregas obligatorias: PDF exportado y link desplegado</span></div><div><b>1056 × 594</b><span>píxeles de cada lámina, igual al tamaño del PDF (11 × 6,19 in)</span></div></div>
 <div class="callout importante"><span class="t">Lo esencial</span><p>La marca es siempre <strong>Campuslands</strong>: fondo blanco, tipografía Poppins y logo a color. El cliente aporta <strong>su logo y su contenido</strong>, nunca su paleta. Y nada se entrega sin pasar <code>verificar_deck.py</code> <strong>y</strong> una revisión a la vista de cada lámina.</p></div>
