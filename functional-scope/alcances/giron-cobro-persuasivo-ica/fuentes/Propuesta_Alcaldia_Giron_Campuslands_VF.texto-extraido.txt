@@ -1,0 +1,442 @@
+[Ttulo] PROPUESTA COMERCIAL Y TÉCNICA
+Servicio inteligente de cobro persuasivo y fiscalización tributaria con IA
+ALCALDÍA MUNICIPAL DE GIRÓN | INDUSTRIA Y COMERCIO (ICA)
+Campuslands S.A.S. BIC · Full Service
+Versión 2.0 | 28 de octubre de 2026
+Documento confidencial — Para revisión técnica, jurídica, financiera y contractual
+[Ttulo1] Carta de presentación
+Girón, 28 de octubre de 2026
+Señores
+ALCALDÍA MUNICIPAL DE GIRÓN
+Campuslands S.A.S. BIC presenta la oferta integral para la primera implementación con la entidad del servicio inteligente de cobro persuasivo con IA para Industria y Comercio. La propuesta incorpora los alcances técnicos definidos por el equipo responsable, las obligaciones de las partes, la operación en 2027, el seguimiento de cumplimiento y las condiciones comerciales.
+La solución automatiza la gestión multicanal, incluida la interacción conversacional por voz, con intervención de funcionarios cuando se requiere. El servicio se presta sobre infraestructura de la Alcaldía y servicios especializados de IA en nube pública.
+Atentamente,
+DIEGO TARAZONA
+Gerente Comercial — Campuslands S.A.S. BIC
+diego@campuslands.com
+[Ttulo1] 1. Objeto, modalidad y alcance institucional
+Campuslands prestará el servicio de cobro persuasivo con IA para cartera de Industria y Comercio (ICA), mediante una plataforma de su propiedad que será configurada, integrada, puesta en marcha, operada y mantenida durante la vigencia contractual. Se realizará una primera implementación con la entidad en tres fases, con operación funcional desde el primer día hábil de enero de 2027 y hasta diciembre de 2027. Las funcionalidades habilitadas al inicio y la secuencia de las restantes se documentarán en actas y cronograma aprobado.
+El servicio no sustituye las actuaciones tributarias oficiales, no emite recibos oficiales ni ejecuta cobro coactivo. Las ampliaciones a otras secretarías serán objeto de levantamiento, aprobación y contratación independientes.
+[Ttulo1] 2. Alcance de IA y relevo operativo
+La inteligencia artificial no se limita al envío de recordatorios: el agente de voz realiza llamadas, se identifica como asistente virtual de la Alcaldía, consulta la información autorizada, interpreta las respuestas del contribuyente, gestiona objeciones dentro de guiones aprobados, registra compromisos, transcribe, resume y clasifica los resultados. El agente de WhatsApp mantiene conversaciones contextualizadas y los funcionarios reciben casos priorizados y acciones recomendadas. La meta de referencia es de llamadas acordes a las necesidades de la operación, con dimensionamiento de minutos según las necesidades de la operación bajo los supuestos técnicos indicados en el anexo.
+El procesamiento de IA se realiza en nubes públicas de proveedores especializados. No se requiere instalar modelos de IA ni tarjetas gráficas (GPU) en los servidores de la Alcaldía. Los componentes locales son aplicación, base de datos y workers; la voz, telefonía, WhatsApp, correo y modelo de lenguaje usan servicios externos. El audio de llamadas no transita por la red de la Alcaldía.
+[Ttulo1] 3. Primera implementación y calendario
+<<TABLA>>
+Periodo | Actividad y resultado
+Noviembre–diciembre 2026 | Alistamiento, insumos, servidores, integraciones, datos y pruebas, sin fee mensual.
+Primer día hábil de enero 2027 | Inicio de operación funcional con capacidades validadas y acta de inicio.
+Febrero–junio 2027 | Habilitación progresiva de módulos y canales de fases 1 a 3, pruebas y actas por fase.
+Julio–octubre 2027 | Optimización de campañas, fiscalización, escalamiento y seguimiento.
+Noviembre–diciembre 2027 | Balance del servicio y decisión facultativa sobre la opción de compra.
+<<FIN TABLA>>
+[Ttulo1] 4. Arquitectura, nube, conectividad y responsabilidades
+La Alcaldía aporta máquinas virtuales, almacenamiento, dominio, configuración de seguridad, VPN, respaldos y un canal de conectividad dedicado de 50 Mbps, contratado y pagado por la entidad, independiente de los canales institucionales saturados. Campuslands realiza el alistamiento y despliegue de la solución, pero no contrata ni asume el costo del canal de internet.
+La información operativa principal se mantiene en la infraestructura de la entidad. Los proveedores externos procesan las interacciones que corresponden a sus servicios: voz y telefonía, WhatsApp, correo y modelo de lenguaje. La gestión de grabaciones, transcripciones, retención, seguridad, auditoría, tratamiento de datos y políticas de respaldo se definirá con TIC y el área jurídica conforme al alcance técnico anexo.
+[Ttulo1] 5. Consumos, herramientas y dependencias
+Campuslands asume dentro del fee los consumos asociados a llamadas y telefonía, WhatsApp, correo y modelos de lenguaje, de acuerdo con las necesidades de la operación y los procesos contratados. El monitoreo de consumos y el dimensionamiento técnico permitirán mantener la calidad del servicio; nuevas funcionalidades o procesos ajenos al alcance se tramitarán mediante control de cambios.
+Se utilizarán Node.js, TypeScript, TypeORM, Vue.js, MariaDB, Redis, Ubuntu Server 24.04 LTS, Retell AI, Twilio o Telnyx, WhatsApp Business API (Meta), un proveedor de correo y un proveedor de modelo de lenguaje por definir. Las licencias y servicios de terceros conservan sus condiciones; Campuslands entregará inventario de dependencias (SBOM) y plan de salida.
+[Ttulo1] 6. Verificación técnica y seguimiento institucional
+<<TABLA>>
+Instancia | Responsabilidad
+Dirección TIC | Seguimiento técnico y verificación de cumplimiento: disponibilidad, integraciones, infraestructura, seguridad y condiciones técnicas del servicio.
+Dirección de Industria y Comercio | Seguimiento financiero, administrativo y funcional: campañas, indicadores, funcionamiento para usuarios y facturación.
+Campuslands | Realización de configuración, integraciones, operación, soporte, monitoreo, correcciones dentro del alcance y reportes de seguimiento.
+<<FIN TABLA>>
+[Ttulo1] 7. Canal de soporte y gestión de requerimientos
+Los requerimientos y tickets se remitirán a dev@campuslands.com. Horario de atención: lunes a viernes de 8:00 a. m. a 5:00 p. m. Cada solicitud deberá indicar asunto, descripción, módulo afectado, fecha, impacto y evidencia disponible. Campuslands registrará, clasificará, asignará, atenderá y comunicará el cierre del caso. Los tiempos de respuesta y solución por criticidad se establecerán en el acuerdo de nivel de servicio (SLA) contractual; no se presume soporte 24/7.
+[Ttulo1] 8. Equipo de servicio: competencias y responsabilidades
+<<TABLA>>
+Perfil | Competencias y responsabilidades
+Gerente del servicio | Gestión de proyectos y relacionamiento institucional; coordinación, reportes, riesgos y compromisos.
+Líder técnico | Arquitectura de software, APIs, integración, seguridad y decisiones técnicas con TIC.
+Ingeniero de integraciones y datos | ETL, depuración, calidad, bases de datos e interoperabilidad con fuentes tributarias y recaudo.
+Especialista en IA conversacional | Diseño de flujos conversacionales, voz y WhatsApp, prompts, pruebas y límites de actuación.
+Ingeniero de infraestructura | Linux, redes, despliegues, monitoreo, continuidad, respaldos y actualizaciones.
+Analista funcional y de soporte | Reglas de negocio, pruebas, documentación, capacitación y atención de incidencias.
+Diseñador UX | Usabilidad de interfaces, formularios, mapas y flujos para funcionarios.
+Dos desarrolladores Junior (Camper) | Programación supervisada, scripts, parametrización, correcciones y pruebas bajo dirección técnica.
+<<FIN TABLA>>
+[Ttulo1] 9. Propuesta económica
+El precio del servicio remunera el uso de la plataforma propia, la primera implementación con la entidad, alistamiento, parametrización, integración de fuentes y canales, configuración de agentes de IA, consumos de proveedores externos, equipo profesional, monitoreo, mantenimiento, capacitación, soporte y gestión de riesgos. La Alcaldía suministra los servidores y el canal dedicado, por lo cual esos conceptos no se incluyen en el fee.
+9.1. Modelo de prestación integral
+La oferta no corresponde a una licencia informática aislada. El pago mensual remunera la disponibilidad y uso de una plataforma propia, su primera implementación con la entidad y la operación coordinada de capacidades tecnológicas, profesionales y de comunicación. Esto permite gestionar de forma trazable la identificación de obligaciones, segmentación, contacto persuasivo, clasificación de respuestas y escalamiento a funcionarios.
+9.2. Componentes que sustentan el valor mensual
+Plataforma tecnológica: Uso de los módulos de cartera, fiscalización, mapas, campañas, expedientes, tableros y reportes; mantenimiento y actualizaciones dentro del alcance contratado.
+Inteligencia artificial conversacional: Configuración de agentes de voz y WhatsApp, guiones aprobados, consultas contextualizadas, transcripción, resumen, clasificación y escalamiento a funcionarios. La IA ejecuta contactos repetitivos; las decisiones tributarias siguen a cargo de la entidad.
+Comunicaciones y servicios externos: Consumos de telefonía, llamadas, WhatsApp, correo, proveedores de voz y modelos de lenguaje de acuerdo con las necesidades de la operación y las condiciones técnicas del servicio; consumos extraordinarios sujetos a autorización previa.
+Primera implementación con la entidad: Alistamiento, parametrización, depuración de información, integración de fuentes institucionales, pruebas y habilitación progresiva de las capacidades descritas en el anexo técnico.
+Equipo profesional multidisciplinario: Gestión del servicio, arquitectura, integraciones y datos, IA conversacional, infraestructura, análisis funcional, experiencia de usuario, ajustes correctivos y soporte, con asignación según necesidades de cada etapa.
+Operación y continuidad: Monitoreo, mantenimiento correctivo, soporte, atención de incidentes, capacitación, documentación, gestión de riesgos y seguimiento de indicadores conforme a las condiciones contratadas.
+9.3. Capacidad operativa y beneficios institucionales
+La solución permite gestionar el universo de contribuyentes identificado por la entidad y ejecutar estrategias permanentes de contacto por WhatsApp, correo y voz, acordes a las necesidades de la operación, sin establecer cantidades numéricas de llamadas ni deudores. La intensidad de contacto se definirá según los procesos, la disponibilidad de información, las campañas institucionales y la normativa aplicable.
+El valor para la Alcaldía se refleja en la centralización de la cartera, mayor cobertura de contacto, trazabilidad, priorización de casos y disminución del trabajo manual. Al automatizar conversaciones y seguimiento, la entidad reduce la necesidad de mantener un call center presencial dedicado a llamadas, respuestas y clasificación de casos, y puede concentrar el personal en actuaciones que requieren criterio humano. El ahorro potencial dependerá de la organización actual y de la adopción del servicio; no se garantiza un monto de ahorro ni de recaudo.
+9.4. Distribución de responsabilidades económicas
+Campuslands asume dentro del fee el uso de su plataforma, configuración de agentes, integraciones, equipo profesional, soporte y consumos externos del servicio. La Alcaldía suministra y financia servidores, respaldos institucionales y conectividad, además de los datos, accesos, dominios y aprobaciones requeridos.
+9.5. Ampliación de información a oferta económica institucional
+La tarifa integra servicios que de otra forma requerirían coordinación entre proveedores de plataforma, IA, telefonía, mensajería, integración de datos y soporte especializado. Su evaluación debe considerar la continuidad de la prestación, las capacidades técnicas incluidas, los volúmenes de referencia y las responsabilidades asumidas, además del precio de uso de software. La razonabilidad del precio deberá sustentarse en los estudios previos, análisis del sector y soportes económicos aplicables a la contratación municipal. La IA conversacional permite atender respuestas contextualizadas por WhatsApp, sostener conversaciones telefónicas, interpretar respuestas y generar transcripciones y resúmenes; estas capacidades reducen la necesidad de operadores humanos dedicados a contactos repetitivos y permiten escalar la atención con trazabilidad. La depuración, los cruces y la georreferenciación se implementan mediante herramientas de datos convencionales complementadas por automatización, sin atribuir indebidamente estas funciones a la IA.
+9.6. Condiciones comerciales
+La facturación inicia en enero de 2027 y el pago se realiza a mes vencido, comenzando en febrero, conforme al procedimiento contractual. Los pagos mensuales remuneran el uso y operación del servicio y no constituyen abonos al precio de adquisición. La opción de compra exige manifestación expresa, instrumento contractual y trámites presupuestales aplicables; los servicios y licencias de terceros no se transfieren en propiedad.
+<<TABLA>>
+Concepto | Valor impuestos incluidos
+Fee mensual de servicio (enero–diciembre 2027) | $50.000.000 COP
+Opción facultativa de compra con marca blanca, diciembre de 2027 | $540.000.000 COP
+<<FIN TABLA>>
+La facturación inicia en enero de 2027 por el servicio correspondiente a ese mes y la Alcaldía paga a mes vencido, iniciando el pago en febrero de 2027, conforme a los trámites y plazos contractuales. Los valores indicados incluyen IVA y demás impuestos, retenciones y estampillas aplicables. Los cánones mensuales remuneran el uso y la operación del servicio y no constituyen abonos al precio de compra.
+En diciembre de 2027 la Alcaldía podrá ejercer expresamente la opción de compra por $540.000.000 COP impuestos incluidos. La adquisición en marca blanca comprende los derechos de uso, explotación y adaptación definidos en el informe técnico, código fuente y documentación del alcance contratado. No transfiere la propiedad de servicios de terceros ni sus licencias. La compra requerirá instrumento contractual, autorización y disponibilidad presupuestal aplicables.
+Condiciones técnicas complementarias. La georreferenciación podrá iniciar con ubicaciones aproximadas a partir de direcciones normalizadas y mejorarse con coordenadas capturadas por funcionarios en visitas; la calidad del mapa depende de los datos suministrados por la entidad. La consulta de información de Cámara de Comercio se realizará mediante dos APIs de proveedores externos, cuyas respuestas se integrarán y cruzarán para obtener de forma complementaria los campos requeridos para la fiscalización, en particular el municipio de registro y la fecha de última renovación. Campuslands configurará la integración y consolidación de los resultados conforme a los datos efectivamente suministrados por ambas APIs y a las condiciones de acceso autorizadas. La dirección exacta no se considera un dato garantizado por estos servicios. Las integraciones adicionales con DIAN y nuevos procesos quedan para evaluación posterior. El respaldo de la base de datos se coordinará con TIC mediante mecanismos de copia y restauración validados.
+[Ttulo1] 10. Contratación, documentación y formalización
+Campuslands aportará su formato propio de creación de clientes para diligenciamiento y validación de datos institucionales y administrativos. La formalización requiere mesa técnica, jurídica, administrativa y financiera para aprobar insumos, infraestructura, condiciones de servicio, criterios de aceptación, cronograma, consumo de referencia, protección de datos y condiciones de compra. La documentación de cada fase, actas, manuales y registros de pruebas servirá como evidencia de cumplimiento.
+[Ttulo1] 11. Evolución y exclusiones
+Cualquier extensión a otras secretarías o componentes de Fase 4 requerirá definición funcional y técnica, análisis de impacto, cotización y aprobación formal independiente. Se excluyen los actos tributarios oficiales, emisión de recibos, cobro coactivo, visor inmobiliario y administración de fondos embargados, conforme a las exclusiones completas del anexo técnico.
+[Ttulo1] 12. Anexo técnico integral — actualizado según acuerdos de la mesa técnica
+Se incorpora el informe técnico como base funcional del servicio, con ajustes de capacidad, conectividad y condiciones comerciales acordados en la mesa técnica. Las integraciones con fuentes externas dependen de la disponibilidad efectiva de datos y accesos autorizados.
+[Ttulo1] Informe técnico — Servicio de cobro persuasivo con IA, Alcaldía de Girón
+[Ttulo2] Objeto y alcance del servicio
+Campuslands presta a la Alcaldía de Girón un servicio de cobro persuasivo con IA para la cartera de Industria y Comercio (ICA). El servicio funciona sobre una plataforma ya en operación, con agentes de IA que contactan a los deudores y herramientas de consulta y gestión para los funcionarios. La Alcaldía lo adquiere como servicio y Campuslands lo pone en marcha en tres fases (Fase 1, Fase 2 y Fase 3), desplegado en los servidores de la Alcaldía, para operar del 1 de enero al 31 de diciembre de 2027.
+El servicio:
+• Construye la cartera a partir de la fiscalización: cruza las fuentes institucionales disponibles para las vigencias 2021 a 2026, sin limitar el número de contribuyentes; las fuentes externas sujetas a acceso o licenciamiento requieren validación de disponibilidad.
+• Permite consultar en tiempo real la cartera por zona, vigencia, estado y monto, desde computador o celular.
+• Contacta a los contribuyentes en cascada: WhatsApp, luego correo y, cuando corresponda, llamada con agente de voz; la frecuencia y cantidad de contactos serán acordes a las necesidades de la operación.
+• Entrega a los funcionarios cada caso procesado con la acción recomendada: visitar, enviar recibo, atender una solicitud de acuerdo o verificar pago.
+• Muestra a esos mismos contribuyentes en un mapa por zonas, marcados según el semáforo de gestión, y asigna visitas cuando hace falta.
+La plataforma no emite cobros oficiales ni recibos: los emite el operador oficial del municipio y la plataforma redirige a su link de pago. Tampoco adelanta cobro coactivo (mandamiento de pago, embargos, remate), que queda como ampliación del servicio (Fase 4).
+[Ttulo2] Flujo del servicio
+1. Fiscalización: el servicio cruza MAT-SIM, SICOG II, Cámara de Comercio y la base de contratos, e identifica a los contribuyentes que deben gestionarse.
+2. Cartera: esos contribuyentes quedan clasificados  y ubicados por zona, en el dashboard y en el mapa.
+3. Revisión: un funcionario revisa la clasificación antes de iniciar el contacto.
+4. Contacto en cascada: WhatsApp, luego correo y, si no se logra contacto, llamada con el agente de voz.
+5. Escalamiento: los casos que necesitan una persona pasan a la bandeja de funcionarios con la acción recomendada.
+6. Visita: si el caso lo requiere, se asigna una visita y su resultado se registra en el formulario digital.
+7. Pago: el contribuyente paga por el link oficial, y el servicio actualiza su estado con el recaudo del operador oficial.
+[Ttulo2] Inteligencia artificial en el servicio
+Un software tradicional puede enviar recordatorios masivos, pero no puede sostener una llamada, entender lo que responde el contribuyente ni decidir el siguiente paso. La IA es lo que permite hacerlo a escala, con conversaciones reales y el registro de cada resultado.
+<<TABLA>>
+Dónde actúa | Qué hace | Qué permite
+Agente de voz | Llama, se identifica como asistente virtual de la Alcaldía, entiende lo que dice el contribuyente, responde objeciones dentro de los guiones autorizados y registra la intención o el compromiso de pago | Conversaciones de voz según las necesidades de la operación, sin requerir un call center dedicado para contactos automatizables
+Agente de WhatsApp | Conversa en lenguaje natural, consulta las obligaciones del contribuyente y lo lleva al link de pago oficial | Atender respuestas a cualquier hora, sin un funcionario detrás
+Transcripción y resumen | Transcribe cada llamada, la resume y clasifica su resultado | El funcionario lee un resumen en lugar de escuchar la grabación
+Acción recomendada | Propone el siguiente paso de cada caso: visita, recibo, solicitud de acuerdo, verificación de pago o negativa | Concentrar el trabajo de los funcionarios en los casos que lo necesitan
+Asistente de consulta | Responde en lenguaje natural preguntas sobre la cartera, un contribuyente o los indicadores | Consultar sin conocer filtros ni reportes
+<<FIN TABLA>>
+La IA corre en la nube pública de sus proveedores: Retell AI para la voz y el proveedor del modelo de lenguaje para el texto. 
+[Ttulo2] Arquitectura del servicio
+La aplicación, la base de datos y los workers corren en los servidores de la Alcaldía; la voz, la telefonía, WhatsApp, el correo y el modelo de lenguaje son servicios en la nube.
+&#91;embedded content: arquitectura · on-premise y servicios en la nube\]
+Los funcionarios entran por la red interna y la API lee las fuentes de fiscalización y el recaudo por la VPN existente. El motor de campañas llama a los servicios en la nube por HTTPS y estos devuelven respuestas y resultados por webhooks. La llamada sale de Retell por la telefonía, así que el audio no pasa por la red de la Alcaldía.
+[Ttulo2] Stack tecnológico del servicio y servicios externos
+La plataforma funciona con componentes de código abierto que se despliegan en los servidores de la Alcaldía. La voz, la telefonía, WhatsApp, el correo y el modelo de lenguaje son servicios externos que se pagan por consumo.
+<<TABLA>>
+Capa | Tecnología | Dónde corre
+Backend y API | Node.js con TypeScript, TypeORM | Servidor de aplicación (Alcaldía)
+Frontend web, adaptable a celular | Vue.js | Servidor de aplicación (Alcaldía)
+Base de datos | MariaDB | Servidor de base de datos (Alcaldía)
+Colas, tareas programadas y workers | Redis | Servidor de aplicación (Alcaldía)
+sistema operativo | Ubuntu Server 24.04 LTS | Servidores de la Alcaldía
+Proxy inverso y certificados | Proxy HTTPS con certificado SSL del dominio de la Alcaldía | Servidor de aplicación (Alcaldía)
+Agente de voz | Retell AI | Nube de Retell AI
+Telefonía | Twilio o telnyx  con números colombianos | Nube del operador
+WhatsApp | API de WhatsApp Business (Meta) | Nube de Meta
+Correo | Proveedor de envío con dominio institucional (SPF, DKIM, DMARC) | Nube del proveedor
+Modelo de lenguaje | Proveedor por definir | Nube del proveedor
+<<FIN TABLA>>
+Campuslands entrega un inventario de dependencias y licencias (SBOM) y un plan de salida por cada proveedor externo. 
+[Ttulo2] Componentes, licencias y opción de compra
+La plataforma es un producto de Campuslands. Si la Alcaldía ejerce la opción de compra en diciembre de 2027, que es facultativa, la adquiere en modalidad de marca blanca: derechos de uso, explotación y adaptación para operarla con identidad institucional, más el código fuente y la documentación del alcance contratado. Los servicios de terceros conservan sus condiciones y no se transfieren en propiedad.
+<<TABLA>>
+Componente | Tipo | Con la opción de compra
+Plataforma: aplicación web, API, motor de campañas y módulos | Propio de Campuslands | Se transfiere en marca blanca, con código fuente y documentación
+Configuración de los agentes: guiones, flujos e instrucciones | Propio de Campuslands | Se transfiere con la plataforma
+Retell AI (voz) | Servicio de tercero | Sigue con su proveedor, bajo sus condiciones
+Twilio o Telnyx (telefonía) | Servicio de tercero | Sigue con su proveedor, bajo sus condiciones
+API de WhatsApp Business (Meta) | Servicio de tercero | La cuenta ya está a nombre de la Alcaldía; el servicio sigue con Meta
+Proveedor de correo y modelo de lenguaje | Servicios de terceros | Siguen con sus proveedores, bajo sus condiciones
+Node.js, Vue.js, MariaDB, Redis, Leaflet | Código abierto | Conservan sus licencias abiertas
+<<FIN TABLA>>
+[Ttulo2] Consumo de servicios externos incluido
+Campuslands asume dentro del fee mensual el consumo de telefonía y llamadas, WhatsApp, correo y modelo de lenguaje. Las cuentas de WhatsApp Business y los números quedan a nombre de la Alcaldía. Los correos los envía Campuslands desde su proveedor, con una dirección remitente institucional que define la Alcaldía.
+<<TABLA>>
+Canal | Criterio operativo | Base del cálculo
+Llamadas | llamadas acordes a las necesidades de la operación, unos minutos según las necesidades de la operación | Estrategias de contacto ajustadas a las necesidades de la operación
+WhatsApp | Un mensaje de plantilla por contribuyente en cada ciclo de campaña, más las conversaciones de respuesta | Cartera determinada por los registros institucionales disponibles
+Correo | Un correo por cada contribuyente que no responde por WhatsApp, en cada ciclo | Cascada de contacto
+Modelo de lenguaje | Conversaciones de WhatsApp, resúmenes y clasificación de llamadas, y consultas del asistente | Uso de los agentes
+<<FIN TABLA>>
+Los volúmenes por encima de esta referencia se aprueban antes con la Alcaldía y no generan cobros automáticos.
+[Ttulo2] Ruta de implementación 2026–2027
+El servicio opera del 1 de enero al 31 de diciembre de 2027. El alistamiento se hace en noviembre y diciembre de 2026, sin fee mensual. El cronograma definitivo se aprueba en la mesa técnica, jurídica y financiera.
+<<TABLA>>
+Periodo | Qué pasa | Evidencia
+Noviembre–diciembre 2026 | Firma, entrega de insumos de la Alcaldía, alistamiento de servidores y canal, carga y depuración de datos, integraciones y pruebas | Inventario de funcionalidades listas para enero
+Enero 2027 | Inicio de operación con las capacidades validadas | Acta de inicio operativo
+Febrero–junio 2027 | Habilitación de los módulos y canales pendientes de las fases 1 a 3, validación con funcionarios y ajustes | Acta por fase
+Julio–octubre 2027 | Optimización de campañas, fiscalización, escalamiento y seguimiento de indicadores | Reportes mensuales de seguimiento
+Noviembre–diciembre 2027 | Cierre de la vigencia, balance del servicio y decisión sobre la opción de compra | Balance del servicio
+<<FIN TABLA>>
+[Ttulo2] Implementacion Fase 1 — Control de la data
+Al cierre de la Fase 1, el alcalde y los funcionarios consultan en tiempo real la cartera de unos contribuyentes identificados por las fuentes institucionales por zona, vigencia, estado y monto, desde el computador o el celular. La cartera sale del proceso de fiscalización.
+[Ttulo3] Levantamiento y parametrización del servicio
+Resultado: documento de parametrización del servicio con reglas de negocio y criterios de aceptación.
+• Proceso actual de cobro de Industria y Comercio y procedimiento escrito y aprobado de cobro, fiscalización.
+• Actores, roles, responsabilidades y fuentes de información existentes.
+• Análisis del histórico de obligaciones 2021–2026.
+• Ciclo de vida del cobro persuasivo y reglas de clasificación de deudores, de compromisos de pago, y de contacto y escalamiento.
+• Indicadores de gestión y recaudo, y criterios de aceptación del servicio.
+[Ttulo3] Arquitectura de despliegue e integración
+Resultado: documento de arquitectura de despliegue y especificación de servidores, puertos y dominios para TIC, entregada antes de que se creen las máquinas virtuales.
+• Despliegue de la plataforma en la infraestructura de la Alcaldía.
+• Configuración de comunicaciones omnicanal (WhatsApp, correo y llamadas) y dimensionamiento de llamadas simultáneas.
+• Mapeo de los datos de la Alcaldía al modelo de la plataforma e integraciones externas, incluido el link de pago del operador oficial del municipio.
+• Configuración de seguridad, autenticación, autorización, trazabilidad y auditoría.
+• Ambientes de pruebas y producción.
+[Ttulo3] Fiscalización
+• Cruce de las fuentes que define el requerimiento de la Alcaldía: declaraciones de ICA en MAT-SIM, exógena municipal en SICOG II, información de Cámara de Comercio consultada y consolidada mediante dos APIs externas y base de contratos de la Alcaldía.
+• Cruce por número de documento normalizado (NIT con o sin dígito de verificación), porque los posibles omisos pueden no tener RIT ni placa.
+• Identificación de posibles omisos de ICA en un listado en Excel con los campos del requerimiento y la columna EMPLAZAR (por emplazar, no clasificado para emplazamiento o pendiente de validación). El funcionario revisa la clasificación antes del contacto.
+• Los contribuyentes identificados forman la cartera del servicio: son los que aparecen en el dashboard y en el mapa, los que se contactan en cascada y los que se visitan cuando hace falta.
+• Contacto en cascada a los contribuyentes marcados como por emplazar: WhatsApp, luego notificación por correo y, si no se logra contacto, llamada con el agente de voz. Usa el motor de campañas y los canales de la Fase 2.
+• Mensajes y guiones aprobados por jurídica de la Alcaldía; el acto de emplazamiento y su notificación formal siguen el procedimiento tributario.
+[Ttulo3] Núcleo de gestión de cartera y cobro
+• Módulos de contribuyentes y negocios, obligaciones, histórico de deuda y pagos, y gestión por placa.
+• Clasificación por zonas, estados del proceso de cobro y semáforo de gestión.
+• Historial de actuaciones, asignación y gestión de casos, y trazabilidad integral del expediente de cobro.
+• Reglas de priorización de cartera, empezando por las deudas de mayor monto.
+[Ttulo3] Dashboard de cartera
+• Vista general y por zona, vigencia, estado y semáforo de gestión.
+• Indicadores de recuperación de cartera.
+• Filtros, búsquedas, y generación y exportación de reportes.
+• Interfaz adaptable a celular.
+[Ttulo3] Mapa de contribuyentes por zona
+Los contribuyentes se georreferencian a partir de su dirección y se muestran sobre la capa de zonas del municipio, con un marcador del color de su semáforo de gestión. El mapa funciona con Leaflet sobre las capas geográficas de la Alcaldía o el mapa base de OpenStreetMap.
+• Mapa por zonas con los contribuyentes marcados según el semáforo de gestión.
+• Filtros por zona, vigencia, estado, monto y semáforo, con conteo de contribuyentes y cartera por zona.
+• Ficha del contribuyente al seleccionar su marcador: obligaciones, historial de gestión y estado del contacto.
+• Normalización y georreferenciación de direcciones; los registros sin dirección identificable quedan en la zona adicional y fuera del mapa hasta que se corrijan.
+• Vista adaptable a celular.
+[Ttulo2] Implementacion Fase 2 — Gestión automática multicanal con IA&#32;
+Al cierre de la Fase 2, el sistema contacta en cascada a los contribuyentes identificados en la fiscalización, procesa sus respuestas y las clasifica, con una meta operativa de llamadas acordes a las necesidades de la operación.
+La cascada de contacto funciona así:
+1. La campaña selecciona un segmento de los contribuyentes identificados en la fiscalización, según los criterios parametrizados.
+2. El sistema envía un WhatsApp con plantilla aprobada por Meta; si el deudor responde, el agente de WhatsApp atiende la conversación.
+3. Si no responde en la ventana definida, envía un correo con el link de pago oficial.
+4. Si sigue sin responder, el agente de voz lo llama.
+5. Cada intento queda registrado y clasificado; los casos que requieren una persona escalan a un funcionario.
+[Ttulo3] Motor de campañas y gestión automática de cobro
+Las campañas se ejecutan con colas y workers que despachan mensajes y llamadas respetando la concurrencia, los horarios y la frecuencia permitidos.
+• Campañas sobre los contribuyentes que resultan de la fiscalización, con segmentación y parametrización de criterios de selección.
+• Campañas de fiscalización para los contribuyentes marcados como por emplazar, con la misma cascada de WhatsApp, correo y llamada.
+• Fechas y ventanas de contacto según los horarios que valide jurídica de la Alcaldía (Ley 2300 de 2023).
+• programación de campañas masivas.
+• Reglas de reintento, reglas de exclusión y control de frecuencia de contacto.
+• Gestión del resultado de cada intento y escalamiento automático de casos.
+[Ttulo3] Agente de IA para llamadas de voz
+El agente corre sobre Retell AI y sale a la red telefónica por Twilio o Telynx con números colombianos. Durante la llamada consulta a la plataforma los datos del contribuyente y su deuda; el audio no pasa por la red de la Alcaldía.
+• Configuración del agente conversacional con los guiones y objetivos aprobados por la Alcaldía, en tono amable y persuasivo.
+• Configuración de la voz del agente.&#32;
+• Llamadas automáticas y llamadas simultáneas masivas.
+• Identificación del contribuyente y consulta contextual de su deuda durante la llamada.
+• Gestión de intención de pago, objeciones con respuestas permitidas y captura de compromisos de pago.
+• Transcripción y almacenamiento de conversaciones, resumen automático y clasificación del resultado.
+• Controles y límites de actuación del agente.
+[Ttulo3] Agente de IA para WhatsApp
+• Integración con la API de WhatsApp Business, verificación del número y aprobación de plantillas ante Meta.
+• Agente conversacional que identifica al contribuyente, consulta sus obligaciones y gestiona la conversación de cobro.
+• Presentación de alternativas de pago autorizadas y redirección al link de pago oficial del operador del municipio.
+• Gestión de intención y compromiso de pago y envío de recordatorios.
+• Gestión de conversaciones no resueltas, con registro y trazabilidad completa de las interacciones.
+[Ttulo3] Canal de correo electrónico
+• Integración con el proveedor de envío y configuración del dominio remitente.
+• Plantillas de cobro persuasivo con el link de pago oficial.
+• Envío masivo programado desde las campañas.
+[Ttulo3] Dashboard de gestión
+• Seguimiento de campañas, llamadas, conversaciones de WhatsApp y envíos de correo.
+• Indicadores de efectividad por canal.
+• Consulta de campañas, llamadas y conversaciones desde el asistente de funcionarios.
+[Ttulo2] Implementacion Fase 3 — Escalamiento a funcionarios y validación
+En la Fase 3, la IA entrega al equipo de la Alcaldía cada caso procesado con la acción recomendada: visitar, enviar recibo, atender una solicitud de acuerdo o verificar pago. La fase cierra con la validación en operación real.
+[Ttulo3] Gestión de casos escalados
+• Gestión y visualización de casos.
+• Bandeja de casos por acción recomendada: visita, solicitud de acuerdo, verificación de pago o negativa.
+• Transferencia de conversaciones y llamadas a funcionarios.
+• Registro de la gestión humana en el historial del expediente.
+[Ttulo3] Gestión de visitas
+Cuando el sistema asigna una visita, el resultado se registra en la plataforma con un formulario digital. Los campos de ese formulario salen del formato de registro de visita que entregará la Alcaldía.
+• Asignación de visitas por funcionario y zona, con la lista de contribuyentes a visitar y su ubicación en el mapa.
+• Formulario digital de resultado de visita, diligenciable desde el celular, con fecha, hora, funcionario que la realizó y adjuntos como fotos o documentos.
+• Actualización automática del estado del caso y del semáforo según el resultado, con registro en el historial del expediente.
+• Definición del siguiente paso según el resultado: cierre, nueva campaña de contacto, nueva visita o escalamiento.
+• Seguimiento de visitas pendientes, realizadas y no efectivas, por funcionario y zona.
+[Ttulo3] Verificación de pagos (versión básica)
+La fuente de verdad de los pagos es el operador oficial del municipio; la plataforma importa su información de recaudo y no registra pagos por su cuenta.
+• Importación periódica de la información de recaudo del operador oficial.
+• Asociación de pagos con placa y obligación.
+• Actualización del estado de cartera.
+• Generación de novedades para revisión manual.
+[Ttulo3] Validación en operación real
+Los funcionarios de la Alcaldía validan el servicio con la cartera real antes de la operación general. Las pruebas de recuperación ante fallos y de carga completa se cierran antes de la operación general.
+[Ttulo2] Componentes transversales del servicio
+Seguridad, gobierno de IA, pruebas y despliegue corren a lo largo de las tres fases.
+[Ttulo3] Seguridad, privacidad y auditoría
+• Autenticación, autorización basada en roles y gestión de usuarios funcionarios.
+• Protección y cifrado de información sensible, cifrado en tránsito y gestión de secretos.
+• Gestión segura de grabaciones y transcripciones.
+• Logs de auditoría y trazabilidad de las acciones de funcionarios y de agentes de IA, como evidencia ante entes de control.
+• Políticas de conservación de información, respaldo y recuperación.
+• Controles de seguridad, con pruebas básicas OWASP.
+• Controles de privacidad y tratamiento de datos personales (Ley 1581 de 2012).
+[Ttulo3] Gobierno de IA
+• Definición de gobierno y límites de actuación de la IA: qué puede decir y ofrecer cada agente, y cuándo pasa el caso a un humano.
+• Los agentes se identifican como asistente virtual de la Alcaldía.
+• Borrador de política institucional de inteligencia artificial para la Alcaldía, con referencia al marco de la UNESCO.
+[Ttulo3] Pruebas y validación del servicio
+• Integración y datos: pruebas de integraciones, funcionales y de calidad de datos.
+• Agentes y canales: agentes de IA, pruebas conversacionales, llamadas masivas, WhatsApp, envío de correo y cascada entre canales.
+• Procesos de negocio: verificación de pagos.
+• No funcionales: seguridad, rendimiento y concurrencia, y recuperación ante fallos.
+• Aceptación: pruebas con funcionarios de la Alcaldía, corrección y estabilización.
+[Ttulo3] Alistamiento y despliegue en la nube privada de la Alcaldía
+Campuslands hace el alistamiento y el despliegue sobre las máquinas virtuales que entrega la Dirección de TIC.
+• Preparación del servidor: Ubuntu Server 24.04 LTS, usuarios nominales, firewall, hardening y acceso remoto por VPN.
+• Instalación y configuración de Node.js, MariaDB, Redis y el proxy HTTPS con el certificado del dominio de la Alcaldía.
+• Despliegue de la aplicación web, la API y los workers del motor de campañas, en ambientes de pruebas y producción.
+• Scripts de despliegue, actualización de versiones y vuelta a la versión anterior (rollback).
+• Tareas programadas: cruces de las fuentes de fiscalización, importación de recaudo, ejecución de campañas, rotación de registros y respaldos de la base de datos.
+• Configuración de los webhooks de entrada (Meta y plataforma de voz) y de la lista blanca de salida hacia los servicios en la nube.
+• Monitoreo de la aplicación, registros y alertas.
+• Manual de operación del servidor para TIC: servicios, puertos, rutas y procedimientos de reinicio, respaldo y restauración.
+[Ttulo3] Capacitación y puesta en producción
+• Migración definitiva de información y configuración de los agentes productivos.
+• Capacitación de funcionarios, documentación técnica.
+• Puesta en producción general, acompañamiento y estabilización inicial.
+[Ttulo3] Operación del servicio
+Durante la vigencia del contrato, Campuslands opera y mantiene el servicio sobre la infraestructura de la Alcaldía.
+• Canal dedicado de soporte por correo electrónico, con horario de atención de lunes a viernes de 8:00 a. m. a 5:00 p. m. y los tiempos de respuesta del acuerdo de nivel de servicio (SLA) que se defina en el contrato.
+• Mantenimiento correctivo y actualizaciones de versión de la plataforma.
+• Monitoreo de las integraciones y de los agentes de IA.
+• Ajuste de guiones, plantillas y reglas de campañas a solicitud de la Alcaldía.
+[Ttulo2] Integraciones y fuentes de datos
+La cartera se construye con el cruce de las fuentes de fiscalización, y el estado de pago se actualiza con la información de recaudo del operador oficial, que es la fuente de verdad de los pagos.
+<<TABLA>>
+Integración | Para qué | Mecanismo | Fase
+Cámara de Comercio (dos APIs externas complementarias) | Fiscalización: municipio y fecha de última renovación, mediante consolidación de respuestas | Dos APIs de terceros por HTTPS | 1
+MAT-SIM | Fiscalización: declaraciones de ICA | API Interna | 1
+SICOG II | Fiscalización: exógena municipal | API Interna | 1
+Base de contratos de la Alcaldía | Fiscalización: contratistas del municipio | API Interna | 1
+Modelo de lenguaje | Asistente de agentes | API por HTTPS | 1 y 2
+API de WhatsApp Business (Meta) | Canal WhatsApp | API saliente y webhooks entrantes por HTTPS | 2
+Retell AI | Agente de voz | API saliente y webhooks de consulta y resultado | 2
+Twilio&#32; | Llamadas a números colombianos | SIP entre la plataforma de voz y el operador | 2
+Proveedor de correo | Canal de correo | API o SMTP con el dominio institucional | 2
+Operador oficial: link de pago | Pago del ciudadano | Enlace en los mensajes de WhatsApp y correo | 2
+Operador oficial: recaudo | Verificación de pagos | Importación periódica | 3
+DIAN (exógena y renta) | Fiscalización | Convenio o solicitud formal de intercambio | Ampliación futura (Fase 4)
+Capa geográfica de zonas y geocodificación | Mapa de contribuyentes por zona | Capa de zonas de la Alcaldía (shapefile o GeoJSON) y servicio de geocodificación de direcciones | 1
+<<FIN TABLA>>
+[Ttulo2] Infraestructura y responsabilidades
+La aplicación corre en la nube privada de la Alcaldía, sin tarjetas gráficas (GPU). Necesita salida a internet hacia los servicios externos y una entrada pública HTTPS (puerto 443, dominio propio) para los webhooks de Meta y de la plataforma de voz. Ese tráfico va por un canal de internet dedicado de 50 Mbps dedicados, que contrata y paga la Alcaldía, separado de la red de sus oficinas.
+Servidores de referencia, a ajustar con el volumen real de cartera:
+<<TABLA>>
+Servidor | vCPU | RAM | Disco | Uso
+Aplicación | 8 | 16 GB | 100 GB SSD | API, frontend, workers, colas Redis
+Base de datos MariaDB | 4–8 | 16–32 GB | 200 GB SSD + crecimiento | Cartera, contactos, trazabilidad
+Pruebas (todo en uno) | 4 | 8–16 GB | 100 GB | Pruebas y validación
+Almacenamiento de grabaciones | — | — | unos 30 GB al mes | Grabaciones, transcripciones y documentos
+<<FIN TABLA>>
+El almacenamiento de grabaciones y transcripciones se dimensionará conforme al volumen real de interacciones, los periodos de retención aprobados y las necesidades de la operación.
+<<TABLA>>
+Tema | Alcaldía | Campuslands
+Servidores | Máquinas virtuales de producción y pruebas, licencias de virtualización, almacenamiento con crecimiento | Especificación técnica previa, instalación y configuración
+Red y seguridad | Dominio y certificado SSL, publicación HTTPS para webhooks, lista blanca de salida, VPN para el equipo de Campuslands, ruta por la VPN existente, canal de internet dedicado de 50 Mbps dedicados | Lista de puertos y dominios a habilitar, hardening de la aplicación
+Datos | Acceso a las fuentes de fiscalización, diccionario de datos, acceso a recaudo y link de pago | Cruce de fuentes, depuración, carga y controles de calidad
+Correo | Dirección remitente institucional (por ejemplo, notificaciones@giron.gov.co) y registros SPF, DKIM y DMARC en su dominio | Envío desde su proveedor de correo, plantillas y pago del consumo
+Telefonía y WhatsApp | Cuenta de Meta Business a nombre de la Alcaldía; números publicados en su web | Contratación y pago de la telefonía y del consumo de WhatsApp, configuración, acompañamiento de la verificación de Meta y pruebas
+Respaldo y continuidad | Ejecución de backups, réplica fuera del servidor principal, contingencia del data center (RTO/RPO) | Definición de qué respaldar y prueba de restauración junto con TIC
+Monitoreo | Infraestructura (CPU, disco, disponibilidad) | Aplicación, logs y alertas
+Gestión y jurídico | Responsables por cargo (Dirección de TIC y Dirección de Industria y Comercio), aprobación de guiones, reglas y textos legales, retención de grabaciones (TRD) | Propuesta de guiones, reglas y textos para aprobación
+<<FIN TABLA>>
+[Ttulo2] Insumos y accesos que entrega la Alcaldía
+Para cumplir la ruta de implementación, la Alcaldía entrega:
+☐ Diccionario de datos de MAT-SIM, SICOG II y la base de contratos; definición de los campos requeridos de Cámara de Comercio para su consulta mediante dos APIs externas.
+☐ Acceso a las APIs internas de MAT-SIM y SICOG II y acceso a la base de contratos; habilitación y credenciales autorizadas para las dos APIs externas de consulta a Cámara de Comercio.
+☐ Link de pago y acceso a la información de recaudo del operador oficial.
+☐ Máquinas virtuales de producción y pruebas con Ubuntu Server 24.04 LTS.
+☐ Dominio o subdominio, certificado SSL y publicación HTTPS para los webhooks.
+☐ Canal de internet dedicado de 50 Mbps dedicados y lista blanca de salida hacia los servicios en la nube.
+☐ VPN con usuarios nominales para el equipo de Campuslands.
+☐ Dirección de correo remitente institucional y registros SPF, DKIM y DMARC en su dominio.
+☐ Cuenta de Meta Business y número de WhatsApp a nombre de la Alcaldía, con los documentos para su verificación.
+☐ Capa geográfica de las zonas del municipio (shapefile o GeoJSON).
+☐ Formato de registro de visita.
+☐ Procedimientos escritos de cobro y fiscalización, y sesiones con funcionarios que conocen la operación.
+☐ Concepto jurídico sobre horarios y frecuencia de contacto (Ley 2300 de 2023) y tratamiento de datos.
+☐ Aprobación de guiones, plantillas, reglas de campaña y textos legales.
+[Ttulo2] Fuera de alcance y ampliaciones del servicio
+Quedan fuera del alcance del servicio:
+• La emisión de cobros oficiales y la impresión de recibos, que sigue haciendo el operador del sistema del municipio.
+• El visor de trámites inmobiliarios y de construcción (curadurías, notarías, Instrumentos Públicos).
+• La gestión de los dineros embargados en cuentas bancarias, que es una decisión administrativa.
+Los siguientes módulos no hacen parte del servicio inicial y se pueden contratar como ampliación una vez evaluados los resultados del servicio:
+<<TABLA>>
+Ampliación del servicio (Fase 4) | Qué incluye
+Acuerdos de pago | Módulo de acuerdos y registro de compromisos, documento de acuerdo con la plantilla oficial por cédula o placa (también desde el asistente), parametrización de condiciones, cronogramas de pago, fechas de vencimiento, recordatorios, historial por contribuyente, seguimiento de cumplimiento e incumplimiento, y reincorporación automática al flujo de cobranza
+Conciliación automática de pagos | Integración directa con el recaudo del operador oficial, conciliación automática, validación de acuerdos, pagos parciales, incumplimientos, cierre automático de obligaciones cumplidas y reactivación del cobro
+Asistente por voz para funcionarios | Consultas al asistente mediante voz
+Cobro coactivo | Paso automático de persuasivo a coactivo según reglas, actos administrativos y mandamiento de pago, embargos y cruce de cuentas, seguimiento hasta remate, integración con el sistema actual de coactivo
+Fiscalización con información de la DIAN | Cruce de la exógena y la renta de la DIAN con la cartera, mediante convenio o solicitud formal de intercambio de información
+ReteICA y Autorretención | Módulos propios para cada capítulo, con su ventana en la plataforma, carga de su cartera y consulta desde el asistente
+<<FIN TABLA>>
+[Ttulo2] Seguimiento del servicio
+El servicio se paga mensualmente contra factura. En lugar de una supervisión con informe de actividades, tiene un seguimiento al cumplimiento del servicio a cargo de dos dependencias.
+• Seguimiento técnico: Dirección de TIC. Verifica la disponibilidad, las integraciones, la seguridad y la infraestructura.
+• Seguimiento financiero y administrativo: Dirección de Industria y Comercio, dependencia usuaria del servicio. Verifica la operación de las campañas, los indicadores de gestión y la facturación.
+[Ttulo2] Equipo del servicio
+<<TABLA>>
+Perfil | Responsabilidad en el servicio
+Gerente del servicio | Punto de contacto con la Alcaldía, seguimiento del avance, reporte mensual y gestión de riesgos
+Líder técnico | Arquitectura de despliegue, integraciones y decisiones técnicas con la Dirección de TIC
+Ingeniero de integraciones y datos | Carga, depuración y calidad de la cartera; conexión con MAT-SIM, SICOG II, Cámara de Comercio, contratos y el operador oficial
+Especialista en IA conversacional | Configuración y ajuste de los agentes de voz y WhatsApp, guiones y gobierno de IA
+Ingeniero de infraestructura | Alistamiento del servidor, despliegue, monitoreo, respaldos y actualizaciones
+Analista funcional y de soporte | Parametrización, pruebas, capacitación y soporte a funcionarios
+Diseñador UX | Adaptación de la interfaz a los flujos de los funcionarios, formulario de visitas, mapa y pruebas de usabilidad
+2 Desarrolladores Junior (Camper) | Ajustes de parametrización, mejoras correctivas, scripts de integración y carga de datos, y apoyo en pruebas y soporte, con la guía del líder técnico
+<<FIN TABLA>>
+[Ttulo2] Componentes del valor del servicio
+El fee mensual cubre lo necesario para operar el servicio, salvo los servidores y el canal dedicado que aporta la Alcaldía:
+• Uso de la plataforma de Campuslands y sus actualizaciones de versión.
+• Consumo de servicios externos: llamadas, WhatsApp, correo y modelo de lenguaje según las necesidades de la operación.
+• Alistamiento, despliegue, integraciones y carga de datos en la nube privada de la Alcaldía.
+• Configuración y ajuste de los agentes de IA y de las campañas.
+• Equipo asignado, soporte y monitoreo.
+• Capacitación y acompañamiento a funcionarios.
+[Ttulo2] Entregables del servicio y criterios de aceptación
+La habilitación de cada fase se verifica con pruebas hechas por funcionarios de la Alcaldía, contra los criterios definidos en el levantamiento, y se registra en acta.
+<<TABLA>>
+Entregable | Fase
+Documento de parametrización: procesos, reglas de negocio, indicadores y criterios de aceptación | 1
+Documento de arquitectura de despliegue y especificación de servidores, puertos y dominios para TIC | 1
+Cartera generada por la fiscalización, depurada y cargada, con informe de calidad de datos | 1
+Servicio habilitado con gestión de cartera, dashboard, mapa por zonas y fiscalización | 1
+Servicio habilitado con motor de campañas, agentes de WhatsApp y de voz, canal de correo y dashboard de gestión | 2
+Servicio habilitado con bandeja de casos escalados, gestión de visitas y verificación de pagos básica | 3
+Informe de validación en operación real | 3
+Borrador de política institucional de IA | Transversal
+Inventario de dependencias (SBOM) y plan de salida con exportación de datos | Cierre
+Código fuente y documentación, con derechos de uso, explotación y adaptación en marca blanca | Solo si se ejerce la opción de compra (diciembre de 2027)
+Manuales de operación y de usuario, capacitación y acta de inicio del servicio | Cierre
+<<FIN TABLA>>
+[Ttulo2] Formalización de la propuesta
+La presente propuesta comercial y técnica se entenderá formalmente aceptada y vinculante para las partes una vez sea suscrita por los representantes legales o funcionarios debidamente facultados de Campuslands y de la Alcaldía Municipal de Girón, siempre que se hayan cumplido los requisitos legales, presupuestales y contractuales aplicables.
+Con su firma, las partes manifiestan conocer y aceptar expresamente el objeto, alcance funcional y técnico, condiciones económicas, obligaciones, responsabilidades, cronograma de ejecución y demás disposiciones establecidas en este documento y sus anexos, los cuales formarán parte integral del acuerdo contractual que se suscriba.
+Cualquier modificación posterior a las condiciones aceptadas deberá constar por escrito y contar con la aprobación de ambas partes, mediante los instrumentos contractuales que legalmente correspondan.
+Se firma su aceptación a los veintitrés (29) días del mes de octubre de 2026 en el municipio de Girón, Santander.
+<<TABLA>>
+YESENIA MERCHÁN 
+C.C. No. 1.065.866.676
+Representante Legal
+CAMPUSLANDS S.A.S. BIC
+ | CAMPO ELÍAS RAMIREZ
+C.C. No. 
+Alcalde 
+ALCALDÍA DE GIRÓN
+
+<<FIN TABLA>>
