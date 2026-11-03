@@ -2364,3 +2364,9 @@ Se reemplaza la UI del portal por una versión con cabecera simple (marca + busc
 * **Razón de ubicación:** PHP2Shell abre (es el motivo); 71/9/9/2028 en métricas (riesgo medido); 8 entregables en cuadrícula (ítems paralelos); precio con marco neón (único dato clave).
 * **Verificación:** `verificar_deck.py` APROBADO en ambos (PDF 7 y 8 págs, solo Poppins) y revisión a la vista de cada lámina. Se quitó una flecha «→» (caía a SegoeUI) y se corrigieron overflow del «T1 2028» y contraste de las semanas.
 * **Registro:** `decks.ts` (categoría software, colores `#00AC4B`/`#2E2E2E`) e `index.md`.
+
+## [2026-11-03] ajuste | Palmera Junior: dos decks unificados en `/palmera-jr` con switch superior
+* **Pedido:** unir ambos links en uno solo (`/palmera-jr`) con el switch de la barra superior.
+* **Hecho:** nuevo deck `palmera-jr` (7 + 8 láminas, `data-scenario` a/b y `data-slide` global 1–15 para que el verificador las vea todas). Switch en la barra del visor con el mismo patrón de Marval (`switchScenario`, píldora deslizante) pero en v3: píldora violeta, pista hundida por sombra, sin bordes; `?escenario=2` abre el segundo; el contador y la navegación circular son por escenario. Se eliminaron `palmera-escenario-1` y `palmera-escenario-2` (sus URLs dejan de existir) y el catálogo quedó con UNA entrada.
+* **PDF:** un solo `palmera-jr.pdf` de 15 páginas con ambos escenarios (la portada de cada uno abre su bloque); el portal admite un solo PDF por proyecto.
+* **Verificación:** `verificar_deck.py --max-slides 15` APROBADO (el tope de 10 aplica a cada escenario: 7 y 8) y prueba en navegador: cambio de escenario, contador «1 / 8», vuelta circular y píldora bien ubicada.
