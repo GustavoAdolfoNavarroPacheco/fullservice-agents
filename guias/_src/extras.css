@@ -1,0 +1,139 @@
+
+/* ============================================================
+   GUÍAS — componentes propios (se suman a la plantilla v3; mismas reglas: Poppins, fondo blanco, SOMBRAS sin bordes)
+   ============================================================ */
+.app-header .cobrand{ gap:20px; }
+.app-header .guide-chip{ margin-left:6px; }
+.cobrand .guide-chip{ font-size:8pt; }
+
+/* texto con formato: **negrita** y `código` (Poppins, nunca monoespaciada) */
+code{ font-family:var(--font-body); font-weight:500; font-size:.92em; color:var(--navy); background:rgba(0,0,135,.07); border-radius:6px; padding:1px 6px; white-space:normal; word-break:break-word; }
+.card--navy code, .card--violet code{ color:#fff; background:rgba(255,255,255,.15); }
+.card--gold code, .card--sky code{ color:var(--navy); background:rgba(255,255,255,.4); }
+
+/* h3 sobre tarjetas de acento */
+.card--violet h3{ color:#fff; } .card--gold h3, .card--sky h3{ color:var(--navy); } .card--navy h3{ color:var(--gold); }
+.card--violet .label{ color:#fff; } .card--navy .label{ color:var(--sky); } .card--gold .label, .card--sky .label{ color:var(--navy); }
+
+/* portada de guía */
+.cover .kind{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.cover h1.sec{ font-size:40pt; }
+.cover .agent-ic{ margin:0 auto; }
+
+/* rejilla genérica de contenido (llena el alto disponible: sin huecos) */
+.grid{ flex:1; min-height:0; display:grid; gap:.17in; margin:.22in 0 .1in; grid-template-columns:repeat(var(--cols,3),1fr); grid-auto-rows:1fr; }
+.grid.rows-auto{ grid-auto-rows:auto; align-content:stretch; }
+.mod p, .step p, .panel li{ font-size:var(--fs,10.5pt); }
+.mod h3{ font-size:var(--fh,14pt); }
+.mod.row{ flex-direction:row; align-items:flex-start; justify-content:flex-start; gap:.16in; }
+.mod.row .t{ display:flex; flex-direction:column; gap:.06in; min-width:0; }
+.card.pad-s{ padding:.16in .2in; }
+
+/* línea de proceso: 3, 4 o 5 pasos */
+.flow.n3{ grid-template-columns:repeat(3,1fr); } .flow.n5{ grid-template-columns:repeat(5,1fr); gap:.14in; } .flow.n5 .step{ padding:.2in .17in; }
+.flow.n5 .step h3{ font-size:13pt; } .flow.n5 .step p{ font-size:9.5pt; }
+.flow.n3 .step:nth-child(4), .flow.n5 .step:nth-child(5){ margin-top:.8in; }
+.flow.n5 .step:nth-child(5){ margin-top:.8in; }
+.flow.n3 .step{ min-height:2.2in; } .flow.n3 .step p{ font-size:11pt; }
+.flow.compact .step{ min-height:0; }
+.step .who{ margin-top:auto; font-family:var(--font-title); font-weight:900; font-size:7.5pt; letter-spacing:.12em; text-transform:uppercase; color:var(--violet); }
+
+/* árbol de carpetas (sin monoespaciada: la sangría la da el CSS) */
+.tree-wrap{ flex:1; min-height:0; display:grid; grid-template-columns:1.25fr 1fr; gap:.17in; margin:.2in 0 .08in; }
+.tree-wrap.wide{ grid-template-columns:1.6fr 1fr; }
+.tree{ display:flex; flex-direction:column; justify-content:center; gap:var(--tg,3px); padding:.16in .22in; }
+.tn{ display:flex; align-items:center; gap:8px; line-height:1.25; padding-left:calc(var(--lv,0) * 19px); font-size:var(--tf,9.5pt); }
+.tn svg{ flex:none; width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.tn.dir svg{ color:#B8860B; } .tn.file svg{ color:var(--violet); } .tn.gen svg{ color:var(--green); }
+.tn b{ font-weight:600; color:var(--navy); white-space:nowrap; }
+.tn.dir b{ font-weight:900; }
+.tn .c{ color:var(--ink); opacity:.82; font-size:.94em; }
+.tn .tag{ flex:none; font-family:var(--font-title); font-weight:900; font-size:6.5pt; letter-spacing:.1em; text-transform:uppercase; border-radius:99px; padding:2px 8px; background:rgba(0,170,128,.14); color:#006B50; }
+.tn .tag.ro{ background:rgba(244,180,34,.28); color:#6B4A00; } .tn .tag.ag{ background:rgba(94,58,226,.12); color:var(--violet); }
+.side{ display:flex; flex-direction:column; gap:.14in; min-height:0; }
+.side .card{ flex:1; display:flex; flex-direction:column; justify-content:center; gap:.07in; padding:.17in .22in; }
+.side .card h3{ font-size:12pt; color:var(--navy); } .side .card p{ font-size:9.5pt; line-height:1.5; }
+.side .card.card--navy h3{ color:var(--gold); } .side .card.card--violet h3{ color:#fff; }
+
+/* tabla (zebra, sin líneas) */
+.tbl{ flex:1; min-height:0; display:flex; flex-direction:column; gap:6px; margin:.2in 0 .08in; }
+.rw{ display:grid; grid-template-columns:var(--cols); gap:16px; align-items:center; padding:.07in .22in; border-radius:12px; font-size:var(--tf,9.5pt); line-height:1.4; }
+.rw.h{ flex:none; padding:.09in .22in; background:var(--navy); color:#fff; font-family:var(--font-title); font-weight:900; font-size:7.5pt; letter-spacing:.13em; text-transform:uppercase; box-shadow:0 8px 18px rgba(0,0,135,.22); }
+.rw.b{ flex:1; background:rgba(0,0,135,.045); } .rw.b:nth-child(odd){ background:rgba(94,58,226,.075); }
+.rw.b > :first-child{ font-weight:600; color:var(--navy); }
+.rw.b b{ color:var(--navy); font-weight:600; }
+
+/* comandos / bloques técnicos */
+.cmds{ flex:1; min-height:0; display:flex; flex-direction:column; gap:.1in; margin:.2in 0 .08in; }
+.cmd{ flex:1; display:grid; grid-template-columns:1.5in 1fr; gap:.2in; align-items:center; padding:.1in .24in; }
+.cmd .k{ font-family:var(--font-title); font-weight:900; font-size:8pt; letter-spacing:.12em; text-transform:uppercase; color:var(--sky); line-height:1.35; }
+.cmd .v{ display:flex; flex-direction:column; gap:5px; min-width:0; }
+.cmd .v > code{ display:block; font-size:9pt; padding:6px 11px; border-radius:9px; word-break:break-word; line-height:1.45; }
+.cmd .v p{ font-size:9.5pt; line-height:1.45; opacity:.92; }
+.cmds.light .cmd .k{ color:var(--violet); }
+
+/* ejemplos de lo que se le escribe al agente */
+.prompts{ flex:1; min-height:0; display:grid; grid-template-columns:repeat(var(--cols,2),1fr); grid-auto-rows:1fr; gap:.16in; margin:.22in 0 .08in; }
+.bubble{ display:flex; flex-direction:column; justify-content:center; gap:.08in; padding:.18in .24in .18in .3in; }
+.bubble::before{ content:""; position:absolute !important; left:0; top:.16in; bottom:.16in; width:5px; border-radius:0 4px 4px 0; background:var(--c,var(--violet)); z-index:2; }
+.bubble .label{ color:var(--violet); }
+.bubble q{ quotes:none; display:block; font-size:var(--fs,10.5pt); line-height:1.5; font-weight:500; color:var(--navy); }
+.bubble p{ font-size:9.5pt; line-height:1.45; opacity:.85; }
+
+/* preguntas frecuentes */
+.faq{ flex:1; min-height:0; display:grid; grid-template-columns:repeat(var(--cols,2),1fr); grid-auto-rows:1fr; gap:.16in; margin:.22in 0 .08in; }
+.qa{ display:flex; flex-direction:column; justify-content:center; gap:.08in; padding:.17in .24in; }
+.qa h3{ font-size:11.5pt; color:var(--navy); display:flex; gap:10px; align-items:flex-start; line-height:1.3; }
+.qa h3 i{ flex:none; font-style:normal; width:24px; height:24px; border-radius:50%; background:var(--violet); color:#fff; display:grid; place-items:center; font-size:11pt; font-weight:900; }
+.qa p{ font-size:var(--fs,10pt); line-height:1.5; padding-left:34px; }
+
+/* reglas numeradas */
+.rules{ flex:1; min-height:0; display:grid; grid-template-columns:repeat(var(--cols,2),1fr); grid-auto-rows:1fr; gap:.14in .16in; margin:.2in 0 .08in; }
+.rule{ display:flex; gap:.16in; align-items:center; padding:.12in .2in; }
+.rule .n{ flex:none; font-family:var(--font-title); font-weight:900; font-size:24pt; line-height:1; color:var(--violet); min-width:.42in; }
+.rule.card--navy .n{ color:var(--gold); } .rule.card--violet .n{ color:var(--gold); }
+.rule h3{ font-size:11pt; color:var(--navy); line-height:1.25; } .rule.card--navy h3{ color:var(--gold); } .rule.card--violet h3{ color:#fff; }
+.rule p{ font-size:var(--fs,9.5pt); line-height:1.45; margin-top:2px; }
+
+/* lista de verificación */
+.checks{ flex:1; min-height:0; display:grid; grid-template-columns:repeat(var(--cols,2),1fr); grid-auto-rows:1fr; gap:.12in .16in; margin:.2in 0 .08in; }
+.chk{ display:flex; gap:.14in; align-items:center; padding:.1in .2in; }
+.chk .ok{ flex:none; width:30px; height:30px; border-radius:50%; background:var(--green); color:#fff; display:grid; place-items:center; }
+.chk .ok svg{ width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+.chk.warn .ok{ background:var(--gold); color:var(--navy); } .chk.no .ok{ background:var(--violet); }
+.chk h3{ font-size:10.5pt; color:var(--navy); line-height:1.25; } .chk p{ font-size:9.5pt; line-height:1.4; margin-top:1px; }
+
+/* sí / no */
+.versus .panel ul.list{ gap:.075in; } .versus .panel ul.list li{ font-size:var(--fs,10.5pt); }
+.versus .panel.no ul.list li::before{ background-color:var(--violet); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M7 7l10 10M17 7 7 17'/%3E%3C/svg%3E"); }
+.versus .panel h3{ font-size:19pt; }
+
+/* métricas: variante de 3 */
+.metrics.n3{ grid-template-columns:repeat(3,1fr); } .metrics.n2{ grid-template-columns:repeat(2,1fr); }
+.metric b.n.t{ font-size:34pt; margin-top:auto; line-height:1.05; }
+.metric p b{ font-weight:600; }
+
+/* pie de lámina: la franja de lectura puede llevar dos líneas */
+.reading span{ flex:1; }
+.reading.tall{ padding:.17in .3in; }
+
+/* escalera de dos columnas con numeración */
+.cols2{ flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:.17in; margin:.2in 0 .08in; }
+.cols2 > .card{ display:flex; flex-direction:column; gap:.1in; padding:.2in .26in; }
+.cols2 h3{ font-size:14pt; color:var(--navy); }
+.cols2 .card--navy h3{ color:var(--gold); }
+.cols2 .list li{ font-size:var(--fs,10pt); }
+
+/* ajustes de afinación */
+.statement h2{ font-size:var(--hs,32pt); }
+.flow.n5 .step{ min-height:2.3in; } .flow.n5 .step:nth-child(2){ margin-top:.15in; } .flow.n5 .step:nth-child(3){ margin-top:.3in; } .flow.n5 .step:nth-child(4){ margin-top:.45in; } .flow.n5 .step:nth-child(5){ margin-top:.6in; }
+.tn .tag{ font-size:7pt; }
+
+.versus .panel ul.list{ gap:.14in; }
+.qa p{ font-size:var(--fs,11pt); } .qa h3{ font-size:12.5pt; } .qa h3 i{ width:26px; height:26px; }
+.list li > span{ min-width:0; }
+.versus .panel{ justify-content:center; }
+.versus .panel .delta{ margin-top:.1in; }
+
+.mod h3 code, .qa h3 code, .chk h3 code{ white-space:nowrap; font-size:.82em; }
+.cmd .v p code{ display:inline; padding:1px 6px; }
