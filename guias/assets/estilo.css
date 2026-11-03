@@ -79,10 +79,10 @@ html.lenis{ scroll-behavior:auto !important; }
 /* ---------- estructura de la guía ---------- */
 .shell{ display:grid; grid-template-columns:var(--toc-w) minmax(0,var(--read-w)); column-gap:var(--col-gap); max-width:calc(var(--page-w) + 2 * var(--gut)); margin:0 auto; padding:52px var(--gut) 96px; }
 .toc{ position:sticky; top:calc(var(--bar-h) + 32px); align-self:start; font-size:var(--t-ui); line-height:var(--lh-ui); max-height:calc(100vh - var(--bar-h) - 56px); overflow:auto; padding-right:6px; }
-.toc p{ font-size:var(--t-meta); line-height:var(--lh-meta); font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--soft); margin-bottom:12px; }
+.toc p{ font-size:var(--t-meta); line-height:var(--lh-meta); font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--soft); margin-bottom:12px; padding-left:12px; }
 .toc ol{ list-style:none; display:flex; flex-direction:column; gap:2px; padding:0; }
 .toc li{ margin:0; padding:0; }
-.toc a{ display:block; padding:7px 12px; margin-left:-12px; border-radius:8px; text-decoration:none; color:var(--muted); transition:background-color .15s, color .15s; }
+.toc a{ display:block; padding:7px 12px; border-radius:8px; text-decoration:none; color:var(--muted); transition:background-color .15s, color .15s; }
 .toc a:hover{ color:var(--ink); background:var(--cream); }
 .toc a.on{ color:var(--ink); background:var(--oat); font-weight:500; }
 article{ min-width:0; }
