@@ -206,6 +206,26 @@ Las presentaciones se registran en un portal web de Full Service, donde puedes e
 > [!nota] Lo que registra el agente queda bloqueado
 > En los proyectos que crea el agente, la **fecha**, el **link de la presentación** y el **PDF** aparecen con un candado y no se pueden editar desde el portal. Si algo de eso necesita corregirse, pídeselo al agente.
 
+## Comandos rápidos con «!»
+
+Además de pedirle las cosas con tus palabras, puedes darle una **orden corta** escribiendo `!` antes de la palabra, por ejemplo `!optimize`. Cuando el agente reconoce un comando, **lo cumple siempre**, y lo primero que escribe en su respuesta es qué comandos recibió.
+
+- Puedes escribirlo solo o con un texto: `!optimize la presentación en curso`.
+- Puedes combinar varios: `!plan !no-assumptions`.
+- Vale para la tarea en curso; en una tarea nueva se escribe de nuevo.
+- `!help` muestra la lista de comandos de este agente.
+
+> [!tip] Los dos más usados
+> `!optimize` mejora lo que se esté haciendo sin cambiar su alcance ni sus datos. `!notime` acelera el trabajo: menos preguntas sueltas y menos explicaciones, pero nunca se salta una verificación obligatoria.
+
+> [!nota] Lo que un comando no cambia
+> Un comando no permite saltarse las reglas del agente (no inventar datos, la marca, la confidencialidad, las aprobaciones y verificaciones obligatorias). Si pides algo que una regla impide, el agente hace todo lo permitido y te dice en una frase qué no pudo y por qué.
+
+Estos son los comandos de este agente:
+
+```comandos
+```
+
 ## Preguntas frecuentes
 
 **¿Puedo usar los colores de mi cliente?**

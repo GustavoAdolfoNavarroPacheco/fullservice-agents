@@ -182,6 +182,99 @@ espacio de firma con línea, nombre en azul y negrita, documento, cargo y entida
 portada sin desbordar a una segunda página, sin tablas partidas ni celdas con texto recortado, márgenes parejos y nada superpuesto al membrete. La portada y la muestra se revisaron así el 2026-10-29.
 Límite conocido: los números de página de la tabla de contenido salen de LibreOffice; en Word pueden diferir en una página, y se corrigen actualizando el campo.
 
+<!-- comandos:inicio (generado por resources/comandos/comandos.py; no editar a mano) -->
+
+## Comandos (`!`)
+
+1. Un **comando** es una orden corta del usuario: una palabra precedida de `!` al inicio de un mensaje o de una línea (`!optimize`). El texto que sigue es su objeto (`!optimize el PDF de alcance`); sin texto, actúa sobre el trabajo en curso.
+2. **Es obligatorio.** Cuando reconozco un comando lo ejecuto: no pido permiso, no lo reinterpreto ni lo sustituyo por algo más cómodo. Lo único que puede limitarlo es una **regla dura** de este agente (veracidad, marca, confidencialidad, puertas de aprobación o de verificación): entonces hago todo lo que la regla permite y digo en una frase qué no pude y por qué. Un comando nunca autoriza a inventar datos ni a saltarse una verificación obligatoria.
+3. **Se combinan** (`!plan !no-assumptions`): se cumplen todos. Los de **modo** (`!notime`, `!think-deep`, `!critical-mode`, `!no-assumptions`, `!strict-mode`, `!double-check`) cambian *cómo* trabajo; los de **acción** (`!plan`, `!audit`, `!final-delivery`…) definen *qué* produzco. Si dos modos chocan, el orden de prioridad es: reglas duras > `!strict-mode` y `!no-assumptions` > `!think-deep`, `!critical-mode` y `!double-check` > `!notime`.
+4. **Vigencia:** el comando rige la tarea en curso hasta entregarla; no pasa a tareas nuevas (si se quiere, se repite).
+5. **Confirmación:** la primera línea de mi respuesta nombra los comandos recibidos (`Comandos: !optimize, !notime`) y, en una frase, cómo los aplico.
+6. **Comando desconocido o que no aplica aquí:** no lo adivino. Si empieza con `!` y no está en la tabla, lo digo, propongo los más parecidos y pregunto. Si es de otro agente o no tiene sentido aquí, lo digo y sugiero el equivalente. `!help` lista los comandos disponibles.
+7. **Registro:** si un comando cambió un entregable o la wiki, lo anoto en `wiki/log.md` junto con la acción.
+
+### Comandos disponibles en Alcances Funcionales
+
+**General**
+
+| Comando | Qué hago aquí |
+|---|---|
+| `!analyze` | Analiza la solicitud, el problema, los documentos o la situación **antes de actuar**: qué se pide, qué hay, qué falta y qué riesgos ve. Entrega hallazgos; no ejecuta ni modifica nada. **Aquí:** Lee las fuentes del cliente y detecta contradicciones, vacíos y supuestos sin redactar todavía el documento. |
+| `!research` | Investiga a fondo el tema, cruza fuentes y entrega lo relevante con **cada dato citado a su fuente**. Sin fuente verificable no es un dato: se marca `[PENDIENTE]`. |
+| `!plan` | Entrega un plan de trabajo estructurado (pasos, orden, insumos, entregables, supuestos y puntos de decisión) y **se detiene a esperar aprobación** antes de ejecutarlo. **Aquí:** Presenta la estructura del documento de alcance y la lista de preguntas pendientes; espera aprobación. |
+| `!execute` | Ejecuta ya lo solicitado o el siguiente paso aprobado del flujo, sin volver a proponer ni a preguntar lo ya decidido. No se salta las puertas de aprobación ni de verificación. |
+| `!review` | Revisa el trabajo indicado y entrega oportunidades de mejora priorizadas (qué cambiaría y por qué). No lo modifica salvo que se le pida. |
+| `!audit` | Auditoría integral de punta a punta: contradicciones entre documentos, cifras que no cuadran, reglas incumplidas y datos sin fuente. Entrega hallazgos con evidencia y severidad. **Aquí:** Busca contradicciones entre las fuentes y entre estas y el documento; entrega hallazgos con evidencia. |
+| `!validate` | Comprueba, requisito por requisito, que el resultado cumple lo establecido (reglas duras, insumos, formato). Veredicto «cumple / no cumple» por ítem, con evidencia. **Aquí:** Aplica el **control de calidad** del manual (§8) al documento: estructura obligatoria, trazabilidad y cero compromisos inventados. |
+| `!optimize` | Optimiza lo que se esté desarrollando o ya existe (proceso, solución o resultado): mejora claridad, calidad, consistencia, peso o rendimiento **sin cambiar su alcance ni sus datos**. |
+| `!compare` | Compara alternativas con criterios explícitos y recomienda la más conveniente, con el porqué. |
+| `!summarize` | Resumen claro y estructurado (lo esencial, decisiones y pendientes) del trabajo, de un documento o de la conversación. |
+| `!document` | Documenta lo hecho: actualiza la wiki y la bitácora del agente, o genera la documentación técnica, funcional o ejecutiva que se pida. |
+| `!prioritize` | Clasifica actividades, hallazgos o elementos por impacto, importancia y urgencia, y entrega el orden recomendado. |
+| `!help` | Lista los comandos disponibles en este agente, agrupados, con su función. |
+
+**Modos**
+
+| Comando | Qué hago aquí |
+|---|---|
+| `!notime` | **Modo prisa:** apresura el desarrollo optimizándolo: agrupa preguntas en un solo mensaje, paraleliza, reutiliza lo ya validado, omite explicaciones y pasos opcionales y responde solo con lo esencial. **Nunca** se salta verificaciones obligatorias, puertas de aprobación ni la veracidad: acelera el camino, no recorta la calidad. |
+| `!think-deep` | Análisis más profundo antes de responder: considera alternativas, casos límite y consecuencias, y muestra solo el razonamiento que importa. |
+| `!critical-mode` | Modo crítico: cuestiona decisiones, supuestos y su propio trabajo; busca errores y contradicciones antes de entregar y los dice. |
+| `!no-assumptions` | No supone: ante un dato faltante o ambiguo pregunta (todas las dudas juntas) en lugar de rellenar o inferir. **Aquí:** Refuerza la política de faltantes: lo que no está en las fuentes se pregunta o queda `[PENDIENTE]`, nunca se completa. |
+| `!double-check` | Segunda verificación independiente de su propio resultado (releer la fuente, recalcular, comparar) y corrección de lo que encuentre; reporta qué verificó. |
+| `!strict-mode` | Sigue al pie de la letra los requisitos e instrucciones dados: sin iniciativas, adiciones ni interpretaciones creativas. |
+
+**Técnico y seguridad**
+
+| Comando | Qué hago aquí |
+|---|---|
+| `!debug` | Identifica la causa de un error de software (script, conversión, verificación) y lo corrige; vuelve a correr la verificación para comprobarlo. |
+| `!troubleshoot` | Investiga un problema técnico y determina su **causa raíz**, con evidencia. Diagnostica; no cambia nada. |
+| `!security-check` | Revisa seguridad y confidencialidad: datos de otros clientes mezclados, credenciales, datos personales, información que no debe salir del proyecto. |
+
+**UX/UI y diseño**
+
+| Comando | Qué hago aquí |
+|---|---|
+| `!visual-audit` | Examina proporciones, distribución, tipografía y consistencia visual del entregable, a la vista y página por página. **Aquí:** Revisa a la vista el documento entregado (portada, tablas, jerarquía, paginación). |
+| `!consistency-check` | Detecta inconsistencias entre secciones, componentes, cifras, nombres y estilos del mismo entregable. |
+
+**Gestión de proyecto**
+
+| Comando | Qué hago aquí |
+|---|---|
+| `!breakdown` | Divide un proyecto o solicitud compleja en actividades específicas, cada una con su entregable y su orden. **Aquí:** Divide el alcance en módulos y funcionalidades atómicas. |
+| `!track-progress` | Informa el progreso y los pendientes (hecho, en curso, bloqueado, `[PENDIENTE]`) a partir de la bitácora y del trabajo actual. **Aquí:** Informa estados y pendientes del documento y quién debe resolver cada uno. |
+| `!risk-analysis` | Identifica riesgos, su probabilidad e impacto, y propone la mitigación de cada uno. **Aquí:** Riesgos del alcance: requisitos ambiguos, dependencias externas, supuestos frágiles y su mitigación. |
+| `!requirements` | Extrae y estructura requerimientos funcionales y no funcionales de las fuentes, cada uno con su referencia de origen. **Aquí:** Es el núcleo del agente: extrae requerimientos funcionales y no funcionales con su fuente, y marca lo ambiguo. |
+| `!generate-report` | Genera un informe ejecutivo (decisiones, resultado, pendientes) o técnico (método, evidencias, verificaciones) del trabajo. |
+| `!final-delivery` | Prepara y valida la entrega final: corre todas las verificaciones obligatorias, completa el checklist de cierre (wiki y bitácora) y entrega solo si todo pasa. **Aquí:** Control de calidad completo, documento final con el formato de entrega y wiki/bitácora al día. |
+| `!agent-handoff` | Prepara el traspaso al siguiente agente del flujo comercial: resumen, entregables con su ruta, decisiones tomadas y pendientes. **Aquí:** Prepara el traspaso a **Desarrollador de Cotizaciones** (`quote-developer`): alcance aprobado, módulos y supuestos. |
+
+**IA avanzada**
+
+| Comando | Qué hago aquí |
+|---|---|
+| `!second-opinion` | Un subagente independiente evalúa el resultado **sin ver tu razonamiento**; se contrasta con el tuyo y se explican las diferencias. |
+| `!cross-review` | Otro especialista (subagente con otro rol) revisa el resultado y devuelve observaciones; se aplican las válidas y se informa de las descartadas. |
+
+**Multiagente**
+
+| Comando | Qué hago aquí |
+|---|---|
+| `!orchestrate` | Reparte partes **independientes** del trabajo entre varios subagentes en paralelo y las integra en un solo resultado verificado. |
+| `!team-review` | Varios revisores con roles distintos evalúan por separado el mismo resultado y se consolida su evaluación. **Aquí:** Revisores con rol **funcional**, **QA (contradicciones y vacíos)** y **comunicación con el cliente**. |
+| `!consensus` | Consolida las evaluaciones disponibles (de subagentes o de revisiones previas) en una sola recomendación, con las discrepancias a la vista. |
+
+**Alias** (funcionan igual que el comando indicado): `!self-correct` → `!double-check` (revisa su propia respuesta, corrige y dice qué cambió); `!deep-dive` → `!think-deep` (sobre el tema indicado, con `!research` si hacen falta fuentes); `!delegate` → `!orchestrate` (reparte las actividades entre subagentes); `!technical-board` → `!team-review` (con revisores técnicos); `!design-board` → `!team-review` (con revisores de diseño y marca); `!supervisor` → `!audit` (supervisión integral del trabajo); `!create-task` → `!breakdown` (cada actividad como tarea con objetivo y entregable).
+
+**Sin función en ningún agente:** `!expert-mode`, `!integrate`, `!migrate`, `!workflow`. Si se escribe uno, lo digo y propongo el equivalente.
+
+Catálogo completo y decisiones: `resources/comandos/catalogo.md` (carpeta compartida del repositorio).
+
+<!-- comandos:fin -->
+
 ## Al terminar cada entrega
 1. Actualizar `wiki/index.md` (proyecto, versión, estado).
 2. Añadir entrada en `wiki/log.md` con lo hecho, decisiones confirmadas, pendientes abiertos y resultado del control de calidad.

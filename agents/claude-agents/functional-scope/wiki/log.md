@@ -114,3 +114,6 @@ El ejemplo del usuario solo mostraba bien la parte izquierda. La columna de Unid
 
 ## [2026-11-04] reorganización | Monorepo: `agents/` y recursos compartidos
 Reorganización del monorepo: este agente pasó a `agents/claude-agents/functional-scope/` (antes estaba en la raíz del repositorio). Los recursos de Campuslands que se repetían en cada agente (logos horizontal/vertical azul y blanco, isotipo, favicon, `Brief Fullservice.pdf` y Brandbook) se movieron a una sola carpeta compartida, `resources/campuslands-resources/` (desde este agente: `../../../resources/campuslands-resources/`), y se eliminaron las copias locales. `recursos/marca/` conserva solo las dos firmas escaneadas; el resto era la marca compartida. Las rutas de la documentación de este agente se actualizaron; las entradas anteriores de esta bitácora conservan las rutas de su época.
+
+## [2026-11-04] ajuste | Comandos «!»
+Se incorporan los **comandos «!»**: órdenes cortas (`!optimize`, `!notime`, `!plan`…) que el agente ejecuta de forma obligatoria, dentro de sus reglas duras. Este agente tiene 36 comandos; la regla común, la tabla de comandos y su significado aquí están en la sección «Comandos» de `CLAUDE.md`. Catálogo completo y decisiones: `resources/comandos/catalogo.md`.
