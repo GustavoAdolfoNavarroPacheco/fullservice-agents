@@ -17,7 +17,7 @@ Dos guías por agente (7 agentes, 14 guías), en **web** y **PDF**, con un estil
 
 ## Abrir
 
-- **Índice:** [`index.html`](index.html) (funciona sin servidor).
+- **Índice:** [`index.html`](index.html). Las direcciones de la web son limpias (ver «Direcciones» abajo), así que para ver las guías hay que servirlas (`servir.py`), no abrir los archivos directamente.
 - **Una guía:** `<agente>/guia-dev.html` o `<agente>/guia-usuario.html`, con índice lateral que sigue la lectura.
 - **PDF (A4):** `<agente>/guia-dev.pdf` y `<agente>/guia-usuario.pdf`, con encabezado y «Página X de Y».
 
@@ -33,6 +33,7 @@ guides/
     ├── estilo.css             sistema visual y escala tipográfica
     ├── suave.js               activa el scroll suave (Lenis)
     ├── efectos.js             letter swap, wave text, Card Stack (portadas), Coverflow (logos) y carga de imágenes bajo demanda
+    ├── preview.py             genera las imágenes de vista previa del enlace (1200 × 630) con Chrome
     ├── recursos_web.py        genera las portadas (desde los PDF de presentaciones) y los logos a color en WebP
     ├── md.py                  convertidor Markdown → HTML (sin dependencias)
     ├── build.py               genera web, PDF e índice
@@ -61,6 +62,27 @@ Requiere Python 3, Chrome y `playwright` (para exportar los PDF).
 ## Despliegue
 
 `vercel.json` (en la raíz del repositorio) publica solo `guides/`, sin build, con `X-Robots-Tag: noindex`. El resto del repositorio no se sirve.
+
+## Vista previa del enlace
+
+Al pegar un enlace en WhatsApp, Slack, LinkedIn, X o Teams se ve una tarjeta con imagen. Cada página lleva sus etiquetas Open Graph y Twitter (`og:title`, `og:description`, `og:image` absoluta, `twitter:card = summary_large_image`, `canonical`…), que arma `head()` en `build.py`; la dirección base es `SITE` (`https://fullservice-agents.vercel.app`; si cambia el dominio, se cambia ahí).
+
+Las imágenes (`assets/img/preview/`, PNG de 1200 × 630, ~200 KB: bajo el límite de 300 KB de WhatsApp) salen de `python -X utf8 guides/_src/preview.py`, que las dibuja con las mismas fuentes, aros y iconos 3D del banner: una para el índice (`home.png`) y una por cada guía (`<agente>-<usuario|dev>.png`, con su tipo, nombre, titular y plataforma). Se versionan; vuelve a correr el script al cambiar un título, un nombre de agente o el diseño.
+
+Las plataformas guardan la vista previa en caché: tras desplegar, se puede refrescar con el depurador de cada una (p. ej. LinkedIn Post Inspector o el Sharing Debugger de Facebook).
+
+## Direcciones
+
+Sin `index.html`, sin `.html` y sin `#`:
+
+| Dirección | Qué muestra |
+|---|---|
+| `/inicio` | Índice, pestaña «Guía de usuario» (`/` y `/index.html` redirigen aquí) |
+| `/inicio/desarrollador` | Índice, pestaña «Guía de desarrollador» (las pestañas cambian la dirección sin recargar; el antiguo `#dev` se limpia solo) |
+| `/<agente>/guia-usuario` · `/<agente>/guia-dev` | Cada guía (con `.html` redirige a la limpia) |
+| `/<agente>/guia-usuario.pdf` | El PDF (los archivos conservan su extensión) |
+
+En Vercel lo hacen `cleanUrls`, `redirects` y `rewrites` de `vercel.json`; en local, `servir.py` replica las mismas reglas. El índice lleva `<base href="/">` para que sus enlaces relativos funcionen también bajo `/inicio/desarrollador`.
 
 ## Efectos y componentes
 
