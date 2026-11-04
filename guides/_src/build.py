@@ -2,7 +2,7 @@
 """build.py — genera las guías (web + PDF) y el índice a partir de contenido/<agente>/{dev,usuario}.md
 
 Uso:  python -X utf8 guides/_src/build.py [slug ...] [--sin-pdf]
-Salida: guides/<agente>/guia-{dev,usuario}.html y .pdf · guides/index.html
+Salida: guides/<agente>/guia-{dev,usuario}.html y .pdf · guides/inicio.html y guides/inicio/desarrollador.html (el índice, con la dirección de cada pestaña)
 """
 import html
 import json
@@ -297,7 +297,7 @@ def corto(titulo):
     return t[:1].upper() + t[1:]
 
 
-def index_page(items):
+def index_page(items, path='/inicio'):
     by = {(ag['slug'], m['tipo']): (m, w) for ag, m, w in items}
 
     def rows(kind):
@@ -315,7 +315,7 @@ def index_page(items):
                        max(1, round(w / 210)), base, html.escape(nice), html.escape(ag['slug']), PDF_ICON))
         return out
     page = head('Guías de los agentes · fullservice-agents', '', 'Guías de usuario y de desarrollador de los siete agentes del flujo comercial de Campuslands, de la prospección al contrato. En línea y en PDF.',
-                '/inicio', 'home.png').replace('<meta charset="UTF-8">\n', '<meta charset="UTF-8">\n<base href="/">\n', 1) + topbar('')
+                path, 'home.png').replace('<meta charset="UTF-8">\n', '<meta charset="UTF-8">\n<base href="/">\n', 1) + topbar('')
     page += ('<section class="banner"><div class="banner-in"><h1 class="wave" data-wave>fullservice-agents</h1>'
              '<p class="dek">Esta web es la guía de los agentes de este repositorio. Reúne, para cada uno de los siete agentes, '
              'una <strong>guía de usuario</strong>, sin tecnicismos, para quien lo usa todos los días, y una <strong>guía de desarrollador</strong>, '
@@ -387,7 +387,10 @@ def build(only=None, pdf=True):
             print('  %-26s %-8s %5d palabras · %d secciones' % (ag['slug'], kind, words, len(toc)))
             if pdf:
                 make_pdf(hp, out / ('guia-%s.pdf' % kind), '%s · %s' % (ag['slug'], TIPOS[kind]))
-    (ROOT / 'index.html').write_text(index_page(items), encoding='utf-8')
+    # El índice son dos archivos reales (misma página; solo cambia su dirección canónica) para que Vercel los sirva con cleanUrls, sin reescrituras.
+    (ROOT / 'inicio').mkdir(exist_ok=True)
+    (ROOT / 'inicio.html').write_text(index_page(items, '/inicio'), encoding='utf-8')
+    (ROOT / 'inicio' / 'desarrollador.html').write_text(index_page(items, '/inicio/desarrollador'), encoding='utf-8')
 
 
 if __name__ == '__main__':
