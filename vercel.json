@@ -3,7 +3,7 @@
   "framework": null,
   "installCommand": null,
   "buildCommand": null,
-  "outputDirectory": "guias",
+  "outputDirectory": "guides",
   "cleanUrls": false,
   "trailingSlash": false,
   "headers": [

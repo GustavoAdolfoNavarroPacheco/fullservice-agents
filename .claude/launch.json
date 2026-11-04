@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "guias",
+      "name": "guides",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-X", "utf8", "guias/_src/servir.py"],
+      "runtimeArgs": ["-X", "utf8", "guides/_src/servir.py"],
       "port": 4173
     }
   ]

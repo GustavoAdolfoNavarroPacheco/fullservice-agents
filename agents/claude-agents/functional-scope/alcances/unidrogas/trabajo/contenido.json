@@ -1,0 +1,2616 @@
+[
+ {
+  "t": "p",
+  "estilo": "Ttulo",
+  "runs": [
+   {
+    "x": "AUTOMATIZACIÓN DE CONTENIDOS Y FORMACIÓN CON IA",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "DOCUMENTO DE ALCANCE FUNCIONAL CONSOLIDADO · VERSIÓN 2.0",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Preparado para UNIDROGAS S.A.  ",
+    "b": false
+   },
+   {
+    "x": "|  ",
+    "b": false
+   },
+   {
+    "x": "Campuslands",
+    "b": false
+   },
+   {
+    "x": " S.A.S. BIC · Full Service",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "29 de octubre de ",
+    "b": false
+   },
+   {
+    "x": "2026  |",
+    "b": false
+   },
+   {
+    "x": "  Documento para validación funcional, técnica y ",
+    "b": false
+   },
+   {
+    "x": "comercial",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "CONFIDENCIAL — Uso exclusivo de ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": " S.A. y Campuslands S.A.S. BIC",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "Control de versión y criterio de consolidación",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "tbl",
+  "filas": [
+   [
+    [
+     [
+      {
+       "x": "Fuente",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Tratamiento en esta versión",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Alcance funcional v1.0 · septiembre de 2026",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Se conserva el detalle de funcionalidades, módu",
+       "b": false
+      },
+      {
+       "x": "los, entregables, metodología y exclusiones.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Sesión con Aprendizaje y Desarrollo · 23 de octubre",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Se incorporan necesidades de producción ",
+       "b": false
+      },
+      {
+       "x": "multilección",
+       "b": false
+      },
+      {
+       "x": ", marca persistente, avatares, continuidad del LMS y oportunidades futuras.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Evaluación",
+       "b": false
+      },
+      {
+       "x": " ",
+       "b": false
+      },
+      {
+       "x": "técnica",
+       "b": false
+      },
+      {
+       "x": " · 27 de oc",
+       "b": false
+      },
+      {
+       "x": "tubre",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Se actualizan plazos, dependencias de ",
+       "b": false
+      },
+      {
+       "x": "APIs",
+       "b": false
+      },
+      {
+       "x": ", escenarios de consumo y condiciones para demo de enero.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Propuesta comercial actualizada · 29 de octubre",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Se incorporan supuestos, separación de costos y garantía del 50 % del tiempo efectivo de desarrollo.",
+       "b": false
+      }
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Estado: documento consolidado de revisión. No reemplaza una cotización aprobada ni constituye orden de inicio. Las funciones condicionadas a terceros se precisarán en la prueba de concepto y en el anexo de aceptación.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "1. Objetivo y estructura de la soluci",
+    "b": false
+   },
+   {
+    "x": "ón",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Diseñar e implementar dos componentes independientes y contratables por separado: (A) ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": " Video, para automatizar la preparación, edición y producción de materiales audiovisuales mediante inteligencia artificial y supervisión humana; y (B) ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": " Plataforma, para gestionar solicitudes, creación y aprobación de contenidos, seguimiento de formación, diagnósticos, analítica y administración, sin exigir la sustitución del sistema de aprendizaje existente.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "El proyecto prioriza Video por la nec",
+    "b": false
+   },
+   {
+    "x": "esidad de contar con un avance funcional durante enero de 2027. La contratación de uno de los componentes no implica la del otro.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "2. Componente A — ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": " Video",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo2",
+  "runs": [
+   {
+    "x": "2.1 Módulo A1. ",
+    "b": false
+   },
+   {
+    "x": "Automatización",
+    "b": false
+   },
+   {
+    "x": " del flujo audiovisual",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "tbl",
+  "filas": [
+   [
+    [
+     [
+      {
+       "x": "Subproceso",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Alcance funcional consolidado",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Recepción y organización",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Carga de videos crudos, guiones, imágenes, recursos autorizados y archivos de apoyo; organización de clips y asociación a curso/lección.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Dirección ",
+       "b": false
+      },
+      {
+       "x": "mediante",
+       "b": false
+      },
+      {
+       "x": " IA",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Interpretación de instrucciones en lenguaje natural para proponer cor",
+       "b": false
+      },
+      {
+       "x": "tes, orden, narración y composición, mediante orquestación de herramientas seleccionadas.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Enriquecimiento",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Incorporación o generación asistida de imágenes y videos de apoyo; textos, subtítulos, transiciones, música y narraciones, sujetos a disponibilidad t",
+       "b": false
+      },
+      {
+       "x": "écnica y derechos de uso.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Identidad",
+       "b": false
+      },
+      {
+       "x": " ",
+       "b": false
+      },
+      {
+       "x": "corporativa",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Configuración reutilizable de logotipos, colores, tipografías, cortinillas, formato de salida y elementos de Academia/Aprendizaje y Desarrollo; aplicación a lecciones sucesivas sin recargar cada recurso.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Cu",
+       "b": false
+      },
+      {
+       "x": "rsos",
+       "b": false
+      },
+      {
+       "x": " ",
+       "b": false
+      },
+      {
+       "x": "multilección",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Gestión de cursos con varios videos; edición y ",
+       "b": false
+      },
+      {
+       "x": "renderización",
+       "b": false
+      },
+      {
+       "x": " por lote cuando las ",
+       "b": false
+      },
+      {
+       "x": "APIs",
+       "b": false
+      },
+      {
+       "x": " lo permitan, manteniendo configuraciones comunes y revisión individual.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Avatares",
+       "b": false
+      },
+      {
+       "x": " y ",
+       "b": false
+      },
+      {
+       "x": "voces",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Evaluación de avatares estándar dentro de la ",
+       "b": false
+      },
+      {
+       "x": "PoC",
+       "b": false
+      },
+      {
+       "x": " (sección ",
+       "b": false
+      },
+      {
+       "x": "2.2). No es entregable contractual ni forma parte de los criterios de aceptación. Su uso productivo, incluida la representación autorizada de colaboradores, instalaciones o sedes, requiere consentimiento, licencias, viabilidad de proveedor y decisión expre",
+       "b": false
+      },
+      {
+       "x": "sa de ",
+       "b": false
+      },
+      {
+       "x": "Unidrogas",
+       "b": false
+      },
+      {
+       "x": " tras la ",
+       "b": false
+      },
+      {
+       "x": "PoC",
+       "b": false
+      },
+      {
+       "x": ".",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Revisión y ",
+       "b": false
+      },
+      {
+       "x": "aprobación",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Generación de primer borrador, ",
+       "b": false
+      },
+      {
+       "x": "previsualización",
+       "b": false
+      },
+      {
+       "x": ", observaciones, ajustes/regeneración y aprobación humana previa a publicación; trazabilidad básica de versiones.",
+       "b": false
+      }
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo2",
+  "runs": [
+   {
+    "x": "2.2 Investigación tecnológica y prueba de ",
+    "b": false
+   },
+   {
+    "x": "concepto",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Comparar herramientas como ",
+    "b": false
+   },
+   {
+    "x": "HeyGen",
+    "b": false
+   },
+   {
+    "x": ", ",
+    "b": false
+   },
+   {
+    "x": "ElevenLabs",
+    "b": false
+   },
+   {
+    "x": " y proveedores de edición/",
+    "b": false
+   },
+   {
+    "x": "render",
+    "b": false
+   },
+   {
+    "x": " por API (por ejemplo, ",
+    "b": false
+   },
+   {
+    "x": "Shotstack",
+    "b": false
+   },
+   {
+    "x": " o ",
+    "b": false
+   },
+   {
+    "x": "Creatomate",
+    "b": false
+   },
+   {
+    "x": "), sin fijar anticipadamente proveedor contractual.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Evaluar calidad y variedad de avatares, sincronización de voz, costo por ",
+    "b": false
+   },
+   {
+    "x": "minuto, límites de créditos, API, automatización de marca, subtitulado, escalabilidad, privacidad y licencias.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Ejecutar una ",
+    "b": false
+   },
+   {
+    "x": "PoC",
+    "b": false
+   },
+   {
+    "x": " con un curso de muestra representativo de varias lecciones, recursos de marca y material autorizado; documentar funciones automa",
+    "b": false
+   },
+   {
+    "x": "tizables y pasos que requerirán intervención manual.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Entregar matriz de evaluación, arquitectura recomendada y criterios de aceptación acordados. No se garantiza que las herramientas de terceros expongan todas las funciones de su interfaz web mediante API.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo2",
+  "runs": [
+   {
+    "x": "2.3 ",
+    "b": false
+   },
+   {
+    "x": "Criterios",
+    "b": false
+   },
+   {
+    "x": " de aceptación propuestos",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Demostración de carga y preparación de un curso de muestra con más de una lección.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Aplicación repetible de identidad de marca a contenidos de prueba y generación de borradores para revisión humana.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Evidencia de edici",
+    "b": false
+   },
+   {
+    "x": "ón mediante instrucciones y registro de ajustes/observaciones.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Documento de limitaciones de proveedores, consumo observado y procedimiento de operación.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "3. Componente B — ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": " Plataforma",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Plataforma de gestión y automatización que conserva el LMS ",
+    "b": false
+   },
+   {
+    "x": "actual como sistema de formación cuando corresponda. La integración, profundidad de sincronización y fuentes de verdad se definirán tras validar ",
+    "b": false
+   },
+   {
+    "x": "APIs",
+    "b": false
+   },
+   {
+    "x": ", licencias, permisos, seguridad y disponibilidad de datos; cuando sea viable, podrá considerarse importaci",
+    "b": false
+   },
+   {
+    "x": "ón controlada de reportes como alternativa.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "tbl",
+  "filas": [
+   [
+    [
+     [
+      {
+       "x": "Pilar",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Módulo",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Funcionalidades incluidas",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Pilar 1 · Solicitudes y contenidos",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "1. Gestión inteligente de solicitudes",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Registro estructurado por área con responsable, objetivo, público, fecha, prioridad, adjuntos y ",
+       "b": false
+      },
+      {
+       "x": "estados; carga de texto, documentos, audios y grabaciones; asistencia guiada para completar solicitudes y trazabilidad de comentarios.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Pilar",
+       "b": false
+      },
+      {
+       "x": " 1 · Solicitudes y contenidos",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "2. Creación, validación y aprobación",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Borradores de guiones asistidos por IA; reglas y",
+       "b": false
+      },
+      {
+       "x": " base de conocimiento corporativa; aprobaciones humanas para contenido sensible; control de versiones, responsables, trazabilidad y alertas por vencimiento.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Pilar",
+       "b": false
+      },
+      {
+       "x": " 2 · ",
+       "b": false
+      },
+      {
+       "x": "Formación",
+       "b": false
+      },
+      {
+       "x": " y medición",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "3. Formación y seguimiento",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Consulta consolidada de avance, finaliza",
+       "b": false
+      },
+      {
+       "x": "ción, evaluaciones, certificados e historial individual; asignaciones por persona/grupo; integración con el LMS actual (proveedor y versión por identificar según 3.1), únicamente si es viable técnicamente.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Pilar",
+       "b": false
+      },
+      {
+       "x": " 2 · ",
+       "b": false
+      },
+      {
+       "x": "Formación",
+       "b": false
+      },
+      {
+       "x": " y medición",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "4. Diagnósticos y ",
+       "b": false
+      },
+      {
+       "x": "encuestas",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Evaluaciones previas y posteriores, comparación de brechas; encuestas de satisfacción, clima, liderazgo y percepción; históricos comparables por usuario y área según permisos.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Pilar",
+       "b": false
+      },
+      {
+       "x": " 3 · Inteligencia y automatización",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "5. Analítica e indicadores",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Pa",
+       "b": false
+      },
+      {
+       "x": "neles de participación, avance, solicitudes y resultados; filtros por persona, área y curso; exportaciones a Excel sujetas a roles y disponibilidad de datos.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Pilar",
+       "b": false
+      },
+      {
+       "x": " 3 · Inteligencia y automatización",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "6. Automatización del seguimiento",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Notificaciones por even",
+       "b": false
+      },
+      {
+       "x": "to, recordatorios, vencimientos e inactividad; reglas configurables de correo y seguimiento.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Pilar",
+       "b": false
+      },
+      {
+       "x": " 3 · Inteligencia y automatización",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "7. Inteligencia sobre los cursos",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Detección asistida de contenidos de baja utilización o potencialmente desactualizados; ",
+       "b": false
+      },
+      {
+       "x": "recomendaciones para revisión humana.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Pilar",
+       "b": false
+      },
+      {
+       "x": " 4 · ",
+       "b": false
+      },
+      {
+       "x": "Certificación",
+       "b": false
+      },
+      {
+       "x": " y administración",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "8. Certificación",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Generación automática de certificados al cumplir condiciones establecidas y vinculación al historial de formación.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Pilar",
+       "b": false
+      },
+      {
+       "x": " 3 · Inteligencia y automatización",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "9. ",
+       "b": false
+      },
+      {
+       "x": "Base de conocimiento e IA",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Ingesta progresiva de manuales, políticas y documentos corporativos autorizados como contexto para agentes, guiones y validaciones.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Pilar",
+       "b": false
+      },
+      {
+       "x": " 4 · ",
+       "b": false
+      },
+      {
+       "x": "Certificación",
+       "b": false
+      },
+      {
+       "x": " y administración",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "10. Administración",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Usuarios, roles, permisos, asignacion",
+       "b": false
+      },
+      {
+       "x": "es individuales/grupales, parámetros, control de acceso a reportes/exportaciones y evaluación del modelo de licenciamiento por usuario.",
+       "b": false
+      }
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo2",
+  "runs": [
+   {
+    "x": "3.1 ",
+    "b": false
+   },
+   {
+    "x": "Condiciones",
+    "b": false
+   },
+   {
+    "x": " de integración y aceptación",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": " identificará proveedor y versión del LMS, entregará documentación",
+    "b": false
+   },
+   {
+    "x": ", credenciales autorizadas, permisos y responsables de seguridad.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "No se incluye sustitución obligatoria del LMS, migración masiva ni duplicación de datos como requisito base.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Se acordarán fuente de datos, periodicidad de actualización, campos, reglas de si",
+    "b": false
+   },
+   {
+    "x": "ncronización, roles y métricas antes de desarrollar conectores.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "La integración directa se ejecutará únicamente si la validación técnica demuestra viabilidad dentro del alcance y presupuesto aprobados; las alternativas y variaciones se formalizarán mediante",
+    "b": false
+   },
+   {
+    "x": " control de cambios.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "4. Arquitectura, seguridad y gobierno de datos",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Arquitectura modular con servicios/agentes especializados para edición, guiones, solicitudes y conocimiento corporativo; intervención humana obligatoria en decisiones y publicaciones ",
+    "b": false
+   },
+   {
+    "x": "sensibles.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Registro de cambios, aprobaciones y operaciones relevantes; permisos basados en roles y restricciones de exportación.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Tratamiento de datos personales conforme a las políticas de ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": " y la normativa aplicable, incluida la Ley 1581 de 2012; d",
+    "b": false
+   },
+   {
+    "x": "efinir roles de tratamiento, conservación y acceso.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Uso de imágenes, voces o representaciones de colaboradores únicamente con autorizaciones válidas, derechos de uso y restricciones de proveedor verificadas.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "La seguridad, residencia de datos y acuerdos con",
+    "b": false
+   },
+   {
+    "x": " proveedores de IA deberán evaluarse antes de autorizar el uso productivo de material corporativo.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "5. Entregables por componente contratado",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Software funcional de los módulos efectivamente contratados, sujeto a criterios de aceptación acordados.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Agentes y ",
+    "b": false
+   },
+   {
+    "x": "flujos de IA configurados, más matriz de proveedores y resultados de ",
+    "b": false
+   },
+   {
+    "x": "PoC",
+    "b": false
+   },
+   {
+    "x": " para Video.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Código fuente del desarrollo propio realizado para ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": " y documentación de arquitectura, integraciones, despliegue y operación; la transferencia de titularidad del có",
+    "b": false
+   },
+   {
+    "x": "digo desarrollado se formalizará contractualmente, sin incluir propiedad de plataformas/",
+    "b": false
+   },
+   {
+    "x": "APIs",
+    "b": false
+   },
+   {
+    "x": " de terceros.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Manuales, capacitación y transferencia de conocimiento; pruebas funcionales, acta de entrega y registro de pendientes o restricciones aceptadas.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "6. Me",
+    "b": false
+   },
+   {
+    "x": "todología, hitos y cronograma indicativo",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Ejecución ágil mediante ",
+    "b": false
+   },
+   {
+    "x": "sprints",
+    "b": false
+   },
+   {
+    "x": " y comités de seguimiento quincenales, demostraciones incrementales, validación por responsables designados y control de cambios documentado.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Escenario de cotización: se cotiza el prog",
+    "b": false
+   },
+   {
+    "x": "rama secuencial, con un único especialista de IA compartido entre ambos componentes y prioridad para Video (sección 6.1). Plataforma inicia al cerrar Video. El escenario en paralelo, con equipo de IA independiente para Plataforma, es una alternativa que re",
+    "b": false
+   },
+   {
+    "x": "quiere capacidades de IA diferenciadas y debe confirmarse antes de la oferta definitiva.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "tbl",
+  "filas": [
+   [
+    [
+     [
+      {
+       "x": "Componente",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Duración técnica estimada",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Referencia condicionada a inicio 09/11/2026",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Video",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "9–11 semanas hábiles",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Demo funcional alrededor del 15/01/2027; entrega estimada ",
+       "b": false
+      },
+      {
+       "x": "alrededor del 05/02/2027.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Plataforma",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "10–12 semanas hábiles",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Alternativa, en paralelo con equipo de IA independiente: entrega orientativa alrededor del 12/02/2027.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Programa",
+       "b": false
+      },
+      {
+       "x": " ",
+       "b": false
+      },
+      {
+       "x": "secuencial",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "19–23 semanas hábiles",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Escenario base: un único especialista de IA ",
+       "b": false
+      },
+      {
+       "x": "compartido, con Video primero y Plataforma después; terminación aproximada en abril de 2027, sujeta a calendario efectivo.",
+       "b": false
+      }
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Las fechas son referencias de planeación, no compromisos incondicionales. El calendario contractual se aprobará en ",
+    "b": false
+   },
+   {
+    "x": "kick",
+    "b": false
+   },
+   {
+    "x": "-off, conside",
+    "b": false
+   },
+   {
+    "x": "rando festivos, recesos, disponibilidad del cliente, ",
+    "b": false
+   },
+   {
+    "x": "PoC",
+    "b": false
+   },
+   {
+    "x": ", pruebas y asignación de recursos.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo2",
+  "runs": [
+   {
+    "x": "6.1 Condiciones para avance de Video en enero",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Aprobación y arranque efectivo no posterior al 9 de noviembre de 2026.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Entrega en la primera semana de manual de marca",
+    "b": false
+   },
+   {
+    "x": ", curso de muestra ",
+    "b": false
+   },
+   {
+    "x": "multilección",
+    "b": false
+   },
+   {
+    "x": ", recursos autorizados, cuentas y accesos pertinentes.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Cierre de ",
+    "b": false
+   },
+   {
+    "x": "PoC",
+    "b": false
+   },
+   {
+    "x": " y selección de proveedor, tentativamente al 27 de noviembre de 2026.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Dedicación prioritaria del especialista de IA a Video y validaciones oportunas por part",
+    "b": false
+   },
+   {
+    "x": "e de ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": ".",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "La meta de enero corresponde a una demostración de ",
+    "b": false
+   },
+   {
+    "x": "branding",
+    "b": false
+   },
+   {
+    "x": " y preparación/producción de lecciones, no al producto final terminado.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "7. Consumos externos y estimaciones de operación",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Los siguientes escenarios son orientativos y no constituyen ",
+    "b": false
+   },
+   {
+    "x": "tarifas fijas. Se basan en 30, 60 o 120 minutos de video final aprobado al mes, 1,5 generaciones de avatar por minuto final y una TRM ilustrativa de COP 3.200/USD. Precios de proveedores, impuestos y volúmenes deben ",
+    "b": false
+   },
+   {
+    "x": "reconfirmarse",
+    "b": false
+   },
+   {
+    "x": " antes de contratación.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "tbl",
+  "filas": [
+   [
+    [
+     [
+      {
+       "x": "Con",
+       "b": false
+      },
+      {
+       "x": "cepto",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Bajo · 30 min/mes",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Medio · 60 min/mes",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Alto · 120 min/mes",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Video (avatar, voz, ",
+       "b": false
+      },
+      {
+       "x": "render",
+       "b": false
+      },
+      {
+       "x": ", LLM)",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "USD 206",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "USD 351",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "USD 778",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Plataforma (LLM, embeddings, transcripción)",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "USD 30",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "USD 55",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "USD 80",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Total mensual estimado",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "USD 236 / COP 755.200",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "USD 406 / COP 1.299.200",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "USD 858 / COP 2.745.600",
+       "b": false
+      }
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "El uso de gemelos digitales puede elevar el costo de avatar. El costo de avatar está incluido en la línea de Video sin desglose; si ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": " no activa avatares en producción, el consumo mensual de Video será menor. El costo real d",
+    "b": false
+   },
+   {
+    "x": "epende de herramientas seleccionadas, planes, minutos generados, ",
+    "b": false
+   },
+   {
+    "x": "retrabajos",
+    "b": false
+   },
+   {
+    "x": ", calidad, consumos, tipo de cambio e impuestos. Los consumos productivos de IA y licencias son asumidos por ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": ", salvo acuerdo comercial expreso en contrario.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Pruebas de desa",
+    "b": false
+   },
+   {
+    "x": "rrollo y QA: estimación única de USD 350–570 (aprox. COP 1.120.000–1.824.000). La parte que asume este costo debe acordarse en la cotización definitiva; no está incorporado automáticamente en los valores históricos. Hosting, almacenamiento audiovisual, lic",
+    "b": false
+   },
+   {
+    "x": "encias de música o imágenes, WhatsApp y otras integraciones externas no están incluidos en estos escenarios.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "8. Garantía, estabilización y soporte",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "La garantía correctiva de cada componente tendrá una duración equivalente al 50 % del tiempo efectivo de desa",
+    "b": false
+   },
+   {
+    "x": "rrollo de dicho componente, computado conforme a la definición y acta de inicio/cierre aprobadas por las partes. La garantía inicia en la fecha de firma del acta de aceptación del componente. Como referencia de planeación, Video equivaldría a aproximadamen",
+    "b": false
+   },
+   {
+    "x": "te 4,5–5,5 semanas y Plataforma a 5–6 semanas; el periodo contractual se precisará según la duración efectiva. Si el desarrollo se extiende por demoras atribuibles a ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": ", el periodo no excederá 5,5 semanas para Video ni 6 semanas para Plataforma.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "La ",
+    "b": false
+   },
+   {
+    "x": "garantía cubre errores reproducibles atribuibles al software desarrollado y entregado, conforme a criterios de aceptación. No cubre nuevas funcionalidades, cambios de alcance, indisponibilidad o cambios de ",
+    "b": false
+   },
+   {
+    "x": "APIs",
+    "b": false
+   },
+   {
+    "x": " de terceros, créditos/licencias, mejoras evol",
+    "b": false
+   },
+   {
+    "x": "utivas ni mantenimiento permanente. Las pruebas y estabilización previas a la aceptación se programarán dentro de la ejecución; esta disposición sustituye, para la versión contractual definitiva, el esquema de garantía de un mes del documento v1.0, una vez",
+    "b": false
+   },
+   {
+    "x": " aceptada por ambas partes.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "9. Desarrollos adicionales — fuera del alcance de A y B",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "tbl",
+  "filas": [
+   [
+    [
+     [
+      {
+       "x": "Iniciativa",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Alcance preliminar",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Tratamiento",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "C1. Agente de soporte interno",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Consultas frecuentes, orientación, clasificación y escalamiento a responsable humano; posible ",
+       "b": false
+      },
+      {
+       "x": "WhatsApp/correo/teléfono, bandeja y métricas.",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Levantamiento, canales, licencias, integraciones, esfuerzo y cotización independientes.",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "C2. Logística de capacitadores",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Agenda de visitas, sedes, asignación de capacitadores, planeación y seguimiento; rutas, ma",
+       "b": false
+      },
+      {
+       "x": "pas, viáticos y móvil por validar.",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Levantamiento, alcance, esfuerzo y cotización independientes.",
+       "b": false
+      }
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Las estimaciones internas de estos posibles módulos no constituyen precio ofertado ni compromiso de entrega. Ninguno está incluido en los tiempos o valores de",
+    "b": false
+   },
+   {
+    "x": " los componentes A y B.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "10. Condiciones comerciales, supuestos y exclusiones",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "tbl",
+  "filas": [
+   [
+    [
+     [
+      {
+       "x": "Componente",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Valor histórico de septiembre 2026",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Estado actual",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "A. Unidrogas Video",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "COP $27.393.825",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Referencia del alcance v1.0; sujeto a ",
+       "b": false
+      },
+      {
+       "x": "recotización",
+       "b": false
+      },
+      {
+       "x": ".",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "B. Unidrogas Plataforma",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "COP $4",
+       "b": false
+      },
+      {
+       "x": "3.358.206",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Referencia del alcance v1.0; sujeto a ",
+       "b": false
+      },
+      {
+       "x": "recotización",
+       "b": false
+      },
+      {
+       "x": ".",
+       "b": false
+      }
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Los valores anteriores no representan la inversión aprobada de la versión 2.0. La oferta comercial definitiva establecerá precio, tratamiento tributario, distribución de consumos de QA, forma ",
+    "b": false
+   },
+   {
+    "x": "de pago, hitos y alcance contratado. ",
+    "b": false
+   },
+   {
+    "x": "Los ",
+    "b": false
+   },
+   {
+    "x": "componentes",
+    "b": false
+   },
+   {
+    "x": " ",
+    "b": false
+   },
+   {
+    "x": "pueden",
+    "b": false
+   },
+   {
+    "x": " ",
+    "b": false
+   },
+   {
+    "x": "contratarse",
+    "b": false
+   },
+   {
+    "x": " por separado.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": " designará responsables funcionales y técnicos, facilitará documentación, lineamientos de marca, muestras, autorizaciones y validaciones dentro de los plazos aco",
+    "b": false
+   },
+   {
+    "x": "rdados.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Se excluyen licencias y consumos productivos de herramientas de terceros, infraestructura, almacenamiento, contenido de stock y funcionalidades no descritas o condicionadas a una fase posterior.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Listaconvietas",
+  "runs": [
+   {
+    "x": "Cualquier nueva integración, alcance no previsto o mo",
+    "b": false
+   },
+   {
+    "x": "dificación derivada de la ",
+    "b": false
+   },
+   {
+    "x": "PoC",
+    "b": false
+   },
+   {
+    "x": " se evaluará mediante control de cambios y eventual ",
+    "b": false
+   },
+   {
+    "x": "recotización",
+    "b": false
+   },
+   {
+    "x": ".",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "Ttulo1",
+  "runs": [
+   {
+    "x": "11. Validaciones pendientes y aceptación",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "tbl",
+  "filas": [
+   [
+    [
+     [
+      {
+       "x": "Validación",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Responsable sugerido",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Volumen mensual de cursos/lecciones, correcciones y criterios de calidad",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Aprendizaje",
+       "b": false
+      },
+      {
+       "x": " y ",
+       "b": false
+      },
+      {
+       "x": "Desarrollo · Unidrogas",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Marca, curso piloto, material y autorizaciones de imagen/voz",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Aprendizaje",
+       "b": false
+      },
+      {
+       "x": " y Desarrollo · Unidrogas",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "APIs",
+       "b": false
+      },
+      {
+       "x": " de herramientas audiovisuales y resultado de ",
+       "b": false
+      },
+      {
+       "x": "PoC",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Líder",
+       "b": false
+      },
+      {
+       "x": " ",
+       "b": false
+      },
+      {
+       "x": "técnico",
+       "b": false
+      },
+      {
+       "x": " · ",
+       "b": false
+      },
+      {
+       "x": "Campuslands",
+       "b": false
+      },
+      {
+       "x": " / proveedores",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "LMS actual, documentación, permisos ",
+       "b": false
+      },
+      {
+       "x": "y fuentes de datos",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "TI · ",
+       "b": false
+      },
+      {
+       "x": "Unidrogas",
+       "b": false
+      },
+      {
+       "x": " / proveedor LMS",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Cronograma, recursos, precio definitivo y QA",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Dirección de proyecto / áreas comerciales de ambas partes",
+       "b": false
+      }
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      {
+       "x": "Criterios de aceptación, protección de datos y propiedad intelectual",
+       "b": false
+      }
+     ]
+    ],
+    [
+     [
+      {
+       "x": "Responsables funcionales, técnic",
+       "b": false
+      },
+      {
+       "x": "os y jurídicos de ambas partes",
+       "b": false
+      }
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "La firma de la versión contractual final, junto con su propuesta económica y anexos aprobados, constituirá aceptación del alcance para los componentes expresamente contratados y habilitará el inicio mediante acta de ",
+    "b": false
+   },
+   {
+    "x": "kick",
+    "b": false
+   },
+   {
+    "x": "-off",
+    "b": false
+   },
+   {
+    "x": ". Esta versión de revisión no sustituye dichos instrumentos.",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Por ",
+    "b": false
+   },
+   {
+    "x": "Unidrogas",
+    "b": false
+   },
+   {
+    "x": " S.A.: _________________________     Por Campuslands S.A.S. BIC: _________________________",
+    "b": false
+   }
+  ]
+ },
+ {
+  "t": "p",
+  "estilo": "",
+  "runs": [
+   {
+    "x": "Nombre / cargo / fecha: _____________________     Nombre / cargo / fecha: _________________",
+    "b": false
+   },
+   {
+    "x": "_____________",
+    "b": false
+   }
+  ]
+ }
+]
