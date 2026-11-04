@@ -31,6 +31,16 @@ Esta guía explica cómo funciona por dentro: las reglas de marca que gobiernan 
 
 El usuario cura, dirige y aprueba; el agente hace todo el trabajo de construcción, verificación, despliegue y mantenimiento de la wiki.
 
+### Portadas y clientes
+
+Las portadas de esta galería salen de la primera página del PDF de cada deck en `presentaciones/decks/`; los logos, de `resources/companies-logos/`, recortados y convertidos a WebP (con sus colores originales). Las imágenes se descargan bajo demanda: solo cuando el carrusel se acerca a la pantalla y, a partir de ahí, la activa y sus vecinas; en el PDF se cargan todas. Ambos se regeneran con `guides/_src/recursos_web.py` y la lista que se muestra está en `PORTADAS` y `LOGOS` de `guides/_src/build.py`.
+
+```cardstack
+```
+
+```coverflow
+```
+
 ## Cómo corre: Claude Code y `CLAUDE.md`
 
 El agente corre en **Claude Code** y se gobierna con `CLAUDE.md`, el archivo que lee al inicio de cada sesión y que se co-evoluciona con el usuario. Fue reconceptualizado el 2026-10-02 a partir del Brandbook de Campuslands: donde algo de la wiki lo contradiga, **gana `CLAUDE.md`**.

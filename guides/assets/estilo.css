@@ -67,7 +67,7 @@ html.lenis{ scroll-behavior:auto !important; }
 .top-in{ max-width:var(--page-w); margin:0 auto; height:var(--bar-h); display:flex; align-items:center; justify-content:space-between; gap:16px; }
 .brand{ display:flex; align-items:center; gap:14px; text-decoration:none; color:var(--ink); font-weight:500; }
 .brand img{ height:28px; width:auto; }
-.brand span{ font-family:var(--serif); font-weight:400; font-size:var(--t-ui); line-height:1; letter-spacing:-.01em; color:var(--ink); padding-left:14px; border-left:1px solid var(--line); }
+.brand > span{ font-family:var(--serif); font-weight:400; font-size:var(--t-ui); line-height:1; letter-spacing:-.01em; color:var(--ink); padding-left:14px; border-left:1px solid var(--line); }
 .top nav{ display:flex; align-items:center; gap:20px; }
 .top nav a{ text-decoration:none; color:var(--muted); }
 .top nav a:hover{ color:var(--ink); }
@@ -320,7 +320,7 @@ footer.site{ border-top:1px solid var(--line); padding:26px var(--gut); font-siz
 }
 @media (max-width:640px){
   :root{ --t-body:16px; --t-lead:19px; --t-stat:36px; --space-section:48px; --bar-h:60px; }
-  .brand span{ display:none; } .top nav a:not(.btn):not(.gh){ display:none; }
+  .brand > span{ display:none; } .top nav a:not(.btn):not(.gh){ display:none; }
   .shell{ padding-top:36px; }
   .home{ padding-top:40px; }
   .banner-in{ padding:52px 0 0; }
@@ -366,3 +366,141 @@ footer.site{ border-top:1px solid var(--line); padding:26px var(--gut); font-siz
   .chat div{ padding:9pt 12pt; }
   a.l{ color:var(--clay-d); }
 }
+
+/* ============================================================
+   EFECTOS DE TEXTO (efectos.js): letter swap y wave text
+   ============================================================ */
+/* Letter swap: cada letra lleva su copia (::after) justo debajo; al pasar el cursor la letra sube y entra la copia, con escalonado */
+.ls-wd{ display:inline-block; white-space:nowrap; }
+.ls-o{ display:inline-block; overflow:clip; vertical-align:top; padding:0 .03em; margin:0 -.03em; }
+.ls-c{ position:relative; display:inline-block; line-height:1.3; transition:transform .55s cubic-bezier(.7,0,.2,1) calc(var(--i) * 22ms); will-change:transform; }
+.ls-c::after{ content:attr(data-c); position:absolute; left:0; top:100%; line-height:1.3; }
+[data-ls]:is(:hover,:focus-visible,:has(:focus-visible)) .ls-c{ transform:translateY(-100%); }
+.brand > span{ line-height:1.3; }
+
+/* Wave text (título del banner): entrada en ola y una ola nueva al pasar el cursor; la ola no se interrumpe */
+.wave{ width:fit-content; }
+.wv{ display:inline-block; }
+.wv-in .wv{ animation:wv-in .9s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(var(--i) * 38ms); }
+.wv-on .wv{ animation:wv-ola 1s ease-in-out both; animation-delay:calc(var(--i) * 45ms); }
+@keyframes wv-in{ from{ opacity:0; transform:translateY(.55em); } to{ opacity:1; transform:none; } }
+@keyframes wv-ola{ 0%,100%{ transform:none; } 35%{ transform:translateY(-.2em); color:var(--clay-d); } 70%{ transform:translateY(.05em); } }
+
+/* ============================================================
+   CARRUSELES (efectos.js): Card Stack (portadas) y Coverflow (logos)
+   ============================================================ */
+.cx{ position:relative; margin:var(--space-block) 0 0; --dx:0px; --r:0; }
+.cx-stage{ position:relative; perspective:1300px; overflow:hidden; touch-action:pan-y; user-select:none; -webkit-user-select:none; outline:none; }
+.cx.listo .cx-stage{ cursor:grab; } .cx.listo .cx-stage.drag{ cursor:grabbing; }
+.cx-stage:focus-visible{ outline:2px solid var(--clay); outline-offset:4px; border-radius:14px; }
+.cx-card{ margin:0; position:absolute; transition:transform .75s cubic-bezier(.22,.9,.28,1), opacity .5s, box-shadow .5s; }
+.cx-card figcaption{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.cx-card[data-h]{ opacity:0 !important; pointer-events:none; }
+.cx-stage.drag .cx-card[data-pos="0"]{ transition:opacity .5s, box-shadow .5s; }
+
+/* barra inferior: flechas, texto de la tarjeta activa y contador */
+.cx-bar{ display:flex; align-items:center; gap:14px; margin-top:18px; }
+.cx-cap{ flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; text-align:center; font-size:var(--t-ui); line-height:var(--lh-ui); color:var(--muted); }
+.cx-cap b{ font-family:var(--serif); font-weight:400; font-size:var(--t-lead); line-height:1.25; color:var(--ink); }
+.cx-n{ font-size:var(--t-meta); line-height:1; color:var(--soft); font-variant-numeric:tabular-nums; letter-spacing:.04em; min-width:3.6em; text-align:right; }
+.cx-btn{ flex:none; display:inline-grid; place-items:center; width:42px; height:42px; border:0; border-radius:50%; background:var(--oat); color:var(--ink); cursor:pointer; transition:background .2s, color .2s, transform .2s, box-shadow .2s; }
+.cx-btn svg{ width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.cx-btn:hover, .cx-btn:focus-visible{ background:var(--clay); color:#fff; transform:translateY(-2px); box-shadow:0 8px 20px rgba(217,119,87,.4); outline:none; }
+.cx-btn:active{ transform:scale(.94); box-shadow:none; }
+
+/* Card Stack: la pila se abre en abanico al pasar el cursor (--spread); la activa sigue el arrastre (--dx) */
+.cs .cx-stage{ height:clamp(190px,33vw,300px); --spread:1; }
+.cs .cx-stage:hover, .cs .cx-stage:focus-visible{ --spread:1.5; }
+.cs .cx-card{ left:50%; top:50%; width:min(60%,500px); aspect-ratio:792/446; border-radius:14px; background:var(--oat); border:1px solid var(--line); overflow:hidden; cursor:pointer;
+  z-index:calc(20 - var(--a,0));
+  opacity:clamp(0, calc(1.2 - var(--a,0) * .3), 1);
+  transform:translate(-50%,-50%) translateX(calc(var(--o,0) * 13% * var(--spread))) translateY(calc(var(--a,0) * 3%)) translateZ(calc(var(--a,0) * -70px)) rotate(calc(var(--o,0) * 4deg)) rotateY(calc(var(--o,0) * -9deg)) scale(calc(1 - var(--a,0) * .06));
+  box-shadow:0 6px 18px rgba(20,20,19,.1); }
+.cs .cx-card[data-pos="0"]{ cursor:grab; box-shadow:0 22px 50px -12px rgba(20,20,19,.32), 0 6px 14px rgba(20,20,19,.1);
+  transform:translate(-50%,-50%) translateX(var(--dx)) rotate(calc(var(--r, 0) * 1deg)); }
+.cx-card img{ opacity:0; transition:opacity .45s; }
+.cx-card img.ok{ opacity:1; }
+.cs .cx-card img{ width:100%; height:100%; object-fit:cover; pointer-events:none; -webkit-user-drag:none; }
+.cs .cx-card:not([data-pos="0"])::after{ content:""; position:absolute; inset:0; background:rgba(245,244,237,calc(var(--a,0) * .12)); }
+
+/* Coverflow: la activa de frente, las laterales giradas y más atrás; --s es el signo de la posición */
+.cf .cx-stage{ height:clamp(170px,27vw,230px); perspective:1000px; }
+.cf .cx-card{ left:50%; top:50%; width:clamp(150px,30%,210px); aspect-ratio:4/3; display:grid; place-items:center; border-radius:16px; cursor:pointer;
+  background:#fff; border:1px solid var(--line);
+  z-index:calc(20 - var(--a,0));
+  opacity:clamp(0, calc(1.25 - var(--a,0) * .33), 1);
+  transform:translate(-50%,-50%) translateX(calc(var(--o,0) * 44% + var(--s,0) * 34%)) translateZ(calc(var(--a,0) * -60px)) rotateY(calc(var(--s,0) * -55deg)) scale(calc(1 - var(--a,0) * .04));
+  box-shadow:0 6px 18px rgba(20,20,19,.08); }
+.cf .cx-card[data-pos="0"]{ box-shadow:0 22px 44px -14px rgba(20,20,19,.3), 0 6px 14px rgba(20,20,19,.08);
+  transform:translate(-50%,-50%) translateZ(40px) translateX(var(--dx)); }
+.cf .cx-card:not([data-pos="0"]){ opacity:clamp(0, calc(1.1 - var(--a,0) * .3), .75); }
+/* logos a color (WebP con transparencia), contenidos en su casilla sin deformarse */
+.cf-logo{ display:block; width:68%; height:54%; }
+.cf-logo img{ width:100%; height:100%; object-fit:contain; pointer-events:none; -webkit-user-drag:none; }
+
+/* sin JS (o antes de que cargue): las tarjetas se ven en una cuadrícula */
+.cx:not(.listo) .cx-stage{ height:auto; display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; overflow:visible; }
+.cx:not(.listo) .cx-card{ position:static; width:auto; transform:none; margin:0; opacity:1; }
+.cx:not(.listo) .cx-bar{ display:none; }
+
+@media (max-width:640px){
+  .cs .cx-card{ width:74%; } .cs .cx-card, .cf .cx-card{ transition-duration:.6s; }
+  .cf .cx-card{ width:46%; }
+  .cx-btn{ width:38px; height:38px; }
+}
+@media (prefers-reduced-motion:reduce){
+  .ls-c, .cx-card, .cx-btn{ transition-duration:.01ms !important; transition-delay:0s !important; }
+  [data-ls]:is(:hover,:focus-visible,:has(:focus-visible)) .ls-c{ transform:none; }
+  .wv{ animation:none !important; }
+}
+/* en el PDF las tarjetas se imprimen en cuadrícula, cada una con su texto */
+@media print{
+  .cx .cx-stage{ height:auto; display:grid; grid-template-columns:repeat(3,1fr); gap:8pt; overflow:visible; perspective:none; }
+  .cf .cx-stage{ grid-template-columns:repeat(5,1fr); }
+  .cx .cx-card{ position:static; width:auto; transform:none !important; opacity:1 !important; box-shadow:none !important; break-inside:avoid; }
+  .cx .cx-card::after{ display:none; }
+  .cx .cx-card figcaption{ position:static; width:auto; height:auto; clip:auto; overflow:visible; white-space:normal; font-size:var(--t-meta); line-height:1.3; color:var(--muted); padding:4pt 2pt 0; text-align:center; }
+  .cs .cx-card, .cf .cx-card{ display:block; background:none; border:0; border-radius:0; aspect-ratio:auto; }
+  .cs .cx-card img{ border:1px solid var(--line); border-radius:4pt; height:auto; }
+  .cf .cx-card .cf-logo{ width:100%; height:34pt; }
+  .cx-card img{ opacity:1 !important; }
+  .cx-bar{ display:none; }
+  .ls-c{ transform:none !important; }
+}
+
+/* ============================================================
+   SOCIAL PREVIEW DOCK (pie del índice): iconos que crecen al pasar el cursor y muestran la vista previa del perfil
+   ============================================================ */
+footer.site{ align-items:center; }
+.dock{ display:flex; align-items:flex-end; gap:8px; padding:6px; border-radius:18px; background:var(--oat); }
+.dock-i{ position:relative; display:grid; place-items:center; width:40px; height:40px; border-radius:13px; background:#fff; border:1px solid var(--line); color:var(--ink); text-decoration:none;
+  transition:transform .35s cubic-bezier(.3,1.6,.5,1), background-color .2s, color .2s, border-color .2s, box-shadow .3s; transform-origin:50% 100%; }
+.dock-i svg{ width:20px; height:20px; }
+.dock-i:hover, .dock-i:focus-visible{ transform:translateY(-8px) scale(1.22); color:#fff; border-color:transparent; box-shadow:0 10px 22px rgba(20,20,19,.22); outline:none; z-index:2; }
+.dock-gh:hover, .dock-gh:focus-visible{ background:var(--ink); }
+.dock-li:hover, .dock-li:focus-visible{ background:#0a66c2; }
+.dock-i:has(+ .dock-i:hover), .dock-i:hover + .dock-i{ transform:translateY(-3px) scale(1.08); }   /* los vecinos se inclinan hacia el que tiene el cursor, como en un dock */
+.dock-i:focus-visible{ outline:2px solid var(--clay); outline-offset:3px; }
+/* vista previa: tarjeta oscura que sube desde el icono, anclada a la derecha del pie (hecha con HTML/CSS; la cuadrícula son 210 <i>) */
+.dock-pv{ position:absolute; right:-8px; bottom:calc(100% + 18px); width:min(340px, calc(100vw - 2 * var(--gut))); border-radius:16px; overflow:hidden; background:#16181d; color:#e9e8e3; text-align:left;
+  border:1px solid rgba(255,255,255,.09); box-shadow:0 24px 54px -12px rgba(20,20,19,.5), 0 6px 14px rgba(20,20,19,.15); opacity:0; visibility:hidden; transform:translateY(10px) scale(.96); transform-origin:90% 100%; pointer-events:none;
+  transition:opacity .25s, transform .35s cubic-bezier(.22,.9,.28,1), visibility 0s .35s; cursor:default; }
+.dock-i:hover .dock-pv, .dock-i:focus-visible .dock-pv{ opacity:1; visibility:visible; transform:none; transition-delay:0s; }
+.pv-av{ width:40px; height:40px; border-radius:50%; object-fit:cover; flex:none; background:#2a2d34; }
+.pv-id, .pv-body{ display:flex; flex-direction:column; min-width:0; }
+.dock-pv b{ font-size:var(--t-ui); line-height:var(--lh-ui); font-weight:600; color:#fff; }
+.dock-pv .pv-id > span, .dock-pv .pv-body > span{ font-size:var(--t-meta); line-height:var(--lh-meta); color:#9d9ca6; }
+/* GitHub: perfil + mini cuadrícula de contribuciones (7 filas × semanas, de arriba abajo y de izquierda a derecha) */
+.pv-head{ display:flex; align-items:center; gap:12px; padding:14px 16px 12px; }
+.pv-grid{ display:grid; grid-template-rows:repeat(7,1fr); grid-auto-flow:column; grid-auto-columns:1fr; gap:3px; padding:0 16px 16px; }
+.pv-grid i{ aspect-ratio:1; border-radius:2px; background:#23262d; }
+.pv-grid i.l1{ background:#0e4429; } .pv-grid i.l2{ background:#006d32; } .pv-grid i.l3{ background:#26a641; } .pv-grid i.l4{ background:#39d353; }
+/* LinkedIn: banda de color, foto que la cruza, nombre, titular, ciudad y botón */
+.pv-ban{ display:block; height:58px; background:radial-gradient(120% 160% at 85% 0%, #3f8f66 0%, transparent 60%), linear-gradient(120deg, #0b1220 0%, #16283f 55%, #1f4a3a 100%); }
+.pv-av-lg{ width:56px; height:56px; margin:-28px 0 0 16px; border:3px solid #16181d; position:relative; }
+.pv-body{ padding:8px 16px 0; gap:2px; }
+.pv-body b{ font-size:var(--t-ui); }
+.dock-pv .pv-body .pv-loc{ margin-top:4px; }
+.pv-btn{ display:inline-flex; margin:-30px 16px 16px auto; float:right; padding:7px 16px; border-radius:99px; background:#e9e8e3; color:#16181d; font-size:var(--t-meta); line-height:1; font-weight:600; }
+.dock-pv-li::after{ content:""; display:block; clear:both; }
+@media (prefers-reduced-motion:reduce){ .dock-i, .dock-pv{ transition-duration:.01ms !important; transition-delay:0s !important; } .dock-i:hover, .dock-i:focus-visible, .dock-i:has(+ .dock-i:hover), .dock-i:hover + .dock-i{ transform:none; } }

@@ -2,7 +2,7 @@
 """servir.py — sitio local con recarga en vivo.
 
 Uso:   python -X utf8 guides/_src/servir.py        (puerto 4173; otro: PORT=5000 python ...)
-Qué hace: sirve guides/ y vigila contenido/**.md, estilo.css, suave.js, md.py y build.py. Al cambiar uno, reconstruye el HTML
+Qué hace: sirve guides/ y vigila contenido/**.md, estilo.css, suave.js, efectos.js, md.py y build.py. Al cambiar uno, reconstruye el HTML
 (sin PDF, para no tocar los PDF versionados) y el navegador se recarga solo, conservando la posición de lectura.
 Si el Markdown tiene un error, la página muestra el aviso en lugar de romperse.
 """
@@ -29,7 +29,7 @@ import build  # noqa: E402
 
 PORT = int(os.environ.get('PORT', '4173'))
 state = {'v': 1, 'error': ''}
-WATCH = [SRC / 'contenido', SRC / 'estilo.css', SRC / 'suave.js', SRC / 'md.py', SRC / 'build.py']
+WATCH = [SRC / 'contenido', SRC / 'estilo.css', SRC / 'suave.js', SRC / 'efectos.js', SRC / 'md.py', SRC / 'build.py']
 
 INJECT = b"""<script>(function(){var v=null,msg=null;
 try{var y=sessionStorage.getItem('__y');if(y){sessionStorage.removeItem('__y');addEventListener('load',function(){setTimeout(function(){scrollTo(0,+y)},60)})}}catch(e){}
