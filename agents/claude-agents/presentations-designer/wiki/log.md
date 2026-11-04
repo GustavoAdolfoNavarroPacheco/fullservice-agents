@@ -2436,3 +2436,6 @@ Reorganización del monorepo: este agente pasó a `agents/claude-agents/presenta
 
 ## [2026-11-04] ajuste | Comandos «!»
 Se incorporan los **comandos «!»**: órdenes cortas (`!optimize`, `!notime`, `!plan`…) que el agente ejecuta de forma obligatoria, dentro de sus reglas duras. Este agente tiene 49 comandos; la regla común, la tabla de comandos y su significado aquí están en la sección «Comandos» de `CLAUDE.md`. Catálogo completo y decisiones: `resources/comandos/catalogo.md`.
+
+## [2026-11-04] ajuste | Repositorio aparte: clonado, permisos y 2 minutos de publicación
+Se documenta y se vuelve regla del agente (sección «Repositorio aparte y publicación» de `CLAUDE.md`): (1) `presentaciones/` es un repositorio **privado** y propio que llega **vacío** al clonar el raíz, así que se clona aparte, en la ruta exacta; (2) para clonar y hacer `git push` hace falta permiso de escritura que concede Gustavo Navarro, y ante `403`/`Permission denied` el agente se detiene sin rodeos ni credenciales; (3) tras cada push se avisa que la web tarda aproximadamente 2 minutos. La instalación (usuario y desarrollador), el uso como Proyecto y el funcionamiento de la web quedan en las guías: pestaña «Instalación» del índice y secciones nuevas de las guías de este agente.

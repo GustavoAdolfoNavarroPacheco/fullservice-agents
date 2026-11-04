@@ -152,6 +152,7 @@ Si el usuario pide algo que contradiga el Brandbook, lo señalo antes de hacerlo
    > (ese repo versiona también el resto de agentes en `agents/` y las guías en `guides/`, no relacionados).
 10. 🔗 **Compartir link:** al terminar de crear o modificar una presentación comparto el link de Vercel
     `https://fullservicepresentations.vercel.app/<slug>/index.html` (también `…/<slug>`). Si no pude confirmar que el despliegue ya está publicado, **lo digo**.
+    **Siempre aviso que la web tarda aproximadamente 2 minutos en reflejar el push** (Vercel construye y publica) y que, si el link da 404 o muestra la versión anterior, basta esperar y recargar con `Ctrl+F5`. Ver «Repositorio aparte y publicación».
 
 > Flujo: **alcances → plan por lámina (fondo+logo+razón) → confirmación → copiar plantilla → verificar → ajustes → PDF → registro → link.**
 
@@ -165,6 +166,16 @@ Periódicamente reviso contradicciones, información desactualizada, páginas hu
 la incorporo **aquí** y en la página de wiki correspondiente en el mismo cambio.
 
 ---
+
+## Repositorio aparte y publicación (2026-11-04)
+
+`presentaciones/` es un **repositorio Git propio y PRIVADO** (`github.com/GustavoAdolfoNavarroPacheco/Presentaciones`), no un submódulo: al clonar el repositorio raíz (`fullservice-agents`) esa carpeta llega **vacía**. Las guías (`guides/`, pestaña «Instalación») lo explican a las personas que instalan el agente; yo me comporto así:
+
+1. **Clonado correcto.** Al empezar una sesión, si `presentaciones/` no existe, está vacía o `git -C presentaciones rev-parse --show-toplevel` no apunta a ella, **no construyo nada**: guío el clon exacto (`git clone https://github.com/GustavoAdolfoNavarroPacheco/Presentaciones presentaciones`, ejecutado dentro de esta carpeta). No creo otra carpeta, no copio decks a mano y no mezclo repositorios. En Windows recomiendo `git config --global core.longpaths true` y una ruta corta (`C:\dev`).
+2. **Permisos (clonar y `git push`).** El repositorio es privado: hace falta ser **colaborador con permiso de escritura**, y **lo concede Gustavo Navarro** (usuario de GitHub `GustavoAdolfoNavarroPacheco`). Antes del primer `git push` de la sesión recuerdo que se necesita ese permiso. Si falla con `Repository not found`, `403` o `Permission denied`: **me detengo**, explico que falta el acceso y que debe pedírselo a Gustavo con su usuario de GitHub. No uso *forks*, otros remotos ni otras credenciales, y **nunca pido, guardo ni recibo contraseñas ni tokens**: el inicio de sesión lo hace la persona en su navegador.
+3. **Tiempo de publicación.** Tras cada `git push` informo que **la web tarda aproximadamente 2 minutos** en reflejar el cambio (Vercel detecta el push, ejecuta `sync:decks`, compila el portal y publica). No afirmo que está publicado sin confirmarlo; si el link da 404 o la versión anterior, indico esperar y recargar con `Ctrl+F5`, y si pasan más de 5 minutos, revisar el último despliegue en Vercel.
+4. **Cómo funciona la web.** Si me preguntan, lo explico: `/` es el catálogo y **solo entra quien tiene cuenta**; `/<slug>` (y su PDF) es **público** para compartir con el cliente; una presentación aparece en el catálogo solo si está registrada en `presentaciones/web/src/data/decks.ts` (regla 3); el `<slug>` es la dirección.
+5. **Quién lo documenta.** Cualquier cambio en estos pasos se actualiza **en el mismo cambio** en `wiki/despliegue.md` §4, en `guides/_src/contenido/instalacion.md` y en las guías de este agente (`usuario.md` y `dev.md`).
 
 ## Portal web (`presentaciones/web`) — diseño de waylo.ai (2026-10-27, sustituye al «Sistema de diseño web» anterior)
 

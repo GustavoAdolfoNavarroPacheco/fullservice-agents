@@ -169,6 +169,9 @@ fullservice-agents/
 
 ## Instalación
 
+> La web de guías tiene una pestaña **Instalación** con esta misma instalación: «para usuario» (un mensaje que se le da a la IA) y «para desarrollador» (los comandos), además de cómo usar cada agente como Proyecto de Claude o Space de Perplexity. En local, `guides/_src/contenido/instalacion.md` es su fuente.
+
+
 ### 1. Clonar el repositorio principal
 
 ```bash
@@ -185,6 +188,9 @@ cd agents/claude-agents/presentations-designer
 git clone https://github.com/GustavoAdolfoNavarroPacheco/Presentaciones presentaciones
 cd ../../..
 ```
+
+> [!IMPORTANT]
+> `presentaciones/` es un repositorio **privado**: para clonarlo y hacer `git push` hace falta que Gustavo Navarro te agregue como colaborador con permiso de escritura. La carpeta llega **vacía** al clonar el repositorio principal. Tras cada push, la presentación tarda aproximadamente **2 minutos** en verse en la web (Vercel construye y publica). En Windows, activa antes `git config --global core.longpaths true` y clona en una ruta corta.
 
 > [!IMPORTANT]
 > `presentaciones/` es un repositorio Git aparte con su propio historial y remote (`GustavoAdolfoNavarroPacheco/Presentaciones`). Los commits y pushes de las presentaciones se hacen **dentro** de esa carpeta, independientemente del repositorio padre.
