@@ -88,6 +88,8 @@ def fence(kind, body):
             cells.append('<div class="s l%d" style="grid-row:%d;grid-column:%d"><i>%d</i>%s</div>' % (r % 3, i + 2, r + 1, i + 1, inline(t)))
         return '<div class="lanes" style="grid-template-columns:repeat(%d,minmax(0,1fr))">%s</div>' % (len(actors), ''.join(cells))
     if kind == 'chat':
+        # «Tú: …» / «Agente: …»: se dibuja como el chat de la plataforma del agente (Claude o Perplexity).
+        # Los @@…@@ los rellena build.py con la plataforma de cada guía (icono, nombre, estilo y texto del cuadro de escritura).
         msgs = []
         for l in body:
             m = re.match(r'^([^\s:][^:]{0,24}):\s+(.*)$', l)
@@ -95,9 +97,16 @@ def fence(kind, body):
                 msgs.append([m.group(1), m.group(2)])
             elif l.strip() and msgs:
                 msgs[-1][1] += ' ' + l.strip()
-        return '<div class="chat">%s</div>' % ''.join(
-            '<div class="%s"><b>%s</b>%s</div>' % ('u' if a.lower() in ('tú', 'tu', 'usuario', 'yo') else 'g', html.escape(a), inline(t)) for a, t in msgs)
-    if kind in ('cardstack', 'coverflow'):                                      # componentes: los dibuja build.py (necesita las rutas de los recursos)
+        out = ''
+        for a, t in msgs:
+            if a.lower() in ('tú', 'tu', 'usuario', 'yo'):
+                out += '<div class="cw-m u"><div class="cw-t">%s</div></div>' % inline(t)
+            else:
+                out += ('<div class="cw-m a"><div class="cw-who"><img class="cw-av" src="@@REL@@assets/img/@@ICON@@" alt=""><span>@@PLAT@@</span></div>'
+                        '<div class="cw-t">%s</div></div>' % inline(t))
+        return ('<div class="chat @@CLS@@" role="group" aria-label="Ejemplo de conversación"><div class="cw-h"><img src="@@REL@@assets/img/@@ICON@@" alt=""><b>@@PLAT@@</b><span>@@SLUG@@</span></div>'
+                '<div class="cw-b">%s</div><div class="cw-in" aria-hidden="true"><span>@@HINT@@</span><b class="cw-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></b></div></div>' % out)
+    if kind in ('cardstack', 'coverflow', 'comandos'):                                      # componentes: los dibuja build.py (necesita las rutas de los recursos)
         return '<!--GAL:%s-->' % kind
     if kind == 'stats':
         items = _pairs(body)

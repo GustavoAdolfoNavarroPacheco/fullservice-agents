@@ -278,6 +278,41 @@ Además, el agente revisa **a la vista cada página** del documento: portada sin
 | Versión | Solo en el nombre del archivo y en la wiki; nunca dentro del documento |
 | Idioma | Español |
 
+## Comandos «!»
+
+Los comandos son órdenes cortas del usuario (`!optimize`, `!notime`…) que el agente debe ejecutar de forma obligatoria, siempre dentro de sus reglas duras. Hay un solo catálogo para todos los agentes y de él salen las instrucciones de cada uno, las bitácoras y las tablas de las guías.
+
+### Dónde vive cada cosa
+
+| Qué | Dónde |
+|---|---|
+| Catálogo, regla común y qué comandos tiene cada agente | `resources/comandos/comandos.py` (la fuente única; no se edita a mano nada de lo que genera) |
+| Catálogo legible, matriz por agente y decisiones | `resources/comandos/catalogo.md` |
+| Instrucciones del agente | sección «Comandos (`!`)» de `CLAUDE.md`, entre las marcas `<!-- comandos:inicio -->` y `<!-- comandos:fin -->` |
+| Tabla de esta guía | se genera del mismo catálogo al compilar las guías |
+
+### La regla común
+
+1. Un comando es una palabra precedida de `!` al inicio de un mensaje o de una línea; el texto que sigue es su objeto.
+2. Es obligatorio: el agente no pide permiso ni lo reinterpreta. Solo lo limita una **regla dura** (veracidad, marca, confidencialidad, puertas de aprobación y de verificación); entonces hace lo que la regla permite y dice qué no pudo.
+3. Se combinan. Si dos modos chocan, el orden es: reglas duras > `!strict-mode` y `!no-assumptions` > `!think-deep`, `!critical-mode` y `!double-check` > `!notime`.
+4. Rige la tarea en curso, no las siguientes.
+5. La primera línea de la respuesta nombra los comandos recibidos.
+6. Un comando desconocido no se adivina: se propone el más parecido y se pregunta. `!help` lista los disponibles.
+7. Si un comando cambió un entregable o la wiki, se anota en `wiki/log.md`.
+
+### Cómo añadir o cambiar un comando
+
+1. Edita `CMDS` (definición), `AGENTES` (a quién aplica y su nota) o `ALIAS` en `resources/comandos/comandos.py`.
+2. Corre `python -X utf8 resources/comandos/comandos.py`: reescribe la sección de cada agente, el catálogo y, la primera vez, añade la entrada a su bitácora.
+3. Recompila las guías (`python guides/_src/build.py`).
+4. `python resources/comandos/comandos.py --verificar` falla si algo quedó desfasado.
+
+### Comandos de este agente
+
+```comandos
+```
+
 ## Mantenimiento
 
 Al terminar cada entrega, el agente actualiza `wiki/index.md` (proyecto, versión y estado), añade una entrada a `wiki/log.md` con lo hecho, las decisiones confirmadas, los pendientes abiertos y el resultado del control de calidad, y entrega al usuario el documento, el **resumen ejecutivo de cambios** y el **registro de pendientes** con el responsable de cada uno. La bitácora usa `## [YYYY-MM-DD] <tipo> | <cliente> — descripción`.

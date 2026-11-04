@@ -19,6 +19,8 @@ for _s in (sys.stdout, sys.stderr):
     except Exception:
         pass
 import md  # noqa: E402
+sys.path.insert(0, str(ROOT.parent / 'resources' / 'comandos'))
+import comandos  # noqa: E402   (catálogo de comandos «!»: fuente única de las tablas de las guías)
 
 CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
 FECHA = '3 nov 2026'
@@ -85,8 +87,10 @@ def carrusel(clase, etiqueta, tarjetas, extra=''):
             % (clase, extra, html.escape(etiqueta), tarjetas, FLECHA_IZQ, FLECHA_DER))
 
 
-def galeria(kind, rel):
-    """Card Stack con las portadas de las presentaciones / Coverflow con los logos de los clientes."""
+def galeria(kind, rel, ag=None):
+    """Card Stack con las portadas / Coverflow con los logos de los clientes / tabla de comandos «!» del agente."""
+    if kind == 'comandos':
+        return comandos.tabla_html(ag['slug'], md.inline)
     if kind == 'cardstack':
         cards = ''.join('<figure class="cx-card" data-c="%s" data-p="%s"><img data-src="%sassets/img/portadas/%s.webp" width="800" height="450" decoding="async" alt="Portada de la presentación de %s: %s">'
                         '<figcaption>%s · %s</figcaption></figure>'
@@ -249,7 +253,11 @@ def guide_page(ag, kind, meta, body, toc, words):
     mins = max(1, round(words / 210))
     title = meta.get('titulo', ag['nombre'])
     tocs = ''.join('<li><a href="#%s">%s</a></li>' % (i, html.escape(t)) for i, t in toc)
-    body = re.sub(r'<!--GAL:(\w+)-->', lambda m: galeria(m.group(1), '../'), body)
+    # conversación («lanes»): estilo del chat de la plataforma del agente
+    pl = {'Perplexity': ('pplx', 'plataforma-perplexity.png', 'Pregunta lo que quieras…'), 'Claude Code': ('claude', 'plataforma-claude.png', 'Escribe tu mensaje…')}[ag['plataforma']]
+    for k_, v_ in (('@@CLS@@', pl[0]), ('@@ICON@@', pl[1]), ('@@HINT@@', pl[2]), ('@@PLAT@@', ag['plataforma']), ('@@SLUG@@', ag['slug']), ('@@REL@@', '../')):
+        body = body.replace(k_, v_)
+    body = re.sub(r'<!--GAL:(\w+)-->', lambda m: galeria(m.group(1), '../', ag), body)
     page = head('%s · fullservice-agents' % re.sub(r'<[^>]+>', '', md.inline(title)), '../') + topbar('../', 'guia-%s.pdf' % kind)
     page += ('<div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol>%s</ol></aside>\n<article>\n'
              '<p class="kicker">%s · %s</p>\n<h1>%s</h1>\n<p class="dek">%s</p>\n'

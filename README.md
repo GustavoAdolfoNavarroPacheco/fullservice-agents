@@ -113,10 +113,13 @@ resources/
 │   ├── isotipo-campuslands.png · favicon-campuslands.png
 │   ├── Brief Fullservice.pdf
 │   └── Campuslands_Brandbook2023V2._compressed (1).pdf
-└── companies-logos/              # Logos de las empresas cliente, una carpeta por empresa
-    ├── alcaldia-de-giron/ · avicampo/ · chico-soluciones-logisticas/ · colbeef/
-    ├── compumax/ · fcv/ · financiera-comultrasan/ · gaspais/ · green-metal/
-    └── marval/ · mchaileh/ · miami-aqua-tours/ · multinal/ · palmera-junior/ · unidrogas/
+├── companies-logos/              # Logos de las empresas cliente, una carpeta por empresa
+│   ├── alcaldia-de-giron/ · avicampo/ · chico-soluciones-logisticas/ · colbeef/
+│   ├── compumax/ · fcv/ · financiera-comultrasan/ · gaspais/ · green-metal/
+│   └── marval/ · mchaileh/ · miami-aqua-tours/ · multinal/ · palmera-junior/ · unidrogas/
+└── comandos/                     # Comandos «!» de los agentes: catálogo único y generador
+    ├── comandos.py               # fuente única (comandos, a quién aplican, regla común)
+    └── catalogo.md               # catálogo legible, matriz por agente y decisiones (generado)
 ```
 
 Desde la carpeta de un agente se llega con `../../../resources/` (los agentes están a tres niveles de la raíz: `agents/<grupo>/<agente>/`). Un logo nuevo de cliente se guarda en `resources/companies-logos/<empresa-slug>/`; no se copia en el agente. Los `recursos/` de cada agente conservan solo lo propio de ese agente (plantillas, manuales, documentos de entrada, fuentes tipográficas, firmas).
@@ -124,6 +127,14 @@ Desde la carpeta de un agente se llega con `../../../resources/` (los agentes es
 > Las presentaciones desplegadas (`presentaciones/`) y los videos mantienen su propia copia de los logos y fuentes que necesitan, porque cada una se despliega por separado y debe ser autocontenida.
 
 ---
+
+## Comandos «!» de los agentes
+
+Los siete agentes entienden **comandos**: órdenes cortas que el usuario escribe con un `!` delante (`!optimize`, `!notime`, `!plan`, `!audit`, `!final-delivery`…). Al reconocer uno, el agente **debe cumplirlo**; lo único que lo limita son sus reglas duras (veracidad, marca, confidencialidad y las puertas de aprobación y verificación). Se pueden combinar (`!plan !no-assumptions`), rigen la tarea en curso y `!help` lista los de cada agente.
+
+- **Dónde está la regla:** sección «Comandos (`!`)» del `CLAUDE.md` o `Perplexity.md` de cada agente, entre las marcas `<!-- comandos:inicio -->` y `<!-- comandos:fin -->`.
+- **Fuente única:** [`resources/comandos/comandos.py`](resources/comandos/comandos.py). De ahí salen esas secciones, el [catálogo](resources/comandos/catalogo.md), las tablas de las guías y una entrada en la bitácora de cada agente. No se edita a mano lo generado: se cambia el script y se corre `python -X utf8 resources/comandos/comandos.py` (con `--verificar` comprueba que nada esté desfasado).
+- **No todos los comandos aplican a todos los agentes:** los de software y de UX/UI solo existen en `presentations-designer`; los de segunda opinión y multiagente usan subagentes, así que solo existen en los agentes de Claude Code (no en los de Perplexity).
 
 ## Guías — [`guides/`](guides/)
 

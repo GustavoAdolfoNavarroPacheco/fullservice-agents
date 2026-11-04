@@ -29,7 +29,7 @@ import build  # noqa: E402
 
 PORT = int(os.environ.get('PORT', '4173'))
 state = {'v': 1, 'error': ''}
-WATCH = [SRC / 'contenido', SRC / 'estilo.css', SRC / 'suave.js', SRC / 'efectos.js', SRC / 'md.py', SRC / 'build.py']
+WATCH = [SRC / 'contenido', SRC / 'estilo.css', SRC / 'suave.js', SRC / 'efectos.js', SRC / 'md.py', SRC / 'build.py', SRC.parents[1] / 'resources' / 'comandos' / 'comandos.py']
 
 INJECT = b"""<script>(function(){var v=null,msg=null;
 try{var y=sessionStorage.getItem('__y');if(y){sessionStorage.removeItem('__y');addEventListener('load',function(){setTimeout(function(){scrollTo(0,+y)},60)})}}catch(e){}
