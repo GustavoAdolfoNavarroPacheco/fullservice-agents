@@ -4,8 +4,17 @@
   "installCommand": null,
   "buildCommand": null,
   "outputDirectory": "guides",
-  "cleanUrls": false,
+  "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/", "destination": "/inicio", "permanent": false },
+    { "source": "/index", "destination": "/inicio", "permanent": false },
+    { "source": "/index.html", "destination": "/inicio", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/inicio", "destination": "/index.html" },
+    { "source": "/inicio/desarrollador", "destination": "/index.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
