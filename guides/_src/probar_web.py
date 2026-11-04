@@ -26,7 +26,7 @@ def check(nombre, cond, detalle=''):
 
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path=CHROME)
-    for ruta in ('/', '/bidding-agent/guia-dev.html'):
+    for ruta in ('/inicio', '/bidding-agent/guia-dev'):
         print('\n== %s' % ruta)
         pg = b.new_page(viewport={'width': 1366, 'height': 800})
         errores = []
@@ -43,26 +43,30 @@ with sync_playwright() as p:
         gh = pg.evaluate("(()=>{const a=document.querySelector('.top nav a.gh');return a?{h:a.href,t:a.target,r:a.rel}:null})()")
         check('botón de GitHub apunta al repo', gh and gh['h'] == 'https://github.com/GustavoAdolfoNavarroPacheco/fullservice-agents' and gh['t'] == '_blank' and 'noopener' in gh['r'], str(gh))
         check('ya no hay botones de guías en la cabecera', pg.evaluate("![...document.querySelectorAll('.top nav a')].some(a=>/Guía (de usuario|de desarrollador|Dev)/i.test(a.textContent))"))
-        if ruta == '/':
+        if ruta == '/inicio':
             vis = "(()=>['usuario','dev'].map(i=>!document.getElementById(i).hidden))()"
             check('pestañas: al abrir se ve solo la guía de usuario', pg.evaluate(vis) == [True, False] and pg.inner_text('#tab-dev') == 'Guía de desarrollador')
             pg.click('#tab-dev'); pg.wait_for_timeout(500)
             x = pg.evaluate("(()=>{const i=document.querySelector('.tab-ind').getBoundingClientRect(),t=document.getElementById('tab-dev').getBoundingClientRect();return [Math.round(i.left-t.left),Math.round(i.width-t.width)]})()")
-            check('pestañas: cambia a desarrollador y el indicador la sigue', pg.evaluate(vis) == [False, True] and x == [0, 0] and pg.evaluate('location.hash') == '#dev', str(x))
+            check('pestañas: cambia a desarrollador y el indicador la sigue', pg.evaluate(vis) == [False, True] and x == [0, 0] and pg.evaluate('location.pathname') == '/inicio/desarrollador' and pg.evaluate('location.hash') == '', str(x))
             pg.focus('#tab-dev'); pg.keyboard.press('ArrowLeft'); pg.wait_for_timeout(300)
             check('pestañas: flechas del teclado', pg.evaluate(vis) == [True, False])
-            pg.goto(BASE + '/#dev'); pg.reload(); pg.wait_for_timeout(400)
-            check('pestañas: #dev abre la guía de desarrollador', pg.evaluate(vis) == [False, True])
-            pg.goto(BASE + '/'); pg.wait_for_timeout(300)
+            pg.goto(BASE + '/inicio/desarrollador'); pg.reload(); pg.wait_for_timeout(400)
+            check('pestañas: /inicio/desarrollador abre la guía de desarrollador', pg.evaluate(vis) == [False, True])
+            pg.goto(BASE + '/inicio#dev'); pg.wait_for_timeout(400)
+            check('pestañas: el enlace antiguo #dev se limpia', pg.evaluate(vis) == [False, True] and pg.evaluate('location.pathname') == '/inicio/desarrollador' and pg.evaluate('location.hash') == '')
+            pg.click('#tab-usuario'); pg.wait_for_timeout(300)
+            check('pestañas: la guía de usuario vuelve a /inicio sin #', pg.evaluate('location.pathname') == '/inicio' and pg.evaluate('location.hash') == '')
+            pg.goto(BASE + '/inicio'); pg.wait_for_timeout(300)
             check('filas sin botón «Leer»', pg.evaluate("![...document.querySelectorAll('.ag .btn')].some(a=>/Leer/.test(a.textContent))"))
             bb = pg.evaluate("(()=>{const r=document.querySelector('.ag:first-child p').getBoundingClientRect();return [r.x+r.width/2, r.y+r.height/2]})()")
             pg.mouse.click(bb[0], bb[1])                        # clic en el resumen, no en el título: toda la fila es el enlace
-            pg.wait_for_url('**/prospection-agent/guia-usuario.html', timeout=4000)
-            check('clic en cualquier parte de la fila abre la guía', pg.url.endswith('/prospection-agent/guia-usuario.html'), pg.url)
-            pg.goto(BASE + '/'); pg.wait_for_timeout(300)
+            pg.wait_for_url('**/prospection-agent/guia-usuario', timeout=4000)
+            check('clic en cualquier parte de la fila abre la guía', pg.url.endswith('/prospection-agent/guia-usuario'), pg.url)
+            pg.goto(BASE + '/inicio'); pg.wait_for_timeout(300)
             with pg.expect_download() as d:
                 pg.click('.ag:first-child .pdf')
-            check('el botón PDF descarga y no abre la guía', pg.url.endswith('/') and d.value.suggested_filename == 'Guia Usuario - prospection-agent.pdf', d.value.suggested_filename)
+            check('el botón PDF descarga y no abre la guía', pg.url.endswith('/inicio') and d.value.suggested_filename == 'Guia Usuario - prospection-agent.pdf', d.value.suggested_filename)
         r0 = pg.evaluate("(()=>{const f=document.querySelector('.gh-fill').getBoundingClientRect(), g=document.querySelector('.gh').getBoundingClientRect();return f.top-g.top})()")
         pg.hover('.top nav a.gh')
         pg.wait_for_timeout(900)
@@ -72,7 +76,7 @@ with sync_playwright() as p:
         pg.mouse.move(5, 400)
         pg.wait_for_timeout(300)
         # ancla: debe avanzar en varios pasos, no saltar de golpe (solo en las guías; el índice no tiene anclas)
-        if ruta != '/':
+        if ruta != '/inicio':
             destino = '#las-cinco-habilidades'
             pg.evaluate("window.scrollTo(0,0)")
             pg.wait_for_timeout(300)
@@ -103,7 +107,7 @@ with sync_playwright() as p:
         pg.close()
     print('\n== desborde horizontal')
     mal = []
-    for ruta in ('/', '/prospection-agent/guia-usuario.html', '/presentations-designer/guia-dev.html', '/presentations-designer/guia-usuario.html', '/functional-scope/guia-dev.html'):
+    for ruta in ('/inicio', '/inicio/desarrollador', '/prospection-agent/guia-usuario', '/presentations-designer/guia-dev', '/presentations-designer/guia-usuario', '/functional-scope/guia-dev'):
         for w in (360, 390, 768, 1060, 1366, 1920):
             pg = b.new_page(viewport={'width': w, 'height': 900})
             pg.goto(BASE + ruta)
@@ -113,13 +117,40 @@ with sync_playwright() as p:
             pg.close()
     check('sin desborde horizontal', not mal, str(mal) if mal else '(5 páginas × 6 anchos)')
 
+    print('\n== direcciones limpias')
+    pg = b.new_page()
+    for origen, destino in (('/', '/inicio'), ('/index.html', '/inicio'), ('/prospection-agent/guia-usuario.html', '/prospection-agent/guia-usuario')):
+        pg.goto(BASE + origen)
+        check('%s redirige a %s' % (origen, destino), pg.evaluate('location.pathname') == destino, pg.evaluate('location.pathname'))
+    pg.goto(BASE + '/inicio')
+    hrefs = pg.evaluate("[...document.querySelectorAll('a[href]')].map(a => a.getAttribute('href'))")
+    check('el índice no enlaza «index.html» ni «.html»', not [h for h in hrefs if h.endswith('.html') or 'index' in h or '#usuario' in h or '#dev' in h], str([h for h in hrefs if h.endswith('.html')][:3]))
+    pg.goto(BASE + '/bidding-agent/guia-usuario')
+    hrefs = pg.evaluate("[...document.querySelectorAll('a[href]')].map(a => a.getAttribute('href'))")
+    check('las guías no enlazan «index.html» ni «.html»', not [h for h in hrefs if h.endswith('.html') or 'index' in h], str([h for h in hrefs if h.endswith('.html')][:3]))
+    check('las guías enlazan a /inicio y entre sí sin extensión', '../inicio' in hrefs and 'guia-dev' in hrefs, str(hrefs[:6]))
+    pg.close()
+
+    print('\n== vista previa del enlace (Open Graph / Twitter)')
+    pg = b.new_page()
+    sitio = 'https://fullservice-agents.vercel.app'
+    for ruta in ('/inicio', '/prospection-agent/guia-usuario', '/presentations-designer/guia-dev', '/contract-perfectionist/guia-usuario'):
+        pg.goto(BASE + ruta)
+        m = pg.evaluate("(() => { const g = (s) => { const e = document.querySelector(s); return e ? e.content || e.href : null; }; return {t: g('meta[property=\"og:title\"]'), d: g('meta[property=\"og:description\"]'), i: g('meta[property=\"og:image\"]'), u: g('meta[property=\"og:url\"]'), c: document.querySelector('link[rel=canonical]').href, w: g('meta[property=\"og:image:width\"]'), h: g('meta[property=\"og:image:height\"]'), tc: g('meta[name=\"twitter:card\"]'), ti: g('meta[name=\"twitter:image\"]'), de: g('meta[name=\"description\"]')}; })()")
+        okm = all(m.get(k) for k in ('t', 'd', 'i', 'u', 'c', 'tc', 'ti', 'de')) and m['i'].startswith(sitio + '/assets/img/preview/') and m['u'] == m['c'] == sitio + ruta and m['i'] == m['ti'] and (m['w'], m['h']) == ('1200', '630') and m['tc'] == 'summary_large_image'
+        check('%s: etiquetas completas y con dirección absoluta' % ruta, okm, str(m)[:160] if not okm else '')
+        r = pg.request.get(BASE + m['i'].replace(sitio, ''))
+        dims = pg.evaluate("(u) => new Promise(r => { const i = new Image(); i.onload = () => r([i.naturalWidth, i.naturalHeight]); i.onerror = () => r(null); i.src = u; })", BASE + m['i'].replace(sitio, ''))
+        check('%s: la imagen existe, es PNG de 1200 × 630 y pesa menos de 300 KB (límite de WhatsApp)' % ruta, r.status == 200 and 'image/png' in r.headers.get('content-type', '') and dims == [1200, 630] and len(r.body()) < 300 * 1024, '%s %s %d KB' % (r.status, dims, len(r.body()) // 1024))
+    pg.close()
+
     # ---------- efectos de texto y carruseles (efectos.js)
     print('\n== efectos de texto (índice)')
     pg = b.new_page(viewport={'width': 1366, 'height': 800})
     errores = []
     pg.on('console', lambda m: errores.append(m.text) if m.type == 'error' else None)
     pg.on('pageerror', lambda e: errores.append(str(e)))
-    pg.goto(BASE + '/')
+    pg.goto(BASE + '/inicio')
     pg.wait_for_timeout(500)
     mov = "(sel) => { const c = document.querySelector(sel + ' .ls-c'); return c ? getComputedStyle(c).transform : null; }"
     check('letter swap: el texto de la pestaña se conserva', pg.evaluate("document.getElementById('tab-dev').textContent.trim()") == 'Guía de desarrollador')
@@ -168,7 +199,7 @@ with sync_playwright() as p:
     errores = []
     pg.on('console', lambda m: errores.append(m.text) if m.type == 'error' else None)
     pg.on('pageerror', lambda e: errores.append(str(e)))
-    pg.goto(BASE + '/presentations-designer/guia-usuario.html')
+    pg.goto(BASE + '/presentations-designer/guia-usuario')
     pg.wait_for_timeout(600)
     act = "(sel) => { const cs = [...document.querySelectorAll(sel + ' .cx-card')]; return cs.findIndex(c => c.getAttribute('data-pos') === '0'); }"
     cuenta = "(sel) => document.querySelector(sel + ' .cx-n').textContent"
@@ -232,10 +263,10 @@ with sync_playwright() as p:
     print('\n== reducir movimiento')
     ctx = b.new_context(viewport={'width': 1366, 'height': 800}, reduced_motion='reduce')
     pg = ctx.new_page()
-    pg.goto(BASE + '/')
+    pg.goto(BASE + '/inicio')
     pg.wait_for_timeout(500)
     check('reducir movimiento: sin ola', pg.evaluate("!document.querySelector('h1').classList.contains('wv-in')"))
-    pg.goto(BASE + '/presentations-designer/guia-usuario.html')
+    pg.goto(BASE + '/presentations-designer/guia-usuario')
     pg.evaluate("document.querySelector('.cs').scrollIntoView({block:'center'})")
     pg.mouse.move(5, 5)
     pg.wait_for_timeout(500)

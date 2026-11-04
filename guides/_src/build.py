@@ -159,6 +159,8 @@ TABS_JS = """<script>
   var tabs = [].slice.call(document.querySelectorAll('.tabs [role=tab]')), ind = document.querySelector('.tab-ind'), cur = null;
   if(!tabs.length) return;
   function mover(){ var t = tabs[cur]; ind.style.setProperty('--x', t.offsetLeft + 'px'); ind.style.setProperty('--w', t.offsetWidth + 'px'); }
+  var limpia = /^[/]inicio([/]desarrollador)?[/]?$/.test(location.pathname);      // servida con las direcciones limpias de Vercel
+  function url(i){ if(!limpia) return; try{ history.replaceState(null, '', i ? '/inicio/desarrollador' : '/inicio'); }catch(e){} }
   function ir(i, foco, hash){
     var primera = cur === null; cur = i;
     tabs.forEach(function(t, j){
@@ -167,7 +169,7 @@ TABS_JS = """<script>
     });
     if(primera){ ind.style.transition = 'none'; mover(); ind.offsetWidth; ind.style.transition = ''; } else { mover(); }
     if(foco) tabs[i].focus();
-    if(hash){ try{ history.replaceState(null, '', i ? '#dev' : '#usuario'); }catch(e){} }
+    if(hash){ url(i); }
   }
   tabs.forEach(function(t, i){
     t.addEventListener('click', function(){ ir(i, false, true); });
@@ -176,7 +178,9 @@ TABS_JS = """<script>
       if(n >= 0){ e.preventDefault(); ir(n, true, true); }
     });
   });
-  ir(location.hash === '#dev' ? 1 : 0, false, false);
+  var dev = /[/]desarrollador[/]?$/.test(location.pathname) || location.hash === '#dev' || location.hash === '#desarrollador';
+  ir(dev ? 1 : 0, false, false);
+  if(location.hash && /^#(dev|usuario|desarrollador)$/.test(location.hash)) url(dev ? 1 : 0);      // enlaces antiguos con # se limpian
   window.addEventListener('resize', mover);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(mover);
 })();
@@ -192,10 +196,27 @@ document.querySelectorAll('article h2').forEach(function(h){o.observe(h)})})();
 </script>"""
 
 
-def head(title, rel):
+SITE = 'https://fullservice-agents.vercel.app'
+
+
+def head(title, rel, desc=None, path=None, img=None):
+    """Cabecera. Con desc/path/img añade la vista previa del enlace (Open Graph y Twitter): imagen de 1200 × 630 de assets/img/preview/ (la genera preview.py)."""
+    meta = ''
+    if desc is not None:
+        e, url, im = html.escape(desc, quote=True), SITE + path, SITE + '/assets/img/preview/' + img
+        t = html.escape(title, quote=True)
+        alt = html.escape('%s · guías de los agentes de Campuslands' % title.split(' · ')[0], quote=True)
+        meta = ('<meta name="description" content="%s">\n<meta name="theme-color" content="#f5f4ed">\n<link rel="canonical" href="%s">\n'
+                '<meta property="og:type" content="website">\n<meta property="og:site_name" content="fullservice-agents">\n<meta property="og:locale" content="es_CO">\n'
+                '<meta property="og:title" content="%s">\n<meta property="og:description" content="%s">\n<meta property="og:url" content="%s">\n'
+                '<meta property="og:image" content="%s">\n<meta property="og:image:type" content="image/png">\n<meta property="og:image:width" content="1200">\n'
+                '<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="%s">\n'
+                '<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="%s">\n<meta name="twitter:description" content="%s">\n'
+                '<meta name="twitter:image" content="%s">\n<meta name="twitter:image:alt" content="%s">\n'
+                % (e, url, t, e, url, im, alt, t, e, im, alt))
     return ('<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            '<title>%s</title>\n<link rel="icon" type="image/png" href="%sassets/img/favicon.png">\n<link rel="stylesheet" href="%sassets/estilo.css">\n</head>\n<body>\n'
-            % (html.escape(title), rel, rel))
+            '<title>%s</title>\n%s<link rel="icon" type="image/png" href="%sassets/img/favicon.png">\n<link rel="stylesheet" href="%sassets/estilo.css">\n</head>\n<body>\n'
+            % (html.escape(title), meta, rel, rel))
 
 
 GH_URL = 'https://github.com/GustavoAdolfoNavarroPacheco/fullservice-agents'
@@ -238,8 +259,8 @@ def topbar(rel, pdf=None):
     """Barra superior: marca, (en las guías) volver al índice y descargar el PDF, y el botón de GitHub."""
     extra = ''
     if pdf:
-        extra = ('<a href="%sindex.html">Todas las guías</a><a class="btn" href="%s" download>%s Descargar PDF</a>' % (rel, pdf, DL))
-    return ('<header class="top"><div class="top-in"><a class="brand" href="%sindex.html"><img src="%sassets/img/logo-campuslands-color.png" alt="Campuslands"><span>fullservice-agents</span></a>'
+        extra = ('<a href="%sinicio">Todas las guías</a><a class="btn" href="%s" download>%s Descargar PDF</a>' % (rel, pdf, DL))
+    return ('<header class="top"><div class="top-in"><a class="brand" href="%sinicio"><img src="%sassets/img/logo-campuslands-color.png" alt="Campuslands"><span>fullservice-agents</span></a>'
             '<nav>%s%s</nav></div></header>\n' % (rel, rel, extra, GH_BTN))
 
 
@@ -258,12 +279,13 @@ def guide_page(ag, kind, meta, body, toc, words):
     for k_, v_ in (('@@CLS@@', pl[0]), ('@@ICON@@', pl[1]), ('@@HINT@@', pl[2]), ('@@PLAT@@', ag['plataforma']), ('@@SLUG@@', ag['slug']), ('@@REL@@', '../')):
         body = body.replace(k_, v_)
     body = re.sub(r'<!--GAL:(\w+)-->', lambda m: galeria(m.group(1), '../', ag), body)
-    page = head('%s · fullservice-agents' % re.sub(r'<[^>]+>', '', md.inline(title)), '../') + topbar('../', 'guia-%s.pdf' % kind)
+    page = head('%s · fullservice-agents' % re.sub(r'<[^>]+>', '', md.inline(title)), '../', re.sub(r'<[^>]+>', '', md.inline(meta.get('resumen', ''))),
+                '/%s/guia-%s' % (ag['slug'], kind), '%s-%s.png' % (ag['slug'], kind)) + topbar('../', 'guia-%s.pdf' % kind)
     page += ('<div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol>%s</ol></aside>\n<article>\n'
              '<p class="kicker">%s · %s</p>\n<h1>%s</h1>\n<p class="dek">%s</p>\n'
              '<div class="chips"><span>%s</span><span>%s</span><span>%s</span><span>%d min de lectura</span></div>\n%s\n'
              '<div class="more"><span>¿Buscas la otra mirada de este agente?</span><nav>'
-             '<a class="btn ghost" href="guia-%s.html">%s</a><a class="btn ghost" href="../index.html">Todas las guías</a></nav></div>\n</article></div>\n%s\n%s\n</body>\n</html>\n'
+             '<a class="btn ghost" href="guia-%s">%s</a><a class="btn ghost" href="../inicio">Todas las guías</a></nav></div>\n</article></div>\n%s\n%s\n</body>\n</html>\n'
              % (tocs, TIPOS[kind], html.escape(ag['slug']), md.inline(title), md.inline(meta.get('resumen', '')),
                 FECHA, TIPOS[kind], plat(ag, '../'), mins, body, other, TIPOS[other], scripts('../'), JS))
     return page
@@ -286,13 +308,14 @@ def index_page(items):
             m, w = by[(ag['slug'], kind)]
             base = '%s/guia-%s' % (ag['slug'], kind)
             nice = '%s - %s.pdf' % ('Guia Desarrollador' if kind == 'dev' else 'Guia Usuario', ag['slug'])
-            out += ('<div class="ag"><div><small class="plat-top">%s</small><h3><a class="ag-link" href="%s.html">%s</a></h3><small class="plat-bot">%s</small></div><p><b>%s</b>%s</p>'
+            out += ('<div class="ag"><div><small class="plat-top">%s</small><h3><a class="ag-link" href="%s">%s</a></h3><small class="plat-bot">%s</small></div><p><b>%s</b>%s</p>'
                     '<div class="go"><small>%d min</small>'
                     '<a class="pdf" href="%s.pdf" download="%s" aria-label="Descargar PDF de %s" title="Descargar PDF">%s</a></div></div>\n'
                     % (html.escape(ag['nombre']), base, html.escape(ag['slug']), plat(ag, ''), md.inline(corto(m['titulo'])), md.inline(m['resumen']),
                        max(1, round(w / 210)), base, html.escape(nice), html.escape(ag['slug']), PDF_ICON))
         return out
-    page = head('Guías de los agentes · fullservice-agents', '') + topbar('')
+    page = head('Guías de los agentes · fullservice-agents', '', 'Guías de usuario y de desarrollador de los siete agentes del flujo comercial de Campuslands, de la prospección al contrato. En línea y en PDF.',
+                '/inicio', 'home.png').replace('<meta charset="UTF-8">\n', '<meta charset="UTF-8">\n<base href="/">\n', 1) + topbar('')
     page += ('<section class="banner"><div class="banner-in"><h1 class="wave" data-wave>fullservice-agents</h1>'
              '<p class="dek">Esta web es la guía de los agentes de este repositorio. Reúne, para cada uno de los siete agentes, '
              'una <strong>guía de usuario</strong>, sin tecnicismos, para quien lo usa todos los días, y una <strong>guía de desarrollador</strong>, '
