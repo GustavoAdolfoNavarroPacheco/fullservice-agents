@@ -297,6 +297,41 @@ Si en lugar de fórmulas vivas se entregan valores estáticos calculados fuera d
 
 Un requerimiento admite más de una lectura con impacto en el precio; el RFP y las aclaraciones se contradicen en alcance, plazo o entregables; falta un dato bloqueante para costear (volumen de usuarios, transacciones, meses de operación, residencia de datos, integraciones); el plazo no parece factible; el modelo oficial pide una estructura que no encaja con el interno; o hay que decidir entre arquitecturas con diferencias materiales de costo. Agrupa las preguntas y avanza mientras tanto en todo lo que no dependa de ellas.
 
+## Comandos «!»
+
+Los comandos son órdenes cortas del usuario (`!optimize`, `!notime`…) que el agente debe ejecutar de forma obligatoria, siempre dentro de sus reglas duras. Hay un solo catálogo para todos los agentes y de él salen las instrucciones de cada uno, las bitácoras y las tablas de las guías.
+
+### Dónde vive cada cosa
+
+| Qué | Dónde |
+|---|---|
+| Catálogo, regla común y qué comandos tiene cada agente | `resources/comandos/comandos.py` (la fuente única; no se edita a mano nada de lo que genera) |
+| Catálogo legible, matriz por agente y decisiones | `resources/comandos/catalogo.md` |
+| Instrucciones del agente | sección «Comandos (`!`)» de `CLAUDE.md`, entre las marcas `<!-- comandos:inicio -->` y `<!-- comandos:fin -->` |
+| Tabla de esta guía | se genera del mismo catálogo al compilar las guías |
+
+### La regla común
+
+1. Un comando es una palabra precedida de `!` al inicio de un mensaje o de una línea; el texto que sigue es su objeto.
+2. Es obligatorio: el agente no pide permiso ni lo reinterpreta. Solo lo limita una **regla dura** (veracidad, marca, confidencialidad, puertas de aprobación y de verificación); entonces hace lo que la regla permite y dice qué no pudo.
+3. Se combinan. Si dos modos chocan, el orden es: reglas duras > `!strict-mode` y `!no-assumptions` > `!think-deep`, `!critical-mode` y `!double-check` > `!notime`.
+4. Rige la tarea en curso, no las siguientes.
+5. La primera línea de la respuesta nombra los comandos recibidos.
+6. Un comando desconocido no se adivina: se propone el más parecido y se pregunta. `!help` lista los disponibles.
+7. Si un comando cambió un entregable o la wiki, se anota en `wiki/log.md`.
+
+### Cómo añadir o cambiar un comando
+
+1. Edita `CMDS` (definición), `AGENTES` (a quién aplica y su nota) o `ALIAS` en `resources/comandos/comandos.py`.
+2. Corre `python -X utf8 resources/comandos/comandos.py`: reescribe la sección de cada agente, el catálogo y, la primera vez, añade la entrada a su bitácora.
+3. Recompila las guías (`python guides/_src/build.py`).
+4. `python resources/comandos/comandos.py --verificar` falla si algo quedó desfasado.
+
+### Comandos de este agente
+
+```comandos
+```
+
 ## Mantenimiento
 
 La bitácora `wiki/log.md` es append-only; cada entrada empieza con `## [YYYY-MM-DD] <tipo> | <descripción>` y el tipo es `setup`, `ingesta`, `build`, `ajuste`, `verificacion` o `lint`. El lint periódico revisa contradicciones entre páginas, precios de IA desactualizados, páginas huérfanas, licitaciones sin ficha y convenciones en desuso.

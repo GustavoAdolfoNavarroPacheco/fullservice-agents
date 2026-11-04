@@ -150,3 +150,6 @@ tarifas de retención en `06 - Modelo de Costos Oficial.xlsx` de `ipa-pr10598`
 
 ## [2026-11-04] reorganización | Monorepo: `agents/` y recursos compartidos
 Reorganización del monorepo: este agente pasó a `agents/claude-agents/bidding-agent/` (antes estaba en la raíz del repositorio). Los recursos de Campuslands que se repetían en cada agente (logos horizontal/vertical azul y blanco, isotipo, favicon, `Brief Fullservice.pdf` y Brandbook) se movieron a una sola carpeta compartida, `resources/campuslands-resources/` (desde este agente: `../../../resources/campuslands-resources/`), y se eliminaron las copias locales. Se quitaron de `recursos/` los 8 archivos de marca; `recursos/` conserva solo `licitaciones/` y su README. Las rutas de la documentación de este agente se actualizaron; las entradas anteriores de esta bitácora conservan las rutas de su época.
+
+## [2026-11-04] ajuste | Comandos «!»
+Se incorporan los **comandos «!»**: órdenes cortas (`!optimize`, `!notime`, `!plan`…) que el agente ejecuta de forma obligatoria, dentro de sus reglas duras. Este agente tiene 39 comandos; la regla común, la tabla de comandos y su significado aquí están en la sección «Comandos» de `CLAUDE.md`. Catálogo completo y decisiones: `resources/comandos/catalogo.md`.

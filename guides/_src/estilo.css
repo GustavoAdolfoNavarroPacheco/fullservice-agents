@@ -190,12 +190,41 @@ td:first-child{ font-weight:500; color:var(--ink); }
 .lanes .l1{ background:#e9f0f7; border-color:#cbdcec; } .lanes .l1 i{ background:var(--sky); }
 .lanes .l2{ background:#eef2e7; border-color:#d3dcc3; } .lanes .l2 i{ background:var(--olive); }
 
-/* ---------- conversación de ejemplo ---------- */
-.chat{ display:flex; flex-direction:column; gap:10px; margin:8px 0 var(--space-block); font-size:var(--t-ui); line-height:var(--lh-ui); }
-.chat div{ max-width:92%; padding:14px 18px; border-radius:14px; }
-.chat div b{ display:block; font-size:var(--t-meta); line-height:var(--lh-meta); font-weight:600; letter-spacing:.05em; text-transform:uppercase; margin-bottom:4px; color:var(--soft); }
-.chat .u{ align-self:flex-end; background:var(--oat); color:var(--ink); border-bottom-right-radius:4px; }
-.chat .g{ align-self:flex-start; background:#fff; border:1px solid var(--line); border-bottom-left-radius:4px; }
+/* ---------- Ejemplos de conversación, como se ven en el chat de la plataforma del agente (Claude o Perplexity) ---------- */
+.chat{ --acc:var(--clay); margin:8px 0 var(--space-block); border:1px solid var(--line); border-radius:18px; background:#fff; overflow:hidden; font-size:var(--t-ui); line-height:var(--lh-ui); color:var(--ink); }
+.cw-h{ display:flex; align-items:center; gap:10px; padding:12px 18px; background:var(--ivory); border-bottom:1px solid var(--line); }
+.cw-h img{ width:22px; height:22px; border-radius:6px; }
+.cw-h b{ font-weight:600; }
+.cw-h span{ margin-left:auto; font-size:var(--t-meta); line-height:var(--lh-meta); color:var(--soft); }
+.cw-b{ display:flex; flex-direction:column; gap:20px; padding:24px 20px 20px; }
+.cw-m{ display:flex; max-width:88%; }
+.cw-t{ min-width:0; }
+.cw-t i{ display:inline-grid; place-items:center; width:20px; height:20px; margin-right:8px; border-radius:50%; font-style:normal; font-size:var(--t-meta); font-weight:600; color:#fff; vertical-align:-1px; line-height:1; background:var(--soft); }
+.cw-m.u .cw-t i{ background:var(--acc); }
+.cw-av{ width:22px; height:22px; border-radius:6px; }
+.cw-in{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 18px 18px; padding:10px 10px 10px 18px; border:1px solid var(--line); background:#fff; color:var(--soft); box-shadow:0 2px 8px rgba(20,20,19,.05); }
+.cw-send{ flex:none; display:inline-grid; place-items:center; width:32px; height:32px; border-radius:50%; background:var(--acc); color:#fff; }
+.cw-send svg{ width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
+/* Claude: tus mensajes en burbuja a la derecha; el agente responde sin burbuja, con el destello de Claude y letra con serifa */
+.chat.claude .cw-m.u{ align-self:flex-end; }
+.chat.claude .cw-m.u .cw-t{ background:var(--oat); padding:11px 18px; border-radius:20px 20px 6px 20px; }
+.chat.claude .cw-m.a{ align-self:flex-start; gap:12px; }
+.chat.claude .cw-m.a .cw-who{ flex:none; padding-top:2px; } .chat.claude .cw-who span{ display:none; }
+.chat.claude .cw-m.a .cw-t{ font-family:var(--serif); font-size:var(--t-body); line-height:1.55; padding-top:1px; }
+.chat.claude .cw-m.a .cw-t i{ font-family:var(--sans); font-size:var(--t-meta); }
+.chat.claude .cw-in{ border-radius:20px; }
+/* Perplexity: tu pregunta va como título, y la respuesta bajo una etiqueta turquesa, con filete a la izquierda */
+.chat.pplx{ --acc:#20808d; }
+.chat.pplx .cw-m{ max-width:100%; }
+.chat.pplx .cw-m.u .cw-t{ font-size:var(--t-lead); line-height:1.35; font-weight:500; padding-bottom:2px; }
+.chat.pplx .cw-m.a{ flex-direction:column; gap:8px; padding-left:14px; border-left:2px solid #cfe3e6; }
+.chat.pplx .cw-who{ display:flex; align-items:center; gap:8px; font-size:var(--t-meta); line-height:1; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--acc); }
+.chat.pplx .cw-av{ width:18px; height:18px; border-radius:5px; }
+.chat.pplx .cw-m.a .cw-t i{ background:var(--acc); }
+.chat.pplx .cw-m.a .cw-t{ font-size:var(--t-body); line-height:1.55; }
+.chat.pplx .cw-m.a .cw-t i{ font-size:var(--t-meta); }
+.chat.pplx .cw-in{ border-radius:99px; }
+
 
 /* ---------- árbol de carpetas ---------- */
 .tree{ white-space:pre; }
@@ -356,14 +385,14 @@ footer.site{ border-top:1px solid var(--line); padding:26px var(--gut); font-siz
   .tw{ overflow:visible; break-inside:auto; }
   th, td{ padding:7pt 9pt; } tr{ break-inside:avoid; }
   .callout{ break-inside:avoid; padding:11pt 14pt 3pt; }
-  .stats, .cards, .flow, .lanes, .chat{ break-inside:avoid; }
+  .stats, .cards, .flow, .lanes{ break-inside:avoid; }
   .stats{ margin-top:14pt; }
   .stats div{ padding:12pt 14pt; }
   .cards div{ padding:10pt 12pt; }
   .flow{ gap:8pt; }
   .flow li{ padding:10pt; } .flow.v li{ padding:9pt 12pt; }
   .lanes{ padding:10pt 12pt; gap:6pt 10pt; } .lanes .s{ padding:7pt 9pt; }
-  .chat div{ padding:9pt 12pt; }
+  .cw-b{ gap:12pt; padding:14pt 14pt 10pt; } .cw-m{ break-inside:avoid; } .cw-h{ padding:8pt 14pt; } .cw-in{ margin:0 14pt 14pt; padding:7pt 8pt 7pt 14pt; }
   a.l{ color:var(--clay-d); }
 }
 
@@ -504,3 +533,6 @@ footer.site{ align-items:center; }
 .pv-btn{ display:inline-flex; margin:-30px 16px 16px auto; float:right; padding:7px 16px; border-radius:99px; background:#e9e8e3; color:#16181d; font-size:var(--t-meta); line-height:1; font-weight:600; }
 .dock-pv-li::after{ content:""; display:block; clear:both; }
 @media (prefers-reduced-motion:reduce){ .dock-i, .dock-pv{ transition-duration:.01ms !important; transition-delay:0s !important; } .dock-i:hover, .dock-i:focus-visible, .dock-i:has(+ .dock-i:hover), .dock-i:hover + .dock-i{ transform:none; } }
+
+/* tablas de comandos «!»: la primera columna (el comando) no se parte */
+table.cmd td:first-child, table.cmd th:first-child{ width:1%; white-space:nowrap; }

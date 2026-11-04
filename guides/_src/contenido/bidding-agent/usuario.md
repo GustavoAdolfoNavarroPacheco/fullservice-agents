@@ -162,6 +162,26 @@ Toda propuesta dice por escrito si el alcance requiere servicios de inteligencia
 
 Si las horas necesarias no caben en el plazo con el equipo propuesto, el agente **te lo dice con los números** y te presenta las opciones reales: ampliar el equipo (con su impacto en el precio), negociar plazo o alcance mediante aclaraciones, o desistir del proceso. **No ajusta la estimación para que el cronograma «cuadre».**
 
+## Comandos rápidos con «!»
+
+Además de pedirle las cosas con tus palabras, puedes darle una **orden corta** escribiendo `!` antes de la palabra, por ejemplo `!optimize`. Cuando el agente reconoce un comando, **lo cumple siempre**, y lo primero que escribe en su respuesta es qué comandos recibió.
+
+- Puedes escribirlo solo o con un texto: `!optimize la propuesta técnica`.
+- Puedes combinar varios: `!plan !no-assumptions`.
+- Vale para la tarea en curso; en una tarea nueva se escribe de nuevo.
+- `!help` muestra la lista de comandos de este agente.
+
+> [!tip] Los dos más usados
+> `!optimize` mejora lo que se esté haciendo sin cambiar su alcance ni sus datos. `!notime` acelera el trabajo: menos preguntas sueltas y menos explicaciones, pero nunca se salta una verificación obligatoria.
+
+> [!nota] Lo que un comando no cambia
+> Un comando no permite saltarse las reglas del agente (no inventar datos, la marca, la confidencialidad, las aprobaciones y verificaciones obligatorias). Si pides algo que una regla impide, el agente hace todo lo permitido y te dice en una frase qué no pudo y por qué.
+
+Estos son los comandos de este agente:
+
+```comandos
+```
+
 ## Lo que el agente no hace
 
 | Si le pides… | Qué pasa | Qué hacer |

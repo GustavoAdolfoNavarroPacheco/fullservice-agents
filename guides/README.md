@@ -76,6 +76,10 @@ Reescritos en JavaScript puro a partir de los componentes de 21st.dev (el sitio 
 
 En el Markdown se insertan con bloques ```` ```cardstack ```` y ```` ```coverflow ````; las listas están en `PORTADAS` y `LOGOS` de `build.py`. Tras añadir un deck o un logo: `python guides/_src/recursos_web.py` y recompilar. Con «reducir movimiento» no hay auto-avance ni ola, y en el PDF los carruseles salen como cuadrícula.
 
+## Comandos «!»
+
+Cada guía de usuario y de desarrollador tiene una sección con los comandos de ese agente. La tabla no se escribe a mano: el bloque ```` ```comandos ```` del Markdown la genera `build.py` desde `resources/comandos/comandos.py`, la misma fuente de la que salen las instrucciones de los agentes. Al cambiar un comando: corre ese script y recompila las guías.
+
 ## Scroll suave y barra de scroll
 
 - **Scroll suave:** [Lenis](https://github.com/darkroomengineering/lenis) 1.3.27 (MIT; `assets/lenis.min.js` y su licencia en `assets/LENIS-LICENSE.txt`) activado por `suave.js` en todas las páginas, con los mismos parámetros que el portal de presentaciones. Los enlaces del índice lateral se deslizan a su sección, el índice lateral tiene su propia inercia y todo se apaga con «reducir movimiento» del sistema y al imprimir.
