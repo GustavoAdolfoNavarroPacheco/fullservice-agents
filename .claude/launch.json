@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "guides",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-X", "utf8", "guides/_src/servir.py"],
+      "port": 4173
+    }
+  ]
+}

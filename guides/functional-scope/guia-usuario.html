@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>functional-scope: cómo obtener el documento de alcance de un proyecto · fullservice-agents</title>
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<link rel="stylesheet" href="../assets/estilo.css">
+</head>
+<body>
+<header class="top"><div class="top-in"><a class="brand" href="../index.html"><img src="../assets/img/logo-campuslands-color.png" alt="Campuslands"><span>fullservice-agents</span></a><nav><a href="../index.html">Todas las guías</a><a class="btn" href="guia-usuario.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Descargar PDF</a><a class="gh" href="https://github.com/GustavoAdolfoNavarroPacheco/fullservice-agents" target="_blank" rel="noopener noreferrer" aria-label="Ver el repositorio en GitHub"><span class="gh-fill" aria-hidden="true"></span><svg class="gh-ic" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="gh-t">GitHub</span><svg class="gh-ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></nav></div></header>
+<div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol><li><a href="#en-resumen">En resumen</a></li><li><a href="#para-que-sirve">Para qué sirve</a></li><li><a href="#antes-de-empezar">Antes de empezar</a></li><li><a href="#paso-a-paso">Paso a paso</a></li><li><a href="#ejemplos-de-conversacion">Ejemplos de conversación</a></li><li><a href="#que-recibes">Qué recibes</a></li><li><a href="#los-tres-estados-de-cada-dato">Los tres estados de cada dato</a></li><li><a href="#como-revisar-el-documento">Cómo revisar el documento</a></li><li><a href="#lo-que-el-agente-no-hace">Lo que el agente no hace</a></li><li><a href="#preguntas-frecuentes">Preguntas frecuentes</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#si-algo-no-funciona">Si algo no funciona</a></li></ol></aside>
+<article>
+<p class="kicker">Guía de usuario · functional-scope</p>
+<h1>functional-scope: cómo obtener el documento de alcance de un proyecto</h1>
+<p class="dek">Qué archivos entregarle, qué recibes, cómo leer los estados y los pendientes y cómo revisar el documento antes de enviarlo al cliente.</p>
+<div class="chips"><span>3 nov 2026</span><span>Guía de usuario</span><span><span class="plat"><img src="../assets/img/plataforma-claude.png" alt="" width="16" height="16">Claude Code</span></span><span>8 min de lectura</span></div>
+<h2 id="en-resumen">En resumen</h2>
+<p>El <strong>Agente de Alcances Funcionales</strong> (<code>functional-scope</code>) lee los archivos de un proyecto (propuestas, actas de reunión, cotizaciones, notas, correos) y redacta con ellos el <strong>documento de alcance funcional</strong> que se entrega al cliente: qué incluye el proyecto, qué no, cómo se aceptará cada entrega y qué falta por definir.</p>
+<p>Su regla principal es <strong>no inventar compromisos</strong>. Todo lo que escribe sale de tus archivos; lo que no está, queda marcado como pendiente para que alguien lo resuelva. Y trabaja rápido: analiza todo y te entrega un borrador en el mismo momento, sin entrevistarte.</p>
+<div class="stats n3"><div><b>0</b><span>compromisos inventados: solo lo que dicen tus archivos</span></div><div><b>3</b><span>estados para cada dato: confirmado, propuesto o pendiente</span></div><div><b>1</b><span>documento en Word editable, más un resumen y la lista de pendientes</span></div></div>
+<div class="callout tip"><span class="t">Si solo tienes un minuto</span><p>Deja los archivos del proyecto en la carpeta del cliente y escríbele: «Haz el alcance funcional de este proyecto». Eso es todo lo que necesita para empezar.</p></div>
+<h2 id="para-que-sirve">Para qué sirve</h2>
+<p>Úsalo cuando tengas un proyecto con información dispersa (una propuesta aprobada, varias actas, una cotización) y necesites <strong>un único documento claro</strong> para el cliente y para el equipo técnico. Es especialmente útil cuando las fuentes se contradicen o tienen vacíos, porque el agente los detecta y los muestra en lugar de ocultarlos.</p>
+<h3 id="que-no-es">Qué no es</h3>
+<p>No reemplaza la aprobación de nadie. El documento resultante necesita revisión <strong>técnica, comercial y jurídica</strong> antes de firmarse, y el agente la pide donde corresponde. Tampoco es un contrato: es la descripción funcional del proyecto.</p>
+<h2 id="antes-de-empezar">Antes de empezar</h2>
+<p>Reúne y deja en la carpeta del cliente todo lo que tengas del proyecto:</p>
+<ul><li><strong>La propuesta o cotización aprobada</strong>: es la referencia para precio, plazo y condiciones.</li><li><strong>Las actas de reunión y correos</strong> relevantes.</li><li><strong>Notas</strong> que expliquen lo que el cliente espera.</li><li><strong>Versiones anteriores del documento</strong>, si existen.</li></ul>
+<div class="callout importante"><span class="t">Lo que compartes es todo lo que hay</span><p>El agente asume que los archivos que le das <strong>son toda la información disponible</strong>. No te hará preguntas sobre lo que falta: lo marcará como pendiente. Por eso conviene que no omitas ningún documento importante.</p></div>
+<h3 id="donde-dejar-los-archivos">Dónde dejar los archivos</h3>
+<p>Cada proyecto tiene su carpeta dentro de <code>alcances</code>, con tres subcarpetas:</p>
+<pre class="tree"><code><span class="d">alcances/</span>
+  <span class="d">&lt;nombre-del-cliente&gt;/</span>
+    <span class="d">fuentes/</span>                      <span class="c"># aquí van tus archivos; el agente no los modifica</span>
+    <span class="d">trabajo/</span>                      <span class="c"># el agente deja aquí su análisis</span>
+    <span class="d">entrega/</span>                      <span class="c"># aquí queda el documento Word</span></code></pre>
+<h2 id="paso-a-paso">Paso a paso</h2>
+<div class="lanes" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="a" style="grid-row:1;grid-column:1">Tú</div><div class="a" style="grid-row:1;grid-column:2">Agente</div><div class="s l0" style="grid-row:2;grid-column:1"><i>1</i>Deja los archivos en la carpeta fuentes del cliente</div><div class="s l0" style="grid-row:3;grid-column:1"><i>2</i>Pídele el alcance funcional del proyecto</div><div class="s l1" style="grid-row:4;grid-column:2"><i>3</i>Lee todo, detecta contradicciones y vacíos</div><div class="s l1" style="grid-row:5;grid-column:2"><i>4</i>Redacta el documento y te entrega un resumen</div><div class="s l0" style="grid-row:6;grid-column:1"><i>5</i>Revisa los pendientes con sus responsables</div></div>
+<h3 id="1-deja-los-archivos">1. Deja los archivos</h3>
+<p>Cópialos a <code>fuentes/</code> dentro de la carpeta del cliente.</p>
+<h3 id="2-pidele-el-alcance">2. Pídele el alcance</h3>
+<p>Dile el nombre del proyecto y qué documento necesitas. Si hay más de una versión de un archivo, puedes indicarle cuál es la vigente.</p>
+<h3 id="3-el-agente-analiza-y-redacta">3. El agente analiza y redacta</h3>
+<p>Lee todo, arma una matriz con cada dato y su fuente, clasifica los vacíos y escribe el documento <strong>en el mismo turno</strong>. Solo te preguntará algo si, sin la respuesta, no puede ni empezar (por ejemplo, si dos archivos se contradicen y no sabe cuál es el principal). Entonces te hará <strong>una sola pregunta</strong> y te dirá qué asumirá por defecto.</p>
+<h3 id="4-recibe-el-resumen">4. Recibe el resumen</h3>
+<p>Te responde con un mensaje corto: cuántos módulos identificó, cuántos pendientes bloqueantes encontró, qué archivo redactó y los hallazgos más importantes, con la ruta a la lista de validaciones.</p>
+<h3 id="5-resuelve-los-pendientes">5. Resuelve los pendientes</h3>
+<p>Cada pendiente tiene un responsable asignado. Cuando alguien lo resuelva, cuéntaselo al agente y actualizará el documento.</p>
+<h2 id="ejemplos-de-conversacion">Ejemplos de conversación</h2>
+<h3 id="empezar">Empezar</h3>
+<div class="chat"><div class="u"><b>Tú</b>Tengo la propuesta y las actas del proyecto de la Alcaldía. Haz el alcance funcional.</div><div class="g"><b>Agente</b>He revisado la información del proyecto. Identifiqué 8 módulos y 6 pendientes bloqueantes. Redacté el borrador solo con lo que dicen las fuentes; lo que no dicen está marcado como pendiente de validación. La lista de validaciones por responsable está en la carpeta de trabajo.</div></div>
+<h3 id="ver-lo-pendiente">Ver lo pendiente</h3>
+<div class="chat"><div class="u"><b>Tú</b>Dame la lista de pendientes bloqueantes y quién debe resolver cada uno.</div><div class="g"><b>Agente</b>Aquí están los 6 pendientes bloqueantes, con su impacto y el responsable de cada uno: integración con el sistema de recaudo, condiciones de soporte, titularidad de los desarrollos…</div></div>
+<h3 id="incorporar-una-decision">Incorporar una decisión</h3>
+<div class="chat"><div class="u"><b>Tú</b>El cliente confirmó que el soporte será de lunes a viernes de 8 a 5. Actualiza el documento.</div><div class="g"><b>Agente</b>Registré la decisión, cambié el estado del soporte a confirmado en las secciones que lo mencionan y actualicé la lista de pendientes.</div></div>
+<h3 id="una-version-nueva">Una versión nueva</h3>
+<div class="chat"><div class="u"><b>Tú</b>Genera la versión 0.2 con estos cambios, sin borrar la 0.1.</div><div class="g"><b>Agente</b>Listo. La versión 0.2 quedó en la carpeta de entrega; la 0.1 se conserva sin cambios.</div></div>
+<h2 id="que-recibes">Qué recibes</h2>
+<div class="cards c2"><div><b>El documento en Word</b><span>Editable, con portada, carta de presentación, tabla de contenido, 16 secciones, anexos y hoja de firmas.</span></div><div><b>Un resumen de cambios</b><span>Lo más importante que encontró el agente, en pocas líneas.</span></div><div><b>El registro de pendientes</b><span>Cada duda, con su prioridad y el responsable que debe resolverla.</span></div><div><b>Los archivos de trabajo</b><span>Inventario de fuentes, matriz de información, decisiones y control de calidad, por si quieres revisar el método.</span></div></div>
+<h3 id="como-es-el-documento">Cómo es el documento</h3>
+<p>Siempre tiene el mismo orden:</p>
+<ol><li><strong>Portada.</strong> Título, cliente, quién prepara el documento y la fecha.</li><li><strong>Carta de presentación.</strong> Una hoja que explica qué contiene el documento.</li><li><strong>Tabla de contenido.</strong> Ya generada, lista para usar.</li><li><strong>Contenido.</strong> Resumen ejecutivo, contexto, alcance, usuarios y permisos, requerimientos funcionales, integraciones, IA, requerimientos no funcionales, arquitectura, entregables y aceptación, cronograma, capacitación, garantía y soporte, condiciones comerciales, supuestos y riesgos, y anexos.</li><li><strong>Aprobación y firmas.</strong> La hoja final, con espacio para ambas partes.</li></ol>
+<div class="callout nota"><span class="t">Lo que no verás dentro del documento</span><p>No lleva número de versión (esa información está en el nombre del archivo), ni clasificación, ni la palabra «borrador». El estado del documento te lo dice el agente en el chat.</p></div>
+<h2 id="los-tres-estados-de-cada-dato">Los tres estados de cada dato</h2>
+<p>Todo lo que se afirma en el documento tiene un estado, para que nunca confundas una idea con un compromiso:</p>
+<div class="cards "><div><b>CONFIRMADO</b><span>Hay un documento o una aprobación que lo respalda. Se puede tratar como acordado.</span></div><div><b>PROPUESTO</b><span>Es una recomendación que todavía nadie aceptó. No es un compromiso.</span></div><div><b>PENDIENTE</b><span>Falta definirlo. Aparece como «[PENDIENTE DE VALIDACIÓN]» y tiene un responsable.</span></div></div>
+<h3 id="que-tan-graves-son-los-pendientes">Qué tan graves son los pendientes</h3>
+<div class="tw"><table><thead><tr><th>Nivel</th><th>Significa</th><th>Qué pasa</th></tr></thead><tbody><tr><td><strong>Bloqueante</strong></td><td>Impide definir alcance, costo, plazo, aceptación o responsabilidades</td><td>Mientras haya alguno abierto, el documento es solo un borrador</td></tr><tr><td><strong>Importante</strong></td><td>Afecta la operación o la experiencia, pero no impide avanzar</td><td>Se resuelve durante la revisión</td></tr><tr><td><strong>Editorial</strong></td><td>Es un asunto de redacción o presentación</td><td>Se corrige al final</td></tr></tbody></table></div>
+<h2 id="como-revisar-el-documento">Cómo revisar el documento</h2>
+<ul><li><strong>¿El orden es el esperado?</strong> Portada, carta, tabla de contenido, contenido y firmas.</li><li><strong>¿Los datos comerciales coinciden con tu propuesta aprobada?</strong> Costo, plazo y condiciones deben ser exactamente los acordados.</li><li><strong>¿Las contradicciones están a la vista?</strong> Si dos archivos chocan, el documento debe mostrar <strong>las dos versiones</strong>, con su fuente, no elegir una en silencio.</li><li><strong>¿Lo futuro está donde corresponde?</strong> Las ideas para fases siguientes solo aparecen en «Fases futuras», nunca como entregables actuales.</li><li><strong>¿Cada pendiente tiene responsable?</strong> Revisa que sean las personas correctas.</li><li><strong>¿Hay promesas que no podemos cumplir?</strong> El agente evita frases como «garantizará ahorro», pero revisa igual.</li><li><strong>¿Pasó la revisión de las tres áreas?</strong> Técnica, comercial y jurídica, antes de enviarlo al cliente.</li></ul>
+<h3 id="estados-del-documento">Estados del documento</h3>
+<div class="tw"><table><thead><tr><th>Estado</th><th>Qué significa</th></tr></thead><tbody><tr><td>Borrador</td><td>Hay pendientes bloqueantes abiertos o no pasó el control de calidad</td></tr><tr><td>Apto para revisión final</td><td>Pasó el control de calidad; faltan las revisiones técnica, comercial y jurídica</td></tr><tr><td>Aprobado por cliente</td><td>El cliente lo validó o firmó</td></tr></tbody></table></div>
+<div class="callout importante"><span class="t">Nunca «listo para firma» con bloqueantes abiertos</span><p>Si te piden un documento para firma y todavía hay pendientes bloqueantes, el agente te entregará un borrador con la lista de validaciones, no un documento «listo». Es una protección: firmar con vacíos genera problemas después.</p></div>
+<h2 id="lo-que-el-agente-no-hace">Lo que el agente no hace</h2>
+<div class="tw"><table><thead><tr><th>Si le pides…</th><th>Qué pasa</th><th>Qué hacer</th></tr></thead><tbody><tr><td>Que invente una cifra, un plazo o un nivel de servicio</td><td>No lo hace: lo marca como pendiente</td><td>Consigue el dato con el responsable y avísale</td></tr><tr><td>Que redacte el precio, la garantía o el soporte «como suele ser»</td><td>No lo hace: solo escribe lo que dice la fuente</td><td>Aporta la propuesta o el acuerdo donde aparece</td></tr><tr><td>Que ponga una idea futura como entregable</td><td>No lo hace: va en «Fases futuras»</td><td>Si ya se acordó, entrégale la fuente que lo confirma</td></tr><tr><td>Que elija entre dos versiones contradictorias</td><td>Muestra ambas y espera que alguien decida</td><td>Dile cuál prevalece y quién lo confirmó</td></tr><tr><td>Que declare el documento «listo para firma» con bloqueantes</td><td>No lo hace</td><td>Resuelve primero los pendientes</td></tr></tbody></table></div>
+<h2 id="preguntas-frecuentes">Preguntas frecuentes</h2>
+<p><strong>¿Por qué no me hace preguntas?</strong> Porque asume que tus archivos son todo lo que hay. Lo que falta queda como pendiente en lugar de adivinarse.</p>
+<p><strong>¿Puedo editar el Word?</strong> Sí, es editable. Para cambios grandes o de estructura, pídele una versión nueva: así queda registrada y actualiza las matrices.</p>
+<p><strong>¿Dónde aparece el número de versión?</strong> Solo en el nombre del archivo (por ejemplo, <code>v0.2</code>), nunca dentro del documento.</p>
+<p><strong>¿Qué hago con un pendiente?</strong> Pásaselo a su responsable. Cuando lo resuelva, cuéntale al agente la decisión y de dónde viene (acta, correo, mensaje).</p>
+<p><strong>¿Se pueden usar los ejemplos de otros proyectos?</strong> No. Los ejemplos de la wiki sirven para enseñar el método de análisis; sus módulos, cifras y condiciones no se trasladan a ningún otro proyecto.</p>
+<p><strong>¿El documento tiene mi firma?</strong> Solo si pides un documento listo para firma. En los borradores la firma de la representante legal no se inserta.</p>
+<h2 id="glosario">Glosario</h2>
+<div class="tw"><table><thead><tr><th>Término</th><th>Qué significa</th></tr></thead><tbody><tr><td>Alcance funcional</td><td>La descripción de lo que hará el sistema y lo que no</td></tr><tr><td>Módulo</td><td>Un conjunto de funcionalidades relacionadas (por ejemplo, «Reportes»)</td></tr><tr><td>Ficha funcional</td><td>La descripción uniforme de una funcionalidad: objetivo, flujo, reglas, salidas y cómo se acepta</td></tr><tr><td>Criterio de aceptación</td><td>La prueba observable que demuestra que algo se entregó bien</td></tr><tr><td>Integración</td><td>La conexión del sistema con otro sistema</td></tr><tr><td>SLA</td><td>Nivel de servicio acordado, como tiempos de respuesta</td></tr><tr><td>Pendiente bloqueante</td><td>Un dato faltante que impide cerrar el alcance</td></tr><tr><td>Trazabilidad</td><td>Poder saber de dónde sale cada dato</td></tr></tbody></table></div>
+<h2 id="si-algo-no-funciona">Si algo no funciona</h2>
+<p>Si el agente no encuentra un archivo, revisa que esté en la carpeta <code>fuentes</code> del cliente. Si el documento te parece incompleto, revisa primero la lista de pendientes: lo que falta suele estar ahí. Si el comportamiento se repite o parece una falla, avisa a quien mantiene el agente; su guía técnica explica el flujo completo.</p>
+<div class="more"><span>¿Buscas la otra mirada de este agente?</span><nav><a class="btn ghost" href="guia-dev.html">Guía de desarrollador</a><a class="btn ghost" href="../index.html">Todas las guías</a></nav></div>
+</article></div>
+<script src="../assets/lenis.min.js"></script>
+<script src="../assets/suave.js"></script>
+<script>
+(function(){var l=[].slice.call(document.querySelectorAll('.toc a'));if(!l.length||!('IntersectionObserver'in window))return;
+var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-80px 0px -70% 0px'});
+document.querySelectorAll('article h2').forEach(function(h){o.observe(h)})})();
+</script>
+</body>
+</html>
