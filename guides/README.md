@@ -17,7 +17,7 @@ Dos guías por agente (7 agentes, 14 guías), en **web** y **PDF**, con un estil
 
 ## Abrir
 
-- **Índice:** [`index.html`](index.html). Las direcciones de la web son limpias (ver «Direcciones» abajo), así que para ver las guías hay que servirlas (`servir.py`), no abrir los archivos directamente.
+- **Índice:** [`inicio.html`](inicio.html). Las direcciones de la web son limpias (ver «Direcciones» abajo), así que para ver las guías hay que servirlas (`servir.py`), no abrir los archivos directamente.
 - **Una guía:** `<agente>/guia-dev.html` o `<agente>/guia-usuario.html`, con índice lateral que sigue la lectura.
 - **PDF (A4):** `<agente>/guia-dev.pdf` y `<agente>/guia-usuario.pdf`, con encabezado y «Página X de Y».
 
@@ -25,7 +25,8 @@ Dos guías por agente (7 agentes, 14 guías), en **web** y **PDF**, con un estil
 
 ```
 guides/
-├── index.html                 índice (generado)
+├── inicio.html                índice, pestaña de usuario (generado)
+├── inicio/desarrollador.html  el mismo índice, pestaña de desarrollador (generado)
 ├── assets/                    estilo, fuentes (OFL) y logo
 ├── <agente>/guia-*.html/pdf   guías generadas
 └── _src/                      fuente: se edita aquí, no en los HTML
@@ -82,7 +83,7 @@ Sin `index.html`, sin `.html` y sin `#`:
 | `/<agente>/guia-usuario` · `/<agente>/guia-dev` | Cada guía (con `.html` redirige a la limpia) |
 | `/<agente>/guia-usuario.pdf` | El PDF (los archivos conservan su extensión) |
 
-En Vercel lo hacen `cleanUrls`, `redirects` y `rewrites` de `vercel.json`; en local, `servir.py` replica las mismas reglas. El índice lleva `<base href="/">` para que sus enlaces relativos funcionen también bajo `/inicio/desarrollador`.
+En Vercel lo hacen `cleanUrls` y `redirects` de `vercel.json`; en local, `servir.py` replica las mismas reglas. El índice son dos archivos reales (`inicio.html` e `inicio/desarrollador.html`, la misma página con su propia dirección canónica): así Vercel los sirve sin reescrituras, que con `cleanUrls` fallaban con un 404. El índice lleva `<base href="/">` para que sus enlaces relativos funcionen también bajo `/inicio/desarrollador`.
 
 ## Efectos y componentes
 
