@@ -5,6 +5,7 @@ Uso:  python -X utf8 guides/_src/build.py [slug ...] [--sin-pdf]
 Salida: guides/<agente>/guia-{dev,usuario}.html y .pdf · guides/index.html
 """
 import html
+import json
 import pathlib
 import re
 import sys
@@ -40,6 +41,60 @@ AGENTES = [
          resumen='Redacta el contrato final de un proyecto a partir de los alcances, la cotización y el contrato madre, listo para firma.'),
 ]
 TIPOS = {'dev': 'Guía de desarrollador', 'usuario': 'Guía de usuario'}
+
+# Galería del presentations-designer. Las imágenes las genera recursos_web.py (portadas desde los PDF de presentaciones/decks, logos desde resources/companies-logos).
+PORTADAS = [  # (archivo en assets/img/portadas, cliente, proyecto)
+    ('fullservice-campuslands-v3', 'Campuslands', 'FullService Campuslands'),
+    ('ai-academy', 'Campuslands AI Academy', 'Deja de usar la IA, empieza a dirigirla'),
+    ('avicampo', 'Avicampo', 'Agente de IA en WhatsApp'),
+    ('chico', 'Chico Soluciones Logísticas', 'Abastecimiento Penitenciario'),
+    ('colbeef-flujo-ia', 'ColBeef', 'Flujo conversacional del Agente IA'),
+    ('compumax-asistente-ia', 'Compumax', 'Asistente de IA Inmobiliario'),
+    ('comultrasan-orbit', 'Financiera Comultrasan', 'Asistente Conversacional con IA Generativa'),
+    ('fcv', 'Fundación Cardiovascular', 'Desarrollo de Software Especializado'),
+    ('gaspais-chilco', 'GasPaís', 'Plataforma Integral de Gestión HSE-SST'),
+    ('giron-cc-v2', 'Alcaldía de Girón', 'Módulo de Cobranza con Inteligencia Artificial'),
+    ('globant-dojo-v3', 'Globant', 'Modelo de desarrollo con dojo'),
+    ('greenmetal-fyswap', 'Green Metal', 'Digitalización de la Logística de Salida y Calidad'),
+    ('hubux-v2', 'Zona Franca Santander', 'Ecosistema Campuslands en el Hub Tecnológico'),
+    ('land-cargo-v2', 'Land Cargo', 'Sistema Integrado TMS + ERP a la Medida'),
+    ('marval', 'Marval', 'Un orquestador central, múltiples agentes de IA'),
+    ('mchaileh-crm-ia', 'Mchaileh Inmobiliaria', 'CRM Inmobiliario + Asistente de IA'),
+    ('miami-aqua-tours-ampliado', 'Miami Aqua Tours', 'Plataforma de Venta y Gestión de Tours'),
+    ('multinal-escenario-b', 'Multinal', 'Ecosistema Digital Corporativo'),
+    ('palmera-jr', 'Palmera Junior', 'Plataforma segura y vigente con Laravel 13'),
+    ('unidrogas', 'Unidrogas', 'Automatización de Contenidos y Formación con IA'),
+    ('ve-a-la-segura', 'Ve a la Segura', 'Atención y Venta Automatizada con IA'),
+]
+LOGOS = [  # (archivo en assets/img/logos, empresa)
+    ('alcaldia-de-giron', 'Alcaldía de Girón'), ('avicampo', 'Avicampo'), ('chico-soluciones-logisticas', 'Chico Soluciones Logísticas'),
+    ('colbeef', 'ColBeef'), ('compumax', 'Compumax'), ('fcv', 'Fundación Cardiovascular'), ('financiera-comultrasan', 'Financiera Comultrasan'),
+    ('gaspais', 'GasPaís'), ('green-metal', 'Green Metal'), ('marval', 'Marval'), ('mchaileh', 'Mchaileh Inmobiliaria'),
+    ('miami-aqua-tours', 'Miami Aqua Tours'), ('multinal', 'Multinal'), ('palmera-junior', 'Palmera Junior'), ('unidrogas', 'Unidrogas'),
+]
+FLECHA_IZQ ='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>'
+FLECHA_DER = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>'
+
+
+def carrusel(clase, etiqueta, tarjetas, extra=''):
+    """Estructura común de los dos carruseles (efectos.js los activa; sin JS quedan como cuadrícula)."""
+    return ('<div class="cx %s" %s><div class="cx-stage" role="group" aria-roledescription="carrusel" aria-label="%s" tabindex="0">%s</div>'
+            '<div class="cx-bar"><button type="button" class="cx-btn cx-prev" aria-label="Anterior">%s</button>'
+            '<div class="cx-cap" aria-live="off"><b></b><span></span></div><span class="cx-n"></span>'
+            '<button type="button" class="cx-btn cx-next" aria-label="Siguiente">%s</button></div></div>'
+            % (clase, extra, html.escape(etiqueta), tarjetas, FLECHA_IZQ, FLECHA_DER))
+
+
+def galeria(kind, rel):
+    """Card Stack con las portadas de las presentaciones / Coverflow con los logos de los clientes."""
+    if kind == 'cardstack':
+        cards = ''.join('<figure class="cx-card" data-c="%s" data-p="%s"><img data-src="%sassets/img/portadas/%s.webp" width="800" height="450" decoding="async" alt="Portada de la presentación de %s: %s">'
+                        '<figcaption>%s · %s</figcaption></figure>'
+                        % (html.escape(c), html.escape(p), rel, f, html.escape(c), html.escape(p), html.escape(c), html.escape(p)) for f, c, p in PORTADAS)
+        return carrusel('cs', 'Portadas de las presentaciones', cards, 'data-ritmo="3600" data-visibles="3"')
+    cards = ''.join('<figure class="cx-card" data-c="%s" data-p=""><span class="cf-logo"><img data-src="%sassets/img/logos/%s.webp" width="280" height="210" decoding="async" alt="Logo de %s"></span>'
+                    '<figcaption>%s</figcaption></figure>' % (html.escape(n), rel, f, html.escape(n), html.escape(n)) for f, n in LOGOS)
+    return carrusel('cf', 'Logos de las empresas', cards, 'data-ritmo="2800" data-visibles="3"')
 
 # Icono del botón PDF: «FileDown» de AnimateIcons (@animateicons/react, MIT) sobre la forma de Lucide (ISC), pasado a SVG + CSS con los mismos
 # fotogramas (la hoja pulsa y la flecha baja, 0,6 s). Avisos de licencia en assets/ICONS-LICENSE.txt.
@@ -148,6 +203,33 @@ GH_BTN = ('<a class="gh" href="%s" target="_blank" rel="noopener noreferrer" ari
           '<svg class="gh-ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>') % GH_URL
 
 
+# Social Preview Dock (esquina inferior derecha del pie): iconos que se agrandan al pasar el cursor y muestran una vista previa del perfil.
+# Iconos de marca: GitHub (Octicons, MIT) y LinkedIn (Simple Icons, CC0). Las vistas previas son tarjetas HTML/CSS con los datos del perfil (social.json y assets/img/social/avatar.webp).
+LI_PATH = ('M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z')
+GH_PATH = re.search(r'd="([^"]+)"', GH_BTN).group(1)
+SOCIAL = json.loads((SRC / 'social.json').read_text(encoding='utf-8'))   # actividad de GitHub (de la captura del perfil) para la mini cuadrícula
+DOCK_GH = ('https://github.com/GustavoAdolfoNavarroPacheco', 'GustavoAdolfoNavarroPacheco')
+DOCK_LI = ('https://www.linkedin.com/in/gustavo-adolfo-navarro-pacheco-876b06356/', 'Gustavo Adolfo Navarro Pacheco')
+
+
+def dock(rel):
+    """Dock con GitHub y LinkedIn; cada icono despliega una tarjeta de vista previa hecha con HTML/CSS (no son capturas)."""
+    av = '<img class="pv-av" src="%sassets/img/social/avatar.webp" width="112" height="112" loading="lazy" decoding="async" alt="">' % rel
+    celdas = ''.join('<i class="l%d"></i>' % v for sem in SOCIAL['semanas'] for v in sem)         # 7 filas × N semanas, por columnas
+    total = '{:,}'.format(SOCIAL['total']).replace(',', '.')
+    gh = ('<span class="dock-pv dock-pv-gh" aria-hidden="true"><span class="pv-head">%s<span class="pv-id"><b>Gustavo Navarro</b>'
+          '<span>%s contribuciones en %d</span></span></span><span class="pv-grid" style="--w:%d">%s</span></span>'
+          % (av, total, SOCIAL['anio'], len(SOCIAL['semanas']), celdas))
+    li = ('<span class="dock-pv dock-pv-li" aria-hidden="true"><span class="pv-ban"></span>%s<span class="pv-body"><b>%s</b>'
+          '<span>Full-Stack Developer · Functional QA · Automation and AI</span><span class="pv-loc">Bucaramanga, Colombia</span></span>'
+          '<span class="pv-btn">Ver perfil</span></span>' % (av.replace('class="pv-av"', 'class="pv-av pv-av-lg"'), DOCK_LI[1]))
+    def item(clase, red, enlace, icono, vb, tarjeta):
+        return ('<a class="dock-i %s" href="%s" target="_blank" rel="noopener noreferrer" aria-label="%s de Gustavo Navarro (se abre en una pestaña nueva)">'
+                '<svg viewBox="%s" aria-hidden="true"><path fill="currentColor" d="%s"/></svg>%s</a>' % (clase, enlace, red, vb, icono, tarjeta))
+    return ('<nav class="dock" aria-label="Redes de Gustavo Navarro">%s%s</nav>'
+            % (item('dock-gh', 'GitHub', DOCK_GH[0], GH_PATH, '0 0 16 16', gh), item('dock-li', 'LinkedIn', DOCK_LI[0], LI_PATH, '0 0 24 24', li)))
+
+
 def topbar(rel, pdf=None):
     """Barra superior: marca, (en las guías) volver al índice y descargar el PDF, y el botón de GitHub."""
     extra = ''
@@ -159,7 +241,7 @@ def topbar(rel, pdf=None):
 
 def scripts(rel):
     """Scroll suave (Lenis) en todas las páginas; suave.js lo activa."""
-    return '<script src="%sassets/lenis.min.js"></script>\n<script src="%sassets/suave.js"></script>' % (rel, rel)
+    return ('<script src="%sassets/lenis.min.js"></script>\n<script src="%sassets/suave.js"></script>\n<script src="%sassets/efectos.js"></script>' % (rel, rel, rel))
 
 
 def guide_page(ag, kind, meta, body, toc, words):
@@ -167,6 +249,7 @@ def guide_page(ag, kind, meta, body, toc, words):
     mins = max(1, round(words / 210))
     title = meta.get('titulo', ag['nombre'])
     tocs = ''.join('<li><a href="#%s">%s</a></li>' % (i, html.escape(t)) for i, t in toc)
+    body = re.sub(r'<!--GAL:(\w+)-->', lambda m: galeria(m.group(1), '../'), body)
     page = head('%s · fullservice-agents' % re.sub(r'<[^>]+>', '', md.inline(title)), '../') + topbar('../', 'guia-%s.pdf' % kind)
     page += ('<div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol>%s</ol></aside>\n<article>\n'
              '<p class="kicker">%s · %s</p>\n<h1>%s</h1>\n<p class="dek">%s</p>\n'
@@ -202,7 +285,7 @@ def index_page(items):
                        max(1, round(w / 210)), base, html.escape(nice), html.escape(ag['slug']), PDF_ICON))
         return out
     page = head('Guías de los agentes · fullservice-agents', '') + topbar('')
-    page += ('<section class="banner"><div class="banner-in"><h1>fullservice-agents</h1>'
+    page += ('<section class="banner"><div class="banner-in"><h1 class="wave" data-wave>fullservice-agents</h1>'
              '<p class="dek">Esta web es la guía de los agentes de este repositorio. Reúne, para cada uno de los siete agentes, '
              'una <strong>guía de usuario</strong>, sin tecnicismos, para quien lo usa todos los días, y una <strong>guía de desarrollador</strong>, '
              'para quien lo mantiene: carpetas, ciclos de trabajo, formatos, reglas y scripts. Léelas aquí o descárgalas en PDF.</p></div>%s</section>\n'
@@ -213,8 +296,8 @@ def index_page(items):
              '<main class="home">'
              '<section class="panel" id="usuario" role="tabpanel" aria-labelledby="tab-usuario"><h2>Guías de usuario</h2><p class="sub">En el orden del flujo comercial, de la prospección al contrato.</p><div class="agents">%s</div></section>'
              '<section class="panel" id="dev" role="tabpanel" aria-labelledby="tab-dev"><h2>Guías de desarrollador</h2><p class="sub">Cómo está construido cada agente y cómo se mantiene.</p><div class="agents">%s</div></section></main>\n%s'
-             '<footer class="site"><span>Campuslands S.A.S. BIC · Full Service</span><span>Exploramos · Despegamos · Conquistamos</span></footer>\n%s\n</body>\n</html>\n'
-             % (BANNER_ART, rows('usuario'), rows('dev'), TABS_JS + ART_JS, scripts('')))
+             '<footer class="site"><span>Campuslands S.A.S. BIC · Full Service</span>%s</footer>\n%s\n</body>\n</html>\n'
+             % (BANNER_ART, rows('usuario'), rows('dev'), TABS_JS + ART_JS, dock(''), scripts('')))
     return page
 
 
@@ -229,6 +312,8 @@ def make_pdf(html_path, pdf_path, title):
         pg.goto(html_path.as_uri())
         pg.emulate_media(media='print')
         pg.evaluate('document.fonts.ready')
+        pg.evaluate('window.cargarImagenes && window.cargarImagenes()')            # los carruseles cargan sus imágenes bajo demanda: aquí, todas
+        pg.wait_for_function('[...document.images].every(i => i.complete)', timeout=30000)
         pg.wait_for_timeout(500)
         pg.pdf(path=str(pdf_path), format='A4', print_background=True, display_header_footer=True, header_template=hdr, footer_template=ftr,
                margin=dict(top='22mm', bottom='20mm', left='20mm', right='20mm'))
@@ -252,6 +337,7 @@ def build(only=None, pdf=True):
     (ROOT / 'assets').mkdir(exist_ok=True)
     (ROOT / 'assets' / 'estilo.css').write_text((SRC / 'estilo.css').read_text(encoding='utf-8'), encoding='utf-8')
     (ROOT / 'assets' / 'suave.js').write_text((SRC / 'suave.js').read_text(encoding='utf-8'), encoding='utf-8')
+    (ROOT / 'assets' / 'efectos.js').write_text((SRC / 'efectos.js').read_text(encoding='utf-8'), encoding='utf-8')
     items = []
     for ag in AGENTES:
         for kind in ('dev', 'usuario'):

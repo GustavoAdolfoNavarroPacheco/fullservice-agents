@@ -32,6 +32,8 @@ guides/
     ├── contenido/<agente>/dev.md · usuario.md    el texto de cada guía (Markdown)
     ├── estilo.css             sistema visual y escala tipográfica
     ├── suave.js               activa el scroll suave (Lenis)
+    ├── efectos.js             letter swap, wave text, Card Stack (portadas), Coverflow (logos) y carga de imágenes bajo demanda
+    ├── recursos_web.py        genera las portadas (desde los PDF de presentaciones) y los logos a color en WebP
     ├── md.py                  convertidor Markdown → HTML (sin dependencias)
     ├── build.py               genera web, PDF e índice
     ├── servir.py              servidor local con recarga en vivo
@@ -59,6 +61,20 @@ Requiere Python 3, Chrome y `playwright` (para exportar los PDF).
 ## Despliegue
 
 `vercel.json` (en la raíz del repositorio) publica solo `guides/`, sin build, con `X-Robots-Tag: noindex`. El resto del repositorio no se sirve.
+
+## Efectos y componentes
+
+Reescritos en JavaScript puro a partir de los componentes de 21st.dev (el sitio es HTML estático, sin React ni framer-motion; 21st.dev no publica el código sin clave de API):
+
+- **Letter Swap** (danielpetho): barra superior, pestañas, botones y nombre de cada fila del índice (la fila entera lo dispara).
+- **Wave Text** (kokonutd): título del banner del índice; entra en ola y repite la ola al pasar el cursor, sin interrumpirse.
+- **Card Stack** (ruixen.ui): portadas de las presentaciones en las guías de `presentations-designer`. Abanico al pasar el cursor, arrastre, flechas, teclado y auto-avance (se detiene con el cursor encima).
+- **Coverflow** (ruixen.ui): logos de los clientes con sus colores originales (WebP recortado de máx. 280 × 210 px).
+- **Social Preview Dock** (ruixen.ui): esquina inferior derecha del pie del índice, con GitHub y LinkedIn. Los iconos crecen al pasar el cursor y muestran una vista previa del perfil (`assets/img/social/*.webp`, hechas de capturas de los perfiles sin los botones que solo ve el dueño ni datos de contacto). Para cambiar enlaces o textos: `DOCK` en `build.py`.
+
+**Carga rápida:** las imágenes de los carruseles no llevan `src`, sino `data-src`; `efectos.js` las descarga cuando el carrusel está a menos de 600 px de la pantalla (primero la activa y sus vecinas, luego a medida que se avanza) y las muestra con un fundido. Antes de imprimir o generar el PDF se cargan todas (`window.cargarImagenes()`).
+
+En el Markdown se insertan con bloques ```` ```cardstack ```` y ```` ```coverflow ````; las listas están en `PORTADAS` y `LOGOS` de `build.py`. Tras añadir un deck o un logo: `python guides/_src/recursos_web.py` y recompilar. Con «reducir movimiento» no hay auto-avance ni ola, y en el PDF los carruseles salen como cuadrícula.
 
 ## Scroll suave y barra de scroll
 

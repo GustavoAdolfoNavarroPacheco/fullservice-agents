@@ -97,6 +97,8 @@ def fence(kind, body):
                 msgs[-1][1] += ' ' + l.strip()
         return '<div class="chat">%s</div>' % ''.join(
             '<div class="%s"><b>%s</b>%s</div>' % ('u' if a.lower() in ('tú', 'tu', 'usuario', 'yo') else 'g', html.escape(a), inline(t)) for a, t in msgs)
+    if kind in ('cardstack', 'coverflow'):                                      # componentes: los dibuja build.py (necesita las rutas de los recursos)
+        return '<!--GAL:%s-->' % kind
     if kind == 'stats':
         items = _pairs(body)
         n = len(items)
