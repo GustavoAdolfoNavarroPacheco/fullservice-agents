@@ -98,6 +98,9 @@ Dile qué cambiar. Después de cada ajuste el agente vuelve a verificar la prese
 
 Cuando das tu visto bueno, el agente exporta el PDF, registra la presentación en el portal de proyectos, la publica y te comparte el link. Si no pudo confirmar que la publicación ya está activa, **te lo dice**.
 
+> [!importante] Después de publicar, espera unos 2 minutos
+> La web tarda **aproximadamente 2 minutos** en mostrar la presentación nueva o los cambios. El agente te lo recuerda cada vez que publica. Si el link da error justo después, espera y recarga; está explicado en [Cómo funciona la web de presentaciones](#como-funciona-la-web-de-presentaciones).
+
 ## Cómo es el plan por lámina
 
 El plan es una lista corta. Este es un ejemplo ilustrativo de cómo se ve, con datos inventados:
@@ -184,6 +187,53 @@ Cuanto más concreto seas, mejor. Algunos ejemplos de lo que puedes escribir:
 | Pedir otro diseño | «La lámina 6 se ve plana; hazla con otra estructura» |
 | Pasar de 10 láminas | «Necesito 12 láminas en total» (dilo textualmente) |
 
+## Cómo funciona la web de presentaciones
+
+Las presentaciones **no viven en el mismo repositorio que el agente**: están en uno aparte, llamado `Presentaciones`. Cuando el agente termina una, la sube ahí y la web se actualiza sola. Por eso hay tres cosas que debes saber.
+
+### 1. Se instala en dos pasos, y el segundo va en una carpeta exacta
+
+Además de clonar el repositorio de los agentes, hay que clonar `Presentaciones` **dentro** de la carpeta del agente, con el nombre `presentaciones`. Si queda en otro lugar, el agente no encuentra su plantilla ni puede publicar. El paso a paso, con un mensaje listo para dárselo a tu IA, está en [Inicio](../inicio/instalacion#repositorio-aparte-las-presentaciones).
+
+```repos
+fullservice-agents | Repositorio 1 | Las instrucciones, la wiki y las herramientas del agente, junto con los demás agentes.
+Presentaciones | Repositorio 2 · aparte | Las presentaciones ya hechas y el portal web. Es lo que publica Vercel. | decks/, web/
+agents/claude-agents/presentations-designer | presentaciones/
+git clone https://github.com/GustavoAdolfoNavarroPacheco/Presentaciones presentaciones
+```
+
+### 2. Pide permiso a Gustavo antes de empezar
+
+`Presentaciones` es un repositorio **privado**. Sin permiso no se puede ni clonar ni publicar. Escríbele a **Gustavo Navarro** con tu usuario de GitHub y acepta la invitación que te llegará; el inicio de sesión lo haces tú en el navegador. **Nunca le des tu contraseña ni tus claves a la IA.** Si el agente recibe un error de permisos, se detiene y te lo explica: no intenta rodeos.
+
+### 3. La publicación tarda unos 2 minutos
+
+Cuando el agente sube la presentación, un servicio llamado **Vercel** la construye y la pone en línea. Ese proceso tarda **aproximadamente 2 minutos**.
+
+```publicar
+El agente sube la presentación | Los archivos llegan a GitHub.
+Vercel lo detecta | Empieza a construir la web.
+Construye la web | Compila el portal y copia las presentaciones.
+En línea | El link ya muestra la versión nueva.
+≈ 2 min
+```
+
+Mientras tanto, el link puede dar **404** o mostrar la versión anterior. No significa que algo falló: espera dos minutos y recarga con `Ctrl + F5`. Si pasan más de cinco, avísale al agente o a Gustavo.
+
+### Qué se ve en cada dirección
+
+Todo se publica en `https://fullservicepresentations.vercel.app`, con dos zonas de acceso distinto:
+
+| Dirección | Quién entra | Qué muestra |
+|---|---|---|
+| `/` | Solo usuarios con cuenta (correo y contraseña) | El **catálogo** de proyectos: buscador, filtros y vista en cuadrícula o lista |
+| `/<nombre>` | **Cualquiera con el link** | Una presentación (por ejemplo `/fcv`), lista para enviar al cliente |
+| `/<nombre>/<nombre>.pdf` | Cualquiera con el link | El PDF de esa presentación |
+
+- **Compartir con el cliente es seguro:** el cliente abre solo el link de **su** presentación; no ve el catálogo ni los proyectos de otros clientes.
+- **Una presentación publicada puede no estar en el catálogo.** Para aparecer allí, el agente la registra; sin ese registro funciona por su link, pero no sale en el buscador.
+- **El nombre es la dirección.** Si cambia, cambia el link que ya enviaste.
+
 ## El portal de proyectos
 
 Las presentaciones se registran en un portal web de Full Service, donde puedes encontrar los proyectos de todos los clientes. Para entrar, necesitas una cuenta; si todavía no tienes, un administrador debe darte acceso.
@@ -244,7 +294,10 @@ Porque el desglose es material interno. El total aparece como una sola cifra. Si
 Depende de la información. Con los datos completos, el plan llega rápido; el borrador se entrega ya verificado.
 
 **El link no abre.**
-Avísale al agente: él confirma si la publicación ya está activa. Mientras tanto puedes enviar el PDF.
+Si acabas de publicar, espera unos 2 minutos y recarga con `Ctrl + F5`: la web tarda en construirse. Si pasan más de cinco, avísale al agente: él confirma si la publicación ya está activa. Mientras tanto puedes enviar el PDF.
+
+**El agente me dice que no tiene permiso para publicar.**
+Falta el acceso al repositorio `Presentaciones`. Pídeselo a Gustavo Navarro con tu usuario de GitHub; el agente se detiene hasta que lo tengas.
 
 **¿Puedo editar el PDF?**
 El PDF no se edita. Si necesitas un cambio, pídeselo al agente y se genera de nuevo.

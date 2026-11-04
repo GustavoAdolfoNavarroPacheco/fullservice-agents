@@ -17,7 +17,7 @@ Dos guías por agente (7 agentes, 14 guías), en **web** y **PDF**, con un estil
 
 ## Abrir
 
-- **Índice:** [`inicio.html`](inicio.html). Las direcciones de la web son limpias (ver «Direcciones» abajo), así que para ver las guías hay que servirlas (`servir.py`), no abrir los archivos directamente.
+- **Índice:** [`inicio.html`](inicio.html) (pestañas Inicio · Instalación · Guía de usuario · Guía de desarrollador). Las direcciones de la web son limpias (ver «Direcciones» abajo), así que para ver las guías hay que servirlas (`servir.py`), no abrir los archivos directamente.
 - **Una guía:** `<agente>/guia-dev.html` o `<agente>/guia-usuario.html`, con índice lateral que sigue la lectura.
 - **PDF (A4):** `<agente>/guia-dev.pdf` y `<agente>/guia-usuario.pdf`, con encabezado y «Página X de Y».
 
@@ -25,7 +25,9 @@ Dos guías por agente (7 agentes, 14 guías), en **web** y **PDF**, con un estil
 
 ```
 guides/
-├── inicio.html                índice, pestaña de usuario (generado)
+├── inicio.html                índice, pestaña «Inicio» (generado)
+├── inicio/instalacion.html    el mismo índice, pestaña «Instalación» (generado)
+├── inicio/usuario.html        el mismo índice, pestaña de usuario (generado)
 ├── inicio/desarrollador.html  el mismo índice, pestaña de desarrollador (generado)
 ├── assets/                    estilo, fuentes (OFL) y logo
 ├── <agente>/guia-*.html/pdf   guías generadas
@@ -78,12 +80,36 @@ Sin `index.html`, sin `.html` y sin `#`:
 
 | Dirección | Qué muestra |
 |---|---|
-| `/inicio` | Índice, pestaña «Guía de usuario» (`/` y `/index.html` redirigen aquí) |
+| `/inicio` | Índice, pestaña «Inicio» (`/` y `/index.html` redirigen aquí) |
+| `/inicio/instalacion` | Índice, pestaña «Instalación» |
+| `/inicio/usuario` | Índice, pestaña «Guía de usuario» |
 | `/inicio/desarrollador` | Índice, pestaña «Guía de desarrollador» (las pestañas cambian la dirección sin recargar; el antiguo `#dev` se limpia solo) |
 | `/<agente>/guia-usuario` · `/<agente>/guia-dev` | Cada guía (con `.html` redirige a la limpia) |
 | `/<agente>/guia-usuario.pdf` | El PDF (los archivos conservan su extensión) |
 
-En Vercel lo hacen `cleanUrls` y `redirects` de `vercel.json`; en local, `servir.py` replica las mismas reglas. El índice son dos archivos reales (`inicio.html` e `inicio/desarrollador.html`, la misma página con su propia dirección canónica): así Vercel los sirve sin reescrituras, que con `cleanUrls` fallaban con un 404. El índice lleva `<base href="/">` para que sus enlaces relativos funcionen también bajo `/inicio/desarrollador`.
+En Vercel lo hacen `cleanUrls` y `redirects` de `vercel.json`; en local, `servir.py` replica las mismas reglas. El índice son cuatro archivos reales (`inicio.html`, `inicio/instalacion.html`, `inicio/usuario.html` e `inicio/desarrollador.html`, la misma página con su propia dirección canónica): así Vercel los sirve sin reescrituras, que con `cleanUrls` fallaban con un 404. El índice lleva `<base href="/">` para que sus enlaces relativos funcionen también bajo `/inicio/desarrollador`.
+
+## Pestañas «Inicio» e «Instalación»
+
+Son las dos primeras pestañas del índice, a la izquierda de «Guía de usuario», y hablan de **todo el repositorio**, no de un agente. Cada una se genera de un Markdown (`_src/contenido/inicio.md` e `instalacion.md`) y se inserta en el índice con su propio índice lateral. **Inicio** explica qué es el repositorio y cómo está organizado. **Instalación** tiene tres partes y una tabla final de problemas:
+
+- **Instalación**, con un *switch* entre «Instalación para usuario» (un mensaje para copiar y dárselo a la IA, que clona todo en el lugar correcto) y «Instalación para desarrollador» (la lista de comandos).
+- **Repositorio aparte:** el Estudio de Presentaciones entrega en `Presentaciones`, un repositorio **privado** que llega vacío al clonar el raíz. Explica el clon en la carpeta exacta, el permiso que concede Gustavo (para clonar y para el `push`) y los ~2 minutos que tarda Vercel en publicar.
+- **Usarlo como Proyecto** en Claude o Perplexity (y, al final, **Si algo falla** con una tabla de síntomas y soluciones): un selector con los siete agentes muestra, en tres pasos, qué archivo va a dónde (instrucciones, archivos, qué no se sube) y el texto de instrucciones listo para copiar. Los datos están en `PROYECTO` de `build.py`; el test `probar_web.py` comprueba que todos los archivos listados existan.
+
+El mismo «repositorio aparte» está documentado en las guías de `presentations-designer` (usuario: «Cómo funciona la web de presentaciones»; desarrollador: «El repositorio aparte y su publicación») y es regla del agente en su `CLAUDE.md`.
+
+Componentes nuevos (todos en `efectos.js` y `estilo.css`; sin JavaScript se ven completos):
+
+| Bloque en Markdown | Qué hace |
+|---|---|
+| `::: switch id` · `::: tab clave \| Título \| icono` · `:::` | Selector entre paneles con pastilla deslizante; con `chips` en la primera línea, una fila de opciones; con `menu`, un desplegable. Recuerda la elección, se abre con `#id-clave` y se maneja con flechas |
+| ```` ```prompt ```` · ```` ```bash ```` · ```` ```powershell ```` | Mensaje o comandos con botón «Copiar» (portapapeles, con respaldo) |
+| ```` ```repos ```` | Los dos repositorios, uno dentro del otro: la carpeta del segundo se «llena» al verse |
+| ```` ```publicar ```` | Línea de tiempo animada: los puntos se encienden en orden y el globo marca el tiempo |
+| ```` ```proyectos ```` | Desplegable con los siete agentes (nombre de su carpeta, plataforma y rol; se abre con rebote, con teclado: ↑ ↓ Inicio Fin, letras, Intro y Esc) y, para el elegido, una ficha en tres pasos: pegar las instrucciones, subir estos archivos y dejarlos fuera. Las cifras cuentan y los pasos entran en escalera al verse |
+
+Los enlaces `#` del índice lateral y entre pestañas de «Inicio» e «Instalación» se deslizan con el mismo scroll suave de las guías (`window.irA`, sobre Lenis), abriendo antes la pestaña donde está la sección. Las animaciones de aparición usan `[data-reveal]` y la clase `fx` (la pone un script del `<head>`, para que no haya parpadeo). En el PDF todo sale ya completo (`revelarTodo()`), con los dos paneles de cada *switch*.
 
 ## Efectos y componentes
 

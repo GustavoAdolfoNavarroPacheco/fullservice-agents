@@ -6,10 +6,14 @@ Comprueba en el índice y en una guía: Lenis cargado y activo, scroll de ancla 
 sin errores de consola, sin desborde horizontal (4 anchos) y solo los tamaños de fuente de la escala.
 """
 import json
+import pathlib
 import sys
 import urllib.request
 
 from playwright.sync_api import sync_playwright
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import build  # noqa: E402   (datos de «Proyecto» y lista de agentes)
 
 BASE = (sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:4173').rstrip('/')
 CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
@@ -44,29 +48,39 @@ with sync_playwright() as p:
         check('botón de GitHub apunta al repo', gh and gh['h'] == 'https://github.com/GustavoAdolfoNavarroPacheco/fullservice-agents' and gh['t'] == '_blank' and 'noopener' in gh['r'], str(gh))
         check('ya no hay botones de guías en la cabecera', pg.evaluate("![...document.querySelectorAll('.top nav a')].some(a=>/Guía (de usuario|de desarrollador|Dev)/i.test(a.textContent))"))
         if ruta == '/inicio':
-            vis = "(()=>['usuario','dev'].map(i=>!document.getElementById(i).hidden))()"
-            check('pestañas: al abrir se ve solo la guía de usuario', pg.evaluate(vis) == [True, False] and pg.inner_text('#tab-dev') == 'Guía de desarrollador')
+            vis = "(()=>['inicio','instalar','usuario','dev'].map(i=>!document.getElementById(i).hidden))()"
+            tit = "[...document.querySelectorAll('.tabs [role=tab]')].map(t=>t.textContent.trim())"
+            check('pestañas: Inicio · Instalación · Guía de usuario · Guía de desarrollador, y se abre Inicio', pg.evaluate(tit) == ['Inicio', 'Instalación', 'Guía de usuario', 'Guía de desarrollador'] and pg.evaluate(vis) == [True, False, False, False], str(pg.evaluate(tit)))
             pg.click('#tab-dev'); pg.wait_for_timeout(500)
             x = pg.evaluate("(()=>{const i=document.querySelector('.tab-ind').getBoundingClientRect(),t=document.getElementById('tab-dev').getBoundingClientRect();return [Math.round(i.left-t.left),Math.round(i.width-t.width)]})()")
-            check('pestañas: cambia a desarrollador y el indicador la sigue', pg.evaluate(vis) == [False, True] and x == [0, 0] and pg.evaluate('location.pathname') == '/inicio/desarrollador' and pg.evaluate('location.hash') == '', str(x))
+            check('pestañas: cambia a desarrollador y el indicador la sigue', pg.evaluate(vis) == [False, False, False, True] and x == [0, 0] and pg.evaluate('location.pathname') == '/inicio/desarrollador' and pg.evaluate('location.hash') == '', str(x))
             pg.focus('#tab-dev'); pg.keyboard.press('ArrowLeft'); pg.wait_for_timeout(300)
-            check('pestañas: flechas del teclado', pg.evaluate(vis) == [True, False])
+            check('pestañas: flechas del teclado', pg.evaluate(vis) == [False, False, True, False] and pg.evaluate('location.pathname') == '/inicio/usuario')
             pg.goto(BASE + '/inicio/desarrollador'); pg.reload(); pg.wait_for_timeout(400)
-            check('pestañas: /inicio/desarrollador abre la guía de desarrollador', pg.evaluate(vis) == [False, True])
+            check('pestañas: /inicio/desarrollador abre la guía de desarrollador', pg.evaluate(vis) == [False, False, False, True])
+            pg.goto(BASE + '/inicio/usuario'); pg.reload(); pg.wait_for_timeout(400)
+            check('pestañas: /inicio/usuario abre la guía de usuario', pg.evaluate(vis) == [False, False, True, False])
+            pg.goto(BASE + '/inicio/instalacion'); pg.reload(); pg.wait_for_timeout(400)
+            check('pestañas: /inicio/instalacion abre la instalación', pg.evaluate(vis) == [False, True, False, False])
+            pg.goto(BASE + '/inicio#repositorio-aparte-las-presentaciones'); pg.wait_for_timeout(900)
+            check('pestañas: un enlace #sección abre la pestaña donde está y toma su dirección', pg.evaluate(vis) == [False, True, False, False] and pg.evaluate('location.pathname') == '/inicio/instalacion' and pg.evaluate('window.scrollY') > 300, pg.evaluate('location.pathname'))
+            pg.goto(BASE + '/inicio'); pg.wait_for_timeout(400)
+            pg.click('#inicio a[href="#instalacion"] >> nth=0'); pg.wait_for_timeout(1200)
+            check('pestañas: el enlace a Instalación desde Inicio cambia de pestaña', pg.evaluate(vis) == [False, True, False, False] and pg.evaluate('location.pathname') == '/inicio/instalacion')
             pg.goto(BASE + '/inicio#dev'); pg.wait_for_timeout(400)
-            check('pestañas: el enlace antiguo #dev se limpia', pg.evaluate(vis) == [False, True] and pg.evaluate('location.pathname') == '/inicio/desarrollador' and pg.evaluate('location.hash') == '')
-            pg.click('#tab-usuario'); pg.wait_for_timeout(300)
-            check('pestañas: la guía de usuario vuelve a /inicio sin #', pg.evaluate('location.pathname') == '/inicio' and pg.evaluate('location.hash') == '')
-            pg.goto(BASE + '/inicio'); pg.wait_for_timeout(300)
+            check('pestañas: el enlace antiguo #dev se limpia', pg.evaluate(vis) == [False, False, False, True] and pg.evaluate('location.pathname') == '/inicio/desarrollador' and pg.evaluate('location.hash') == '')
+            pg.click('#tab-inicio'); pg.wait_for_timeout(300)
+            check('pestañas: Inicio vuelve a /inicio sin #', pg.evaluate('location.pathname') == '/inicio' and pg.evaluate('location.hash') == '')
+            pg.goto(BASE + '/inicio/usuario'); pg.wait_for_timeout(300)
             check('filas sin botón «Leer»', pg.evaluate("![...document.querySelectorAll('.ag .btn')].some(a=>/Leer/.test(a.textContent))"))
-            bb = pg.evaluate("(()=>{const r=document.querySelector('.ag:first-child p').getBoundingClientRect();return [r.x+r.width/2, r.y+r.height/2]})()")
+            bb = pg.evaluate("(()=>{const r=document.querySelector('#usuario .ag:first-child p').getBoundingClientRect();return [r.x+r.width/2, r.y+r.height/2]})()")
             pg.mouse.click(bb[0], bb[1])                        # clic en el resumen, no en el título: toda la fila es el enlace
             pg.wait_for_url('**/prospection-agent/guia-usuario', timeout=4000)
             check('clic en cualquier parte de la fila abre la guía', pg.url.endswith('/prospection-agent/guia-usuario'), pg.url)
-            pg.goto(BASE + '/inicio'); pg.wait_for_timeout(300)
+            pg.goto(BASE + '/inicio/usuario'); pg.wait_for_timeout(300)
             with pg.expect_download() as d:
-                pg.click('.ag:first-child .pdf')
-            check('el botón PDF descarga y no abre la guía', pg.url.endswith('/inicio') and d.value.suggested_filename == 'Guia Usuario - prospection-agent.pdf', d.value.suggested_filename)
+                pg.click('#usuario .ag:first-child .pdf')
+            check('el botón PDF descarga y no abre la guía', pg.url.endswith('/inicio/usuario') and d.value.suggested_filename == 'Guia Usuario - prospection-agent.pdf', d.value.suggested_filename)
         r0 = pg.evaluate("(()=>{const f=document.querySelector('.gh-fill').getBoundingClientRect(), g=document.querySelector('.gh').getBoundingClientRect();return f.top-g.top})()")
         pg.hover('.top nav a.gh')
         pg.wait_for_timeout(900)
@@ -107,7 +121,7 @@ with sync_playwright() as p:
         pg.close()
     print('\n== desborde horizontal')
     mal = []
-    for ruta in ('/inicio', '/inicio/desarrollador', '/prospection-agent/guia-usuario', '/presentations-designer/guia-dev', '/presentations-designer/guia-usuario', '/functional-scope/guia-dev'):
+    for ruta in ('/inicio', '/inicio/instalacion', '/inicio/usuario', '/inicio/desarrollador', '/prospection-agent/guia-usuario', '/presentations-designer/guia-dev', '/presentations-designer/guia-usuario', '/functional-scope/guia-dev'):
         for w in (360, 390, 768, 1060, 1366, 1920):
             pg = b.new_page(viewport={'width': w, 'height': 900})
             pg.goto(BASE + ruta)
@@ -115,7 +129,7 @@ with sync_playwright() as p:
             if pg.evaluate('document.documentElement.scrollWidth > window.innerWidth + 1'):
                 mal.append((ruta, w))
             pg.close()
-    check('sin desborde horizontal', not mal, str(mal) if mal else '(5 páginas × 6 anchos)')
+    check('sin desborde horizontal', not mal, str(mal) if mal else '(8 páginas × 6 anchos)')
 
     print('\n== direcciones limpias')
     pg = b.new_page()
@@ -134,7 +148,7 @@ with sync_playwright() as p:
     print('\n== vista previa del enlace (Open Graph / Twitter)')
     pg = b.new_page()
     sitio = 'https://fullservice-agents.vercel.app'
-    for ruta in ('/inicio', '/inicio/desarrollador', '/prospection-agent/guia-usuario', '/presentations-designer/guia-dev', '/contract-perfectionist/guia-usuario'):
+    for ruta in ('/inicio', '/inicio/instalacion', '/inicio/usuario', '/inicio/desarrollador', '/prospection-agent/guia-usuario', '/presentations-designer/guia-dev', '/contract-perfectionist/guia-usuario'):
         pg.goto(BASE + ruta)
         m = pg.evaluate("(() => { const g = (s) => { const e = document.querySelector(s); return e ? e.content || e.href : null; }; return {t: g('meta[property=\"og:title\"]'), d: g('meta[property=\"og:description\"]'), i: g('meta[property=\"og:image\"]'), u: g('meta[property=\"og:url\"]'), c: document.querySelector('link[rel=canonical]').href, w: g('meta[property=\"og:image:width\"]'), h: g('meta[property=\"og:image:height\"]'), tc: g('meta[name=\"twitter:card\"]'), ti: g('meta[name=\"twitter:image\"]'), de: g('meta[name=\"description\"]')}; })()")
         okm = all(m.get(k) for k in ('t', 'd', 'i', 'u', 'c', 'tc', 'ti', 'de')) and m['i'].startswith(sitio + '/assets/img/preview/') and m['u'] == m['c'] == sitio + ruta and m['i'] == m['ti'] and (m['w'], m['h']) == ('1200', '630') and m['tc'] == 'summary_large_image'
@@ -258,6 +272,129 @@ with sync_playwright() as p:
     check('impresión: se cargan todas las imágenes', pg.evaluate("document.querySelectorAll('.cx img[data-src]').length") == 0)
     pg.emulate_media(media='print')
     check('impresión: las tarjetas pasan a cuadrícula', pg.evaluate("[...document.querySelectorAll('.cx-card')].every(c => getComputedStyle(c).position === 'static')"))
+    pg.close()
+
+    # ---------- Inicio: instalación, repositorio aparte y Proyecto
+    print('\n== Inicio (índice): switch, copiar, revelado, selector de agentes')
+    ctx = b.new_context(viewport={'width': 1366, 'height': 900}, permissions=['clipboard-read', 'clipboard-write'])
+    pg = ctx.new_page()
+    errores = []
+    pg.on('console', lambda m: errores.append(m.text) if m.type == 'error' else None)
+    pg.on('pageerror', lambda e: errores.append(str(e)))
+    pg.on('requestfailed', lambda r: errores.append('falló: ' + r.url) if '/__v' not in r.url else None)      # /__v es el sondeo de recarga automática del servidor local
+    pg.on('response', lambda r: errores.append('%d %s' % (r.status, r.url)) if r.status >= 400 else None)
+    pg.goto(BASE + '/inicio/instalacion')
+    pg.wait_for_timeout(600)
+    sec0 = pg.evaluate("[...document.querySelectorAll('#inicio h2')].map(h => h.textContent.trim())")
+    check('Inicio: solo describe el repositorio (sin las secciones de instalación)', len(sec0) >= 2 and not any('Instalación' in x or 'Proyecto' in x for x in sec0), str(sec0))
+    pg.goto(BASE + '/inicio/instalacion'); pg.wait_for_timeout(600)
+    sec = pg.evaluate("[...document.querySelectorAll('#instalar h2')].map(h => h.textContent.trim())")
+    check('Instalación: instalación, repositorio aparte, Proyecto y qué hacer si algo falla', all(any(t in x for x in sec) for t in ('Instalación', 'Repositorio aparte', 'Usarlo como Proyecto', 'Si algo falla')), str(sec))
+    check('Instalación: índice lateral con un enlace por sección', pg.evaluate("document.querySelectorAll('#instalar .toc a').length") == len(sec))
+    sw = "(id) => ({on: [...document.querySelectorAll('#' + id + ' .sw-panel')].filter(p => p.classList.contains('on')).map(p => p.id.replace(id + '-', '')), vis: [...document.querySelectorAll('#' + id + ' .sw-panel')].map(p => getComputedStyle(p).display !== 'none')})"
+    pg.evaluate("document.querySelector('[data-sw=instalacion]').scrollIntoView()")
+    pg.wait_for_timeout(300)
+    check('switch: arranca en «Instalación para usuario»', pg.inner_text('#instalacion-tab-usuario') == 'Instalación para usuario' and pg.evaluate("document.getElementById('instalacion-usuario').classList.contains('on')"))
+    check('switch: la pastilla cubre la opción elegida', pg.evaluate("(()=>{const t=document.querySelector('[data-sw=instalacion] .sw-thumb').getBoundingClientRect(), b=document.getElementById('instalacion-tab-usuario').getBoundingClientRect();return Math.abs(t.left-b.left)<2 && Math.abs(t.width-b.width)<2})()"))
+    pg.click('#instalacion-tab-dev'); pg.wait_for_timeout(700)
+    est = pg.evaluate("(() => ({u: getComputedStyle(document.getElementById('instalacion-usuario')).display, d: getComputedStyle(document.getElementById('instalacion-dev')).display, t: (()=>{const t=document.querySelector('[data-sw=instalacion] .sw-thumb').getBoundingClientRect(), b=document.getElementById('instalacion-tab-dev').getBoundingClientRect();return Math.abs(t.left-b.left)<2})()}))()")
+    check('switch: cambia a «Instalación para desarrollador» y la pastilla la sigue', est['u'] == 'none' and est['d'] != 'none' and est['t'], str(est))
+    pg.focus('#instalacion-tab-dev'); pg.keyboard.press('ArrowLeft'); pg.wait_for_timeout(300)
+    check('switch: flechas del teclado', pg.evaluate("document.getElementById('instalacion-usuario').classList.contains('on')"))
+    pg.goto(BASE + '/inicio/instalacion#instalacion-dev'); pg.wait_for_timeout(700)
+    check('switch: el enlace #instalacion-dev abre el panel de desarrollador', pg.evaluate("document.getElementById('instalacion-dev').classList.contains('on')"))
+    pg.click('#instalacion-tab-usuario'); pg.wait_for_timeout(300)
+    # botón «Copiar»
+    esperado = pg.evaluate("document.querySelector('#instalacion-usuario .prompt pre code').textContent.trim()")
+    pg.click('#instalacion-usuario .prompt .copy'); pg.wait_for_timeout(400)
+    copiado = pg.evaluate('navigator.clipboard.readText()').replace(chr(13) + chr(10), chr(10))     # Windows copia los saltos de línea como CRLF
+    check('copiar: el mensaje para la IA llega completo al portapapeles', copiado.strip() == esperado and 'git clone https://github.com/GustavoAdolfoNavarroPacheco/Presentaciones presentaciones' in copiado and 'NO subas nada' in copiado, '(%d caracteres)' % len(copiado))
+    check('copiar: el botón confirma con «Copiado»', pg.evaluate("document.querySelector('#instalacion-usuario .prompt .copy').classList.contains('ok')") and 'Copiado' in pg.inner_text('#instalacion-usuario .prompt .copy'))
+    pg.wait_for_timeout(2500)
+    check('copiar: el botón vuelve a «Copiar»', 'Copiar' in pg.inner_text('#instalacion-usuario .prompt .copy') and not pg.evaluate("document.querySelector('#instalacion-usuario .prompt .copy').classList.contains('ok')"))
+    pg.click('#instalacion-tab-dev'); pg.wait_for_timeout(400)
+    pg.locator('#instalacion-dev .code').nth(1).locator('.copy').click(); pg.wait_for_timeout(300)
+    check('copiar: los comandos se copian sin las marcas del bloque', pg.evaluate('navigator.clipboard.readText()').startswith('git clone https://github.com/GustavoAdolfoNavarroPacheco/fullservice-agents'))
+    # repositorio aparte: el diagrama se revela al verlo
+    pg.evaluate("document.querySelector('.repos').scrollIntoView({block:'center'})"); pg.wait_for_timeout(1500)
+    check('repositorios: la carpeta del repositorio 2 se llena al verla', pg.evaluate("document.querySelector('.repos').classList.contains('on') && getComputedStyle(document.querySelector('.rp-b')).opacity === '1'"))
+    pg.click('.repos .rp-replay'); pg.wait_for_timeout(100)
+    pg.wait_for_timeout(1500)
+    check('repositorios: y vuelve a completarse', pg.evaluate("document.querySelector('.repos').classList.contains('on')"))
+    pg.evaluate("document.querySelector('.pub').scrollIntoView({block:'center'})"); pg.wait_for_timeout(7500)
+    pub = pg.evaluate("(() => ({on: document.querySelector('.pub').classList.contains('on'), dots: [...document.querySelectorAll('.pub-dot')].map(d => getComputedStyle(d).backgroundColor), t: document.querySelector('.pub-time').textContent, txt: getComputedStyle(document.querySelector('.pub-time')).color}))()")
+    check('publicar: los cuatro puntos se encienden en orden y el globo marca ≈ 2 min', pub['on'] and len(pub['dots']) == 4 and all(c != 'rgb(255, 255, 255)' for c in pub['dots']) and '2 min' in pub['t'] and pub['txt'] == 'rgb(255, 255, 255)', str(pub))
+    # selector de agentes del apartado «Proyecto»
+    pg.evaluate("document.querySelector('[data-sw=proyecto-agente]').scrollIntoView()"); pg.wait_for_timeout(300)
+    n = pg.evaluate("document.querySelectorAll('[data-sw=proyecto-agente] .sw-bar [role=option]').length")
+    check('proyecto: un selector con los siete agentes', n == 7, str(n))
+    st = "(() => { const r = document.querySelector('[data-sw=proyecto-agente]'), t = r.querySelector('.sw-trig'), l = r.querySelector('.sw-bar'); return {exp: t.getAttribute('aria-expanded'), vis: getComputedStyle(l).visibility, op: getComputedStyle(l).opacity, txt: t.textContent.trim().replace(/\\s+/g, ' ')}; })()"
+    e0 = pg.evaluate(st)
+    check('desplegable: cerrado muestra solo la opción elegida', e0['exp'] == 'false' and e0['vis'] == 'hidden' and 'prospection-agent' in e0['txt'], str(e0))
+    pg.click('[data-sw=proyecto-agente] .sw-trig'); pg.wait_for_timeout(600)
+    e1 = pg.evaluate(st)
+    check('desplegable: al pulsar se abre la lista con los siete agentes', e1['exp'] == 'true' and e1['vis'] == 'visible' and e1['op'] == '1' and pg.evaluate("document.querySelectorAll('[data-sw=proyecto-agente] [role=option]').length") == 7, str(e1))
+    pg.keyboard.press('Escape'); pg.wait_for_timeout(500)
+    check('desplegable: Esc lo cierra y devuelve el foco al botón', pg.evaluate(st)['exp'] == 'false' and pg.evaluate("document.activeElement.classList.contains('sw-trig')"))
+    pg.click('[data-sw=proyecto-agente] .sw-trig'); pg.wait_for_timeout(400)
+    pg.mouse.click(5, 300); pg.wait_for_timeout(500)
+    check('desplegable: un clic fuera lo cierra', pg.evaluate(st)['exp'] == 'false')
+    pg.click('[data-sw=proyecto-agente] .sw-trig'); pg.wait_for_timeout(400); pg.click('#proyecto-agente-tab-prospection-agent'); pg.wait_for_timeout(400)
+    pg.focus('[data-sw=proyecto-agente] .sw-trig'); pg.keyboard.press('ArrowDown'); pg.wait_for_timeout(500)
+    pg.keyboard.press('ArrowDown'); pg.keyboard.press('ArrowDown'); pg.keyboard.press('ArrowDown'); pg.keyboard.press('Enter'); pg.wait_for_timeout(700)
+    e2 = pg.evaluate(st)
+    check('desplegable: con el teclado (↓ ↓ ↓ Intro) se elige «functional-scope» y el botón y la ficha cambian', e2['exp'] == 'false' and 'functional-scope' in e2['txt'] and pg.evaluate("document.getElementById('proyecto-agente-functional-scope').classList.contains('on')"), str(e2))
+    pg.keyboard.press('ArrowDown'); pg.wait_for_timeout(400)
+    pg.keyboard.press('q'); pg.wait_for_timeout(200)
+    check('desplegable: escribir una letra salta a la opción que empieza así', pg.evaluate("document.activeElement.id") == 'proyecto-agente-tab-quote-developer', pg.evaluate("document.activeElement.id"))
+    pg.keyboard.press('Escape'); pg.wait_for_timeout(400)
+    for slug, instr, archivo in (('prospection-agent', 'Perplexity.md', 'busqueda-web-empresas-SKILL.md'), ('presentations-designer', 'CLAUDE.md', 'wiki/marca-campuslands.md'), ('bidding-agent', 'CLAUDE.md', 'matriz-cumplimiento-SKILL.md'), ('contract-perfectionist', 'CLAUDE.md', 'recursos/contrato-madre/Contrato Madre - Plantilla Base.docx')):
+        pg.click('[data-sw=proyecto-agente] .sw-trig'); pg.wait_for_timeout(500)
+        pg.click('#proyecto-agente-tab-%s' % slug); pg.wait_for_timeout(400)
+        txt = pg.evaluate("document.querySelector('#proyecto-agente-%s').innerText" % slug)
+        pr = pg.evaluate("document.querySelector('#proyecto-agente-%s .prompt pre code').textContent" % slug)
+        check('proyecto: %s lista %s y %s, y su mensaje nombra su archivo de instrucciones' % (slug, instr, archivo), instr in txt and archivo in txt and instr in pr and 'Déjalo fuera' in txt)
+    faltan = []
+    for a in build.AGENTES:
+        base = pathlib.Path(__file__).resolve().parents[2].joinpath('agents', 'perplexity-agents' if a['plataforma'] == 'Perplexity' else 'claude-agents', a['slug'])
+        d = build.PROYECTO[a['slug']]
+        faltan += [str(base / d['instr'])] if not (base / d['instr']).exists() else []
+        faltan += [str(base / 'wiki' / (w + '.md')) for w in d['wiki'] if not (base / 'wiki' / (w + '.md')).exists()]
+        faltan += [str(base / 'habilidades' / k / 'SKILL.md') for k in d['skills'] if not (base / 'habilidades' / k / 'SKILL.md').exists()]
+    check('proyecto: toda la wiki y las habilidades listadas existen', not faltan, str(faltan[:3]))
+    # anclas internas del índice (el índice lleva <base href="/">)
+    pg.goto(BASE + '/inicio/instalacion'); pg.wait_for_timeout(500)
+    destino = pg.evaluate("document.querySelector('#instalar .toc a:nth-child(1)') && document.querySelectorAll('#instalar .toc a')[3].getAttribute('href')")
+    pg.locator('#instalar .toc a').nth(3).click()
+    pos = []
+    for _ in range(16):
+        pg.wait_for_timeout(70)
+        pos.append(pg.evaluate('Math.round(window.scrollY)'))
+    pg.wait_for_timeout(1500)
+    top = pg.evaluate("Math.round(document.querySelector('%s').getBoundingClientRect().top)" % destino)
+    check('anclas: el índice lateral desplaza sin salir de /inicio/instalacion', pg.evaluate('location.pathname') == '/inicio/instalacion' and pg.evaluate('window.scrollY') > 400, '%s %s' % (pg.evaluate('location.pathname'), pg.evaluate('window.scrollY')))
+    check('anclas: el desplazamiento es suave (varios pasos, no un salto)', len(set(pos)) >= 5 and pos == sorted(pos), str(pos))
+    check('anclas: la sección queda justo bajo la barra superior', 60 <= top <= 140, str(top))
+    pg.goto(BASE + '/inicio'); pg.wait_for_timeout(500)
+    pg.click('#inicio .toc a >> nth=2'); pg.wait_for_timeout(1800)
+    top2 = pg.evaluate("Math.round(document.querySelector('#inicio .toc a:nth-child(1)') ? document.querySelectorAll('#inicio h2')[2].getBoundingClientRect().top : -1)")
+    fin = pg.evaluate('Math.round(window.scrollY) >= document.documentElement.scrollHeight - window.innerHeight - 2')
+    check('anclas: también en la pestaña Inicio', pg.evaluate('location.pathname') == '/inicio' and -1 < top2 and (top2 <= 140 or fin), '%s %s' % (top2, fin))
+    pg.goto(BASE + '/inicio'); pg.wait_for_timeout(500)
+    pg.click('#inicio a[href="#repositorio-aparte-las-presentaciones"]'); pg.wait_for_timeout(2200)
+    top3 = pg.evaluate("Math.round(document.getElementById('repositorio-aparte-las-presentaciones').getBoundingClientRect().top)")
+    check('anclas: un enlace a otra pestaña la abre y baja suavemente hasta la sección', pg.evaluate('location.pathname') == '/inicio/instalacion' and 60 <= top3 <= 140, '%s %s' % (pg.evaluate('location.pathname'), top3))
+    check('Inicio: sin errores de consola ni recursos que falten', not errores, str(errores[:3]) if errores else '')
+    pg.emulate_media(media='print')
+    check('impresión: se ven los dos paneles del switch y no los botones', pg.evaluate("[...document.querySelectorAll('#instalacion .sw-panel')].every(p => getComputedStyle(p).display !== 'none') && getComputedStyle(document.querySelector('.copy')).display === 'none'"))
+    ctx.close()
+
+    print('\n== Inicio en el móvil')
+    pg = b.new_page(viewport={'width': 390, 'height': 800})
+    pg.goto(BASE + '/inicio/instalacion'); pg.wait_for_timeout(500)
+    pg.evaluate("document.querySelector('[data-sw=proyecto-agente]').scrollIntoView()"); pg.wait_for_timeout(1500)
+    check('móvil: la ficha del agente (más alta que la pantalla) se revela', pg.evaluate("document.querySelector('[data-sw=proyecto-agente]').classList.contains('on') && getComputedStyle(document.querySelector('[data-sw=proyecto-agente] .sw-panel.on .pj-s')).opacity === '1'"))
+    check('móvil: el selector de agentes cabe en la pantalla', pg.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1"))
     pg.close()
 
     print('\n== reducir movimiento')
