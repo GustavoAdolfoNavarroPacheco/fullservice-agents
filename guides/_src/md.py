@@ -2,7 +2,8 @@
 """md.py — convertidor mínimo de Markdown a HTML para las guías (sin dependencias).
 
 Soporta: portada en frontmatter, ## ### ####, párrafos, listas anidadas, tablas, citas/avisos [!nota|importante|tip|cuidado],
-código con ``` y bloques propios: tree · flow · lanes · chat · stats · cards.
+código con ``` y bloques propios: tree · flow · lanes · chat · stats · cards · prompt · bash/powershell (con botón «Copiar») ·
+repos · publicar, y el contenedor «::: switch» (selector entre paneles).
 """
 import html
 import re
@@ -44,6 +45,12 @@ def frontmatter(text):
 
 
 # ---------------------------------------------------------------- bloques propios
+ICONOS_SW = {
+    'user': '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>',
+    'terminal': '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m7 9 3 3-3 3M13 15h4"/></svg>',
+    'claude': '<img src="@@REL@@assets/img/plataforma-claude.png" alt="" width="18" height="18">',
+    'pplx': '<img src="@@REL@@assets/img/plataforma-perplexity.png" alt="" width="18" height="18">',
+}
 def _pairs(body):
     out = []
     for l in body:
@@ -106,8 +113,19 @@ def fence(kind, body):
                         '<div class="cw-t">%s</div></div>' % inline(t))
         return ('<div class="chat @@CLS@@" role="group" aria-label="Ejemplo de conversación"><div class="cw-h"><img src="@@REL@@assets/img/@@ICON@@" alt=""><b>@@PLAT@@</b><span>@@SLUG@@</span></div>'
                 '<div class="cw-b">%s</div><div class="cw-in" aria-hidden="true"><span>@@HINT@@</span><b class="cw-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></b></div></div>' % out)
-    if kind in ('cardstack', 'coverflow', 'comandos'):                                      # componentes: los dibuja build.py (necesita las rutas de los recursos)
+    if kind in ('cardstack', 'coverflow', 'comandos', 'proyectos'):                                      # componentes: los dibuja build.py (necesita las rutas de los recursos)
         return '<!--GAL:%s-->' % kind
+    if kind == 'prompt':                                                                    # mensaje para pegar en una IA: tarjeta con botón «Copiar» (lo añade efectos.js)
+        return ('<div class="prompt"><div class="pr-h"><span class="pr-dot" aria-hidden="true"></span>Mensaje para tu IA<em>cópialo y pégalo en el chat</em></div>'
+                '<pre><code>%s</code></pre></div>' % html.escape('\n'.join(body).strip('\n')))
+    if kind in ('bash', 'powershell', 'sh', 'shell'):                                       # comandos: bloque con etiqueta y botón «Copiar»
+        etiqueta = 'PowerShell' if kind == 'powershell' else 'Terminal'
+        return ('<div class="code"><div class="code-h"><span>%s</span></div><pre><code>%s</code></pre></div>'
+                % (etiqueta, html.escape('\n'.join(body).strip('\n'))))
+    if kind == 'repos':
+        return _repos(body)
+    if kind == 'publicar':
+        return _publicar(body)
     if kind == 'stats':
         items = _pairs(body)
         n = len(items)
@@ -123,8 +141,66 @@ def fence(kind, body):
     return '<pre><code>%s</code></pre>' % html.escape('\n'.join(body))
 
 
+def _repos(body):
+    """Dos repositorios, uno dentro del otro: la carpeta del segundo llega vacía al clonar el primero y se «llena» al clonarlo aparte.
+    Líneas: repositorio 1 | etiqueta | descripción  ·  repositorio 2 | etiqueta | descripción | contenido (separado por comas)  ·  ruta | carpeta  ·  comando."""
+    ln = [l.strip() for l in body if l.strip()]
+    a = [x.strip() for x in ln[0].split('|')]
+    b = [x.strip() for x in ln[1].split('|')]
+    ruta, carpeta = [x.strip() for x in ln[2].split('|')]
+    cmd = ln[3] if len(ln) > 3 else ''
+    segs = ''.join('<span>%s</span>' % html.escape(s) for s in ruta.strip('/').split('/'))
+    files = ''.join('<code>%s</code>' % html.escape(f.strip()) for f in (b[3].split(',') if len(b) > 3 else []))
+    return ('<figure class="repos" data-reveal><div class="rp-a"><div class="rp-h"><span class="rp-n">1</span><b>%s</b><i>%s</i></div><p class="rp-d">%s</p>'
+            '<div class="rp-path" aria-label="Ruta dentro del repositorio 1">%s</div>'
+            '<div class="rp-slot"><div class="rp-hole"><span>%s</span><small>llega vacía al clonar el repositorio 1</small></div>'
+            '<div class="rp-b"><div class="rp-h"><span class="rp-n">2</span><b>%s</b><i>%s</i><span class="rp-folder">carpeta %s</span></div><p class="rp-d">%s</p><div class="rp-files">%s</div></div></div></div>'
+            '<figcaption><code>%s</code><button type="button" class="rp-replay">Ver otra vez</button></figcaption></figure>'
+            % (html.escape(a[0]), html.escape(a[1]), inline(a[2]), segs, html.escape(carpeta), html.escape(b[0]), html.escape(b[1]), html.escape(carpeta), inline(b[2]), files, html.escape(cmd)))
+
+
+def _publicar(body):
+    """Línea de tiempo animada (los puntos se encienden en orden mientras avanza la barra). Líneas: paso | detalle, y una última «≈ tiempo»."""
+    tiempo, items = '≈ 2 min', []
+    for l in body:
+        if not l.strip():
+            continue
+        if l.strip().startswith('≈'):
+            tiempo = l.strip()
+            continue
+        x, _, y = l.partition('|')
+        items.append((x.strip(), y.strip()))
+    n = len(items)
+    lis = ''.join('<li style="--i:%d"><span class="pub-dot">%d</span><b>%s</b><span>%s</span></li>' % (i, i + 1, inline(x), inline(y)) for i, (x, y) in enumerate(items))
+    return ('<figure class="pub" data-reveal style="--n:%d;--k:%d"><ol>%s<li class="pub-run" aria-hidden="true"><span class="pub-time">%s</span></li></ol>'
+            '<figcaption><span>Animación ilustrativa de los pasos; el tiempo real es de aproximadamente %s.</span><button type="button" class="rp-replay">Ver otra vez</button></figcaption></figure>'
+            % (n, max(1, n - 1), lis, html.escape(tiempo), html.escape(tiempo.lstrip('≈ '))))
+
+
+def _switch(sid, paneles, variante=''):
+    """Selector entre paneles (pestañas con un «interruptor» deslizante). Sin JavaScript y al imprimir se ven todos los paneles, cada uno con su título.
+    variante: '' (dos o tres opciones a todo el ancho), 'chips' (fila de opciones) o 'menu' (desplegable: un botón con la opción elegida y una lista animada; cada opción puede llevar subtítulo: «Nombre // subtítulo»).
+    El contenido de un panel es una lista de líneas de Markdown o, si es un texto, HTML ya hecho."""
+    variante = 'chips' if variante is True else (variante or '')
+    bar, cuerpo = '', ''
+    for i, (clave, titulo, icono, lineas) in enumerate(paneles):
+        on = i == 0
+        nombre, _, sub = titulo.partition(' // ')
+        etiqueta = ('<span class="sw-l"><b>%s</b><small>%s</small></span>' % (inline(nombre), inline(sub))) if sub else '<span>%s</span>' % inline(nombre)
+        bar += ('<button type="button" role="tab" id="%s-tab-%s" aria-controls="%s-%s" aria-selected="%s"%s>%s%s</button>'
+                % (sid, clave, sid, clave, 'true' if on else 'false', '' if on else ' tabindex="-1"', ICONOS_SW.get(icono, ''), etiqueta))
+        cuerpo += ('<div class="sw-panel%s" role="tabpanel" id="%s-%s" aria-labelledby="%s-tab-%s"><p class="sw-title">%s</p>%s</div>'
+                   % (' on' if on else '', sid, clave, sid, clave, inline(nombre), lineas if isinstance(lineas, str) else blocks(lineas)))
+    rotulo = html.escape(' / '.join(re.sub(r'<[^>]+>', '', inline(t.partition(' // ')[0])) for _, t, _, _ in paneles))
+    barra = '<div class="sw-bar" role="tablist" aria-label="%s">%s<span class="sw-thumb" aria-hidden="true"></span></div>' % (rotulo, bar)
+    if variante == 'menu':                                   # el botón y la lista los activa efectos.js; sin JavaScript se ven todos los paneles
+        barra = ('<div class="sw-menu"><button type="button" class="sw-trig" aria-haspopup="listbox" aria-expanded="false" aria-label="%s"><span class="sw-cur"></span>'
+                 '<svg class="sw-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>%s</div>' % (rotulo, barra))
+    return ('<div class="sw%s" data-sw="%s"%s>%s%s</div>' % (' ' + variante if variante else '', sid, ' data-reveal' if variante == 'menu' else '', barra, cuerpo))
+
+
 # ---------------------------------------------------------------- listas
-LI = re.compile(r'^(\s*)([-*]|\d+\.)\s+(.*)$')
+LI =re.compile(r'^(\s*)([-*]|\d+\.)\s+(.*)$')
 
 
 def parse_list(lines, i):
@@ -170,7 +246,7 @@ LABELS = {'nota': 'Nota', 'importante': 'Importante', 'tip': 'Consejo', 'cuidado
 
 def is_block_start(lines, i):
     l = lines[i]
-    return (l.startswith('```') or l.startswith('#') or l.startswith('>') or LI.match(l) or l.startswith('<!--')
+    return (l.startswith('```') or l.startswith('#') or l.startswith('>') or l.startswith(':::') or LI.match(l) or l.startswith('<!--')
             or (l.lstrip().startswith('|') and i + 1 < len(lines) and re.match(r'^\s*\|?[\s:\-|]+\|?\s*$', lines[i + 1])))
 
 
@@ -181,6 +257,19 @@ def blocks(lines, toc=None):
         line = lines[i]
         if not line.strip():
             i += 1
+            continue
+        m = re.match(r'^:::\s*switch\s+([\w-]+)(?:\s+(chips))?\s*$', line)                         # «::: switch id» · «::: tab clave | Título | icono» · «:::»
+        if m:
+            j, paneles = i + 1, []
+            while j < len(lines) and lines[j].strip() != ':::':
+                t = re.match(r'^:::\s*tab\s+([\w-]+)\s*\|\s*([^|]+?)\s*(?:\|\s*(\w+)\s*)?$', lines[j])
+                if t:
+                    paneles.append([t.group(1), t.group(2), t.group(3) or '', []])
+                elif paneles:
+                    paneles[-1][3].append(lines[j])
+                j += 1
+            out.append(_switch(m.group(1), [tuple(p) for p in paneles], m.group(2) == 'chips'))
+            i = j + 1
             continue
         m = re.match(r'^```(\w*)\s*$', line)
         if m:

@@ -2,7 +2,7 @@
 """build.py — genera las guías (web + PDF) y el índice a partir de contenido/<agente>/{dev,usuario}.md
 
 Uso:  python -X utf8 guides/_src/build.py [slug ...] [--sin-pdf]
-Salida: guides/<agente>/guia-{dev,usuario}.html y .pdf · guides/inicio.html y guides/inicio/desarrollador.html (el índice, con la dirección de cada pestaña)
+Salida: guides/<agente>/guia-{dev,usuario}.html y .pdf · guides/inicio.html, guides/inicio/instalacion.html, guides/inicio/usuario.html y guides/inicio/desarrollador.html (el índice, con la dirección de cada pestaña)
 """
 import html
 import json
@@ -87,10 +87,112 @@ def carrusel(clase, etiqueta, tarjetas, extra=''):
             % (clase, extra, html.escape(etiqueta), tarjetas, FLECHA_IZQ, FLECHA_DER))
 
 
+# Inicio → «Usarlo como Proyecto»: qué archivos de cada agente se suben a un Proyecto de Claude o a un Space de Perplexity y cuáles no.
+# wiki = páginas de wiki/ · skills = carpetas de habilidades/ (cada SKILL.md se sube con el nombre de su carpeta) · extras = (ruta o archivo, nota) · no = (ruta, motivo)
+PROYECTO = {
+    'prospection-agent': dict(
+        instr='Perplexity.md', wiki=['index', 'formulario-intake', 'enlaces-utiles', 'perfil-usuario'],
+        skills=['busqueda-web-empresas', 'enriquecimiento-datos-empresa', 'formulario-intake', 'generacion-listado-resultados'], extras=[],
+        no=[('wiki/log.md', 'La bitácora histórica: ocupa espacio y no cambia lo que el agente hace.'),
+            ('prospeccion/', 'Aquí se guardan los listados que entrega; en el Space los recibes en el chat.')]),
+    'intelligence-commercial': dict(
+        instr='Perplexity.md', wiki=['index', 'filtros-busqueda', 'perfiles-objetivo', 'marca-campuslands', 'perfil-usuario'],
+        skills=['control-navegador-linkedin', 'deteccion-idioma', 'generacion-mensajes-personalizados', 'generacion-tabla-registro'], extras=[],
+        no=[('wiki/log.md', 'La bitácora histórica: ocupa espacio y no cambia lo que el agente hace.'),
+            ('prospeccion/', 'Aquí se guardan los registros de contactos y mensajes; no es información que el agente necesite leer.')]),
+    'presentations-designer': dict(
+        instr='CLAUDE.md', wiki=['marca-campuslands', 'sistema-diseno', 'estandar-v3-laminas', 'flujo-trabajo', 'verificacion', 'plantilla-base', 'despliegue', 'perfil-usuario', 'temas-por-cliente'],
+        skills=[], extras=[('presentaciones/decks/_plantilla-campuslands/', 'Sube sus tres archivos renombrados: index.html como plantilla-index.html, styles.css como plantilla-styles.css y script.js como plantilla-script.js.', 3)],
+        no=[('wiki/index.md · wiki/log.md', 'El catálogo y la bitácora históricos pesan casi 400 KB: llenarían el proyecto sin aportar al diseño.'),
+            ('herramientas/', 'Son programas para tu computador; el Proyecto no los ejecuta. El verificador lo corres tú.'),
+            ('presentaciones/', 'Es el repositorio aparte de las presentaciones: el Proyecto genera archivos nuevos y tú los guardas ahí.'),
+            ('recursos/', 'Fuentes y logos: el HTML los enlaza con rutas relativas y se ven cuando lo guardas en su carpeta.')]),
+    'functional-scope': dict(
+        instr='CLAUDE.md', wiki=['index', 'manual-operativo'], skills=[],
+        extras=[('plantillas/ficha-funcional.md · plantillas/matriz-informacion.md · plantillas/matriz-riesgos-pendientes.md · plantillas/matriz-trazabilidad.md · plantillas/registro-decisiones.md · plantillas/control-calidad.md', 'Las seis plantillas de trabajo, tal cual.'),
+                ('recursos/Manual_Agente_Alcances_Funcionales_Campuslands.docx', 'El manual que gobierna al agente.'),
+                ('plantillas/Alcance Funcional - Plantilla.docx', 'La plantilla Word del documento final.')],
+        no=[('scripts/', 'alcance_docx.py arma el Word en tu computador; el Proyecto no lo ejecuta.'),
+            ('alcances/', 'Una carpeta por cliente. Sube solo las fuentes del cliente con el que trabajas, en cada chat.'),
+            ('recursos/marca/', 'Son firmas escaneadas: datos sensibles que no deben subirse a un servicio externo.'),
+            ('wiki/log.md', 'La bitácora histórica.')]),
+    'quote-developer': dict(
+        instr='CLAUDE.md', wiki=['index', 'plantilla-xlsx', 'diseno-pdf-cotizacion', 'marca-campuslands', 'perfil-usuario'], skills=[],
+        extras=[('recursos/FullServices - Plantilla Cotizaciones.xlsx', 'La plantilla maestra de costos del equipo Campus.')],
+        no=[('cotizaciones/', 'Las cotizaciones generadas por cliente.'), ('wiki/log.md · wiki/entrada-log-sugerida.md', 'La bitácora y su plantilla de entrada: no cambian el trabajo del agente.')]),
+    'bidding-agent': dict(
+        instr='CLAUDE.md', wiki=['index', 'flujo-trabajo', 'estimacion-horas', 'consideraciones-tecnicas', 'costeo-ia-tokens', 'estructura-propuesta-tecnica', 'plantilla-verificacion-cruzada', 'marca-campuslands', 'perfil-usuario'],
+        skills=['analisis-ia-tokens', 'estimacion-horas', 'ingesta-documentos-licitacion', 'matriz-cumplimiento', 'modelos-costos'],
+        extras=[('recursos/licitaciones/<proceso>/', 'Los cuatro documentos oficiales de la licitación en la que trabajas: solo esa, en cada chat.', 4)],
+        no=[('recursos/licitaciones/ (otros procesos)', 'Pesan varios MB y no tienen que ver con la licitación actual.'), ('licitaciones/', 'Los entregables generados por proceso.'), ('wiki/log.md', 'La bitácora histórica.')]),
+    'contract-perfectionist': dict(
+        instr='CLAUDE.md', wiki=['index', 'glosario-clausulas', 'datos-empresa', 'plantilla-verificacion-cruzada'], skills=[],
+        extras=[('recursos/contrato-madre/Contrato Madre - Plantilla Base.docx', 'El contrato madre con las cláusulas estándar.'),
+                ('recursos/Contrato - Plantilla Base.docx', 'La plantilla base con el membrete corporativo.'),
+                ('recursos/alcances/<cliente>/ · recursos/cotizaciones/<cliente>/ · wiki/clientes/<cliente>.md', 'Solo los del cliente cuyo contrato redactas, en cada chat.')],
+        no=[('scripts/', 'build_contract.py ensambla el .docx en tu computador; el Proyecto no lo ejecuta.'), ('contratos/', 'Los contratos finales por cliente.'), ('wiki/log.md · CHANGELOG.md', 'Historiales: no cambian el trabajo del agente.')]),
+}
+
+
+def proyectos():
+    """Selector de agentes (desplegable) y, para el elegido, una ficha en tres pasos: pegar las instrucciones, subir estos archivos y dejar estos fuera.
+    Los datos salen de PROYECTO; el texto de instrucciones se genera con el nombre, el rol y el resumen del agente."""
+    def chips(nombres, k, clase=''):
+        out = ''
+        for n_ in nombres:
+            k[0] += 1
+            out += '<code class="pj-f%s" style="--k:%d">%s</code>' % (clase, k[0], html.escape(n_))
+        return '<span class="pj-fs">%s</span>' % out
+
+    paneles = []
+    for ag in AGENTES:
+        d = PROYECTO[ag['slug']]
+        k = [0]
+        claude = ag['plataforma'] == 'Claude Code'
+        n_extra = sum(e[2] if len(e) > 2 else len(e[0].split(' · ')) for e in d['extras'])
+        subidos = 1 + len(d['wiki']) + len(d['skills']) + n_extra
+        fuera = len(d['no'])
+        # paso 1: instrucciones
+        lim = ('No tienes acceso a mi computador, a Git ni a los scripts del repositorio. No digas que ejecutaste, verificaste o publicaste algo que no pudiste ejecutar. '
+               'Cuando una regla mande correr un script o un comando, dame el comando exacto y qué resultado debo esperar. Entrega cada archivo completo y con su nombre final.'
+               if claude else
+               'Trabaja solo con la búsqueda y las herramientas de Perplexity. Si una regla pide algo que no puedes hacer aquí, dime qué parte no pudiste y cómo la hago yo.')
+        prompt = ['Eres «%s» (%s), un agente del flujo comercial de Campuslands (Full Service). %s' % (ag['nombre'], ag['rol'].lower(), ag['resumen']), '',
+                  'Antes de responder, lee en los archivos de este proyecto: %s (tus reglas completas)%s. Síguelos al pie de la letra.'
+                  % (d['instr'], ' y la wiki' if d['wiki'] else ''), '',
+                  'Si te falta información para trabajar, pídemela; no inventes datos.', '', lim]
+        paso1 = ('<li class="pj-s" style="--i:0"><span class="pj-n">1</span><div class="pj-b"><h4>Pega las instrucciones</h4>'
+                 '<p>En el campo de instrucciones del Proyecto (Claude) o del Space (Perplexity).</p>%s</div></li>' % md.fence('prompt', prompt))
+        # paso 2: archivos que se suben
+        g = '<div class="pj-g"><span class="pj-gl">Reglas del agente</span>%s</div>' % chips([d['instr']], k, ' pj-main')
+        if d['wiki']:
+            g += '<div class="pj-g"><span class="pj-gl">Wiki <em>%d</em></span>%s</div>' % (len(d['wiki']), chips(['wiki/%s.md' % w for w in d['wiki']], k))
+        if d['skills']:
+            g += ('<div class="pj-g"><span class="pj-gl">Habilidades <em>%d</em></span>%s<small>Todas se llaman SKILL.md: súbelas con el nombre de su carpeta.</small></div>'
+                  % (len(d['skills']), chips(['%s-SKILL.md' % x for x in d['skills']], k)))
+        if d['extras']:
+            filas = ''.join('<div class="pj-r">%s<span>%s</span></div>' % (chips(e[0].split(' · '), k), md.inline(e[1])) for e in d['extras'])
+            g += '<div class="pj-g"><span class="pj-gl">Plantillas y documentos</span>%s</div>' % filas
+        paso2 = ('<li class="pj-s" style="--i:1"><span class="pj-n">2</span><div class="pj-b"><h4>Sube estos archivos <em>%d</em></h4>'
+                 '<p>Al conocimiento del Proyecto (Claude) o a los archivos del Space (Perplexity). No admiten carpetas: cada archivo va suelto.</p>%s</div></li>' % (subidos, g))
+        # paso 3: lo que se queda fuera
+        filas = ''.join('<div class="pj-r">%s<span>%s</span></div>' % (chips(r.split(' · '), k, ' pj-no'), md.inline(n_)) for r, n_ in d['no'])
+        paso3 = ('<li class="pj-s" style="--i:2"><span class="pj-n pj-x">3</span><div class="pj-b"><h4>Déjalo fuera</h4><p>No lo subas: no aporta o no se puede usar en un chat.</p>%s</div></li>' % filas)
+        cab = ('<div class="pj-h"><img src="@@REL@@assets/img/%s" alt="" width="40" height="40"><div class="pj-t"><b>%s</b><span>%s</span></div>'
+               '<div class="pj-st"><span><b data-n="%d">%d</b>archivos para subir</span><span><b data-n="%d">%d</b>se quedan fuera</span></div></div>'
+               % ('plataforma-claude.png' if claude else 'plataforma-perplexity.png', html.escape(ag['slug']), html.escape('%s · %s · %s' % (ag['nombre'], ag['plataforma'], d['instr'])), subidos, subidos, fuera, fuera))
+        paneles.append((ag['slug'], '%s // %s · %s' % (ag['slug'], ag['plataforma'], ag['rol']), 'claude' if claude else 'pplx',
+                        '<div class="pj">%s<ol class="pj-steps">%s%s%s</ol></div>' % (cab, paso1, paso2, paso3)))
+    return md._switch('proyecto-agente', paneles, 'menu')
+
+
+
 def galeria(kind, rel, ag=None):
     """Card Stack con las portadas / Coverflow con los logos de los clientes / tabla de comandos «!» del agente."""
     if kind == 'comandos':
         return comandos.tabla_html(ag['slug'], md.inline)
+    if kind == 'proyectos':
+        return proyectos()
     if kind == 'cardstack':
         cards = ''.join('<figure class="cx-card" data-c="%s" data-p="%s"><img data-src="%sassets/img/portadas/%s.webp" width="800" height="450" decoding="async" alt="Portada de la presentación de %s: %s">'
                         '<figcaption>%s · %s</figcaption></figure>'
@@ -158,9 +260,10 @@ TABS_JS = """<script>
   var root = document.documentElement; root.classList.add('js');
   var tabs = [].slice.call(document.querySelectorAll('.tabs [role=tab]')), ind = document.querySelector('.tab-ind'), cur = null;
   if(!tabs.length) return;
+  var RUTAS = ['/inicio', '/inicio/instalacion', '/inicio/usuario', '/inicio/desarrollador'];
   function mover(){ var t = tabs[cur]; ind.style.setProperty('--x', t.offsetLeft + 'px'); ind.style.setProperty('--w', t.offsetWidth + 'px'); }
-  var limpia = /^[/]inicio([/]desarrollador)?[/]?$/.test(location.pathname);      // servida con las direcciones limpias de Vercel
-  function url(i){ if(!limpia) return; try{ history.replaceState(null, '', i ? '/inicio/desarrollador' : '/inicio'); }catch(e){} }
+  var limpia = /^[/]inicio([/](instalacion|usuario|desarrollador))?[/]?$/.test(location.pathname);      // servida con las direcciones limpias de Vercel
+  function url(i){ if(!limpia) return; try{ history.replaceState(null, '', RUTAS[i]); }catch(e){} }
   function ir(i, foco, hash){
     var primera = cur === null; cur = i;
     tabs.forEach(function(t, j){
@@ -168,6 +271,8 @@ TABS_JS = """<script>
       document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
     });
     if(primera){ ind.style.transition = 'none'; mover(); ind.offsetWidth; ind.style.transition = ''; } else { mover(); }
+    var caja = document.querySelector('.tabbar-in');
+    if(caja && caja.scrollWidth > caja.clientWidth + 1){ caja.scrollTo({left: tabs[i].offsetLeft - (caja.clientWidth - tabs[i].offsetWidth) / 2, behavior: primera ? 'auto' : 'smooth'}); }      // móvil: la pestaña activa queda a la vista
     if(foco) tabs[i].focus();
     if(hash){ url(i); }
   }
@@ -178,11 +283,33 @@ TABS_JS = """<script>
       if(n >= 0){ e.preventDefault(); ir(n, true, true); }
     });
   });
-  var dev = /[/]desarrollador[/]?$/.test(location.pathname) || location.hash === '#dev' || location.hash === '#desarrollador';
-  ir(dev ? 1 : 0, false, false);
-  if(location.hash && /^#(dev|usuario|desarrollador)$/.test(location.hash)) url(dev ? 1 : 0);      // enlaces antiguos con # se limpian
+  function panelDe(el){
+    var s = el && el.closest && el.closest('.panel'); if(!s) return -1;
+    for(var j = 0; j < tabs.length; j++){ if(tabs[j].getAttribute('aria-controls') === s.id) return j; }
+    return -1;
+  }
+  var p = location.pathname, h = location.hash, ini = 0, destino = null, antiguo = /^#(dev|usuario|desarrollador)$/.test(h);
+  var porRuta = /[/]desarrollador[/]?$/.test(p) ? 3 : /[/]usuario[/]?$/.test(p) ? 2 : /[/]instalacion[/]?$/.test(p) ? 1 : -1;
+  if(h.length > 1){ try{ destino = document.getElementById(decodeURIComponent(h.slice(1))); }catch(e){} }
+  if(porRuta >= 0){ ini = porRuta; }
+  else if(h === '#dev' || h === '#desarrollador'){ ini = 3; }
+  else if(destino && panelDe(destino) >= 0){ ini = panelDe(destino); }      // un enlace con #ancla abre la pestaña donde está esa sección
+  ir(ini, false, false);
+  if(antiguo || (destino && porRuta < 0 && ini > 0)) url(ini);      // enlaces antiguos con # se limpian; los de una sección toman la dirección de su pestaña
+  if(destino && !antiguo) setTimeout(function(){ if(destino.offsetParent) destino.scrollIntoView(); }, 80);
   window.addEventListener('resize', mover);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(mover);
+  // el índice lleva <base href="/">: un enlace «#ancla» suelto apuntaría a «/». Se resuelve aquí, sin recargar.
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]'); if(!a) return;
+    var id = a.getAttribute('href').slice(1), t = id && document.getElementById(id); if(!t) return;
+    e.preventDefault(); e.stopPropagation();
+    var j = panelDe(t); if(j >= 0 && j !== cur){ ir(j, false, true); }      // la sección está en otra pestaña: se abre
+    try{ history.replaceState(null, '', location.pathname + '#' + id); }catch(x){}
+    window.dispatchEvent(new Event('hashchange'));
+    // desplazamiento suave (el mismo de las guías); si la sección estaba en otra pestaña o panel, se espera a que se muestre
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ if(t.offsetParent && window.irA) window.irA(t); else if(t.offsetParent) t.scrollIntoView(); }); });
+  }, true);      // fase de captura: Lenis no procesa este clic (la sección puede estar en una pestaña oculta)
 })();
 </script>
 """
@@ -215,7 +342,7 @@ def head(title, rel, desc=None, path=None, img=None):
                 '<meta name="twitter:image" content="%s">\n<meta name="twitter:image:alt" content="%s">\n'
                 % (e, url, t, e, url, im, alt, t, e, im, alt))
     return ('<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            '<title>%s</title>\n%s<link rel="icon" type="image/png" href="%sassets/img/favicon.png">\n<link rel="stylesheet" href="%sassets/estilo.css">\n</head>\n<body>\n'
+            '<title>%s</title>\n%s<script>document.documentElement.classList.add("fx")</script>\n<link rel="icon" type="image/png" href="%sassets/img/favicon.png">\n<link rel="stylesheet" href="%sassets/estilo.css">\n</head>\n<body>\n'
             % (html.escape(title), meta, rel, rel))
 
 
@@ -281,13 +408,14 @@ def guide_page(ag, kind, meta, body, toc, words):
     body = re.sub(r'<!--GAL:(\w+)-->', lambda m: galeria(m.group(1), '../', ag), body)
     page = head('%s · fullservice-agents' % re.sub(r'<[^>]+>', '', md.inline(title)), '../', re.sub(r'<[^>]+>', '', md.inline(meta.get('resumen', ''))),
                 '/%s/guia-%s' % (ag['slug'], kind), '%s-%s.png' % (ag['slug'], kind)) + topbar('../', 'guia-%s.pdf' % kind)
+    otras = '<a class="btn ghost" href="guia-%s">%s</a>' % (other, TIPOS[other])      # al pie: la otra mirada del agente
     page += ('<div class="shell"><aside class="toc" data-lenis-prevent><p>En esta guía</p><ol>%s</ol></aside>\n<article>\n'
              '<p class="kicker">%s · %s</p>\n<h1>%s</h1>\n<p class="dek">%s</p>\n'
              '<div class="chips"><span>%s</span><span>%s</span><span>%s</span><span>%d min de lectura</span></div>\n%s\n'
              '<div class="more"><span>¿Buscas la otra mirada de este agente?</span><nav>'
-             '<a class="btn ghost" href="guia-%s">%s</a><a class="btn ghost" href="../inicio">Todas las guías</a></nav></div>\n</article></div>\n%s\n%s\n</body>\n</html>\n'
+             '%s<a class="btn ghost" href="../inicio">Todas las guías</a></nav></div>\n</article></div>\n%s\n%s\n</body>\n</html>\n'
              % (tocs, TIPOS[kind], html.escape(ag['slug']), md.inline(title), md.inline(meta.get('resumen', '')),
-                FECHA, TIPOS[kind], plat(ag, '../'), mins, body, other, TIPOS[other], scripts('../'), JS))
+                FECHA, TIPOS[kind], plat(ag, '../'), mins, body, otras, scripts('../'), JS))
     return page
 
 
@@ -295,6 +423,16 @@ def corto(titulo):
     """Título sin el prefijo «<repo>: » (en el índice el nombre del repo ya va a la izquierda de la fila)."""
     t = re.sub(r'^[^:]+:\s*', '', titulo)
     return t[:1].upper() + t[1:]
+
+
+def panel_md(archivo, pid, tid):
+    """Panel del índice hecho con contenido/<archivo> (pestañas «Inicio» e «Instalación»), con su índice lateral."""
+    meta, body, toc, words = md.convert((SRC / 'contenido' / archivo).read_text(encoding='utf-8'))
+    body = re.sub(r'<!--GAL:(\w+)-->', lambda m: galeria(m.group(1), '', None), body)
+    body = body.replace('@@REL@@', '')
+    tocs = ''.join('<li><a href="#%s">%s</a></li>' % (i, html.escape(t)) for i, t in toc)
+    return ('<section class="panel" id="%s" role="tabpanel" aria-labelledby="%s"><div class="shell"><aside class="toc" data-lenis-prevent><p>En esta página</p><ol>%s</ol></aside>'
+            '<article>%s</article></div></section>' % (pid, tid, tocs, body))
 
 
 def index_page(items, path='/inicio'):
@@ -319,16 +457,19 @@ def index_page(items, path='/inicio'):
     page += ('<section class="banner"><div class="banner-in"><h1 class="wave" data-wave>fullservice-agents</h1>'
              '<p class="dek">Esta web es la guía de los agentes de este repositorio. Reúne, para cada uno de los siete agentes, '
              'una <strong>guía de usuario</strong>, sin tecnicismos, para quien lo usa todos los días, y una <strong>guía de desarrollador</strong>, '
-             'para quien lo mantiene: carpetas, ciclos de trabajo, formatos, reglas y scripts. Léelas aquí o descárgalas en PDF.</p></div>%s</section>\n'
-             '<nav class="tabbar"><div class="tabbar-in"><div class="tabs" role="tablist" aria-label="Tipo de guía">'
-             '<button type="button" role="tab" id="tab-usuario" aria-controls="usuario" aria-selected="true">Guía de usuario</button>'
+             'para quien lo mantiene: carpetas, ciclos de trabajo, formatos, reglas y scripts. Si es tu primera vez, empieza por <strong>Inicio</strong> y sigue con <strong>Instalación</strong>: '
+             'cómo instalar el repositorio y cómo usar los agentes.</p></div>%s</section>\n'
+             '<nav class="tabbar"><div class="tabbar-in"><div class="tabs" role="tablist" aria-label="Secciones">'
+             '<button type="button" role="tab" id="tab-inicio" aria-controls="inicio" aria-selected="true">Inicio</button>'
+             '<button type="button" role="tab" id="tab-instalacion" aria-controls="instalar" aria-selected="false" tabindex="-1">Instalación</button>'
+             '<button type="button" role="tab" id="tab-usuario" aria-controls="usuario" aria-selected="false" tabindex="-1">Guía de usuario</button>'
              '<button type="button" role="tab" id="tab-dev" aria-controls="dev" aria-selected="false" tabindex="-1">Guía de desarrollador</button>'
              '<span class="tab-ind" aria-hidden="true"></span></div></div></nav>\n'
-             '<main class="home">'
+             '<main class="home">%s%s'
              '<section class="panel" id="usuario" role="tabpanel" aria-labelledby="tab-usuario"><h2>Guías de usuario</h2><p class="sub">En el orden del flujo comercial, de la prospección al contrato.</p><div class="agents">%s</div></section>'
              '<section class="panel" id="dev" role="tabpanel" aria-labelledby="tab-dev"><h2>Guías de desarrollador</h2><p class="sub">Cómo está construido cada agente y cómo se mantiene.</p><div class="agents">%s</div></section></main>\n%s'
              '<footer class="site"><span>Campuslands S.A.S. BIC · Full Service</span>%s</footer>\n%s\n</body>\n</html>\n'
-             % (BANNER_ART, rows('usuario'), rows('dev'), TABS_JS + ART_JS, dock(''), scripts('')))
+             % (BANNER_ART, panel_md('inicio.md', 'inicio', 'tab-inicio'), panel_md('instalacion.md', 'instalar', 'tab-instalacion'), rows('usuario'), rows('dev'), TABS_JS + ART_JS + JS, dock(''), scripts('')))
     return page
 
 
@@ -344,6 +485,7 @@ def make_pdf(html_path, pdf_path, title):
         pg.emulate_media(media='print')
         pg.evaluate('document.fonts.ready')
         pg.evaluate('window.cargarImagenes && window.cargarImagenes()')            # los carruseles cargan sus imágenes bajo demanda: aquí, todas
+        pg.evaluate('window.revelarTodo && window.revelarTodo()')                  # los componentes que se animan al verse aparecen ya completos
         pg.wait_for_function('[...document.images].every(i => i.complete)', timeout=30000)
         pg.wait_for_timeout(500)
         pg.pdf(path=str(pdf_path), format='A4', print_background=True, display_header_footer=True, header_template=hdr, footer_template=ftr,
@@ -387,9 +529,11 @@ def build(only=None, pdf=True):
             print('  %-26s %-8s %5d palabras · %d secciones' % (ag['slug'], kind, words, len(toc)))
             if pdf:
                 make_pdf(hp, out / ('guia-%s.pdf' % kind), '%s · %s' % (ag['slug'], TIPOS[kind]))
-    # El índice son dos archivos reales (misma página; solo cambia su dirección canónica) para que Vercel los sirva con cleanUrls, sin reescrituras.
+    # El índice son cuatro archivos reales (misma página; solo cambia su dirección canónica) para que Vercel los sirva con cleanUrls, sin reescrituras.
     (ROOT / 'inicio').mkdir(exist_ok=True)
     (ROOT / 'inicio.html').write_text(index_page(items, '/inicio'), encoding='utf-8')
+    (ROOT / 'inicio' / 'instalacion.html').write_text(index_page(items, '/inicio/instalacion'), encoding='utf-8')
+    (ROOT / 'inicio' / 'usuario.html').write_text(index_page(items, '/inicio/usuario'), encoding='utf-8')
     (ROOT / 'inicio' / 'desarrollador.html').write_text(index_page(items, '/inicio/desarrollador'), encoding='utf-8')
 
 

@@ -296,7 +296,61 @@ Además se copia el logo del cliente **sin procesar** a `presentaciones/decks/as
 
 ### Commit, push y link
 
-Dentro de `presentaciones/`: `git add .`, `git commit -m "feat: <Nombre Comercial de la Empresa>"` y `git push`. Al terminar, el agente comparte el link `https://fullservicepresentations.vercel.app/<slug>/index.html`. Si no pudo confirmar que el despliegue ya está publicado, **lo dice**.
+Dentro de `presentaciones/`: `git add .`, `git commit -m "feat: <Nombre Comercial de la Empresa>"` y `git push`. Al terminar, el agente comparte el link `https://fullservicepresentations.vercel.app/<slug>/index.html` y **avisa de que la web tarda aproximadamente 2 minutos en reflejar el cambio**. Si no pudo confirmar que el despliegue ya está publicado, **lo dice**. Los permisos y el detalle del despliegue están en la sección siguiente.
+
+## El repositorio aparte y su publicación
+
+`presentaciones/` no es un submódulo: el repositorio raíz solo la registra como un puntero (sin `.gitmodules`), así que un `git clone` del raíz la deja **vacía**. Se clona aparte, en esa ruta exacta; si no, el agente no encuentra `decks/_plantilla-campuslands/` y sus comandos de `git` resuelven al repositorio equivocado.
+
+```repos
+fullservice-agents | Repositorio 1 | Las instrucciones, la wiki y las herramientas del agente, junto con los demás agentes.
+Presentaciones | Repositorio 2 · aparte | Las presentaciones ya hechas y el portal web. Es lo que publica Vercel. | decks/, web/
+agents/claude-agents/presentations-designer | presentaciones/
+git clone https://github.com/GustavoAdolfoNavarroPacheco/Presentaciones presentaciones
+```
+
+### Instalación correcta
+
+```bash
+git clone https://github.com/GustavoAdolfoNavarroPacheco/fullservice-agents
+cd fullservice-agents/agents/claude-agents/presentations-designer
+git clone https://github.com/GustavoAdolfoNavarroPacheco/Presentaciones presentaciones
+git -C presentaciones remote -v          # origin ... Presentaciones
+git -C presentaciones status -sb         # ## main...origin/main
+```
+
+En Windows, activa antes `git config --global core.longpaths true` y clona en una ruta corta (`C:\dev`): el repositorio raíz tiene archivos con nombres muy largos. La versión para usuarios no técnicos, con un mensaje que se le da a la IA, está en [Instalación](../inicio/instalacion#instalacion).
+
+### Permisos
+
+`Presentaciones` es **privado**: sin acceso falla incluso el clon («Repository not found»). El acceso lo concede Gustavo Navarro agregando a la persona como **colaborador con permiso de escritura**; el inicio de sesión lo hace cada quien en el navegador (Git Credential Manager o `gh auth login`). El agente no pide, guarda ni recibe contraseñas ni tokens.
+
+### Qué hace el agente
+
+Estas reglas están en la sección «Repositorio aparte y publicación» de su `CLAUDE.md`:
+
+| Situación | Qué hace el agente |
+|---|---|
+| Al empezar, `presentaciones/` no existe, está vacía o no es su propio repositorio | Guía el clon en la ruta exacta. No crea otra carpeta ni copia decks a mano |
+| Va a hacer el primer `git push` de la sesión | Recuerda que necesita permiso de escritura de Gustavo en `Presentaciones` |
+| El `push` falla con `403` o *Permission denied* | Se detiene, explica que falta el permiso y a quién pedirlo. No usa *forks*, otros remotos ni otras credenciales |
+| Termina un `push` | Informa que la web tarda aproximadamente 2 minutos, comparte el link y no afirma que está publicado hasta confirmarlo |
+| Le preguntan cómo funciona la web | Explica la zona privada (`/`), los links públicos (`/<slug>`) y el registro en `decks.ts` |
+
+### Qué ocurre después del push
+
+Vercel está conectado al repositorio `Presentaciones` (rama `main`). Cada push dispara un build: `npm run sync:decks` copia `decks/` a `web/public/`, Next.js compila el portal y el despliegue queda en línea. Todo el proceso tarda **aproximadamente 2 minutos**.
+
+```publicar
+Push a main | Los archivos suben a GitHub.
+Vercel lo detecta | Empieza un build nuevo.
+Build | sync:decks y compilación del portal.
+En línea | El link muestra la versión nueva.
+≈ 2 min
+```
+
+- Durante ese tiempo el link puede dar 404 o mostrar la versión anterior; la caché del navegador se salta con `Ctrl + F5`.
+- Si pasan más de cinco minutos, se revisa el último despliegue en el panel de Vercel: las causas habituales son un `decks.ts` con un campo obligatorio ausente (como `colors`) o un error de TypeScript.
 
 ## El portal web
 
