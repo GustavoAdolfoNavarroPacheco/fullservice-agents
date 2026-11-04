@@ -31,6 +31,20 @@ El diseño no se negocia por cliente, y eso te ahorra decisiones:
 - Los colores de la presentación son siempre los de Campuslands. **Del cliente se usa su logo y su contenido**, no sus colores.
 - Un máximo de **10 láminas**.
 
+## Lo que ya hemos construido
+
+Estas son las portadas de algunas de las presentaciones que el agente ya entregó. Arrastra la pila, usa las flechas o pasa el cursor por encima para abrirla en abanico: verás que todas comparten el mismo diseño y solo cambian el cliente, el proyecto y el contenido.
+
+```cardstack
+```
+
+### Empresas con las que hemos trabajado
+
+El logo de cada cliente entra en la portada y el cierre de su presentación. Aquí están todos, con sus colores originales: pasa el cursor, usa las flechas o arrastra para recorrerlos.
+
+```coverflow
+```
+
 ## Qué necesitas darle
 
 Si falta información, el agente te enviará un cuestionario. Puedes adelantarte reuniendo estas seis cosas:
