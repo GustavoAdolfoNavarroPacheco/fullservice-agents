@@ -89,16 +89,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-Length', str(len(data)))
             self.end_headers()
             return io.BytesIO(data)
-        # Mismas direcciones limpias que en Vercel (vercel.json): / y /index.html → /inicio; /inicio y /inicio/desarrollador sirven el índice;
+        # Mismas direcciones limpias que en Vercel (vercel.json): / y /index.html → /inicio;
         # las páginas se piden sin «.html» (con «.html» se redirige a la limpia).
         raw, _, qs = self.path.partition('?')
         if raw in ('/', '/index', '/index.html'):
             return self.redirigir('/inicio')
         if raw.endswith('.html'):
             return self.redirigir(raw[:-5] + ('?' + qs if qs else ''))
-        if raw.rstrip('/') in ('/inicio', '/inicio/desarrollador'):
-            self.path = '/index.html'
-        elif '.' not in raw.rsplit('/', 1)[-1] and (ROOT / (raw.lstrip('/') + '.html')).exists():
+        if '.' not in raw.rsplit('/', 1)[-1] and (ROOT / (raw.lstrip('/') + '.html')).exists():
             self.path = raw + '.html'
         path = pathlib.Path(self.translate_path(self.path))
         if path.is_dir():

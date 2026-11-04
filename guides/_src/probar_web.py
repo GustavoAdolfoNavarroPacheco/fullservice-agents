@@ -134,7 +134,7 @@ with sync_playwright() as p:
     print('\n== vista previa del enlace (Open Graph / Twitter)')
     pg = b.new_page()
     sitio = 'https://fullservice-agents.vercel.app'
-    for ruta in ('/inicio', '/prospection-agent/guia-usuario', '/presentations-designer/guia-dev', '/contract-perfectionist/guia-usuario'):
+    for ruta in ('/inicio', '/inicio/desarrollador', '/prospection-agent/guia-usuario', '/presentations-designer/guia-dev', '/contract-perfectionist/guia-usuario'):
         pg.goto(BASE + ruta)
         m = pg.evaluate("(() => { const g = (s) => { const e = document.querySelector(s); return e ? e.content || e.href : null; }; return {t: g('meta[property=\"og:title\"]'), d: g('meta[property=\"og:description\"]'), i: g('meta[property=\"og:image\"]'), u: g('meta[property=\"og:url\"]'), c: document.querySelector('link[rel=canonical]').href, w: g('meta[property=\"og:image:width\"]'), h: g('meta[property=\"og:image:height\"]'), tc: g('meta[name=\"twitter:card\"]'), ti: g('meta[name=\"twitter:image\"]'), de: g('meta[name=\"description\"]')}; })()")
         okm = all(m.get(k) for k in ('t', 'd', 'i', 'u', 'c', 'tc', 'ti', 'de')) and m['i'].startswith(sitio + '/assets/img/preview/') and m['u'] == m['c'] == sitio + ruta and m['i'] == m['ti'] and (m['w'], m['h']) == ('1200', '630') and m['tc'] == 'summary_large_image'

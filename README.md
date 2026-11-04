@@ -162,7 +162,7 @@ fullservice-agents/
 ├── resources/
 │   ├── campuslands-resources/
 │   └── companies-logos/
-└── guides/                           # index.html · <agente>/guia-*.html|pdf · assets/ · _src/
+└── guides/                           # inicio.html · inicio/desarrollador.html · <agente>/guia-*.html|pdf · assets/ · _src/
 ```
 
 ---
