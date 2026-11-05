@@ -466,9 +466,9 @@ def index_page(items, path='/inicio'):
     page = head('Guías de los agentes · fullservice-agents', '', 'Guías de usuario y de desarrollador de los siete agentes del flujo comercial de Campuslands, de la prospección al contrato. En línea y en PDF.',
                 path, 'home.png').replace('<meta charset="UTF-8">\n', '<meta charset="UTF-8">\n<base href="/">\n', 1) + topbar('')
     page += ('<section class="banner"><div class="banner-in"><h1 class="wave" data-wave>fullservice-agents</h1>'
-             '<p class="dek">Siete agentes de IA que acompañan el trabajo comercial de Campuslands, desde encontrar empresas hasta firmar el contrato. '
-             'Aquí aprendes a instalarlos y a usarlos. Si es tu primera vez, empieza por <strong>Inicio</strong> y sigue con <strong>Instalación</strong>. '
-             'Si ya los usas, la <strong>guía de usuario</strong> te dice qué pedirle a cada agente y la <strong>guía de desarrollador</strong>, cómo está construido y cómo se mantiene.</p></div>%s</section>\n'
+             '<p class="dek">Documentación de los siete agentes de IA del flujo comercial de Campuslands, de la prospección al contrato. '
+             'Contiene la descripción del repositorio (<strong>Inicio</strong>), los procedimientos de <strong>instalación</strong>, '
+             'la <strong>guía de usuario</strong> de cada agente (entradas, flujo y resultados) y su <strong>guía de desarrollador</strong> (construcción y mantenimiento).</p></div>%s</section>\n'
              '<nav class="tabbar"><div class="tabbar-in"><div class="tabs" role="tablist" aria-label="Secciones">'
              '<button type="button" role="tab" id="tab-inicio" aria-controls="inicio" aria-selected="true">Inicio</button>'
              '<button type="button" role="tab" id="tab-instalacion" aria-controls="instalar" aria-selected="false" tabindex="-1">Instalación</button>'

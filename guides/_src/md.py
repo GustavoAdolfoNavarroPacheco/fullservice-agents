@@ -175,21 +175,44 @@ def _paleta(body):
 
 
 def _repos(body):
-    """Dos repositorios, uno dentro del otro: la carpeta del segundo llega vacía al clonar el primero y se «llena» al clonarlo aparte.
-    Líneas: repositorio 1 | etiqueta | descripción  ·  repositorio 2 | etiqueta | descripción | contenido (separado por comas)  ·  ruta | carpeta  ·  comando."""
+    """Dos repositorios y una carpeta: el repositorio 1 trae la carpeta del segundo VACÍA y el segundo se clona dentro de ella. Se dibuja como dos pasos
+    (antes y después) con el estado de la carpeta. Líneas: repositorio 1 | etiqueta | descripción  ·  repositorio 2 | etiqueta | descripción | contenido (separado por comas)
+    ·  ruta | carpeta  ·  comando."""
     ln = [l.strip() for l in body if l.strip()]
     a = [x.strip() for x in ln[0].split('|')]
     b = [x.strip() for x in ln[1].split('|')]
     ruta, carpeta = [x.strip() for x in ln[2].split('|')]
     cmd = ln[3] if len(ln) > 3 else ''
-    segs = ''.join('<span>%s</span>' % html.escape(s) for s in ruta.strip('/').split('/'))
-    files = ''.join('<code>%s</code>' % html.escape(f.strip()) for f in (b[3].split(',') if len(b) > 3 else []))
-    return ('<figure class="repos" data-reveal><div class="rp-a"><div class="rp-h"><span class="rp-n">1</span><b>%s</b><i>%s</i></div><p class="rp-d">%s</p>'
-            '<div class="rp-path" aria-label="Ruta dentro del repositorio 1">%s</div>'
-            '<div class="rp-slot"><div class="rp-hole"><span>%s</span><small>llega vacía al clonar el repositorio 1</small></div>'
-            '<div class="rp-b"><div class="rp-h"><span class="rp-n">2</span><b>%s</b><i>%s</i><span class="rp-folder">carpeta %s</span></div><p class="rp-d">%s</p><div class="rp-files">%s</div></div></div></div>'
-            '<figcaption><code>%s</code><button type="button" class="rp-replay">Ver otra vez</button></figcaption></figure>'
-            % (html.escape(a[0]), html.escape(a[1]), inline(a[2]), segs, html.escape(carpeta), html.escape(b[0]), html.escape(b[1]), html.escape(carpeta), inline(b[2]), files, html.escape(cmd)))
+    raiz = ruta.strip('/').split('/')[-1] + '/'
+    contenido = [f.strip() for f in (b[3].split(',') if len(b) > 3 else []) if f.strip()]
+    e = html.escape
+
+    def arbol(nuevo):
+        lineas = ['<span class="rp-l rp-root">%s</span>' % e(raiz), '<span class="rp-l">├─ … archivos del agente</span>',
+                  '<span class="rp-l rp-dir">└─ %s</span>' % e(carpeta)]
+        if nuevo:
+            for i, f in enumerate(contenido):
+                lineas.append('<span class="rp-l rp-new" style="--i:%d">   %s %s</span>' % (i, '└─' if i == len(contenido) - 1 else '├─', e(f)))
+        else:
+            lineas.append('<span class="rp-l rp-hole">   └─ (vacía)</span>')
+        return '<div class="rp-tree">%s</div>' % ''.join(lineas)
+
+    return ('<figure class="repos" data-reveal>'
+            '<p class="rp-path"><small>Ruta dentro del repositorio 1</small><code>%s</code></p>'
+            '<div class="rp-cols">'
+            '<div class="rp-a"><p class="rp-step">Paso 1 · clonar el repositorio 1</p>'
+            '<div class="rp-h"><span class="rp-n">1</span><b>%s</b><i>%s</i></div><p class="rp-d">%s</p>'
+            '<p class="rp-lab">Así queda la carpeta</p>%s'
+            '<p class="rp-nota">La carpeta <code>%s</code> llega <b>vacía</b>: Git no trae el contenido del repositorio 2.</p></div>'
+            '<div class="rp-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>'
+            '<div class="rp-b"><p class="rp-step">Paso 2 · clonar el repositorio 2 dentro de esa carpeta</p>'
+            '<div class="rp-h"><span class="rp-n">2</span><b>%s</b><i>%s</i></div><p class="rp-d">%s</p>'
+            '<p class="rp-lab">Así queda la carpeta</p>%s'
+            '<p class="rp-nota">Su contenido queda <b>dentro</b> de <code>%s</code>, con ese nombre exacto.</p></div>'
+            '</div>'
+            '<figcaption><span class="rp-cmd"><small>Comando del paso 2</small><code>%s</code></span><button type="button" class="rp-replay">Ver otra vez</button></figcaption></figure>'
+            % (e(ruta.strip('/')), e(a[0]), e(a[1]), inline(a[2]), arbol(False), e(carpeta),
+               e(b[0]), e(b[1]), inline(b[2]), arbol(True), e(carpeta), e(cmd)))
 
 
 def _publicar(body):

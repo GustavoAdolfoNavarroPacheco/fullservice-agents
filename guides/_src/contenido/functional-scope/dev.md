@@ -3,7 +3,7 @@ titulo: functional-scope: guía técnica
 resumen: Cómo analiza el agente las fuentes de un proyecto, qué flujo sigue, cómo construye el documento Word y qué controles aplica antes de entregarlo.
 ---
 
-## En resumen
+## Descripción general
 
 El **Agente de Alcances Funcionales** (`functional-scope`) actúa como Product Manager senior, analista de negocio y consultor de soluciones de software. Lee las fuentes de un proyecto (propuestas, actas, cotizaciones, notas), extrae hechos y decisiones con su fuente, detecta contradicciones y vacíos, y redacta el **documento de alcance funcional** dirigido al cliente, **sin inventar compromisos**.
 
@@ -15,7 +15,7 @@ Esta guía explica cómo está construido: las reglas del manual que lo gobierna
 3 | estados siempre visibles: CONFIRMADO, PROPUESTO y PENDIENTE
 8 | etapas del flujo, de la recepción a la entrega
 16 | secciones de contenido en el documento al cliente
-14 | reglas duras que no se negocian
+14 | reglas obligatorias
 ```
 
 > [!importante] Lo esencial

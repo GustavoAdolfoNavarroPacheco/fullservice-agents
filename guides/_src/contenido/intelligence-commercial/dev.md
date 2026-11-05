@@ -3,7 +3,7 @@ titulo: intelligence-commercial: guía técnica
 resumen: Cómo funciona por dentro el agente de inteligencia comercial: fases, habilidades, filtros de LinkedIn, formatos, salvaguardas y mantenimiento.
 ---
 
-## En resumen
+## Descripción general
 
 **Explorador de Campus** (`intelligence-commercial`) es el agente de inteligencia comercial B2B y prospección saliente (*outbound*) de Campuslands. Parte de una lista de empresas objetivo, la enriquece, identifica a los contactos clave de cada empresa, detecta en qué idioma escribe cada persona y le envía, **de forma autónoma**, una solicitud de conexión de LinkedIn con una nota personalizada.
 

@@ -1,32 +1,32 @@
 ---
 titulo: functional-scope: cómo obtener el documento de alcance de un proyecto
-resumen: Qué archivos entregarle, qué recibes, cómo leer los estados y los pendientes y cómo revisar el documento antes de enviarlo al cliente.
+resumen: Archivos de entrada, estados de los datos, pendientes, resultados y criterios de revisión del documento de alcance funcional.
 ---
 
-## En resumen
+## Descripción general
 
-El **Agente de Alcances Funcionales** (`functional-scope`) lee los archivos de un proyecto (propuestas, actas de reunión, cotizaciones, notas, correos) y redacta con ellos el **documento de alcance funcional** que se entrega al cliente: qué incluye el proyecto, qué no, cómo se aceptará cada entrega y qué falta por definir.
+El **Agente de Alcances Funcionales** (`functional-scope`) lee los archivos de un proyecto (propuestas, actas de reunión, cotizaciones, notas y correos) y redacta con ellos el **documento de alcance funcional** que se entrega al cliente: qué incluye el proyecto, qué queda excluido, cómo se acepta cada entrega y qué está pendiente de definir.
 
-Su regla principal es **no inventar compromisos**. Todo lo que escribe sale de tus archivos; lo que no está, queda marcado como pendiente para que alguien lo resuelva. Y trabaja rápido: analiza todo y te entrega un borrador en el mismo momento, sin entrevistarte.
+El documento contiene solo lo que consta en los archivos. La información que falta se marca como pendiente y se asigna a un responsable para su validación. El agente analiza todo el material y entrega un borrador en el mismo turno, sin entrevistar al usuario.
 
 ```stats
-0 | compromisos inventados: solo lo que dicen tus archivos
 3 | estados para cada dato: confirmado, propuesto o pendiente
-1 | documento en Word editable, más un resumen y la lista de pendientes
+1 | documento Word editable
+2 | documentos de apoyo: un resumen y la lista de pendientes
 ```
 
-> [!tip] Si solo tienes un minuto
-> Deja los archivos del proyecto en la carpeta del cliente y escríbele: «Haz el alcance funcional de este proyecto». Eso es todo lo que necesita para empezar.
+> [!nota] Requisito principal
+> Los archivos del proyecto se dejan en la carpeta del cliente. El agente asume que son toda la información disponible y marca como pendiente lo que no consta en ellos.
 
-## Para qué sirve
+## Cuándo se usa
 
-Úsalo cuando tengas un proyecto con información dispersa (una propuesta aprobada, varias actas, una cotización) y necesites **un único documento claro** para el cliente y para el equipo técnico. Es especialmente útil cuando las fuentes se contradicen o tienen vacíos, porque el agente los detecta y los muestra en lugar de ocultarlos.
+El agente se usa cuando un proyecto tiene información dispersa (una propuesta aprobada, varias actas, una cotización) y se requiere **un único documento claro** para el cliente y para el equipo técnico. Cuando las fuentes se contradicen o tienen vacíos, el agente los detecta y los muestra en lugar de omitirlos.
 
-### Qué no es
+### Límites
 
-No reemplaza la aprobación de nadie. El documento resultante necesita revisión **técnica, comercial y jurídica** antes de firmarse, y el agente la pide donde corresponde. Tampoco es un contrato: es la descripción funcional del proyecto.
+El documento no sustituye ninguna aprobación: requiere revisión **técnica, comercial y jurídica** antes de firmarse, y el agente la solicita donde corresponde. Tampoco es un contrato: describe funcionalmente el proyecto.
 
-## Antes de empezar
+## Requisitos previos
 
 Reúne y deja en la carpeta del cliente todo lo que tengas del proyecto:
 
@@ -35,8 +35,8 @@ Reúne y deja en la carpeta del cliente todo lo que tengas del proyecto:
 - **Notas** que expliquen lo que el cliente espera.
 - **Versiones anteriores del documento**, si existen.
 
-> [!importante] Lo que compartes es todo lo que hay
-> El agente asume que los archivos que le das **son toda la información disponible**. No te hará preguntas sobre lo que falta: lo marcará como pendiente. Por eso conviene que no omitas ningún documento importante.
+> [!importante] Los archivos entregados son toda la información disponible
+> El agente asume que los archivos entregados **son toda la información disponible**. No formula preguntas sobre lo que falta: lo marca como pendiente. Por eso se recomienda no omitir ningún documento importante.
 
 ### Dónde dejar los archivos
 
@@ -110,7 +110,7 @@ Tú: Genera la versión 0.2 con estos cambios, sin borrar la 0.1.
 Agente: Listo. La versión 0.2 quedó en la carpeta de entrega; la 0.1 se conserva sin cambios.
 ```
 
-## Qué recibes
+## Resultados
 
 ```cards
 El documento en Word | Editable, con portada, carta de presentación, tabla de contenido, 16 secciones, anexos y hoja de firmas.
@@ -191,7 +191,7 @@ Estos son los comandos de este agente:
 ```comandos
 ```
 
-## Lo que el agente no hace
+## Límites del agente
 
 | Si le pides… | Qué pasa | Qué hacer |
 |---|---|---|
@@ -234,6 +234,6 @@ Solo si pides un documento listo para firma. En los borradores la firma de la re
 | Pendiente bloqueante | Un dato faltante que impide cerrar el alcance |
 | Trazabilidad | Poder saber de dónde sale cada dato |
 
-## Si algo no funciona
+## Solución de problemas
 
 Si el agente no encuentra un archivo, revisa que esté en la carpeta `fuentes` del cliente. Si el documento te parece incompleto, revisa primero la lista de pendientes: lo que falta suele estar ahí. Si el comportamiento se repite o parece una falla, avisa a quien mantiene el agente; su guía técnica explica el flujo completo.

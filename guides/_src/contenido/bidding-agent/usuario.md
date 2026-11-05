@@ -1,43 +1,43 @@
 ---
 titulo: bidding-agent: cómo preparar la propuesta de una licitación
-resumen: Qué documentos entregarle, cómo responder sus preguntas, qué recibes y cómo revisar la propuesta antes de radicarla.
+resumen: Documentos de entrada, flujo de trabajo, archivos generados y criterios de revisión de la propuesta de una licitación.
 ---
 
-## En resumen
+## Descripción general
 
-El **Agente Licitatorio** (`bidding-agent`) te ayuda a responder una licitación de software. Tú le entregas los **cuatro documentos oficiales** del proceso; él los lee completos, detecta contradicciones y huecos, y construye la propuesta: el documento técnico, la estimación de horas, las consideraciones técnicas, un análisis de inteligencia artificial si hace falta y los dos modelos de costos llenados.
+El **Agente Licitatorio** (`bidding-agent`) analiza los documentos oficiales de un proceso de licitación de software y genera la propuesta de Campuslands: el documento técnico, la estimación de horas, las consideraciones técnicas, un análisis de inteligencia artificial cuando el alcance lo requiere y los dos modelos de costos diligenciados.
 
-Su principio es que la propuesta debe poder **defenderse ante el comité evaluador**: cada afirmación se apoya en un documento oficial, y nada se inventa.
+La propuesta se construye únicamente con la documentación oficial del proceso. Cada afirmación se respalda en un documento y el agente no incorpora datos que no consten en él.
 
 ```stats
-4 | documentos oficiales es todo lo que necesita para empezar
-0 | requerimientos olvidados: cada uno tiene su fila de respuesta
-2 | modelos de costos que se llenan y se concilian
+4 | documentos oficiales de entrada por licitación
+2 | modelos de costos que se diligencian y se concilian
+9 | archivos de salida como máximo; el de IA es condicional
 ```
 
-> [!tip] Lo más importante
-> Dale **siempre** las aclaraciones del proceso junto con el RFP. Si cotizas sobre un alcance que las aclaraciones ya cambiaron, el error sale caro.
+> [!nota] Requisito principal
+> Las aclaraciones del proceso deben entregarse junto con el RFP. Prevalecen sobre él cuando modifican el alcance, y una estimación hecha sobre un alcance ya modificado produce errores de precio.
 
-## Para qué sirve
+## Cuándo se usa
 
-Úsalo cuando Campuslands decida participar en un proceso de licitación o convocatoria formal con requisitos escritos, plazos y un formato oficial de costos. No es para propuestas comerciales informales: para esas están los agentes de presentaciones y de cotizaciones.
+El agente se usa cuando Campuslands decide participar en un proceso de licitación o convocatoria formal con requisitos escritos, plazos y un formato oficial de costos. No aplica a propuestas comerciales informales: para esas existen los agentes de presentaciones y de cotizaciones.
 
-### Qué pasa si los documentos se contradicen
+### Prioridad entre documentos
 
-Hay un orden de prioridad que el agente aplica siempre:
+Cuando los documentos se contradicen, el agente aplica siempre este orden de prioridad:
 
 ```flow
-Aclaraciones | Gana siempre: es lo más reciente y vinculante.
+Aclaraciones | Prevalecen siempre: son lo más reciente y vinculante.
 Adendas | Modificaciones formales al RFP.
-RFP original | La base del alcance.
-Modelo de costos oficial | Solo manda en la forma de costear.
+RFP original | Base del alcance.
+Modelo de costos oficial | Solo rige la forma de costear.
 ```
 
-Si una contradicción cambia el alcance o el precio de forma importante, el agente **no decide por su cuenta**: te la presenta y te pregunta.
+Si una contradicción modifica de forma importante el alcance o el precio, el agente no decide por su cuenta: la presenta al usuario y consulta.
 
-## Qué necesitas darle
+## Entradas requeridas
 
-Los **cuatro documentos** del proceso, sin excepción:
+Se requieren los **cuatro documentos** del proceso, sin excepción:
 
 ```cards
 1 · El RFP | El documento oficial con el alcance, los requerimientos, los plazos y los criterios de evaluación.
@@ -61,7 +61,7 @@ recursos/
 ```
 
 > [!importante] Si falta uno, el agente se detiene
-> Si no están los cuatro, te lo dirá y preguntará antes de construir. Si realmente un documento no existe en ese proceso, díselo con claridad: quedará registrado.
+> Si no están los cuatro, el agente lo informa y pregunta antes de construir. Si un documento realmente no existe en ese proceso, debe indicarse con claridad: queda registrado.
 
 ## Paso a paso
 
@@ -125,7 +125,7 @@ Tú: ¿El cronograma cabe en el plazo que exige el RFP?
 Agente: Con las horas estimadas y el equipo propuesto, el plazo es factible. El cálculo está en el archivo de estimación: horas totales, días hábiles exigidos, y personas requeridas frente a las propuestas.
 ```
 
-## Qué recibes
+## Resultados
 
 Todo queda en una carpeta propia del proceso, con archivos numerados:
 
@@ -156,7 +156,7 @@ Toda propuesta dice por escrito si el alcance requiere servicios de inteligencia
 - **La conclusión sobre IA:** ¿dice sí o no, y por qué?
 
 > [!nota] La matriz es una herramienta de decisión
-> No es un documento de ventas. Si el agente marcara todo como «Cumple», la matriz perdería su valor. Prefiere decirte con claridad qué no se puede cumplir.
+> La matriz es un instrumento de decisión, no un documento comercial. Si todos los requerimientos figuraran como «Cumple», perdería su utilidad; por eso el agente declara con claridad lo que no se puede cumplir.
 
 ## Cuando el plazo no alcanza
 
@@ -182,7 +182,7 @@ Estos son los comandos de este agente:
 ```comandos
 ```
 
-## Lo que el agente no hace
+## Límites del agente
 
 | Si le pides… | Qué pasa | Qué hacer |
 |---|---|---|
@@ -226,6 +226,6 @@ Sí, pero pídele que vuelva a verificar: un cambio puede afectar las horas, los
 | Tokens | La unidad en que se mide el uso de los modelos de IA |
 | Radicar | Presentar formalmente la propuesta a la entidad |
 
-## Si algo no funciona
+## Solución de problemas
 
 Si el agente no encuentra un documento, revisa que esté en la carpeta del proceso con un nombre claro. Si los totales no cuadran o la propuesta parece incompleta, revisa la verificación cruzada: ahí quedan los hallazgos. Si el problema persiste, avisa a quien mantiene el agente; su guía técnica explica cada habilidad en detalle.

@@ -1,24 +1,24 @@
 ---
 titulo: Instalación: instala el repositorio y usa los agentes
-resumen: Cómo instalar fullservice-agents en tu computador, cómo clonar bien el repositorio aparte de las presentaciones, cómo pedir permiso para publicar y cómo montar un agente como Proyecto en Claude o Perplexity.
+resumen: Procedimientos para instalar fullservice-agents, clonar el repositorio aparte de las presentaciones, solicitar permiso para publicar y montar un agente como Proyecto en Claude o Perplexity.
 ---
 
 ## Instalación
 
-Elige cómo prefieres instalarlo. Las dos rutas dejan exactamente el mismo resultado.
+La instalación puede hacerse por dos rutas, que dejan exactamente el mismo resultado.
 
 ::: switch instalacion
 ::: tab usuario | Instalación para usuario | user
-### Tu IA lo instala por ti
+### Instalación mediante la IA
 
-No necesitas escribir comandos. Le das **un mensaje** a una IA que pueda trabajar en tu computador (Claude Code, la pestaña *Code* de Claude Desktop u otra similar) y ella clona el repositorio en el lugar correcto, lo verifica y te cuenta qué falta.
+No requiere escribir comandos. Se entrega **un mensaje** a una IA que pueda trabajar en el computador (Claude Code, la pestaña *Code* de Claude Desktop u otra similar), que clona el repositorio en el lugar correcto, lo verifica e informa qué falta.
 
 ```flow
-Abre tu IA | Una que pueda ejecutar comandos en tu computador.
-Copia el mensaje | Con el botón «Copiar» de abajo.
-Pégalo y responde | Te preguntará en qué carpeta guardar el proyecto y qué agentes usarás.
-Inicia sesión si te lo pide | GitHub abre el navegador: usa tu cuenta.
-Revisa el resumen | Debe decirte dónde quedó todo y cómo abrir cada agente.
+Abrir la IA | Una que pueda ejecutar comandos en el computador.
+Copiar el mensaje | Con el botón «Copiar» de abajo.
+Pegarlo y responder | La IA pregunta en qué carpeta guardar el proyecto y qué agentes se usarán.
+Iniciar sesión si se solicita | GitHub abre el navegador: se usa la cuenta propia.
+Revisar el resumen | Debe indicar dónde quedó todo y cómo abrir cada agente.
 ```
 
 ```prompt
@@ -48,16 +48,16 @@ Pasos:
 ```
 
 ::: tab dev | Instalación para desarrollador | terminal
-### Comandos paso a paso
+### Comandos por pasos
 
-Necesitas **Git** y, para los agentes de Claude Code, **Claude Code** instalado. Cada agente indica en su guía de desarrollador las herramientas que usa (Python, Chrome, Node…). En Windows, activa antes las rutas largas y elige una carpeta corta:
+Se requiere **Git** y, para los agentes de Claude Code, **Claude Code** instalado. Cada agente indica en su guía de desarrollador las herramientas que usa (Python, Chrome, Node…). En Windows, antes se activan las rutas largas y se elige una carpeta corta:
 
 ```powershell
 git config --global core.longpaths true
 mkdir C:\dev; cd C:\dev
 ```
 
-#### 1. Clona el repositorio de los agentes
+#### 1. Clonar el repositorio de los agentes
 
 ```bash
 git clone https://github.com/GustavoAdolfoNavarroPacheco/fullservice-agents
