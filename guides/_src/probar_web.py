@@ -412,6 +412,36 @@ with sync_playwright() as p:
     check('paleta: sin insignias de contraste', pg.evaluate("document.querySelectorAll('.pal-k, .pal-km').length") == 0)
     ctx.close()
 
+    print('\n== scroll dentro de los cuadros de mensaje')
+    pg = b.new_page(viewport={'width': 1366, 'height': 900})
+    pg.goto(BASE + '/inicio/instalacion'); pg.wait_for_timeout(600)
+    pg.evaluate("document.querySelector('#instalacion-usuario .prompt').scrollIntoView({block:'center'})"); pg.wait_for_timeout(1500)
+    check('scroll interno: el cuadro indica que hay más texto abajo', pg.evaluate("document.querySelector('#instalacion-usuario .prompt').classList.contains('mas')"))
+    y0 = pg.evaluate('Math.round(window.scrollY)')
+    caja = pg.evaluate("(() => { const r = document.querySelector('#instalacion-usuario .prompt pre').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; })()")
+    pg.mouse.move(caja[0], caja[1])
+    for _ in range(4):
+        pg.mouse.wheel(0, 250); pg.wait_for_timeout(120)
+    pg.wait_for_timeout(900)
+    st = pg.evaluate("(() => { const p = document.querySelector('#instalacion-usuario .prompt pre'); return [Math.round(p.scrollTop), Math.round(window.scrollY)]; })()")
+    check('scroll interno: la rueda sobre el cuadro lo desplaza y la página se queda quieta', st[0] > 150 and abs(st[1] - y0) <= 3, str(st) + ' y0=' + str(y0))
+    for _ in range(12):
+        pg.mouse.wheel(0, 400); pg.wait_for_timeout(100)
+    pg.wait_for_timeout(900)
+    check('scroll interno: al llegar al final desaparece el degradado', not pg.evaluate("document.querySelector('#instalacion-usuario .prompt').classList.contains('mas')"))
+    pg.close()
+
+    print('\n== enlaces animados del texto')
+    pg = b.new_page(viewport={'width': 1366, 'height': 900})
+    pg.goto(BASE + '/inicio'); pg.wait_for_timeout(600)
+    en = "(() => { const a = document.querySelector('#inicio a.l'); const f = getComputedStyle(a, '::after'); return {op: f.opacity, bg: getComputedStyle(a).backgroundSize}; })()"
+    r0 = pg.evaluate(en)
+    pg.hover('#inicio a.l >> nth=0'); pg.wait_for_timeout(900)
+    r1 = pg.evaluate(en)
+    check('enlace: en reposo sin flecha y con la línea de color sin dibujar', r0['op'] == '0' and r0['bg'].startswith('100% 1px, 0px'), str(r0))
+    check('enlace: al pasar el cursor entra la línea y aparece la flecha diagonal', r1['op'] == '1' and r1['bg'].startswith('100% 1px, 100%'), str(r1))
+    pg.close()
+
     print('\n== reducir movimiento')
     ctx = b.new_context(viewport={'width': 1366, 'height': 800}, reduced_motion='reduce')
     pg = ctx.new_page()
