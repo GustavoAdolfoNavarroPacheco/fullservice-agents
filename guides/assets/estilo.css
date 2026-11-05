@@ -129,7 +129,8 @@ a.l{ position:relative; color:var(--clay-d); text-decoration:none; padding-botto
 a.l:hover, a.l:focus-visible{ color:var(--ink); background-position:0 100%, 0 100%; background-size:100% 1px, 100% 2px;
   transition:background-size .45s cubic-bezier(.2,.8,.2,1), background-position 0s, color .2s; }
 a.l:focus-visible{ outline:2px solid var(--clay); outline-offset:3px; border-radius:3px; }
-a.l::after{ content:""; position:absolute; right:-.62em; top:-.3em; width:.62em; height:.62em; background:currentColor; opacity:0; transform:translate(-3px, 5px);
+/* la flecha es «en línea» y no ocupa ancho (margen negativo): queda al final de la última línea aunque el enlace se parta, sin mover el texto */
+a.l::after{ content:""; display:inline-block; position:relative; top:-.62em; width:.62em; height:.62em; margin:0 -.62em 0 .2em; background:currentColor; opacity:0; transform:translate(-3px, 5px);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E") center / contain no-repeat;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E") center / contain no-repeat;
   transition:opacity .25s, transform .4s cubic-bezier(.3,1.5,.4,1); pointer-events:none; }
