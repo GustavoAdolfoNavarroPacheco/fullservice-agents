@@ -30,6 +30,13 @@ def check(nombre, cond, detalle=''):
 
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path=CHROME)
+    _nueva = b.new_page
+
+    def _sin_cortina(*args, **kw):
+        pg_ = _nueva(*args, **kw)
+        pg_.add_init_script("try{sessionStorage.setItem('intro','1')}catch(e){}")
+        return pg_
+    b.new_page = _sin_cortina
     for ruta in ('/inicio', '/bidding-agent/guia-dev'):
         print('\n== %s' % ruta)
         pg = b.new_page(viewport={'width': 1366, 'height': 800})
@@ -440,6 +447,34 @@ with sync_playwright() as p:
     r1 = pg.evaluate(en)
     check('enlace: en reposo sin flecha y con la línea de color sin dibujar', r0['op'] == '0' and r0['bg'].startswith('100% 1px, 0px'), str(r0))
     check('enlace: al pasar el cursor entra la línea y aparece la flecha diagonal', r1['op'] == '1' and r1['bg'].startswith('100% 1px, 100%'), str(r1))
+    pg.close()
+
+    print('\n== entrada a la web')
+    for ruta in ('/inicio', '/bidding-agent/guia-usuario'):
+        ctx = b.new_context(viewport={'width': 1366, 'height': 800})
+        pg = ctx.new_page()
+        pg.goto(BASE + ruta, wait_until='commit'); pg.wait_for_timeout(700)
+        ev = pg.evaluate("(() => { const o = document.querySelector('.intro'); const cs = o ? getComputedStyle(o) : null; return {entra: document.documentElement.classList.contains('entra'), disp: cs && cs.display, pos: cs && cs.position, pe: cs && cs.pointerEvents, z: cs && cs.zIndex, linea: getComputedStyle(document.querySelector('.intro-l')).transform}; })()")
+        check(ruta + ' primera visita: la cortina cubre la pantalla y no bloquea los clics', ev['entra'] and ev['disp'] == 'block' and ev['pos'] == 'fixed' and ev['pe'] == 'none' and int(ev['z']) > 30, str(ev))
+        pg.wait_for_timeout(2500)
+        fin = pg.evaluate("(() => ({quedan: document.querySelectorAll('.intro').length, marca: sessionStorage.getItem('intro'), top: getComputedStyle(document.querySelector('.top')).translate, toc: getComputedStyle(document.querySelector('.toc')).translate}))()")
+        check(ruta + ' la cortina se retira sola y deja la marca de la sesión', fin['quedan'] == 0 and fin['marca'] == '1', str(fin))
+        check(ruta + ' al terminar no queda ningún desplazamiento (el índice sigue pegajoso)', fin['top'] in ('none', '0px') and fin['toc'] in ('none', '0px'), str(fin))
+        pg.goto(BASE + ruta); pg.wait_for_timeout(300)
+        seg = pg.evaluate("(() => ({entra: document.documentElement.classList.contains('entra'), disp: getComputedStyle(document.querySelector('.intro')).display}))()")
+        check(ruta + ' segunda visita de la sesión: sin cortina', not seg['entra'] and seg['disp'] == 'none', str(seg))
+        ctx.close()
+    ctx = b.new_context(viewport={'width': 1366, 'height': 800}, reduced_motion='reduce')
+    pg = ctx.new_page(); pg.goto(BASE + '/inicio'); pg.wait_for_timeout(300)
+    check('con «reducir movimiento» no hay cortina ni escalonado', pg.evaluate("!document.documentElement.classList.contains('entra') && getComputedStyle(document.querySelector('.intro')).display === 'none' && getComputedStyle(document.querySelector('.top')).animationName === 'none'"))
+    ctx.close()
+    pg = b.new_page(viewport={'width': 1366, 'height': 800})
+    pg.goto(BASE + '/inicio'); pg.emulate_media(media='print')
+    check('en el PDF no hay cortina ni animación de entrada', pg.evaluate("getComputedStyle(document.querySelector('.intro')).display === 'none' && getComputedStyle(document.querySelector('.top')).animationName === 'none' && getComputedStyle(document.querySelector('.banner-art')).animationName === 'none'"))
+    pg.close()
+    pg = b.new_page(viewport={'width': 1366, 'height': 800})
+    pg.goto(BASE + '/inicio'); pg.wait_for_timeout(200)
+    check('visita normal: la barra superior y el texto del banner entran escalonados', pg.evaluate("['.top', '.banner-in .dek', '.banner-art', '.tabbar'].every(q => getComputedStyle(document.querySelector(q)).animationName !== 'none')"))
     pg.close()
 
     print('\n== reducir movimiento')

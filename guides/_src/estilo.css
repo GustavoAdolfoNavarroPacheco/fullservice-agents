@@ -431,7 +431,7 @@ footer.site{ border-top:1px solid var(--line); padding:26px var(--gut); font-siz
 /* Wave text (título del banner): entrada en ola y una ola nueva al pasar el cursor; la ola no se interrumpe */
 .wave{ width:fit-content; }
 .wv{ display:inline-block; }
-.wv-in .wv{ animation:wv-in .9s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(var(--i) * 38ms); }
+.wv-in .wv{ animation:wv-in .9s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(var(--e, 0s) + var(--i) * 38ms); }
 .wv-on .wv{ animation:wv-ola 1s ease-in-out both; animation-delay:calc(var(--i) * 45ms); }
 @keyframes wv-in{ from{ opacity:0; transform:translateY(.55em); } to{ opacity:1; transform:none; } }
 @keyframes wv-ola{ 0%,100%{ transform:none; } 35%{ transform:translateY(-.2em); color:var(--clay-d); } 70%{ transform:translateY(.05em); } }
@@ -832,3 +832,54 @@ table.cmd td:first-child, table.cmd th:first-child{ width:1%; white-space:nowrap
   .pal-g{ grid-template-columns:repeat(4,1fr); gap:8pt; } .pal-s{ height:42pt; box-shadow:inset 0 0 0 1px rgba(20,20,19,.15); } .pal-ct{ display:none; } .pal-c{ break-inside:avoid; }
   .fx .pal .pal-c, .fx .pal .pal-bar i{ opacity:1 !important; transform:none !important; animation:none !important; }
 }
+
+/* ============================================================
+   ENTRADA A LA WEB
+   1) Cortina (.intro): la primera vez de cada sesión aparecen el logo y el nombre sobre una línea de color que crece desde el centro;
+      la línea se apaga y la cortina se abre por la mitad (el logo sube con la mitad de arriba, el nombre baja con la de abajo).
+   2) Escalonado: la barra superior baja y el contenido sube, uno tras otro. --e es la espera: 0 en una visita normal, lo que dura la cortina en la primera.
+   Solo en pantalla y sin «reducir movimiento»; en el PDF y con movimiento reducido no existe nada de esto (la cortina ni siquiera se activa: lo decide el <head>).
+   Sin JavaScript la cortina se retira sola (intro-fin); las animaciones usan «backwards», así que al terminar no queda ningún transform (el índice lateral sigue pegajoso).
+   ============================================================ */
+.intro{ display:none; }
+@media screen and (prefers-reduced-motion:no-preference){
+  html{ --e:0s; }
+  html.entra{ --e:1.35s; }
+
+  html.entra .intro{ display:block; position:fixed; inset:0; z-index:100; pointer-events:none; animation:intro-fin 0s 2.15s forwards; }
+  .intro-t, .intro-b{ position:absolute; left:0; right:0; height:50%; display:flex; justify-content:center; background:var(--cream); }
+  .intro-t{ top:0; align-items:flex-end; padding-bottom:22px; animation:intro-arriba .75s cubic-bezier(.77,0,.18,1) 1.35s forwards; }
+  .intro-b{ bottom:0; align-items:flex-start; padding-top:20px; animation:intro-abajo .75s cubic-bezier(.77,0,.18,1) 1.35s forwards; }
+  .intro-t img{ height:46px; width:auto; animation:intro-logo .8s cubic-bezier(.2,.8,.2,1) .1s backwards; }
+  .intro-w{ display:flex; font-family:var(--serif); font-size:var(--t-h2); line-height:1.25; letter-spacing:-.01em; color:var(--ink); }
+  .intro-w > span{ display:block; overflow:hidden; padding-bottom:.14em; }
+  .intro-w b{ display:block; font-weight:400; animation:intro-letra .7s cubic-bezier(.2,.8,.2,1) calc(.25s + var(--i) * 24ms) backwards; }
+  .intro-l{ position:absolute; left:0; right:0; top:50%; height:2px; margin-top:-1px; background:var(--clay);
+    animation:intro-linea 1s cubic-bezier(.65,0,.25,1) .15s backwards, intro-apaga .25s ease 1.3s forwards; }
+  @keyframes intro-linea{ from{ transform:scaleX(0); } }
+  @keyframes intro-apaga{ to{ opacity:0; } }
+  @keyframes intro-logo{ from{ opacity:0; transform:translateY(14px) scale(.94); } }
+  @keyframes intro-letra{ from{ transform:translateY(105%); } }
+  @keyframes intro-arriba{ to{ transform:translateY(-101%); } }
+  @keyframes intro-abajo{ to{ transform:translateY(101%); } }
+  @keyframes intro-fin{ to{ visibility:hidden; } }
+
+  @keyframes ent-baja{ from{ opacity:0; translate:0 -100%; } }
+  @keyframes ent-sube{ from{ opacity:0; translate:0 22px; } }
+  @keyframes ent-titulo{ from{ opacity:0; translate:0 .32em; filter:blur(8px); } }
+  @keyframes ent-izq{ from{ opacity:0; translate:-18px 0; } }
+  @keyframes ent-art{ from{ opacity:0; translate:70px 0; scale:.82; } }
+
+  .fx .top{ animation:ent-baja .7s cubic-bezier(.2,.8,.2,1) var(--e) backwards; }
+  /* portada del sitio */
+  .fx .banner-in .dek{ animation:ent-sube .8s cubic-bezier(.2,.8,.2,1) calc(var(--e) + .4s) backwards; }
+  .fx .banner-art{ animation:ent-art 1.1s cubic-bezier(.2,.8,.2,1) calc(var(--e) + .3s) backwards; }
+  .fx .tabbar{ animation:ent-sube .7s cubic-bezier(.2,.8,.2,1) calc(var(--e) + .55s) backwards; }
+  /* guías */
+  .fx body > .shell > .toc{ animation:ent-izq .8s cubic-bezier(.2,.8,.2,1) calc(var(--e) + .35s) backwards; }
+  .fx body > .shell > article > .kicker{ animation:ent-sube .6s cubic-bezier(.2,.8,.2,1) calc(var(--e) + .15s) backwards; }
+  .fx body > .shell > article > h1{ animation:ent-titulo .9s cubic-bezier(.2,.8,.2,1) calc(var(--e) + .25s) backwards; }
+  .fx body > .shell > article > .dek{ animation:ent-sube .8s cubic-bezier(.2,.8,.2,1) calc(var(--e) + .4s) backwards; }
+  .fx body > .shell > article > .chips{ animation:ent-sube .8s cubic-bezier(.2,.8,.2,1) calc(var(--e) + .52s) backwards; }
+}
+@media print{ .intro{ display:none !important; } }

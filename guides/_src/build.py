@@ -342,8 +342,19 @@ def head(title, rel, desc=None, path=None, img=None):
                 '<meta name="twitter:image" content="%s">\n<meta name="twitter:image:alt" content="%s">\n'
                 % (e, url, t, e, url, im, alt, t, e, im, alt))
     return ('<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            '<title>%s</title>\n%s<script>document.documentElement.classList.add("fx")</script>\n<link rel="icon" type="image/png" href="%sassets/img/favicon.png">\n<link rel="stylesheet" href="%sassets/estilo.css">\n</head>\n<body>\n'
-            % (html.escape(title), meta, rel, rel))
+            '<title>%s</title>\n%s<script>%s</script>\n<link rel="icon" type="image/png" href="%sassets/img/favicon.png">\n<link rel="stylesheet" href="%sassets/estilo.css">\n</head>\n<body>\n%s'
+            % (html.escape(title), meta, ENTRA_JS, rel, rel, intro(rel)))
+
+
+# Entrada a la web. El <head> decide si hay cortina: solo la primera vez de la sesión y sin «reducir movimiento» (efectos.js guarda la marca al empezar).
+ENTRA_JS = ('var r=document.documentElement;r.classList.add("fx");try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!sessionStorage.getItem("intro"))r.classList.add("entra")}catch(e){}')
+
+
+def intro(rel):
+    """Cortina de entrada: logo arriba, nombre abajo y una línea de color en medio; el CSS (sección “Entrada a la web”) la anima y la abre por la mitad."""
+    letras = ''.join('<span><b style="--i:%d">%s</b></span>' % (i, c) for i, c in enumerate('fullservice-agents'))
+    return ('<div class="intro" aria-hidden="true"><div class="intro-t"><img src="%sassets/img/logo-campuslands-color.png" alt=""></div>'
+            '<div class="intro-b"><div class="intro-w">%s</div></div><i class="intro-l"></i></div>\n' % (rel, letras))
 
 
 GH_URL = 'https://github.com/GustavoAdolfoNavarroPacheco/fullservice-agents'
