@@ -220,6 +220,17 @@
     if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(texto).catch(respaldo);
     return respaldo();
   }
+  /* cuadro con scroll propio: marca .mas mientras queda texto por debajo (muestra el degradado del pie) */
+  function indicarScroll(caja) {
+    var pre = caja.querySelector('pre');
+    if (!pre) return;
+    function act() { caja.classList.toggle('mas', pre.scrollHeight > pre.clientHeight + 4 && pre.scrollTop + pre.clientHeight < pre.scrollHeight - 6); }
+    pre.addEventListener('scroll', act, { passive: true });
+    if (window.ResizeObserver) new ResizeObserver(act).observe(pre);
+    window.addEventListener('resize', act);
+    act();
+  }
+
   function botonCopiar(caja) {
     var cab = caja.querySelector('.pr-h, .code-h'), cod = caja.querySelector('pre code');
     if (!cab || !cod || cab.querySelector('.copy')) return;
@@ -371,6 +382,7 @@
     [].forEach.call(document.querySelectorAll('[data-wave]'), wave);
     [].forEach.call(document.querySelectorAll('.cx'), carrusel);
     [].forEach.call(document.querySelectorAll('.prompt, .code'), botonCopiar);
+    [].forEach.call(document.querySelectorAll('.prompt'), indicarScroll);
     [].forEach.call(document.querySelectorAll('[data-sw]'), conmutador);
     [].forEach.call(document.querySelectorAll('.pal'), paleta);
     [].forEach.call(document.querySelectorAll('[data-reveal]'), revelar);

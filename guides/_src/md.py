@@ -117,7 +117,7 @@ def fence(kind, body):
         return '<!--GAL:%s-->' % kind
     if kind == 'prompt':                                                                    # mensaje para pegar en una IA: tarjeta con botón «Copiar» (lo añade efectos.js)
         return ('<div class="prompt"><div class="pr-h"><span class="pr-dot" aria-hidden="true"></span>Mensaje para tu IA<em>cópialo y pégalo en el chat</em></div>'
-                '<pre><code>%s</code></pre></div>' % html.escape('\n'.join(body).strip('\n')))
+                '<pre data-lenis-prevent><code>%s</code></pre></div>' % html.escape('\n'.join(body).strip('\n')))     # data-lenis-prevent: la rueda desplaza el cuadro, no la página
     if kind in ('bash', 'powershell', 'sh', 'shell'):                                       # comandos: bloque con etiqueta y botón «Copiar»
         etiqueta = 'PowerShell' if kind == 'powershell' else 'Terminal'
         return ('<div class="code"><div class="code-h"><span>%s</span></div><pre><code>%s</code></pre></div>'
@@ -225,7 +225,7 @@ def _switch(sid, paneles, variante=''):
         cuerpo += ('<div class="sw-panel%s" role="tabpanel" id="%s-%s" aria-labelledby="%s-tab-%s"><p class="sw-title">%s</p>%s</div>'
                    % (' on' if on else '', sid, clave, sid, clave, inline(nombre), lineas if isinstance(lineas, str) else blocks(lineas)))
     rotulo = html.escape(' / '.join(re.sub(r'<[^>]+>', '', inline(t.partition(' // ')[0])) for _, t, _, _ in paneles))
-    barra = '<div class="sw-bar" role="tablist" aria-label="%s">%s<span class="sw-thumb" aria-hidden="true"></span></div>' % (rotulo, bar)
+    barra = '<div class="sw-bar" role="tablist"%s aria-label="%s">%s<span class="sw-thumb" aria-hidden="true"></span></div>' % (' data-lenis-prevent' if variante == 'menu' else '', rotulo, bar)
     if variante == 'menu':                                   # el botón y la lista los activa efectos.js; sin JavaScript se ven todos los paneles
         barra = ('<div class="sw-menu"><button type="button" class="sw-trig" aria-haspopup="listbox" aria-expanded="false" aria-label="%s"><span class="sw-cur"></span>'
                  '<svg class="sw-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>%s</div>' % (rotulo, barra))

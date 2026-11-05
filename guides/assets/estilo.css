@@ -121,7 +121,20 @@ h3{ font-family:var(--sans); font-weight:600; font-size:var(--t-body); line-heig
 h4{ font-family:var(--sans); font-weight:600; font-size:var(--t-ui); line-height:1.4; color:var(--muted); margin:26px 0 8px; }
 p{ margin:0 0 1.05em; }
 strong{ font-weight:600; color:var(--ink); }
-a.l{ color:var(--clay-d); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+/* enlaces del texto (Animated Link, ruixen.ui): subrayado tenue y, al pasar el cursor, una línea de color que entra desde la izquierda y sale por la derecha;
+   una flecha diagonal sube a la esquina del enlace. El subrayado va como fondo, así que sigue cada línea si el enlace se parte en dos. */
+a.l{ position:relative; color:var(--clay-d); text-decoration:none; padding-bottom:1px;
+  background:linear-gradient(rgba(185,83,47,.32), rgba(185,83,47,.32)) 0 100% / 100% 1px no-repeat, linear-gradient(currentColor, currentColor) 100% 100% / 0 2px no-repeat;
+  transition:background-size .45s cubic-bezier(.2,.8,.2,1), background-position 0s .45s, color .2s; }
+a.l:hover, a.l:focus-visible{ color:var(--ink); background-position:0 100%, 0 100%; background-size:100% 1px, 100% 2px;
+  transition:background-size .45s cubic-bezier(.2,.8,.2,1), background-position 0s, color .2s; }
+a.l:focus-visible{ outline:2px solid var(--clay); outline-offset:3px; border-radius:3px; }
+a.l::after{ content:""; position:absolute; right:-.62em; top:-.3em; width:.62em; height:.62em; background:currentColor; opacity:0; transform:translate(-3px, 5px);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition:opacity .25s, transform .4s cubic-bezier(.3,1.5,.4,1); pointer-events:none; }
+a.l:hover::after, a.l:focus-visible::after{ opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce){ a.l, a.l:hover, a.l::after{ transition-duration:.01ms !important; transition-delay:0s !important; } }
 ul,ol{ margin:0 0 1.2em; padding-left:1.35em; }
 li{ margin:0 0 .5em; padding-left:.25em; }
 li::marker{ color:var(--soft); }
@@ -400,7 +413,7 @@ footer.site{ border-top:1px solid var(--line); padding:26px var(--gut); font-siz
   .flow li{ padding:10pt; } .flow.v li{ padding:9pt 12pt; }
   .lanes{ padding:10pt 12pt; gap:6pt 10pt; } .lanes .s{ padding:7pt 9pt; }
   .cw-b{ gap:12pt; padding:14pt 14pt 10pt; } .cw-m{ break-inside:avoid; } .cw-h{ padding:8pt 14pt; } .cw-in{ margin:0 14pt 14pt; padding:7pt 8pt 7pt 14pt; }
-  a.l{ color:var(--clay-d); }
+  a.l{ color:var(--clay-d); background:none; text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; } a.l::after{ display:none; }
 }
 
 /* ============================================================
@@ -665,6 +678,11 @@ table.cmd td:first-child, table.cmd th:first-child{ width:1%; white-space:nowrap
 .pr-h em + .copy{ margin-left:10px; }
 .pr-dot{ flex:none; width:8px; height:8px; border-radius:50%; background:var(--clay); animation:pr-pulso 2.4s ease-out infinite; }
 @keyframes pr-pulso{ 0%{ box-shadow:0 0 0 0 rgba(217,119,87,.55); } 70%,100%{ box-shadow:0 0 0 9px rgba(217,119,87,0); } }
+/* los cuadros con scroll propio: barra fina, inercia (suave.js) y un degradado al pie mientras queda texto por ver */
+.prompt{ position:relative; }
+.prompt::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:56px; pointer-events:none; background:linear-gradient(rgba(255,255,255,0), #fff 85%); opacity:0; transition:opacity .3s; }
+.prompt.mas::after{ opacity:1; }
+.prompt pre, .fx .sw.menu .sw-bar{ scrollbar-width:thin; scrollbar-color:#d3cfc0 transparent; overscroll-behavior:contain; }
 .prompt pre{ margin:0; border:0; border-radius:0; background:#fff; max-height:360px; overflow:auto; padding:18px 22px; white-space:pre-wrap; overflow-wrap:anywhere;
   font-family:var(--sans); font-size:var(--t-ui); line-height:1.65; color:var(--text); }
 .code{ margin:0 0 var(--space-block); border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--ivory); }
@@ -766,6 +784,7 @@ table.cmd td:first-child, table.cmd th:first-child{ width:1%; white-space:nowrap
   .sw-title{ display:block !important; margin-top:14pt; }
   .prompt, .code, .repos, .pub, .pj-s{ break-inside:avoid; box-shadow:none; }
   .prompt pre{ max-height:none; overflow:visible; }
+  .prompt::after{ display:none; }
   .pr-dot, .pub *, .pub ol::after, .pj-steps::before, .pj-h, .pj-s, .pj-n, .pj-f{ animation:none !important; }
   .fx .sw.menu .pj-h, .fx .sw.menu .pj-s, .fx .sw.menu .pj-n, .fx .sw.menu .pj-f{ opacity:1 !important; }
   .fx .repos .rp-b{ opacity:1 !important; transform:none !important; } .fx .repos .rp-hole{ opacity:0 !important; }
