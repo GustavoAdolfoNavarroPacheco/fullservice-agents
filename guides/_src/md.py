@@ -3,7 +3,7 @@
 
 Soporta: portada en frontmatter, ## ### ####, párrafos, listas anidadas, tablas, citas/avisos [!nota|importante|tip|cuidado],
 código con ``` y bloques propios: tree · flow · lanes · chat · stats · cards · prompt · bash/powershell (con botón «Copiar») ·
-repos · publicar, y el contenedor «::: switch» (selector entre paneles).
+repos · publicar · paleta, y el contenedor «::: switch» (selector entre paneles).
 """
 import html
 import re
@@ -122,6 +122,8 @@ def fence(kind, body):
         etiqueta = 'PowerShell' if kind == 'powershell' else 'Terminal'
         return ('<div class="code"><div class="code-h"><span>%s</span></div><pre><code>%s</code></pre></div>'
                 % (etiqueta, html.escape('\n'.join(body).strip('\n'))))
+    if kind == 'paleta':
+        return _paleta(body)
     if kind == 'repos':
         return _repos(body)
     if kind == 'publicar':
@@ -138,7 +140,38 @@ def fence(kind, body):
         n = len(items)
         cls = 'c1' if n == 1 else ('c2' if n in (2, 4) else '')                 # 2 o 4 tarjetas: 2 columnas; el resto: 3
         return '<div class="cards %s">%s</div>' % (cls, ''.join('<div><b>%s</b><span>%s</span></div>' % (inline(a), inline(b)) for a, b in items))
-    return '<pre><code>%s</code></pre>' % html.escape('\n'.join(body))
+    # cualquier otro bloque de código (CSS, HTML, JSON, texto sin lenguaje…): el mismo aspecto de consola y botón «Copiar»
+    nombres = {'css': 'CSS', 'html': 'HTML', 'js': 'JavaScript', 'javascript': 'JavaScript', 'ts': 'TypeScript', 'json': 'JSON', 'py': 'Python', 'python': 'Python',
+               'yaml': 'YAML', 'yml': 'YAML', 'text': 'Texto', 'txt': 'Texto', 'sql': 'SQL', 'md': 'Markdown', 'diff': 'Diff'}
+    etiqueta = nombres.get(kind, kind.upper() if kind else 'Código')
+    return ('<div class="code"><div class="code-h"><span>%s</span></div><pre><code>%s</code></pre></div>'
+            % (etiqueta, html.escape('\n'.join(body).strip('\n'))))
+
+
+def _luminancia(hx):
+    """Luminancia relativa WCAG de un color #RRGGBB."""
+    c = [int(hx[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+    c = [v / 12.92 if v <= 0.03928 else ((v + 0.055) / 1.055) ** 2.4 for v in c]
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+
+
+def _contraste(a, b):
+    la, lb = _luminancia(a), _luminancia(b)
+    return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
+
+
+def _paleta(body):
+    """Paleta de colores: una franja proporcional y una tarjeta por color (se copia el HEX al pulsar). Líneas: Nombre | #HEX | Rol."""
+    segs, cards = '', ''
+    for i, l in enumerate(x for x in body if x.strip()):
+        nombre, hx, rol = [x.strip() for x in l.split('|', 2)]
+        hx = hx.strip('`').upper()
+        texto = '#FFFFFF' if _contraste(hx, '#FFFFFF') >= _contraste(hx, '#141413') else '#141413'      # texto de la muestra: el que mejor se lee sobre el color
+        segs += '<i style="--c:%s;--i:%d"></i>' % (hx, i)
+        cards += ('<button type="button" class="pal-c" style="--c:%s;--t:%s;--i:%d" data-hex="%s" aria-label="%s %s: copiar el color">'
+                  '<span class="pal-s"><span class="pal-ct" aria-live="polite">Copiar</span></span><b>%s</b><code>%s</code><span class="pal-r">%s</span></button>'
+                  % (hx, texto, i, hx, html.escape(nombre), hx, html.escape(nombre), hx, inline(rol)))
+    return '<div class="pal" data-reveal><div class="pal-bar" aria-hidden="true">%s</div><div class="pal-g">%s</div></div>' % (segs, cards)
 
 
 def _repos(body):
