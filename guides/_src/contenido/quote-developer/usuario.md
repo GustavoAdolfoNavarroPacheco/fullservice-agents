@@ -1,26 +1,26 @@
 ---
 titulo: quote-developer: cómo obtener el PDF y el Excel de una cotización
-resumen: Qué necesitas darle al agente, qué recibes, cómo validar el alcance y los precios, y cómo pedir ajustes.
+resumen: Entradas requeridas, resultados, validación del alcance y de los precios, y solicitud de ajustes de una cotización.
 ---
 
-## En resumen
+## Descripción general
 
-El **Desarrollador de Cotizaciones** (`quote-developer`) convierte lo que tu cliente necesita en dos archivos que cuentan lo mismo: un **PDF** con el alcance del proyecto dividido por módulos y con su precio, y un **Excel** con las horas de trabajo de cada especialidad y el costo calculado por las fórmulas del equipo.
+El **Desarrollador de Cotizaciones** (`quote-developer`) convierte los alcances de un proyecto en dos archivos que describen lo mismo: un **PDF** con el alcance dividido por módulos y su precio, y un **Excel** con las horas de trabajo de cada especialidad y el costo calculado con las fórmulas del equipo.
 
-Tú compartes los alcances; el agente redacta, estima y llena los archivos. Primero validas el contenido del PDF y después se calculan los precios, para que nunca discutas un precio sobre un alcance que todavía no estaba claro.
+El usuario comparte los alcances; el agente redacta, estima y diligencia los archivos. El contenido del PDF se valida primero y los precios se calculan después, de modo que el precio no se discute sobre un alcance que todavía no estaba claro.
 
 ```stats
-2 | archivos que recibes: un PDF de alcance y un Excel de cotización
-0 | alcance inventado: solo escribe lo que tú le diste o confirmaste
+2 | archivos de salida: un PDF de alcance y un Excel de cotización
 3 | niveles de detalle: módulo, submódulo y funcionalidad
+1 | validación del alcance antes de calcular los precios
 ```
 
-> [!tip] Si solo tienes un minuto
-> Pásale el documento de alcances y el nombre completo del cliente. Si algo no está claro, te lo preguntará antes de estimar.
+> [!nota] Entradas mínimas
+> Se requiere el documento de alcances y el nombre completo del cliente. Si algo no está claro, el agente pregunta antes de estimar.
 
-## Para qué sirve
+## Cuándo se usa
 
-Úsalo cuando tengas el alcance de un proyecto y necesites **cotizarlo**: describir qué se va a construir, cuánto esfuerzo requiere cada parte y cuánto cuesta. Funciona para proyectos pequeños, de un solo módulo, y para portafolios grandes de varios proyectos.
+El agente se usa cuando se tiene el alcance de un proyecto y se requiere **cotizarlo**: describir qué se va a construir, cuánto esfuerzo requiere cada parte y cuánto cuesta. Aplica a proyectos pequeños, de un solo módulo, y a portafolios de varios proyectos.
 
 ### Cómo se organiza una cotización
 
@@ -32,9 +32,9 @@ Submódulo | Una agrupación dentro del módulo. Por ejemplo, «Roles y permisos
 Funcionalidad | Una capacidad concreta, con su propio esfuerzo y su propio precio.
 ```
 
-La cantidad de funcionalidades que tiene cada submódulo **depende de lo que el alcance realmente describe**: una, o varias. El agente nunca fuerza un número fijo, ni junta varias cosas distintas en una para ahorrar espacio.
+La cantidad de funcionalidades de cada submódulo **depende de lo que el alcance describe**: una o varias. El agente no fuerza un número fijo ni agrupa funcionalidades distintas en una para ahorrar espacio.
 
-## Antes de empezar
+## Requisitos previos
 
 Reúne:
 
@@ -115,12 +115,12 @@ Tú: ¿Cuánto da el total del proyecto y qué parte son los costos transversale
 Agente: El total es el calculado por el Excel. Los transversales (estructura, diseño base, implementación y agente de IA) suman el valor que aparece en la banda correspondiente del PDF.
 ```
 
-## Qué recibes
+## Resultados
 
 ```cards
 PDF de cotización de alcance | Módulos, submódulos y funcionalidades, cada una con su precio, los subtotales por módulo y el total general.
 Excel de cotización | El esfuerzo en días por especialidad y el costo calculado con las fórmulas del equipo Campus.
-Lista de pendientes | Lo que conviene que valides: distribución de días, posibles solapamientos entre módulos y datos que falten.
+Lista de pendientes | Los puntos que se deben validar: distribución de días, posibles solapamientos entre módulos y datos faltantes.
 ```
 
 ### Los costos que siempre aparecen
@@ -179,7 +179,7 @@ Estos son los comandos de este agente:
 ```comandos
 ```
 
-## Lo que el agente no hace
+## Límites del agente
 
 | Si le pides… | Qué pasa | Qué hacer |
 |---|---|---|
@@ -198,7 +198,7 @@ Porque el Excel todavía no estaba calculado. Cuando lo esté, el PDF se actuali
 Es redondeo. El PDF usa el total exacto del Excel y deja una nota; no se ajusta a mano.
 
 **¿Puede el agente cotizar sin que yo valide el PDF primero?**
-Está diseñado para que primero valides el alcance. Es mejor corregir contenido antes de calcular costos.
+No. El flujo está diseñado para validar primero el alcance, porque es preferible corregir el contenido antes de calcular costos.
 
 **¿El Excel incluye IVA?**
 Depende de la fuente y del modelo del equipo. Si tienes dudas sobre qué incluye el total, pregúntaselo al agente para que lo confirme con el Excel.
@@ -222,6 +222,6 @@ En la carpeta del cliente dentro de `cotizaciones`, con los nombres `Cotizacion 
 | AIU | Administración, imprevistos y utilidad: un porcentaje que se suma al costo (10 % en las cotizaciones) |
 | COP | Pesos colombianos |
 
-## Si algo no funciona
+## Solución de problemas
 
 Si los totales no cuadran, si falta una funcionalidad o si el agente no responde como esperas, descríbele el problema con el módulo o la funcionalidad concreta. Si el comportamiento se repite, avisa a quien mantiene el agente; su guía técnica explica cómo se verifican el PDF y el Excel.

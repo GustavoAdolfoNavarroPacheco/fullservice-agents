@@ -3,7 +3,7 @@ titulo: quote-developer: guía técnica
 resumen: Cómo genera el agente el PDF de cotización de alcance y llena la plantilla XLSX del equipo Campus, qué celdas puede tocar y cómo se verifica que ambos cuadren.
 ---
 
-## En resumen
+## Descripción general
 
 El **Agente Desarrollador de Cotizaciones** (`quote-developer`) convierte los alcances de un proyecto en dos entregables que deben contar exactamente el mismo alcance: un **PDF de cotización de alcance** con el desglose por módulos y precios, y el **XLSX de cotización** del equipo Campus, que corre el modelo de costos con las estimaciones de esfuerzo por especialidad.
 

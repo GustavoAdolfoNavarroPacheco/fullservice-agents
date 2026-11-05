@@ -1,32 +1,32 @@
 ---
 titulo: contract-perfectionist: cómo obtener el contrato de un proyecto
-resumen: Qué documentos entregarle, qué datos revisar, qué recibes y cómo revisar el contrato antes de firmarlo.
+resumen: Documentos de entrada, datos pendientes, archivos generados y criterios de revisión del contrato de un proyecto.
 ---
 
-## En resumen
+## Descripción general
 
-**Perfeccionador de Contratos** (`contract-perfectionist`) redacta el contrato de un proyecto a partir de tres cosas: los **alcances** (qué se va a construir), la **cotización** (cuánto cuesta, cómo se paga y cuándo se entrega) y el **contrato madre** (el esquema de cláusulas estándar de la empresa). El resultado es un documento de Word con el membrete de Campuslands y líneas para firmar.
+**Perfeccionador de Contratos** (`contract-perfectionist`) redacta el contrato de un proyecto a partir de tres fuentes: los **alcances** (qué se va a construir), la **cotización** (valor, forma de pago y plazo de entrega) y el **contrato madre** (el esquema de cláusulas estándar de la empresa). El resultado es un documento de Word con el membrete de Campuslands y líneas de firma.
 
-Su objetivo es que **ambas partes, al terminar de leer, sepan exactamente** qué se entrega, cuándo, por cuánto, bajo qué condiciones y qué pasa si algo falla.
+El contrato se redacta de modo que las dos partes puedan identificar con precisión qué se entrega, cuándo, por qué valor, bajo qué condiciones y qué ocurre si algo se incumple.
 
 ```stats
-3 | cosas que necesita: alcances, cotización y los datos de las partes
-0 | datos inventados: lo que falta queda marcado y te lo pregunta
+3 | fuentes de información: alcances, cotización y datos de las partes
+1 | contrato madre, incorporado al agente
 1 | documento Word con membrete y líneas de firma
 ```
 
-> [!tip] Si solo tienes un minuto
-> Deja los alcances y la cotización del cliente en sus carpetas y pídele el contrato. Todo lo que no encuentre en ellos, te lo preguntará.
+> [!nota] Requisito principal
+> Se requiere al menos un documento de alcance y uno de cotización del cliente. Los datos que no constan en ellos se solicitan al usuario antes de redactar.
 
-## Para qué sirve
+## Cuándo se usa
 
-Úsalo cuando un proyecto ya tiene **alcance definido y cotización aprobada** y llegó el momento de formalizar el acuerdo. También sirve cuando el contrato ya está firmado y hace falta una modificación: en ese caso se prepara un **otrosí**, sin tocar el contrato original.
+El agente se usa cuando un proyecto tiene **alcance definido y cotización aprobada** y corresponde formalizar el acuerdo. También se usa cuando el contrato ya está firmado y requiere una modificación: en ese caso se prepara un **otrosí**, sin alterar el contrato original.
 
-### Qué no es
+### Límites
 
-No reemplaza la revisión legal. El agente verifica que el contrato sea fiel a tus documentos y que cumpla las reglas de formato de la empresa, pero la **validación jurídica** sigue siendo tuya.
+El agente no reemplaza la revisión legal. Verifica que el contrato sea fiel a los documentos del proyecto y que cumpla las reglas de formato de la empresa; la **validación jurídica** corresponde a la persona responsable.
 
-## Antes de empezar
+## Requisitos previos
 
 Reúne en las carpetas del cliente:
 
@@ -108,7 +108,7 @@ Tú: El cliente pidió un módulo nuevo. Prepara el otrosí.
 Agente: Preparo el Otrosí 1 con el alcance y el valor adicionales. El contrato original firmado no se modifica.
 ```
 
-## Qué recibes
+## Resultados
 
 ```cards
 El contrato en Word | Con el membrete de Campuslands, todas las cláusulas y líneas de firma sobre el nombre de cada representante.
@@ -194,7 +194,7 @@ Estos son los comandos de este agente:
 ```comandos
 ```
 
-## Lo que el agente no hace
+## Límites del agente
 
 | Si le pides… | Qué pasa | Qué hacer |
 |---|---|---|
@@ -211,7 +211,7 @@ Estos son los comandos de este agente:
 Que ese dato no estaba en tus documentos. El agente te lo pedirá y lo reemplazará.
 
 **¿Puedo editar el Word directamente?**
-Es mejor pedirle el cambio al agente: así se conserva el membrete, pasa los controles y la verificación se actualiza. Si editas a mano, avísale para que lo revise.
+Los cambios deben solicitarse al agente: así se conserva el membrete, se aplican los controles y se actualiza la verificación. Si el documento se edita a mano, se debe informar al agente para que lo revise.
 
 **¿El agente conoce los datos de Campuslands?**
 Sí: están registrados en la wiki. Aun así, **antes de usarlos** te confirmará que el representante legal y el domicilio siguen vigentes.
@@ -238,6 +238,6 @@ En la carpeta del cliente dentro de `contratos`, con el nombre `Contrato - <Clie
 | Verificación cruzada | La comparación dato por dato entre el contrato y tus documentos |
 | Gate | El control automático que bloquea un contrato incompleto |
 
-## Si algo no funciona
+## Solución de problemas
 
 Si el agente no encuentra tus documentos, revisa que estén en las carpetas del cliente. Si el control automático rechaza el contrato, el agente te explicará qué falta (casi siempre un dato pendiente). Si algo se repite o parece una falla, avisa a quien mantiene el agente; su guía técnica explica los controles y el montaje.

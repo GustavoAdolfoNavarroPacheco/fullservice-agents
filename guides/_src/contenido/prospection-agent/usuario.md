@@ -1,38 +1,38 @@
 ---
 titulo: prospection-agent: cómo buscar empresas prospecto
-resumen: Qué necesitas decirle, qué recibes y cómo revisar la lista de empresas que te entrega el agente de prospección.
+resumen: Datos de entrada, resultados y criterios de revisión de la lista de empresas generada por el agente de prospección.
 ---
 
-## En resumen
+## Descripción general
 
-**Radar de Campus** (`prospection-agent`) es el agente que te ayuda a encontrar empresas que podrían ser clientes de Campuslands. Tú le dices qué tipo de empresas buscas (por ejemplo, «constructoras medianas en Bogotá») y él te devuelve una lista ordenada, con datos públicos de cada empresa y la fecha de la búsqueda.
+**Radar de Campus** (`prospection-agent`) identifica empresas que pueden ser clientes de Campuslands. El usuario indica qué tipo de empresas busca (por ejemplo, «constructoras medianas en Bogotá») y el agente devuelve una lista ordenada, con datos públicos de cada empresa y la fecha de la búsqueda.
 
-No necesitas saber de programación para usarlo. Basta con escribirle como le escribirías a un compañero que va a investigar por ti.
+La solicitud se redacta en lenguaje natural y no requiere conocimientos de programación.
 
 ```stats
-6 | datos son todo lo que necesita para empezar
-0 | cifras inventadas: si no encuentra un dato, lo deja vacío
-1.º | paso del flujo comercial: tu lista pasa después a Explorador de Campus
+6 | datos de entrada que el agente solicita; ninguno es obligatorio
+1 | lista ordenada, con la fecha de la búsqueda
+1.º | paso del flujo comercial: la lista pasa después a Explorador de Campus
 ```
 
-> [!tip] Si solo tienes un minuto
-> Escribe qué sector buscas, en qué ciudad y cuántas empresas quieres. Si no sabes el resto (tamaño, empleados, facturación), dilo y sigue igual.
+> [!nota] Datos mínimos
+> Basta con indicar el sector, la ciudad y la cantidad de empresas. Los demás datos (tamaño, empleados, facturación) pueden omitirse. Los datos que el agente no encuentra se dejan vacíos.
 
-## Para qué sirve
+## Cuándo se usa
 
-Úsalo cuando necesites **una lista de empresas para empezar a prospectar**: saber cuáles existen, dónde están, cuántas personas emplean y, si es público, cuánto facturan. Es el primer paso antes de buscar a las personas con quienes conversar.
+El agente se usa cuando se requiere **una lista de empresas para iniciar la prospección**: cuáles existen, dónde están, cuántas personas emplean y, si es público, cuánto facturan. Es el paso previo a identificar a las personas con quienes conversar.
 
-Radar busca únicamente en **internet público**: buscadores, prensa, directorios de empresas, gremios y la Superintendencia de Sociedades. **No entra a LinkedIn.**
+Radar busca únicamente en **internet público**: buscadores, prensa, directorios de empresas, gremios y la Superintendencia de Sociedades. **No accede a LinkedIn.**
 
-### Qué tipo de empresas considera buenas
+### Perfil de empresa por defecto
 
-Por defecto busca empresas privadas que probablemente necesiten equipos técnicos: software, tecnología, fintech, e-commerce, y en general cualquier empresa con necesidad de desarrolladores. Prefiere las de **50 a 500 empleados**. Prioriza las que muestran señales de crecimiento, como vacantes abiertas, rondas de inversión o noticias de expansión.
+Por defecto busca empresas privadas que probablemente necesiten equipos técnicos: software, tecnología, fintech, e-commerce y, en general, cualquier empresa con necesidad de desarrolladores. Prefiere las de **50 a 500 empleados** y prioriza las que muestran señales de crecimiento, como vacantes abiertas, rondas de inversión o noticias de expansión.
 
-**Por defecto no lista:** entidades de gobierno, ONGs, colegios y universidades, ni agencias de reclutamiento o staffing (son competencia directa). Si por algún motivo quieres incluirlas, díselo explícitamente.
+**Por defecto no lista:** entidades de gobierno, ONGs, colegios y universidades, ni agencias de reclutamiento o staffing (competencia directa). Para incluirlas, debe indicarse de forma explícita.
 
-## Antes de empezar: los 6 datos
+## Datos de entrada
 
-Radar te pedirá estos seis datos, siempre en este orden. No tienes que saberlos todos.
+Radar solicita estos seis datos, siempre en este orden. No es necesario conocerlos todos.
 
 | Dato | Qué es | Ejemplo |
 |---|---|---|
@@ -46,9 +46,9 @@ Radar te pedirá estos seis datos, siempre en este orden. No tienes que saberlos
 > [!nota] ¿Y si no sé alguno?
 > Escribe «no sé», «cualquiera» o «no importa». Radar lo anota como «sin restricción» y busca igual. Solo te insistirá una vez por dato, y si no dices cuántas empresas quieres, trae 10 y te lo avisa.
 
-### Una pequeña trampa: tamaño y empleados
+### Tamaño y número de empleados
 
-Son dos formas de decir lo mismo. Si dices «Grande» pero «más de 10 empleados», no encajan. En ese caso Radar te preguntará cuál prefieres que use. No lo decide por su cuenta.
+Son dos formas de indicar lo mismo. Si se indica «Grande» pero «más de 10 empleados», los datos no son compatibles. En ese caso Radar pregunta cuál criterio debe usar y no lo decide por su cuenta.
 
 ## Paso a paso
 
@@ -114,7 +114,7 @@ Tú: Ahora quiero 20 empresas de e-commerce en Cali con más de 50 empleados.
 Agente: Empecemos una búsqueda nueva. Número: 20 · Sector: e-commerce · Ubicación: Cali · Empleados: +50. ¿El tamaño y la facturación quedan sin restricción?
 ```
 
-## Qué recibes
+## Resultados
 
 Al terminar, Radar te entrega cuatro cosas.
 
@@ -146,7 +146,7 @@ Antes de usar la lista, tómate un par de minutos para revisar:
 - **¿Son del sector y la ciudad que pediste?** Si alguna no cuadra, avísale y la retira.
 - **¿Los números tienen sentido?** Empleados y facturación deben parecerse a lo que esperabas.
 - **¿Hay empresas que no deberían estar?** Gobierno, ONGs, colegios o agencias de reclutamiento no se listan por defecto. Si ves una, avísale.
-- **¿Llegó al número pedido?** Si trajo menos, te lo dirá. Es mejor una lista corta y verdadera que una larga con relleno.
+- **¿Llegó al número pedido?** Si trajo menos, el agente lo informa: se prefiere una lista corta y verificable a una larga con relleno.
 - **¿Cada dato tiene fuente?** Mira la sección de fuentes debajo de la tabla.
 
 > [!nota] Tú decides
@@ -184,7 +184,7 @@ Estos son los comandos de este agente:
 ```comandos
 ```
 
-## Lo que Radar no hace
+## Límites del agente
 
 | Si le pides… | Qué pasa | Qué hacer |
 |---|---|---|
@@ -225,6 +225,6 @@ En el archivo CSV de la búsqueda, dentro de la carpeta `prospeccion` del agente
 | CSV | Archivo de tabla que se abre en Excel |
 | Lote | Una búsqueda completa, con su propia carpeta y su propio archivo |
 
-## Si algo no funciona
+## Solución de problemas
 
 Si el agente no responde como esperas, repite tu mensaje con los seis datos completos. Si el comportamiento se repite o parece una falla, avisa a quien mantiene el agente; la guía técnica de Radar de Campus tiene una tabla de problemas frecuentes y qué revisar en cada caso.

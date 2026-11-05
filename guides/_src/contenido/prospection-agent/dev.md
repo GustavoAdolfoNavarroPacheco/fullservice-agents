@@ -3,7 +3,7 @@ titulo: prospection-agent: guía técnica
 resumen: Cómo está construido el agente de prospección de empresas, qué hace cada habilidad, qué formatos entrega y cómo se mantiene.
 ---
 
-## En resumen
+## Descripción general
 
 **Radar de Campus** (`prospection-agent`) es el agente de prospección de empresas de Campuslands. Dado un criterio de búsqueda (sector, ciudad, tamaño…), recorre la web abierta, filtra las empresas que encajan con el perfil de cliente de Full Service, completa cada una con datos públicos verificables y entrega un listado en tabla y en CSV.
 

@@ -1,6 +1,6 @@
 # Guías de los agentes
 
-Dos guías por agente (7 agentes, 14 guías), en **web** y **PDF**, con un estilo editorial inspirado en los documentos de Claude Docs y el blog de Anthropic: títulos en serif, texto en sans, fondo blanco, tablas crema, avisos y diagramas ligeros.
+Dos guías por agente (7 agentes, 14 guías), en **web** y **PDF**, con un estilo editorial inspirado en los documentos de Claude Docs y el blog de Anthropic: fondo marfil, títulos y prosa en serif (párrafos, listas y avisos), interfaz (tablas, tarjetas, pestañas, botones) en sans, enlaces en tinta con subrayado y **un solo acento** (el naranja, solo en el indicador de pestaña, el foco y el pulso del mensaje). Los avisos, pasos, carriles, insignias y botones son neutros (tinta, avena y marfil), sin verdes, rosas ni azules: así el color no compite con el texto.
 
 | Guía | Para quién | Extensión aproximada |
 |---|---|---|
@@ -170,7 +170,8 @@ Además del Markdown habitual (títulos `##` y `###`, listas, tablas, `**negrita
 
 ## Reglas de estilo
 
-- **Escala tipográfica única de 7 tamaños** (más las cifras grandes), definida en `:root` de `estilo.css`: display, H2, lead, cuerpo, interfaz y meta. El generador **falla** si la hoja de estilos declara un tamaño fuera de esa escala, para que no vuelvan a colarse variaciones sueltas. En el PDF la escala es la misma, en puntos.
+- **Estándar de contenedores** (última sección de `estilo.css`, modelada en las tablas y gráficas del blog de Anthropic): todo marco lleva una línea de 1 px en tinta, esquinas rectas, fondo marfil y sin sombra; las tablas son una rejilla completa con cabecera y primera columna en semibold; los elementos internos usan una línea suave y el relleno de apoyo; solo botones, etiquetas y círculos son redondeados. Se controla con los tokens `--box-line`, `--box-line-2`, `--box-r`, `--box-pad` y `--box-gap`.
+- **Escala tipográfica única de 5 tamaños**, definida en `:root` de `estilo.css`: display (h1), H2 (también las cifras grandes), cuerpo (prosa en serif), interfaz (tablas, tarjetas, botones, conversaciones; sans) y meta (etiquetas, chips, código). El generador **falla** si la hoja de estilos declara un tamaño fuera de esa escala, para que no vuelvan a colarse variaciones sueltas. En el PDF la escala es la misma, en puntos.
 - Los subtítulos (h3) usan el tamaño del cuerpo en semibold; la jerarquía se marca con peso, no con tamaños casi iguales.
 - El generador también comprueba la hoja de estilos al construir; si el texto usa un glifo que Inter o Source Serif no tienen, hay que reemplazarlo por uno que sí exista.
 

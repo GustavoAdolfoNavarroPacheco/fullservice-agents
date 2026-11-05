@@ -1,51 +1,51 @@
 ---
 titulo: presentations-designer: cómo crear la presentación de un cliente
-resumen: Qué necesitas darle al agente, cómo aprobar el plan, cómo pedir ajustes y qué recibes: un PDF y un link listos para enviar.
+resumen: Información de entrada, aprobación del plan, solicitud de ajustes y resultados: un PDF y un link web.
 ---
 
-## En resumen
+## Descripción general
 
-El **Estudio de Presentaciones** (`presentations-designer`) convierte la información de tu cliente en una presentación comercial con el diseño oficial de Campuslands. Tú le compartes los alcances; él te propone primero un **plan lámina por lámina**, y solo cuando lo apruebas construye el borrador. Al final recibes un **PDF** y un **link web** para enviar.
+El **Estudio de Presentaciones** (`presentations-designer`) genera presentaciones comerciales para clientes con el diseño oficial de Campuslands. El usuario aporta los alcances y la información del cliente; el agente propone primero un **plan lámina por lámina** y construye el borrador solo después de que el plan se aprueba. El resultado es un **PDF** y un **link web**.
 
-No necesitas saber de diseño ni de programación: el agente se ocupa del formato, la marca y la verificación. Tu trabajo es aportar la información correcta y decidir.
+El agente se encarga del formato, la marca y la verificación. Al usuario le corresponde aportar la información correcta y aprobar el plan y el borrador.
 
 ```stats
 10 | láminas como máximo; cada una responde una pregunta del cliente
-2 | cosas que recibes: un PDF y un link web
-0 | cifras inventadas: si falta un dato, te lo pide
+1 | plan lámina por lámina, que se aprueba antes de construir el borrador
+2 | resultados: un PDF y un link web
 ```
 
-> [!tip] El orden importa
-> Primero se aprueba el plan, después se construye el borrador y por último se hacen los ajustes. Así los cambios grandes se discuten cuando son baratos, no cuando la presentación ya está armada.
+> [!nota] Orden del proceso
+> El proceso sigue siempre el mismo orden: aprobación del plan, construcción del borrador y ajustes. Los cambios de fondo se resuelven en el plan, antes de que la presentación esté armada.
 
-## Para qué sirve
+## Cuándo se usa
 
-Úsalo cuando necesites una **presentación comercial** para un cliente: una propuesta, una demostración de solución o una propuesta de plataforma. Está pensado para quien dirige la cuenta: tú aportas los datos del cliente y aprobaciones; el agente hace el trabajo de diseño.
+El agente se usa para elaborar una **presentación comercial** para un cliente: una propuesta, una demostración de solución o una propuesta de plataforma. Está pensado para quien dirige la cuenta, que aporta los datos del cliente y las aprobaciones, mientras el agente realiza el trabajo de diseño.
 
-### Cómo se ven siempre las presentaciones
+### Reglas de diseño
 
-El diseño no se negocia por cliente, y eso te ahorra decisiones:
+El diseño es el mismo para todos los clientes:
 
 - Fondo **blanco** y tipografía **Poppins**.
-- Los logos de **Campuslands y del cliente** juntos en la portada y el cierre, del mismo peso visual y separados por una «×».
+- Los logos de **Campuslands y del cliente** juntos en la portada y el cierre, con el mismo peso visual y separados por una «×».
 - Los colores de la presentación son siempre los de Campuslands. **Del cliente se usa su logo y su contenido**, no sus colores.
 - Un máximo de **10 láminas**.
 
-## Lo que ya hemos construido
+## Ejemplos de presentaciones
 
-Estas son las portadas de algunas de las presentaciones que el agente ya entregó. Arrastra la pila, usa las flechas o pasa el cursor por encima para abrirla en abanico: verás que todas comparten el mismo diseño y solo cambian el cliente, el proyecto y el contenido.
+Portadas de presentaciones generadas por el agente. Todas comparten el mismo diseño; solo cambian el cliente, el proyecto y el contenido. La pila se puede arrastrar, recorrer con las flechas o abrir en abanico al pasar el cursor.
 
 ```cardstack
 ```
 
-### Empresas con las que hemos trabajado
+### Logos de clientes
 
-El logo de cada cliente entra en la portada y el cierre de su presentación. Aquí están todos, con sus colores originales: pasa el cursor, usa las flechas o arrastra para recorrerlos.
+El logo de cada cliente se coloca en la portada y el cierre de su presentación. Se muestran con sus colores originales; el carrusel se recorre con las flechas, arrastrando o pasando el cursor.
 
 ```coverflow
 ```
 
-## Qué necesitas darle
+## Entradas requeridas
 
 Si falta información, el agente te enviará un cuestionario. Puedes adelantarte reuniendo estas seis cosas:
 
@@ -88,7 +88,7 @@ Antes de diseñar, el agente te muestra una propuesta **lámina por lámina**: q
 
 ### 3. Revisa el borrador
 
-Recibirás la presentación completa. El agente ya la habrá revisado con una herramienta automática y a la vista, pero tú conoces a tu cliente mejor que nadie.
+El agente entrega la presentación completa, revisada con una herramienta automática y a la vista. La revisión del contenido corresponde al usuario, que conoce al cliente.
 
 ### 4. Pide ajustes
 
@@ -99,7 +99,7 @@ Dile qué cambiar. Después de cada ajuste el agente vuelve a verificar la prese
 Cuando das tu visto bueno, el agente exporta el PDF, registra la presentación en el portal de proyectos, la publica y te comparte el link. Si no pudo confirmar que la publicación ya está activa, **te lo dice**.
 
 > [!importante] Después de publicar, espera unos 2 minutos
-> La web tarda **aproximadamente 2 minutos** en mostrar la presentación nueva o los cambios. El agente te lo recuerda cada vez que publica. Si el link da error justo después, espera y recarga; está explicado en [Cómo funciona la web de presentaciones](#como-funciona-la-web-de-presentaciones).
+> La web tarda **aproximadamente 2 minutos** en mostrar la presentación nueva o los cambios. El agente lo recuerda cada vez que publica. Si el link da error justo después, espera y recarga; está explicado en [Cómo funciona la web de presentaciones](#como-funciona-la-web-de-presentaciones).
 
 ## Cómo es el plan por lámina
 
@@ -149,7 +149,7 @@ Tú: La lámina 4 se ve plana. Rediséñala.
 Agente: La reestructuro con otro tipo de diseño, nueva jerarquía y íconos, y vuelvo a verificarla.
 ```
 
-## Qué recibes
+## Resultados
 
 ```cards
 El PDF | Una página por lámina. Es el archivo portable: se ve igual en cualquier equipo y se envía por correo.
@@ -314,6 +314,6 @@ El PDF no se edita. Si necesitas un cambio, pídeselo al agente y se genera de n
 | Razón social | El nombre legal completo de la empresa |
 | Portal | La página web donde se registran todos los proyectos |
 
-## Si algo no funciona
+## Solución de problemas
 
 Si el agente no responde como esperas, repite tu pedido con más contexto. Si algo del diseño te parece incorrecto, descríbelo con una frase concreta («en la lámina 5 el texto se sale de la tarjeta»). Si el problema persiste, avisa a quien mantiene el agente; su guía técnica incluye una tabla de problemas frecuentes.
