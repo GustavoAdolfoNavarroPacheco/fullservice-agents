@@ -17,7 +17,7 @@ import build  # noqa: E402   (datos de «Proyecto» y lista de agentes)
 
 BASE = (sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:4173').rstrip('/')
 CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
-ESCALA = {13, 15, 17, 20, 32, 40, 52}
+ESCALA = {13, 15, 18, 32, 52}
 FUENTES = """() => { const m = {}; document.querySelectorAll('body *').forEach(e => { if (e instanceof SVGElement) return; const t = [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim()); if (!t) return; const s = getComputedStyle(e); if (s.display === 'none') return; m[Math.round(parseFloat(s.fontSize))] = 1; }); return Object.keys(m).map(Number); }"""
 ok = True
 
