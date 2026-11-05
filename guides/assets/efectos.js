@@ -95,7 +95,7 @@
       el.classList.add(clase);
       setTimeout(function () { el.classList.remove(clase); ocupado = false; }, ms);
     }
-    ola('wv-in', (i - 1) * 38 + 900);
+    ola('wv-in', (i - 1) * 38 + 900 + (document.documentElement.classList.contains('entra') ? 1350 : 0));       // con cortina, la ola espera a que se abra (--e en el CSS)
     el.addEventListener('pointerenter', function () { ola('wv-on', total); });
   }
 
@@ -377,7 +377,16 @@
   }
   window.revelarTodo = function () { [].forEach.call(document.querySelectorAll('[data-reveal]'), function (e) { e.classList.add('on'); }); };
 
+  /* cortina de entrada: el CSS la anima sola; aquí se anota que ya se vio (solo la primera vez de cada sesión) y se retira del DOM */
+  function cortina() {
+    var ov = document.querySelector('.intro');
+    if (!ov || !document.documentElement.classList.contains('entra')) return;
+    try { sessionStorage.setItem('intro', '1'); } catch (e) { /* sin almacenamiento: se verá en cada página, sin más */ }
+    setTimeout(function () { if (ov.parentNode) ov.parentNode.removeChild(ov); }, 2300);
+  }
+
   function iniciar() {
+    cortina();
     letterSwap();
     [].forEach.call(document.querySelectorAll('[data-wave]'), wave);
     [].forEach.call(document.querySelectorAll('.cx'), carrusel);
