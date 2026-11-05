@@ -153,16 +153,18 @@ El usuario revisa el borrador completo; los ajustes se aplican sobre el HTML y *
 
 ### Paleta
 
-| Color | HEX | Rol en las presentaciones |
-|---|---|---|
-| Blanco | `#FFFFFF` | Único fondo de lámina y de la página del visor |
-| Navy | `#000087` | Títulos y tarjetas de acento; nunca fondo |
-| Violeta | `#5E3AE2` | Énfasis, números, el símbolo `</`, tarjetas de acento |
-| Dorado | `#F4B422` | Íconos, barras y marco neón; no es color de texto sobre blanco |
-| Celeste | `#2CAAFF` | Íconos y detalles |
-| Verde | `#00AA80` | Éxito, chevrones e íconos |
-| Arena | `#E4E4DB` | Paneles de apoyo; nunca fondo de lámina |
-| Tinta | `#373435` | Color del texto de cuerpo sobre blanco |
+```paleta
+Blanco | `#FFFFFF` | Único fondo de lámina y de la página del visor
+Navy | `#000087` | Títulos y tarjetas de acento; nunca fondo
+Violeta | `#5E3AE2` | Énfasis, números, el símbolo `</`, tarjetas de acento
+Dorado | `#F4B422` | Íconos, barras y marco neón; no es color de texto sobre blanco
+Celeste | `#2CAAFF` | Íconos y detalles
+Verde | `#00AA80` | Éxito, chevrones e íconos
+Arena | `#E4E4DB` | Paneles de apoyo; nunca fondo de lámina
+Tinta | `#373435` | Color del texto de cuerpo sobre blanco
+```
+
+Pulsa un color para copiar su código HEX.
 
 Los pares de texto permitidos están verificados con contraste WCAG (4,5 : 1 para texto normal, 3 : 1 para texto grande). Por ejemplo, sobre blanco se usan títulos navy, acentos violeta y cuerpo en tinta; sobre violeta el texto es blanco, porque el dorado sobre violeta no alcanza el contraste.
 
