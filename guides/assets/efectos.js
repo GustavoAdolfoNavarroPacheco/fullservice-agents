@@ -260,6 +260,27 @@
     });
   }
 
+  /* paleta: pulsar un color copia su HEX; al pasar sobre una tarjeta se ensancha su tramo de la franja y el brillo sigue al cursor */
+  function paleta(raiz) {
+    var cards = [].slice.call(raiz.querySelectorAll('.pal-c')), segs = [].slice.call(raiz.querySelectorAll('.pal-bar i'));
+    cards.forEach(function (c, i) {
+      var et = c.querySelector('.pal-ct'), t = null;
+      function on() { if (segs[i]) segs[i].classList.add('hot'); }
+      function off() { if (segs[i]) segs[i].classList.remove('hot'); }
+      c.addEventListener('mouseenter', on); c.addEventListener('mouseleave', off); c.addEventListener('focus', on); c.addEventListener('blur', off);
+      c.addEventListener('mousemove', function (e) {
+        var r = c.querySelector('.pal-s').getBoundingClientRect();
+        c.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%'); c.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+      });
+      c.addEventListener('click', function () {
+        copiarTexto(c.getAttribute('data-hex')).then(function () {
+          c.classList.add('ok'); et.textContent = 'Copiado ' + c.getAttribute('data-hex');
+          clearTimeout(t); t = setTimeout(function () { c.classList.remove('ok'); et.textContent = 'Copiar'; }, 1800);
+        }, function () { et.textContent = c.getAttribute('data-hex'); });
+      });
+    });
+  }
+
   function conmutador(raiz) {
     var tabs = [].slice.call(raiz.querySelectorAll('.sw-bar [role="tab"]')), thumb = raiz.querySelector('.sw-thumb'), actual = -1;
     var paneles = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
@@ -351,6 +372,7 @@
     [].forEach.call(document.querySelectorAll('.cx'), carrusel);
     [].forEach.call(document.querySelectorAll('.prompt, .code'), botonCopiar);
     [].forEach.call(document.querySelectorAll('[data-sw]'), conmutador);
+    [].forEach.call(document.querySelectorAll('.pal'), paleta);
     [].forEach.call(document.querySelectorAll('[data-reveal]'), revelar);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();

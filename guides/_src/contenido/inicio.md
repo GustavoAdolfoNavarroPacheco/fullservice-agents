@@ -26,16 +26,16 @@ El repositorio agrupa a los agentes por la plataforma donde corren. Cada agente 
 ```tree
 fullservice-agents/
   agents/
-    claude-agents/                  # los cinco agentes de Claude Code (cada uno con su CLAUDE.md)
+    claude-agents/                  # los 5 agentes de Claude Code (CLAUDE.md)
       presentations-designer/
       functional-scope/
       quote-developer/
       bidding-agent/
       contract-perfectionist/
-    perplexity-agents/              # los dos agentes de Perplexity (cada uno con su Perplexity.md)
+    perplexity-agents/              # los 2 agentes de Perplexity (Perplexity.md)
       prospection-agent/
       intelligence-commercial/
-  resources/                        # marca y logos de Campuslands, compartidos por todos
+  resources/                        # marca y logos de Campuslands
   guides/                           # esta web
 ```
 
