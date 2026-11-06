@@ -259,6 +259,8 @@ td:first-child{ font-weight:500; color:var(--ink); }
   -webkit-mask-image:radial-gradient(circle, #000 20%, transparent 68%); mask-image:radial-gradient(circle, #000 20%, transparent 68%); pointer-events:none; }
 .banner-in{ position:relative; max-width:var(--page-w); margin:0 auto; padding:84px 0 76px; }
 .banner .dek{ margin-top:18px; max-width:40em; font-size:var(--t-body); line-height:1.6; }
+/* con los iconos a la derecha, el párrafo no pasa de su columna: deja siempre un aire de al menos 56 px hasta ellos (en pantallas estrechas los iconos bajan y el texto usa todo el ancho) */
+@media (min-width:1101px){ .banner .dek{ max-width:min(40em, calc(var(--page-w) - 360px - 56px)); } }
 /* iconos de Claude y Perplexity flotando en 3D (derecha del banner): flotan siempre, siguen el cursor, giran y brillan al pasar el cursor; contraluz tenue de cada marca */
 .banner-art{ position:absolute; top:50%; right:calc((100% - var(--page-w)) / 2 - 20px); width:360px; height:330px; transform:translateY(-50%); pointer-events:none; --px:0; --py:0; }
 .ico{ position:absolute; width:var(--s); height:var(--s); pointer-events:auto; perspective:700px; }
