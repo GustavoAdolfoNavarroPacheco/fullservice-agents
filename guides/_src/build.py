@@ -6,9 +6,11 @@ Salida: guides/<agente>/guia-{dev,usuario}.html y .pdf · guides/inicio.html, gu
 """
 import html
 import json
+import os
 import pathlib
 import re
 import sys
+import time
 
 SRC = pathlib.Path(__file__).resolve().parent
 ROOT = SRC.parent
@@ -499,12 +501,33 @@ def check_scale():
         raise SystemExit('estilo.css usa tamaños fuera de la escala: %s' % sorted(set(bad)))
 
 
+def escribir(ruta, texto):
+    """Escribe de forma atómica (archivo temporal + reemplazo) y reintenta si otro proceso tiene el destino ocupado.
+    Evita el error «[Errno 22]» cuando servir.py y una compilación manual reconstruyen a la vez, y que el navegador lea una página a medio escribir."""
+    ruta = pathlib.Path(ruta)
+    tmp = ruta.with_name('.%s.%d.tmp' % (ruta.name, os.getpid()))
+    ultimo = None
+    for _ in range(8):
+        try:
+            tmp.write_text(texto, encoding='utf-8')
+            os.replace(tmp, ruta)
+            return
+        except OSError as e:
+            ultimo = e
+            time.sleep(0.15)
+    try:
+        tmp.unlink()
+    except OSError:
+        pass
+    raise ultimo
+
+
 def build(only=None, pdf=True):
     check_scale()
     (ROOT / 'assets').mkdir(exist_ok=True)
-    (ROOT / 'assets' / 'estilo.css').write_text((SRC / 'estilo.css').read_text(encoding='utf-8'), encoding='utf-8')
-    (ROOT / 'assets' / 'suave.js').write_text((SRC / 'suave.js').read_text(encoding='utf-8'), encoding='utf-8')
-    (ROOT / 'assets' / 'efectos.js').write_text((SRC / 'efectos.js').read_text(encoding='utf-8'), encoding='utf-8')
+    escribir(ROOT / 'assets' / 'estilo.css', (SRC / 'estilo.css').read_text(encoding='utf-8'))
+    escribir(ROOT / 'assets' / 'suave.js', (SRC / 'suave.js').read_text(encoding='utf-8'))
+    escribir(ROOT / 'assets' / 'efectos.js', (SRC / 'efectos.js').read_text(encoding='utf-8'))
     items = []
     for ag in AGENTES:
         for kind in ('dev', 'usuario'):
@@ -519,16 +542,16 @@ def build(only=None, pdf=True):
             out = ROOT / ag['slug']
             out.mkdir(exist_ok=True)
             hp = out / ('guia-%s.html' % kind)
-            hp.write_text(guide_page(ag, kind, meta, body, toc, words), encoding='utf-8')
+            escribir(hp, guide_page(ag, kind, meta, body, toc, words))
             print('  %-26s %-8s %5d palabras · %d secciones' % (ag['slug'], kind, words, len(toc)))
             if pdf:
                 make_pdf(hp, out / ('guia-%s.pdf' % kind), '%s · %s' % (ag['slug'], TIPOS[kind]))
     # El índice son cuatro archivos reales (misma página; solo cambia su dirección canónica) para que Vercel los sirva con cleanUrls, sin reescrituras.
     (ROOT / 'inicio').mkdir(exist_ok=True)
-    (ROOT / 'inicio.html').write_text(index_page(items, '/inicio'), encoding='utf-8')
-    (ROOT / 'inicio' / 'instalacion.html').write_text(index_page(items, '/inicio/instalacion'), encoding='utf-8')
-    (ROOT / 'inicio' / 'usuario.html').write_text(index_page(items, '/inicio/usuario'), encoding='utf-8')
-    (ROOT / 'inicio' / 'desarrollador.html').write_text(index_page(items, '/inicio/desarrollador'), encoding='utf-8')
+    escribir(ROOT / 'inicio.html', index_page(items, '/inicio'))
+    escribir(ROOT / 'inicio' / 'instalacion.html', index_page(items, '/inicio/instalacion'))
+    escribir(ROOT / 'inicio' / 'usuario.html', index_page(items, '/inicio/usuario'))
+    escribir(ROOT / 'inicio' / 'desarrollador.html', index_page(items, '/inicio/desarrollador'))
 
 
 if __name__ == '__main__':
