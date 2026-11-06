@@ -114,7 +114,7 @@ El **Estudio de Presentaciones** (`presentations-designer`) es el único agente 
 | | Repositorio 1 | Repositorio 2 |
 |---|---|---|
 | Nombre | `fullservice-agents` | `Presentaciones` |
-| Qué guarda | Los siete agentes, la wiki, las herramientas y estas guías | Las presentaciones (`decks/`) y el portal web (`web/`) |
+| Qué guarda | Los ocho agentes, la wiki, las herramientas y estas guías | Las presentaciones (`decks/`) y el portal web (`web/`) |
 | Quién lo publica | Vercel publica solo `guides/` (esta web) | Vercel publica el portal y todas las presentaciones |
 | Visibilidad | Público | **Privado**: hace falta acceso |
 
@@ -161,7 +161,7 @@ Cómo funciona la web de presentaciones (el catálogo privado, los links públic
 
 ## Usarlo como Proyecto en Claude o Perplexity
 
-Cualquiera de los siete agentes puede montarse como **Proyecto de Claude** (claude.ai) o como **Space de Perplexity**: subes sus archivos, pegas unas instrucciones y trabajas en un chat. Los dos agentes de Perplexity están pensados para esto; los de Claude Code también funcionan así, con un límite que conviene conocer.
+Cualquiera de los ocho agentes puede montarse como **Proyecto de Claude** (claude.ai) o como **Space de Perplexity**: subes sus archivos, pegas unas instrucciones y trabajas en un chat. Los dos agentes de Perplexity están pensados para esto; los de Claude Code también funcionan así, con un límite que conviene conocer.
 
 > [!importante] Un Proyecto es un chat con memoria, no un agente con tu carpeta
 > No tiene acceso a tu computador ni a Git. Puede planear, redactar y analizar con las reglas del agente, pero **no puede** ejecutar sus scripts o herramientas (verificadores, constructores de Word, `git push`). Cuando una regla lo pida, te dará el comando para que lo ejecutes tú. Para el ciclo completo, instala el repositorio y usa Claude Code.

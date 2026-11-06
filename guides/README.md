@@ -1,6 +1,6 @@
 # Guías de los agentes
 
-Dos guías por agente (7 agentes, 14 guías), en **web** y **PDF**, con un estilo editorial inspirado en los documentos de Claude Docs y el blog de Anthropic: fondo marfil, títulos y prosa en serif (párrafos, listas y avisos), interfaz (tablas, tarjetas, pestañas, botones) en sans, enlaces en tinta con subrayado y **un solo acento** (el naranja, solo en el indicador de pestaña, el foco y el pulso del mensaje). Los avisos, pasos, carriles, insignias y botones son neutros (tinta, avena y marfil), sin verdes, rosas ni azules: así el color no compite con el texto.
+Dos guías por agente (8 agentes, 16 guías), en **web** y **PDF**, con un estilo editorial inspirado en los documentos de Claude Docs y el blog de Anthropic: fondo marfil, títulos y prosa en serif (párrafos, listas y avisos), interfaz (tablas, tarjetas, pestañas, botones) en sans, enlaces en tinta con subrayado y **un solo acento** (el naranja, solo en el indicador de pestaña, el foco y el pulso del mensaje). Los avisos, pasos, carriles, insignias y botones son neutros (tinta, avena y marfil), sin verdes, rosas ni azules: así el color no compite con el texto.
 
 | Guía | Para quién | Extensión aproximada |
 |---|---|---|
@@ -9,7 +9,7 @@ Dos guías por agente (7 agentes, 14 guías), en **web** y **PDF**, con un estil
 
 ## Agentes cubiertos
 
-`prospection-agent` (Radar de Campus) · `intelligence-commercial` (Explorador de Campus) · `presentations-designer` (Estudio de Presentaciones) · `functional-scope` (Alcances Funcionales) · `quote-developer` (Desarrollador de Cotizaciones) · `bidding-agent` (Agente Licitatorio) · `contract-perfectionist` (Perfeccionador de Contratos).
+`prospection-agent` (Radar de Campus) · `intelligence-commercial` (Explorador de Campus) · `presentations-designer` (Estudio de Presentaciones) · `functional-scope` (Alcances Funcionales) · `quote-developer` (Desarrollador de Cotizaciones) · `bidding-agent` (Agente Licitatorio) · `contract-perfectionist` (Perfeccionador de Contratos) · `multifunctional-agent` (Agente Multifuncional, transversal: fuera del orden del flujo comercial).
 
 > Cada agente vive en `agents/claude-agents/<agente>/` (Claude Code) o `agents/perplexity-agents/<agente>/` (Perplexity); las guías usan como nombre el de esa carpeta. `quote-developer` es la antigua `quote-developer-v2`: el repositorio ya no tiene una versión 1 aparte.
 
@@ -95,7 +95,7 @@ Son las dos primeras pestañas del índice, a la izquierda de «Guía de usuario
 
 - **Instalación**, con un *switch* entre «Instalación para usuario» (un mensaje para copiar y dárselo a la IA, que clona todo en el lugar correcto) y «Instalación para desarrollador» (la lista de comandos).
 - **Repositorio aparte:** el Estudio de Presentaciones entrega en `Presentaciones`, un repositorio **privado** que llega vacío al clonar el raíz. Explica el clon en la carpeta exacta, el permiso que concede Gustavo (para clonar y para el `push`) y los ~2 minutos que tarda Vercel en publicar.
-- **Usarlo como Proyecto** en Claude o Perplexity (y, al final, **Si algo falla** con una tabla de síntomas y soluciones): un selector con los siete agentes muestra, en tres pasos, qué archivo va a dónde (instrucciones, archivos, qué no se sube) y el texto de instrucciones listo para copiar. Los datos están en `PROYECTO` de `build.py`; el test `probar_web.py` comprueba que todos los archivos listados existan.
+- **Usarlo como Proyecto** en Claude o Perplexity (y, al final, **Si algo falla** con una tabla de síntomas y soluciones): un selector con los ocho agentes muestra, en tres pasos, qué archivo va a dónde (instrucciones, archivos, qué no se sube) y el texto de instrucciones listo para copiar. Los datos están en `PROYECTO` de `build.py`; el test `probar_web.py` comprueba que todos los archivos listados existan.
 
 El mismo «repositorio aparte» está documentado en las guías de `presentations-designer` (usuario: «Cómo funciona la web de presentaciones»; desarrollador: «El repositorio aparte y su publicación») y es regla del agente en su `CLAUDE.md`.
 
@@ -107,7 +107,7 @@ Componentes nuevos (todos en `efectos.js` y `estilo.css`; sin JavaScript se ven 
 | ```` ```prompt ```` · ```` ```bash ```` · ```` ```powershell ```` | Mensaje o comandos con botón «Copiar» (portapapeles, con respaldo) |
 | ```` ```repos ```` | Los dos repositorios, uno dentro del otro: la carpeta del segundo se «llena» al verse |
 | ```` ```publicar ```` | Línea de tiempo animada: los puntos se encienden en orden y el globo marca el tiempo |
-| ```` ```proyectos ```` | Desplegable con los siete agentes (nombre de su carpeta, plataforma y rol; se abre con rebote, con teclado: ↑ ↓ Inicio Fin, letras, Intro y Esc) y, para el elegido, una ficha en tres pasos: pegar las instrucciones, subir estos archivos y dejarlos fuera. Las cifras cuentan y los pasos entran en escalera al verse |
+| ```` ```proyectos ```` | Desplegable con los ocho agentes (nombre de su carpeta, plataforma y rol; se abre con rebote, con teclado: ↑ ↓ Inicio Fin, letras, Intro y Esc) y, para el elegido, una ficha en tres pasos: pegar las instrucciones, subir estos archivos y dejarlos fuera. Las cifras cuentan y los pasos entran en escalera al verse |
 
 Los enlaces `#` del índice lateral y entre pestañas de «Inicio» e «Instalación» se deslizan con el mismo scroll suave de las guías (`window.irA`, sobre Lenis), abriendo antes la pestaña donde está la sección. **Iconos 3D del banner:** cada icono es un bloque macizo: la cara a z = 0 (así no se reescala ni se ve borrosa) y detrás 64 láminas finas (`.ico-s`, generadas en `build.py`) teñidas de `--edge` a `--edge2` que forman el canto. Al entrar el cursor el icono da una vuelta completa **hacia donde se mueve el cursor** (`ART_JS` calcula el eje `--ax`/`--ay` con el movimiento reciente, o con la dirección de entrada si casi no se movía). Las imágenes de la cara son de 480 px (`assets/img/plataforma-*-xl.png`, generadas a partir de `resources/platforms-logos/`).
 

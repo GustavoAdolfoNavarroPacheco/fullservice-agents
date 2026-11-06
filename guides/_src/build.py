@@ -27,7 +27,7 @@ import comandos  # noqa: E402   (catálogo de comandos «!»: fuente única de l
 CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
 FECHA = '3 nov 2026'
 
-# orden del pipeline comercial
+# orden del pipeline comercial; al final, el agente transversal (fuera del pipeline)
 AGENTES = [
     dict(slug='prospection-agent', nombre='Radar de Campus', rol='Prospección de empresas', plataforma='Perplexity',
          resumen='Busca en la web abierta las empresas que encajan con el perfil de cliente de Campuslands y entrega un listado con datos públicos verificables.'),
@@ -43,6 +43,8 @@ AGENTES = [
          resumen='Analiza los cuatro documentos de una licitación y construye la propuesta técnica, la estimación de horas y el análisis de IA.'),
     dict(slug='contract-perfectionist', nombre='Perfeccionador de Contratos', rol='Redacción de contratos', plataforma='Claude Code',
          resumen='Redacta el contrato final de un proyecto a partir de los alcances, la cotización y el contrato madre, listo para firma.'),
+    dict(slug='multifunctional-agent', nombre='Agente Multifuncional', rol='Tareas operativas: facturas y audio', plataforma='Claude Code',
+         resumen='Unifica varias facturas en un Word y un PDF en orden cronológico, y transcribe en local el audio de una reunión a un Word y un PDF.'),
 ]
 TIPOS = {'dev': 'Guía de desarrollador', 'usuario': 'Guía de usuario'}
 
@@ -111,6 +113,13 @@ PROYECTO = {
         skills=['analisis-ia-tokens', 'estimacion-horas', 'ingesta-documentos-licitacion', 'matriz-cumplimiento', 'modelos-costos'],
         extras=[('recursos/licitaciones/<proceso>/', 'Los cuatro documentos oficiales de la licitación en la que trabajas: solo esa, en cada chat.', 4)],
         no=[('recursos/licitaciones/ (otros procesos)', 'Pesan varios MB y no tienen que ver con la licitación actual.'), ('licitaciones/', 'Los entregables generados por proceso.'), ('wiki/log.md', 'La bitácora histórica.')]),
+    'multifunctional-agent': dict(
+        instr='CLAUDE.md', wiki=['index', 'banner-facturas', 'formato-transcripcion', 'motor-transcripcion'], skills=[],
+        extras=[('recursos/plantilla/Plantilla Word - Campuslands.docx', 'La plantilla Word con el membrete de Campuslands, base de las facturas y de la transcripción.')],
+        no=[('scripts/', 'Unifican las facturas y transcriben el audio en tu computador; un Proyecto no los ejecuta. Te da el comando para que lo corras tú.'),
+            ('trabajos/', 'Una carpeta por lote de facturas o por reunión. Las facturas y los audios se suben en cada chat, solo los del trabajo en curso.'),
+            ('recursos/modelos-audio/ · recursos/fuentes/', 'Los modelos de voz pesan cientos de MB y la tipografía va dentro del Word; ninguno cambia lo que el agente hace en un chat.'),
+            ('wiki/log.md', 'La bitácora histórica.')]),
     'contract-perfectionist': dict(
         instr='CLAUDE.md', wiki=['index', 'glosario-clausulas', 'datos-empresa', 'plantilla-verificacion-cruzada'], skills=[],
         extras=[('recursos/contrato-madre/Contrato Madre - Plantilla Base.docx', 'El contrato madre con las cláusulas estándar.'),
@@ -462,10 +471,10 @@ def index_page(items, path='/inicio'):
                     % (html.escape(ag['nombre']), base, html.escape(ag['slug']), plat(ag, ''), md.inline(corto(m['titulo'])), md.inline(m['resumen']),
                        max(1, round(w / 210)), base, html.escape(nice), html.escape(ag['slug']), PDF_ICON))
         return out
-    page = head('Guías de los agentes · fullservice-agents', '', 'Guías de usuario y de desarrollador de los siete agentes del flujo comercial de Campuslands, de la prospección al contrato. En línea y en PDF.',
+    page = head('Guías de los agentes · fullservice-agents', '', 'Guías de usuario y de desarrollador de los ocho agentes de Campuslands: el flujo comercial, de la prospección al contrato, y un agente transversal. En línea y en PDF.',
                 path, 'home.png').replace('<meta charset="UTF-8">\n', '<meta charset="UTF-8">\n<base href="/">\n', 1) + topbar('')
     page += ('<section class="banner"><div class="banner-in"><h1 class="wave" data-wave>fullservice-agents</h1>'
-             '<p class="dek">Documentación de los siete agentes de IA del flujo comercial de Campuslands, de la prospección al contrato. '
+             '<p class="dek">Documentación de los ocho agentes de IA de Campuslands: los siete del flujo comercial, de la prospección al contrato, y un agente multifuncional de tareas operativas. '
              'Contiene la descripción del repositorio (<strong>Inicio</strong>), los procedimientos de <strong>instalación</strong>, '
              'la <strong>guía de usuario</strong> de cada agente (entradas, flujo y resultados) y su <strong>guía de desarrollador</strong> (construcción y mantenimiento).</p></div>%s</section>\n'
              '<nav class="tabbar"><div class="tabbar-in"><div class="tabs" role="tablist" aria-label="Secciones">'
@@ -475,7 +484,7 @@ def index_page(items, path='/inicio'):
              '<button type="button" role="tab" id="tab-dev" aria-controls="dev" aria-selected="false" tabindex="-1">Guía de desarrollador</button>'
              '<span class="tab-ind" aria-hidden="true"></span></div></div></nav>\n'
              '<main class="home">%s%s'
-             '<section class="panel" id="usuario" role="tabpanel" aria-labelledby="tab-usuario"><h2>Guías de usuario</h2><p class="sub">En el orden del flujo comercial, de la prospección al contrato.</p><div class="agents">%s</div></section>'
+             '<section class="panel" id="usuario" role="tabpanel" aria-labelledby="tab-usuario"><h2>Guías de usuario</h2><p class="sub">En el orden del flujo comercial, de la prospección al contrato; al final, el agente multifuncional, que no es una etapa del flujo.</p><div class="agents">%s</div></section>'
              '<section class="panel" id="dev" role="tabpanel" aria-labelledby="tab-dev"><h2>Guías de desarrollador</h2><p class="sub">Cómo está construido cada agente y cómo se mantiene.</p><div class="agents">%s</div></section></main>\n%s'
              '<footer class="site"><span>Campuslands S.A.S. BIC · Full Service</span>%s</footer>\n%s\n</body>\n</html>\n'
              % (BANNER_ART, panel_md('inicio.md', 'inicio', 'tab-inicio'), panel_md('instalacion.md', 'instalar', 'tab-instalacion'), rows('usuario'), rows('dev'), TABS_JS + ART_JS + JS, dock(''), scripts('')))

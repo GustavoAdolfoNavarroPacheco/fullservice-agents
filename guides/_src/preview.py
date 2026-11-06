@@ -82,10 +82,10 @@ def home():
     return pagina(
         '<div class="marca"><img src="assets/img/logo-campuslands-color.png" alt=""></div>'
         '<div class="txt" style="top:158px"><h1 style="font-size:96px;white-space:nowrap">fullservice-agents</h1>'
-        '<p class="dek" style="font-size:30px;margin-top:24px;max-width:650px">Guías de usuario y de desarrollador de los %s agentes del flujo comercial de Campuslands, de la prospección al contrato.</p></div>'
+        '<p class="dek" style="font-size:30px;margin-top:24px;max-width:650px">Guías de usuario y de desarrollador de los %s agentes de Campuslands, del flujo comercial al multifuncional.</p></div>'
         '<div class="pie"><span class="pill"><img src="assets/img/plataforma-claude.png" alt="">Claude Code</span><span class="pill"><img src="assets/img/plataforma-perplexity.png" alt="">Perplexity</span>'
         '<span class="pt">· %d guías · HTML y PDF</span></div>'
-        '<div class="escena">%s%s</div>' % ('siete' if n == 7 else n, n * 2, ico('ico-claude', 'plataforma-claude-lg.png'), ico('ico-pplx', 'plataforma-perplexity-lg.png')))
+        '<div class="escena">%s%s</div>' % ({7: 'siete', 8: 'ocho'}.get(n, n), n * 2, ico('ico-claude', 'plataforma-claude-lg.png'), ico('ico-pplx', 'plataforma-perplexity-lg.png')))
 
 
 def guia(ag, kind, titulo):

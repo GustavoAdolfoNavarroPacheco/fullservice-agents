@@ -333,13 +333,13 @@ with sync_playwright() as p:
     # selector de agentes del apartado «Proyecto»
     pg.evaluate("document.querySelector('[data-sw=proyecto-agente]').scrollIntoView()"); pg.wait_for_timeout(300)
     n = pg.evaluate("document.querySelectorAll('[data-sw=proyecto-agente] .sw-bar [role=option]').length")
-    check('proyecto: un selector con los siete agentes', n == 7, str(n))
+    check('proyecto: un selector con los ocho agentes', n == 8, str(n))
     st = "(() => { const r = document.querySelector('[data-sw=proyecto-agente]'), t = r.querySelector('.sw-trig'), l = r.querySelector('.sw-bar'); return {exp: t.getAttribute('aria-expanded'), vis: getComputedStyle(l).visibility, op: getComputedStyle(l).opacity, txt: t.textContent.trim().replace(/\\s+/g, ' ')}; })()"
     e0 = pg.evaluate(st)
     check('desplegable: cerrado muestra solo la opción elegida', e0['exp'] == 'false' and e0['vis'] == 'hidden' and 'prospection-agent' in e0['txt'], str(e0))
     pg.click('[data-sw=proyecto-agente] .sw-trig'); pg.wait_for_timeout(600)
     e1 = pg.evaluate(st)
-    check('desplegable: al pulsar se abre la lista con los siete agentes', e1['exp'] == 'true' and e1['vis'] == 'visible' and e1['op'] == '1' and pg.evaluate("document.querySelectorAll('[data-sw=proyecto-agente] [role=option]').length") == 7, str(e1))
+    check('desplegable: al pulsar se abre la lista con los ocho agentes', e1['exp'] == 'true' and e1['vis'] == 'visible' and e1['op'] == '1' and pg.evaluate("document.querySelectorAll('[data-sw=proyecto-agente] [role=option]').length") == 8, str(e1))
     pg.keyboard.press('Escape'); pg.wait_for_timeout(500)
     check('desplegable: Esc lo cierra y devuelve el foco al botón', pg.evaluate(st)['exp'] == 'false' and pg.evaluate("document.activeElement.classList.contains('sw-trig')"))
     pg.click('[data-sw=proyecto-agente] .sw-trig'); pg.wait_for_timeout(400)
