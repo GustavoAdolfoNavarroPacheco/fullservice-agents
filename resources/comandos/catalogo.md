@@ -14,61 +14,61 @@ Catálogo único. **Generado** por `resources/comandos/comandos.py`: no se edita
 
 ## Matriz: qué comando tiene cada agente
 
-| Comando | Grupo | `prospection-agent` | `intelligence-commercial` | `presentations-designer` | `functional-scope` | `quote-developer` | `bidding-agent` | `contract-perfectionist` |
-|---|---|---|---|---|---|---|---|---|
-| `!analyze` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!research` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!plan` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!execute` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!review` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!audit` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!validate` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!optimize` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!compare` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!summarize` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!document` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!prioritize` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!help` | General | ● | ● | ● | ● | ● | ● | ● |
-| `!notime` | Modos | ● | ● | ● | ● | ● | ● | ● |
-| `!think-deep` | Modos | ● | ● | ● | ● | ● | ● | ● |
-| `!critical-mode` | Modos | ● | ● | ● | ● | ● | ● | ● |
-| `!no-assumptions` | Modos | ● | ● | ● | ● | ● | ● | ● |
-| `!double-check` | Modos | ● | ● | ● | ● | ● | ● | ● |
-| `!strict-mode` | Modos | ● | ● | ● | ● | ● | ● | ● |
-| `!debug` | Técnico y seguridad | · | · | ● | ● | ● | ● | ● |
-| `!troubleshoot` | Técnico y seguridad | ● | ● | ● | ● | ● | ● | ● |
-| `!security-check` | Técnico y seguridad | ● | ● | ● | ● | ● | ● | ● |
-| `!implement` | Técnico y seguridad | · | · | ● | · | · | · | · |
-| `!refactor` | Técnico y seguridad | · | · | ● | · | · | · | · |
-| `!code-review` | Técnico y seguridad | · | · | ● | · | · | · | · |
-| `!performance` | Técnico y seguridad | · | · | ● | · | · | · | · |
-| `!deploy-check` | Técnico y seguridad | · | · | ● | · | · | · | · |
-| `!rollback` | Técnico y seguridad | · | · | ● | · | · | · | · |
-| `!architecture` | Técnico y seguridad | · | · | · | · | · | ● | · |
-| `!ui-review` | UX/UI y diseño | · | · | ● | · | · | · | · |
-| `!ux-review` | UX/UI y diseño | · | · | ● | · | · | · | · |
-| `!redesign` | UX/UI y diseño | · | · | ● | · | · | · | · |
-| `!design-system` | UX/UI y diseño | · | · | ● | · | · | · | · |
-| `!visual-audit` | UX/UI y diseño | · | · | ● | ● | ● | ● | ● |
-| `!responsive-check` | UX/UI y diseño | · | · | ● | · | · | · | · |
-| `!accessibility` | UX/UI y diseño | · | · | ● | · | · | · | · |
-| `!microinteractions` | UX/UI y diseño | · | · | ● | · | · | · | · |
-| `!consistency-check` | UX/UI y diseño | ● | ● | ● | ● | ● | ● | ● |
-| `!componentize` | UX/UI y diseño | · | · | ● | · | · | · | · |
-| `!breakdown` | Gestión de proyecto | · | · | ● | ● | ● | ● | ● |
-| `!roadmap` | Gestión de proyecto | · | · | · | · | · | ● | · |
-| `!estimate` | Gestión de proyecto | · | · | · | · | ● | ● | · |
-| `!track-progress` | Gestión de proyecto | ● | ● | ● | ● | ● | ● | ● |
-| `!risk-analysis` | Gestión de proyecto | · | · | · | ● | ● | ● | ● |
-| `!requirements` | Gestión de proyecto | · | · | ● | ● | ● | ● | ● |
-| `!generate-report` | Gestión de proyecto | ● | ● | ● | ● | ● | ● | ● |
-| `!final-delivery` | Gestión de proyecto | ● | ● | ● | ● | ● | ● | ● |
-| `!agent-handoff` | Gestión de proyecto | ● | ● | ● | ● | ● | ● | ● |
-| `!second-opinion` | IA avanzada | · | · | ● | ● | ● | ● | ● |
-| `!cross-review` | IA avanzada | · | · | ● | ● | ● | ● | ● |
-| `!orchestrate` | Multiagente | · | · | ● | ● | ● | ● | ● |
-| `!team-review` | Multiagente | · | · | ● | ● | ● | ● | ● |
-| `!consensus` | Multiagente | · | · | ● | ● | ● | ● | ● |
+| Comando | Grupo | `prospection-agent` | `intelligence-commercial` | `presentations-designer` | `functional-scope` | `quote-developer` | `bidding-agent` | `contract-perfectionist` | `multifunctional-agent` |
+|---|---|---|---|---|---|---|---|---|---|
+| `!analyze` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!research` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!plan` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!execute` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!review` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!audit` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!validate` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!optimize` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!compare` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!summarize` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!document` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!prioritize` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!help` | General | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!notime` | Modos | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!think-deep` | Modos | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!critical-mode` | Modos | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!no-assumptions` | Modos | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!double-check` | Modos | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!strict-mode` | Modos | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!debug` | Técnico y seguridad | · | · | ● | ● | ● | ● | ● | ● |
+| `!troubleshoot` | Técnico y seguridad | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!security-check` | Técnico y seguridad | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!implement` | Técnico y seguridad | · | · | ● | · | · | · | · | · |
+| `!refactor` | Técnico y seguridad | · | · | ● | · | · | · | · | · |
+| `!code-review` | Técnico y seguridad | · | · | ● | · | · | · | · | · |
+| `!performance` | Técnico y seguridad | · | · | ● | · | · | · | · | · |
+| `!deploy-check` | Técnico y seguridad | · | · | ● | · | · | · | · | · |
+| `!rollback` | Técnico y seguridad | · | · | ● | · | · | · | · | · |
+| `!architecture` | Técnico y seguridad | · | · | · | · | · | ● | · | · |
+| `!ui-review` | UX/UI y diseño | · | · | ● | · | · | · | · | · |
+| `!ux-review` | UX/UI y diseño | · | · | ● | · | · | · | · | · |
+| `!redesign` | UX/UI y diseño | · | · | ● | · | · | · | · | · |
+| `!design-system` | UX/UI y diseño | · | · | ● | · | · | · | · | · |
+| `!visual-audit` | UX/UI y diseño | · | · | ● | ● | ● | ● | ● | ● |
+| `!responsive-check` | UX/UI y diseño | · | · | ● | · | · | · | · | · |
+| `!accessibility` | UX/UI y diseño | · | · | ● | · | · | · | · | · |
+| `!microinteractions` | UX/UI y diseño | · | · | ● | · | · | · | · | · |
+| `!consistency-check` | UX/UI y diseño | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!componentize` | UX/UI y diseño | · | · | ● | · | · | · | · | · |
+| `!breakdown` | Gestión de proyecto | · | · | ● | ● | ● | ● | ● | · |
+| `!roadmap` | Gestión de proyecto | · | · | · | · | · | ● | · | · |
+| `!estimate` | Gestión de proyecto | · | · | · | · | ● | ● | · | · |
+| `!track-progress` | Gestión de proyecto | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!risk-analysis` | Gestión de proyecto | · | · | · | ● | ● | ● | ● | · |
+| `!requirements` | Gestión de proyecto | · | · | ● | ● | ● | ● | ● | · |
+| `!generate-report` | Gestión de proyecto | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!final-delivery` | Gestión de proyecto | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!agent-handoff` | Gestión de proyecto | ● | ● | ● | ● | ● | ● | ● | ● |
+| `!second-opinion` | IA avanzada | · | · | ● | ● | ● | ● | ● | ● |
+| `!cross-review` | IA avanzada | · | · | ● | ● | ● | ● | ● | ● |
+| `!orchestrate` | Multiagente | · | · | ● | ● | ● | ● | ● | ● |
+| `!team-review` | Multiagente | · | · | ● | ● | ● | ● | ● | ● |
+| `!consensus` | Multiagente | · | · | ● | ● | ● | ● | ● | ● |
 
 ● = disponible · = no aplica a ese agente.
 

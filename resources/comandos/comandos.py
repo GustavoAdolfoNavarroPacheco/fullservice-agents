@@ -280,6 +280,24 @@ AGENTES = {
             'agent-handoff': 'Cierra el flujo: prepara el paquete para revisión legal y firma (contrato, verificación cruzada y pendientes).',
             'team-review': 'Revisores con rol **jurídico (cláusulas)**, **comercial (cifras frente a la cotización)** y **forma (plantilla corporativa)**.',
         }),
+    'multifunctional-agent': dict(
+        nombre='Agente Multifuncional', plataforma='Claude Code', archivo='agents/claude-agents/multifunctional-agent/CLAUDE.md', wiki='agents/claude-agents/multifunctional-agent/wiki',
+        aplica=[c for c in CLAUDE if c not in ('requirements', 'breakdown')],
+        notas={
+            'analyze': 'Revisa los archivos de entrada y dice qué detectó (facturas: fechas, horas y proveedores; audio: duración y motor disponible) sin generar nada todavía.',
+            'plan': 'Presenta cómo procesará el lote o el audio (orden esperado, modelo de voz, dudas) y espera aprobación antes de generar.',
+            'validate': 'Facturas: orden cronológico por el recibo, una factura por hoja y banner igual al recibo. Transcripción: estructura de la referencia, partes de 5 min y etiquetas de hablante.',
+            'audit': 'Busca discrepancias entre el nombre de cada archivo y lo que dice el recibo, fechas dudosas, facturas sin hora y hablantes sin respaldo en el audio.',
+            'double-check': 'Facturas: relee cada recibo y lo compara con su banner. Transcripción: contrasta una muestra de líneas con sus marcas de tiempo.',
+            'visual-audit': 'Renderiza el PDF y lo revisa página por página: banner, recibo completo y legible, pie «Página N de M»; en la transcripción, partes, hablantes y membrete.',
+            'security-check': 'Confidencialidad: recibos con datos personales y audios de reuniones con clientes; comprueba que nada salió del equipo (todo es local) ni quedó versionado en git.',
+            'optimize': 'Mejora la calidad del resultado (p. ej. repetir la transcripción con un modelo más preciso o con vocabulario) sin cambiar el contenido ni el diseño vigente.',
+            'debug': 'Corrige fallos de los scripts (LibreOffice, ffmpeg, modelos de voz, lectura de un recibo) y repite la verificación.',
+            'final-delivery': 'Word y PDF verificados a la vista, avisos incluidos, wiki y bitácora al día y la autoprueba superada si se tocó código.',
+            'agent-handoff': 'Prepara el traspaso de una transcripción de reunión con cliente a **Alcances Funcionales** (`functional-scope`) como fuente de `alcances/<cliente>/fuentes/`.',
+            'orchestrate': 'Reparte lotes de facturas o tramos de audio independientes entre subagentes; la integración y la verificación final las hace el agente principal.',
+            'team-review': 'Revisores con rol **datos (fechas, horas, orden)**, **diseño (banner y membrete)** y **fidelidad (transcripción literal)**.',
+        }),
 }
 
 NOTA_PERPLEXITY_MULTI = ('Este agente corre en Perplexity y **no tiene subagentes**: los comandos multiagente (`!orchestrate`, `!delegate`, `!cross-review`, `!second-opinion`, '

@@ -1,0 +1,66 @@
+{
+  "titulo": "Facturas",
+  "facturas": [
+    {
+      "archivo": "5710137748.pdf",
+      "fecha": "2026-09-30",
+      "hora": null,
+      "proveedor": "Google Cloud",
+      "tipo": "Software y nube",
+      "nota": "Factura de septiembre de 2026 (resumen del 1 al 30 de septiembre).",
+      "paginas": 2,
+      "_deteccion": {
+        "fechas": [
+          "2026-09-30",
+          "2026-09-01"
+        ],
+        "horas": [],
+        "avisos": [
+          "Hay varias fechas en el recibo (2026-09-30, 2026-09-01): confirma cuál es la de la factura."
+        ]
+      }
+    },
+    {
+      "archivo": "5739539857.pdf",
+      "fecha": "2026-10-31",
+      "hora": null,
+      "proveedor": "Google Cloud",
+      "tipo": "Software y nube",
+      "nota": "Factura de octubre de 2026 (resumen del 1 al 31 de octubre).",
+      "paginas": 2,
+      "_deteccion": {
+        "fechas": [
+          "2026-10-31",
+          "2026-10-01"
+        ],
+        "horas": [],
+        "avisos": [
+          "Hay varias fechas en el recibo (2026-10-31, 2026-10-01): confirma cuál es la de la factura."
+        ]
+      }
+    },
+    {
+      "archivo": "Pago de Firebase – Transacciones – Facturación – Consola de Google Cloud.pdf",
+      "fecha": "2026-11-04",
+      "hora": null,
+      "proveedor": "Google Cloud",
+      "tipo": "Software y nube",
+      "nota": "Comprobante de pago del cargo del 4 de noviembre de 2026; el resumen de Firebase se generó el 6 de noviembre de 2026.",
+      "paginas": 1,
+      "_deteccion": {
+        "fechas": [
+          "2026-11-06",
+          "2026-11-30",
+          "2026-11-04",
+          "2026-11-01"
+        ],
+        "horas": [
+          "14:25"
+        ],
+        "avisos": [
+          "Hay varias fechas en el recibo (2026-11-06, 2026-11-30, 2026-11-04, 2026-11-01): confirma cuál es la de la factura."
+        ]
+      }
+    }
+  ]
+}
