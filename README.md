@@ -6,7 +6,7 @@ El repositorio tiene tres zonas:
 
 | Carpeta | Qué contiene |
 |---|---|
-| [`agents/`](agents/) | Los siete agentes, agrupados por la plataforma donde corren: `claude-agents/` (Claude Code, con `CLAUDE.md`) y `perplexity-agents/` (Perplexity, con `Perplexity.md`). |
+| [`agents/`](agents/) | Los ocho agentes, agrupados por la plataforma donde corren: `claude-agents/` (Claude Code, con `CLAUDE.md`) y `perplexity-agents/` (Perplexity, con `Perplexity.md`). |
 | [`resources/`](resources/) | Recursos **compartidos** por todos los agentes: la marca de Campuslands y los logos de las empresas cliente. Ya no se copian dentro de cada agente. |
 | [`guides/`](guides/) | La web de guías (usuario y desarrollador) de cada agente, en HTML y PDF. Es lo que publica Vercel. |
 
@@ -73,6 +73,21 @@ Agente de **redacción de contratos**. Toma los alcances, la cotización y un co
   - `scripts/` — `build_contract.py` (ensambla y verifica el `.docx`).
   - `wiki/` — Glosario de cláusulas, fichas por cliente, bitácora.
 
+#### [multifunctional-agent](agents/claude-agents/multifunctional-agent/)
+
+Agente **multifuncional** (`/multifunctional-agent`): resuelve tareas operativas recurrentes de Full Service que no pertenecen a una etapa comercial concreta. Al empezar pregunta con qué **funcionalidad** se quiere proceder:
+
+1. **Unificación de facturas** — recibe varias facturas o recibos (PDF o imagen), los ordena en **tiempo cronológico según lo que dice cada recibo** (no el nombre del archivo) y entrega **un Word y un PDF**, una factura por hoja, bajo el banner de Campuslands (el banner vive en un solo archivo para poder rediseñarlo).
+2. **Transcriptor de audio** — recibe un audio, lo transcribe **en local** (faster-whisper + separación de hablantes con sherpa-onnx) y entrega **un Word y un PDF** con la estructura de «Transcripción de Audio Completo» (partes de 5 min, intervenciones con hablante y tiempo) con el diseño de Campuslands.
+
+- **Entregables:** Word + PDF por trabajo, siempre generados del mismo `.docx`.
+- **Estructura interna:**
+  - `scripts/` — `facturas.py`, `factura_banner.py`, `transcribir_audio.py`, `transcripcion.py`, `comun.py` y `autoprueba.py` (prueba de punta a punta con datos sintéticos).
+  - `trabajos/` — Una carpeta por lote (`facturas/`) o por reunión (`transcripciones/`) con `entrada/` y `salida/`.
+  - `recursos/` — Plantilla Word de Campuslands (solo lectura) y los modelos de voz descargados (fuera de git).
+  - `wiki/` — Especificación del banner, formato de la transcripción, motor de audio, índice y bitácora.
+- **Requisitos:** LibreOffice y `python-docx`, `PyMuPDF`, `Pillow`. Solo para audio: `ffmpeg` y `pip install -r scripts/requisitos-audio.txt`.
+
 ### Agentes de Perplexity — [`agents/perplexity-agents/`](agents/perplexity-agents/)
 
 Usan `Perplexity.md` en vez de `CLAUDE.md`: el mismo rol de archivo de configuración co-evolucionado con el usuario, pensado para ejecutarse como agente/Space en Perplexity.
@@ -130,7 +145,7 @@ Desde la carpeta de un agente se llega con `../../../resources/` (los agentes es
 
 ## Comandos «!» de los agentes
 
-Los siete agentes entienden **comandos**: órdenes cortas que el usuario escribe con un `!` delante (`!optimize`, `!notime`, `!plan`, `!audit`, `!final-delivery`…). Al reconocer uno, el agente **debe cumplirlo**; lo único que lo limita son sus reglas duras (veracidad, marca, confidencialidad y las puertas de aprobación y verificación). Se pueden combinar (`!plan !no-assumptions`), rigen la tarea en curso y `!help` lista los de cada agente.
+Los ocho agentes entienden **comandos**: órdenes cortas que el usuario escribe con un `!` delante (`!optimize`, `!notime`, `!plan`, `!audit`, `!final-delivery`…). Al reconocer uno, el agente **debe cumplirlo**; lo único que lo limita son sus reglas duras (veracidad, marca, confidencialidad y las puertas de aprobación y verificación). Se pueden combinar (`!plan !no-assumptions`), rigen la tarea en curso y `!help` lista los de cada agente.
 
 - **Dónde está la regla:** sección «Comandos (`!`)» del `CLAUDE.md` o `Perplexity.md` de cada agente, entre las marcas `<!-- comandos:inicio -->` y `<!-- comandos:fin -->`.
 - **Fuente única:** [`resources/comandos/comandos.py`](resources/comandos/comandos.py). De ahí salen esas secciones, el [catálogo](resources/comandos/catalogo.md), las tablas de las guías y una entrada en la bitácora de cada agente. No se edita a mano lo generado: se cambia el script y se corre `python -X utf8 resources/comandos/comandos.py` (con `--verificar` comprueba que nada esté desfasado).
@@ -149,13 +164,15 @@ fullservice-agents/
 ├── readme.md
 ├── vercel.json                       # publica solo guides/
 ├── .claude/launch.json               # servidor local de las guías
+├── .claude/commands/                 # /multifunctional-agent (comando del agente multifuncional)
 ├── agents/
 │   ├── claude-agents/
 │   │   ├── presentations-designer/   # CLAUDE.md · presentaciones/ · herramientas/ · recursos/ · wiki/ · videos/
 │   │   ├── functional-scope/         # CLAUDE.md · alcances/ · plantillas/ · recursos/ · scripts/ · wiki/
 │   │   ├── quote-developer/          # CLAUDE.md · cotizaciones/ · recursos/ · wiki/
 │   │   ├── bidding-agent/            # CLAUDE.md · licitaciones/ · habilidades/ · recursos/ · wiki/
-│   │   └── contract-perfectionist/   # CLAUDE.md · contratos/ · recursos/ · scripts/ · wiki/
+│   │   ├── contract-perfectionist/   # CLAUDE.md · contratos/ · recursos/ · scripts/ · wiki/
+│   │   └── multifunctional-agent/    # CLAUDE.md · scripts/ · trabajos/ · recursos/ · wiki/ · .claude/commands/
 │   └── perplexity-agents/
 │       ├── prospection-agent/        # Perplexity.md · prospeccion/ · habilidades/ · wiki/
 │       └── intelligence-commercial/  # Perplexity.md · prospeccion/ · habilidades/ · wiki/
@@ -264,3 +281,5 @@ Hay tres vias de entrada al pipeline:
 
 1. **Propuesta licitatoria** — A partir de los cuatro documentos oficiales del proceso, se construyen la propuesta tecnica, la estimacion de horas, las consideraciones tecnicas y el analisis de IA/tokens, con los dos modelos de costos conciliados.
 2. **Contrato** — Si el proceso se adjudica, se redacta el contrato a partir de la propuesta y el modelo de costos radicado.
+
+> **Fuera del flujo:** `multifunctional-agent` no es una etapa del pipeline comercial; es un agente transversal que cualquier persona del equipo usa cuando la tarea lo pide (unificar facturas, transcribir una reunión). La transcripción de una reunión con un cliente puede alimentar luego a `functional-scope` como fuente de un alcance.
