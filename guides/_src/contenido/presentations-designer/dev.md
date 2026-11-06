@@ -33,7 +33,7 @@ El usuario cura, dirige y aprueba; el agente hace todo el trabajo de construcci�
 
 ### Portadas y clientes
 
-Las portadas de esta galería salen de la primera página del PDF de cada deck en `presentaciones/decks/`; los logos, de `resources/companies-logos/`, recortados y convertidos a WebP (con sus colores originales). Las imágenes se descargan bajo demanda: solo cuando el carrusel se acerca a la pantalla y, a partir de ahí, la activa y sus vecinas; en el PDF se cargan todas. Ambos se regeneran con `guides/_src/recursos_web.py` y la lista que se muestra está en `PORTADAS` y `LOGOS` de `guides/_src/build.py`.
+Las portadas de esta galería salen de la primera página del PDF de cada deck en `presentaciones/decks/`, y solo se muestran las del diseño vigente (sistema v4, desde Globant Dojo, 29 de septiembre de 2026), en orden cronológico; los logos, de `resources/companies-logos/`, recortados y convertidos a WebP (con sus colores originales). Las imágenes se descargan bajo demanda: solo cuando el carrusel se acerca a la pantalla y, a partir de ahí, la activa y sus vecinas; en el PDF se cargan todas. Ambos se regeneran con `guides/_src/recursos_web.py` y la lista que se muestra está en `PORTADAS` y `LOGOS` de `guides/_src/build.py`.
 
 ```cardstack
 ```

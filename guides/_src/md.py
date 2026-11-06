@@ -210,7 +210,7 @@ def _repos(body):
             '<p class="rp-lab">Así queda la carpeta</p>%s'
             '<p class="rp-nota">Su contenido queda <b>dentro</b> de <code>%s</code>, con ese nombre exacto.</p></div>'
             '</div>'
-            '<figcaption><span class="rp-cmd"><small>Comando del paso 2</small><code>%s</code></span><button type="button" class="rp-replay">Ver otra vez</button></figcaption></figure>'
+            '<figcaption><span class="rp-cmd"><small>Comando del paso 2</small><code>%s</code></span></figcaption></figure>'
             % (e(ruta.strip('/')), e(a[0]), e(a[1]), inline(a[2]), arbol(False), e(carpeta),
                e(b[0]), e(b[1]), inline(b[2]), arbol(True), e(carpeta), e(cmd)))
 

@@ -45,28 +45,12 @@ AGENTES = [
 TIPOS = {'dev': 'Guía de desarrollador', 'usuario': 'Guía de usuario'}
 
 # Galería del presentations-designer. Las imágenes las genera recursos_web.py (portadas desde los PDF de presentaciones/decks, logos desde resources/companies-logos).
-PORTADAS = [  # (archivo en assets/img/portadas, cliente, proyecto)
-    ('fullservice-campuslands-v3', 'Campuslands', 'FullService Campuslands'),
-    ('ai-academy', 'Campuslands AI Academy', 'Deja de usar la IA, empieza a dirigirla'),
-    ('avicampo', 'Avicampo', 'Agente de IA en WhatsApp'),
-    ('chico', 'Chico Soluciones Logísticas', 'Abastecimiento Penitenciario'),
-    ('colbeef-flujo-ia', 'ColBeef', 'Flujo conversacional del Agente IA'),
-    ('compumax-asistente-ia', 'Compumax', 'Asistente de IA Inmobiliario'),
-    ('comultrasan-orbit', 'Financiera Comultrasan', 'Asistente Conversacional con IA Generativa'),
-    ('fcv', 'Fundación Cardiovascular', 'Desarrollo de Software Especializado'),
-    ('gaspais-chilco', 'GasPaís', 'Plataforma Integral de Gestión HSE-SST'),
-    ('giron-cc-v2', 'Alcaldía de Girón', 'Módulo de Cobranza con Inteligencia Artificial'),
+PORTADAS = [  # (archivo en assets/img/portadas, cliente, proyecto). Solo las del diseño vigente (sistema v4: desde Globant Dojo, 29-sep-2026), en orden cronológico
     ('globant-dojo-v3', 'Globant', 'Modelo de desarrollo con dojo'),
-    ('greenmetal-fyswap', 'Green Metal', 'Digitalización de la Logística de Salida y Calidad'),
+    ('comultrasan-orbit', 'Financiera Comultrasan', 'Asistente Conversacional con IA Generativa'),
     ('hubux-v2', 'Zona Franca Santander', 'Ecosistema Campuslands en el Hub Tecnológico'),
-    ('land-cargo-v2', 'Land Cargo', 'Sistema Integrado TMS + ERP a la Medida'),
-    ('marval', 'Marval', 'Un orquestador central, múltiples agentes de IA'),
-    ('mchaileh-crm-ia', 'Mchaileh Inmobiliaria', 'CRM Inmobiliario + Asistente de IA'),
-    ('miami-aqua-tours-ampliado', 'Miami Aqua Tours', 'Plataforma de Venta y Gestión de Tours'),
-    ('multinal-escenario-b', 'Multinal', 'Ecosistema Digital Corporativo'),
+    ('giron-cc-v2', 'Alcaldía de Girón', 'Módulo de Cobranza con Inteligencia Artificial'),
     ('palmera-jr', 'Palmera Junior', 'Plataforma segura y vigente con Laravel 13'),
-    ('unidrogas', 'Unidrogas', 'Automatización de Contenidos y Formación con IA'),
-    ('ve-a-la-segura', 'Ve a la Segura', 'Atención y Venta Automatizada con IA'),
 ]
 LOGOS = [  # (archivo en assets/img/logos, empresa)
     ('alcaldia-de-giron', 'Alcaldía de Girón'), ('avicampo', 'Avicampo'), ('chico-soluciones-logisticas', 'Chico Soluciones Logísticas'),
