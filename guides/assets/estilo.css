@@ -270,9 +270,11 @@ td:first-child{ font-weight:500; color:var(--ink); }
 .ico-spin{ width:100%; height:100%; transform-style:preserve-3d; }
 .ico-float{ position:relative; width:100%; height:100%; transform-style:preserve-3d; animation:ico-flota 7s ease-in-out infinite; }
 .ico-pplx .ico-float{ animation-duration:8.6s; animation-delay:-3.4s; animation-direction:reverse; }
-.ico-float::before, .ico-float::after{ content:""; position:absolute; inset:0; border-radius:23%; }
-.ico-float::before{ background:var(--edge); transform:translateZ(-9px); }
-.ico-float::after{ background:var(--edge2); transform:translateZ(-18px); box-shadow:0 26px 40px -10px rgba(20,20,19,.35); }
+/* el canto: 64 láminas finas (una .ico-s por lámina) apiladas detrás de la cara y teñidas de --edge a --edge2. La cara se queda exactamente en z = 0: si se adelanta,
+   la perspectiva la reescala y se ve borrosa. La última lámina lleva la sombra. El resultado es un bloque macizo de esquinas redondeadas, no capas sueltas. */
+.ico{ --d:calc(var(--s) * .16); }
+.ico-s{ position:absolute; inset:0; border-radius:23%; background:color-mix(in srgb, var(--edge2) calc(var(--k) / var(--n) * 100%), var(--edge)); transform:translateZ(calc(var(--d) * var(--k) / var(--n) * -1)); }
+.ico-s:last-of-type{ box-shadow:0 26px 40px -10px rgba(20,20,19,.35); }
 .ico-face{ position:relative; display:block; width:100%; height:100%; border-radius:23%; overflow:hidden; box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 0 0 1px rgba(255,255,255,.1); }
 .ico-face img{ display:block; width:100%; height:100%; object-fit:cover; }
 .ico-face::after{ content:""; position:absolute; inset:0; background:linear-gradient(115deg, transparent 38%, rgba(255,255,255,.4) 50%, transparent 62%); transform:translateX(-130%); animation:ico-brillo 7s ease-in-out infinite; }
@@ -286,7 +288,8 @@ td:first-child{ font-weight:500; color:var(--ink); }
 @keyframes ico-pulso{ 0%,100%{ opacity:.45; } 50%{ opacity:.78; } }
 @keyframes ico-brillo{ 0%,62%{ transform:translateX(-130%); } 82%,100%{ transform:translateX(130%); } }
 @keyframes ico-brillo-hover{ from{ transform:translateX(-130%); } to{ transform:translateX(130%); } }
-@keyframes ico-giro{ from{ transform:rotateY(0); } to{ transform:rotateY(360deg); } }
+/* el eje (--ax, --ay) lo calcula el script según el movimiento del cursor; por omisión, giro horizontal */
+@keyframes ico-giro{ from{ transform:rotate3d(var(--ax, 0), var(--ay, 1), 0, 0deg); } to{ transform:rotate3d(var(--ax, 0), var(--ay, 1), 0, 360deg); } }
 @media (prefers-reduced-motion:reduce){ .banner-art *, .banner-art *::after{ animation:none !important; } .ico-tilt{ transition:none; } }
 @media (max-width:1100px){
   .banner-in{ padding-bottom:0; }
@@ -972,3 +975,32 @@ td:first-child{ font-weight:600; color:var(--ink); }
 
 /* el fragmento de código en línea lleva su propio fondo: sobre una superficie de apoyo (--oat) se usa uno más oscuro para que no se pierda */
 .callout.importante code, .lanes .l0 code, .lanes .l2 code, .toc a.on code, .ag:hover code, .sw-thumb code{ background:#e4e1d3; }
+
+/* ============================================================
+   DOCK FLOTANTE
+   El dock de GitHub y LinkedIn queda fijo en la esquina inferior derecha (donde estaba en el pie) y acompaña al scroll. Al llegar al final de la página
+   coincide con su lugar de siempre: el pie reserva su altura y el margen es el mismo. En la impresión no existe (el pie se oculta).
+   ============================================================ */
+footer.site{ min-height:calc(56px + 2 * 26px); }                               /* reserva el hueco del dock: el pie no encoge al volverse fijo */
+.dock{ position:fixed; z-index:40; right:var(--gut); bottom:26px; padding:6px; border-radius:18px; background:rgba(240,238,230,.94); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  border:1px solid var(--box-line-2); box-shadow:0 8px 18px -14px rgba(20,20,19,.2); }          /* flota sobre el contenido: es una capa, por eso lleva borde y sombra suave */
+@media (max-width:640px){ .dock{ right:16px; bottom:16px; } footer.site{ min-height:calc(56px + 2 * 16px); } }
+@media screen and (prefers-reduced-motion:no-preference){
+  @keyframes ent-dock{ from{ opacity:0; translate:0 26px; } }
+  .fx .dock{ animation:ent-dock .7s cubic-bezier(.2,.8,.2,1) calc(var(--e) + .9s) backwards; }
+}
+@media print{ .dock{ display:none !important; } }
+
+/* ---------- elementos pegados a las esquinas ----------
+   La barra superior, el pie y el dock comparten un solo margen lateral (--edge): la marca queda en la esquina izquierda y el botón de GitHub en la derecha,
+   a todo el ancho de la ventana, mientras el contenido sigue en su columna de lectura. */
+:root{ --edge:clamp(14px, 2vw, 28px); }
+/* en reposo (arriba, o al subir) la marca y el botón de GitHub van pegados a las esquinas; al bajar se recogen a la columna de lectura (clase .interior, la pone efectos.js) */
+.top{ padding:0 var(--edge); transition:padding .55s cubic-bezier(.2,.8,.2,1); }
+.top-in{ max-width:100%; margin:0 auto; transition:max-width .55s cubic-bezier(.2,.8,.2,1); }
+.top.interior{ padding:0 var(--gut); }
+.top.interior .top-in{ max-width:var(--page-w); }
+@media (prefers-reduced-motion:reduce){ .top, .top-in{ transition:none; } }
+footer.site{ padding-left:var(--edge); padding-right:var(--edge); }
+.dock{ right:var(--edge); }
+@media (max-width:640px){ .dock{ right:var(--edge); } }

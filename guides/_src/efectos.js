@@ -385,8 +385,33 @@
     setTimeout(function () { if (ov.parentNode) ov.parentNode.removeChild(ov); }, 2300);
   }
 
+  /* barra superior: pegada a las esquinas arriba; al empezar a bajar se recoge a la columna de lectura (.interior) y solo vuelve a las esquinas al subir hasta el borde
+     inferior del banner (en las guías, que no tienen banner, hasta el final de la cabecera del documento) */
+  function barra() {
+    var top = document.querySelector('.top');
+    if (!top) return;
+    var marca = document.querySelector('.banner') || document.querySelector('article > .chips') || document.querySelector('article > .dek');
+    var ultimo = window.scrollY || 0, sentido = 0, ref = ultimo;
+    function limite() {                                                      // scroll en el que el borde inferior del banner llega a la barra
+      if (!marca) return 6;
+      return Math.max(6, marca.getBoundingClientRect().bottom + (window.scrollY || 0) - top.offsetHeight);
+    }
+    function actualizar() {
+      var y = window.scrollY || 0, lim = limite();
+      if (y <= 6) { top.classList.remove('interior'); sentido = 0; ref = ultimo = y; return; }
+      var s = y > ultimo ? 1 : y < ultimo ? -1 : 0;
+      if (s && s !== sentido) { sentido = s; ref = ultimo; }               // cambio de dirección: se recuerda dónde ocurrió
+      if (sentido === 1 && y - ref > 8) top.classList.add('interior');
+      else if (sentido === -1 && y <= lim) top.classList.remove('interior');
+      ultimo = y;
+    }
+    window.addEventListener('scroll', actualizar, { passive: true });
+    if ((window.scrollY || 0) > limite()) top.classList.add('interior');   // al cargar ya abajo (ancla o recarga): empieza recogida
+  }
+
   function iniciar() {
     cortina();
+    barra();
     letterSwap();
     [].forEach.call(document.querySelectorAll('[data-wave]'), wave);
     [].forEach.call(document.querySelectorAll('.cx'), carrusel);

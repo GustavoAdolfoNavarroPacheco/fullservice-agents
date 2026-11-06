@@ -217,31 +217,44 @@ def plat(ag, rel):
 
 
 # Iconos de Claude y Perplexity flotando en 3D a la derecha del banner (decorativos; estilos en estilo.css, parallax en ART_JS)
+ICO_LAMINAS = 64      # láminas finas que forman el canto del icono: apiladas a menos de 1 px se ven como un bloque macizo, no como capas
+
+
 def _ico(clase, img):
-    return ('<div class="ico %s"><span class="ico-glow"></span><div class="ico-tilt"><div class="ico-spin"><div class="ico-float">'
-            '<span class="ico-face"><img src="assets/img/%s" alt="" width="160" height="160"></span></div></div></div></div>') % (clase, img)
+    canto = ''.join('<i class="ico-s" style="--k:%d"></i>' % k for k in range(1, ICO_LAMINAS + 1))
+    return ('<div class="ico %s" style="--n:' + str(ICO_LAMINAS) + '"><span class="ico-glow"></span><div class="ico-tilt"><div class="ico-spin"><div class="ico-float">%s'
+            '<span class="ico-face"><img src="assets/img/%s" alt="" width="160" height="160"></span></div></div></div></div>') % (clase, canto, img)
 
 
-BANNER_ART = ('<div class="banner-art" aria-hidden="true">' + _ico('ico-claude', 'plataforma-claude-lg.png') + _ico('ico-pplx', 'plataforma-perplexity-lg.png') + '</div>')
+BANNER_ART = ('<div class="banner-art" aria-hidden="true">' + _ico('ico-claude', 'plataforma-claude-xl.png') + _ico('ico-pplx', 'plataforma-perplexity-xl.png') + '</div>')
 
 ART_JS = """<script>
 (function(){
   var ban = document.querySelector('.banner'), art = document.querySelector('.banner-art');
   if(!ban || !art || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var ult = null, vx = 0, vy = 0;          // movimiento reciente del cursor: de él depende hacia dónde gira el icono
   function mover(e){
     var r = art.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
     var x = Math.max(-1, Math.min(1, (e.clientX - cx) / 420)), y = Math.max(-1, Math.min(1, (e.clientY - cy) / 260));
     art.style.setProperty('--px', x.toFixed(3)); art.style.setProperty('--py', y.toFixed(3));
+    if(ult){ vx = vx * 0.4 + (e.clientX - ult.x) * 0.6; vy = vy * 0.4 + (e.clientY - ult.y) * 0.6; }
+    ult = {x: e.clientX, y: e.clientY};
   }
   ban.addEventListener('pointermove', mover);
-  ban.addEventListener('pointerleave', function(){ art.style.setProperty('--px', 0); art.style.setProperty('--py', 0); });
+  ban.addEventListener('pointerleave', function(){ art.style.setProperty('--px', 0); art.style.setProperty('--py', 0); ult = null; vx = vy = 0; });
   // animación de hover sin interrupciones: al entrar se reproduce completa y no vuelve a empezar hasta que termina
   [].forEach.call(art.querySelectorAll('.ico'), function(ico){
     var spin = ico.querySelector('.ico-spin'), t = 0;
     function fin(){ ico.classList.remove('anim'); clearTimeout(t); }
     spin.addEventListener('animationend', function(e){ if(e.target === spin) fin(); });
-    ico.addEventListener('pointerenter', function(){
+    ico.addEventListener('pointerenter', function(e){
       if(ico.classList.contains('anim')) return;
+      // el icono gira hacia donde se mueve el cursor: la cara delantera se desplaza en esa dirección (eje perpendicular al movimiento).
+      // Si el cursor casi no se movía, se toma la dirección desde donde entró hacia el centro del icono.
+      var r = ico.getBoundingClientRect(), mx = vx, my = vy;
+      if(Math.hypot(mx, my) < 2){ mx = (r.left + r.width / 2) - e.clientX; my = (r.top + r.height / 2) - e.clientY; }
+      var n = Math.hypot(mx, my) || 1; mx /= n; my /= n;
+      ico.style.setProperty('--ax', (-my).toFixed(3)); ico.style.setProperty('--ay', mx.toFixed(3));
       ico.classList.add('anim'); t = setTimeout(fin, 2400);
     });
   });
