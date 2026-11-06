@@ -1,17 +1,17 @@
 ---
 titulo: Inicio: qué es fullservice-agents y cómo está organizado
-resumen: Contenido del repositorio fullservice-agents, descripción de sus siete agentes y modos de uso.
+resumen: Contenido del repositorio fullservice-agents, descripción de sus ocho agentes y modos de uso.
 ---
 
 ## Empieza aquí
 
-`fullservice-agents` es **un solo repositorio con los siete agentes** del flujo comercial de Campuslands, de la prospección al contrato. Hay dos modos de uso, ambos descritos en la pestaña [Instalación](#instalacion):
+`fullservice-agents` es **un solo repositorio con los ocho agentes** de Campuslands: siete forman el flujo comercial, de la prospección al contrato, y uno es transversal (`multifunctional-agent`, para tareas operativas como unificar facturas o transcribir una reunión). Hay dos modos de uso, ambos descritos en la pestaña [Instalación](#instalacion):
 
 - **Instalar el repositorio** en el computador y abrir la IA (por ejemplo Claude Code) dentro de la carpeta del agente. Es el modo completo: el agente lee los archivos del equipo, ejecuta sus herramientas y guarda los resultados.
 - **Montarlo como Proyecto** en Claude o como Space en Perplexity. Es el modo ligero: los archivos del agente se cargan en la plataforma y el trabajo se realiza en un chat, sin instalar nada.
 
 ```stats
-7 | agentes en un solo repositorio
+8 | agentes en un solo repositorio
 2 | modos de uso: instalar el repositorio o crear un Proyecto
 2 | repositorios, cuando se usa el Estudio de Presentaciones
 ```
@@ -26,12 +26,13 @@ El repositorio agrupa a los agentes por la plataforma donde corren. Cada agente 
 ```tree
 fullservice-agents/
   agents/
-    claude-agents/                  # los 5 agentes de Claude Code (CLAUDE.md)
+    claude-agents/                  # los 6 agentes de Claude Code (CLAUDE.md)
       presentations-designer/
       functional-scope/
       quote-developer/
       bidding-agent/
       contract-perfectionist/
+      multifunctional-agent/
     perplexity-agents/              # los 2 agentes de Perplexity (Perplexity.md)
       prospection-agent/
       intelligence-commercial/
@@ -48,6 +49,7 @@ fullservice-agents/
 | Desarrollador de Cotizaciones | `quote-developer` | Claude Code | `CLAUDE.md` |
 | Agente Licitatorio | `bidding-agent` | Claude Code | `CLAUDE.md` |
 | Perfeccionador de Contratos | `contract-perfectionist` | Claude Code | `CLAUDE.md` |
+| Agente Multifuncional | `multifunctional-agent` | Claude Code | `CLAUDE.md` |
 
 El archivo de instrucciones es el que le da al agente su identidad y sus reglas: es lo primero que lee en cada sesión.
 
