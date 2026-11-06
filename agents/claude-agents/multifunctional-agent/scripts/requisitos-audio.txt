@@ -1,0 +1,5 @@
+# Solo para transcribir AUDIO (funcionalidad 2). Las facturas y el armado del documento no los necesitan.
+# Todo corre en local: el audio de las reuniones no sale del equipo.
+faster-whisper>=1.1      # transcripción (modelos Whisper, CPU)
+sherpa-onnx>=1.10        # separación de hablantes (diarización)
+numpy

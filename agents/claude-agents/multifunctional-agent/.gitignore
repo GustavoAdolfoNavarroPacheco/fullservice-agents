@@ -1,0 +1,10 @@
+# Modelos de voz descargados (cientos de MB): se bajan con --descargar-modelos
+recursos/modelos-audio/
+# Audios y videos de entrada: pesados y confidenciales; se conservan fuera del repo
+trabajos/transcripciones/*/entrada/*
+!trabajos/transcripciones/*/entrada/.gitkeep
+# Temporales
+__pycache__/
+*.pyc
+scratch/
+~$*

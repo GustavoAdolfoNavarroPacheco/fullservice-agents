@@ -1,0 +1,84 @@
+{
+  "titulo": "Facturas",
+  "facturas": [
+    {
+      "archivo": "28102026 - 13h31m - inDrive.pdf",
+      "fecha": "2026-10-28",
+      "hora": "15:31",
+      "proveedor": "inDrive",
+      "tipo": "Transporte",
+      "nota": "",
+      "paginas": 1,
+      "_deteccion": {
+        "fechas": [
+          "2026-10-28"
+        ],
+        "horas": [
+          "3:31 PM"
+        ],
+        "avisos": [
+          "El nombre del archivo sugiere 2026-10-28 13:31, pero el recibo dice 2026-10-28 15:31: manda el recibo."
+        ]
+      }
+    },
+    {
+      "archivo": "28102026 - 15h47m - inDrive.pdf",
+      "fecha": "2026-10-28",
+      "hora": "13:47",
+      "proveedor": "inDrive",
+      "tipo": "Transporte",
+      "nota": "",
+      "paginas": 1,
+      "_deteccion": {
+        "fechas": [
+          "2026-10-28"
+        ],
+        "horas": [
+          "1:47 PM"
+        ],
+        "avisos": [
+          "El nombre del archivo sugiere 2026-10-28 15:47, pero el recibo dice 2026-10-28 13:47: manda el recibo."
+        ]
+      }
+    },
+    {
+      "archivo": "29102026 - 08h09m - inDrive.pdf",
+      "fecha": "2026-10-29",
+      "hora": "08:09",
+      "proveedor": "inDrive",
+      "tipo": "Transporte",
+      "nota": "",
+      "paginas": 1,
+      "_deteccion": {
+        "fechas": [
+          "2026-10-29"
+        ],
+        "horas": [
+          "8:09 AM"
+        ],
+        "avisos": []
+      }
+    },
+    {
+      "archivo": "29102026 - 10h40m - Uber.pdf",
+      "fecha": "2026-10-29",
+      "hora": "10:40",
+      "proveedor": "Uber",
+      "tipo": "Transporte",
+      "nota": "",
+      "paginas": 2,
+      "_deteccion": {
+        "fechas": [
+          "2026-10-29"
+        ],
+        "horas": [
+          "10:40",
+          "10:59",
+          "10:49",
+          "10:59"
+        ],
+        "avisos": []
+      }
+    }
+  ]
+}
