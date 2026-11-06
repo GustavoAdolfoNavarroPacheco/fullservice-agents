@@ -476,6 +476,80 @@ with sync_playwright() as p:
     check('visita normal: la barra superior y el texto del banner entran escalonados', pg.evaluate("['.top', '.banner-in .dek', '.banner-art', '.tabbar'].every(q => getComputedStyle(document.querySelector(q)).animationName !== 'none')"))
     pg.close()
 
+    print('\n== dock flotante')
+    pg = b.new_page(viewport={'width': 1366, 'height': 800})
+    pg.goto(BASE + '/inicio/usuario'); pg.wait_for_timeout(2600)
+    pos = "(() => { const d = document.querySelector('.dock'), r = d.getBoundingClientRect(); return {p: getComputedStyle(d).position, der: Math.round(innerWidth - r.right), aba: Math.round(innerHeight - r.bottom)}; })()"
+    a = pg.evaluate(pos)
+    pg.evaluate('window.scrollTo(0, 500)'); pg.wait_for_timeout(500)
+    m = pg.evaluate(pos)
+    pg.evaluate('window.scrollTo(0, document.documentElement.scrollHeight)'); pg.wait_for_timeout(800)
+    f = pg.evaluate(pos)
+    check('dock flotante: es fijo y está en la esquina inferior derecha', a['p'] == 'fixed' and a['aba'] == 26 and a['der'] > 0, str(a))
+    check('dock flotante: no se mueve al hacer scroll (mismo lugar al inicio, a mitad y al final)', a == m == f, str((a, m, f)))
+    check('dock flotante: sigue abriendo la vista previa de GitHub', (pg.hover('.dock-gh'), pg.wait_for_timeout(700), pg.evaluate("getComputedStyle(document.querySelector('.dock-gh .dock-pv')).opacity") == '1')[2])
+    pg.close()
+
+    print('\n== barra superior: esquinas / columna')
+    pg = b.new_page(viewport={'width': 1600, 'height': 800})
+    pg.goto(BASE + '/inicio'); pg.wait_for_timeout(2600)
+    izq = "Math.round(document.querySelector('.brand').getBoundingClientRect().left)"
+    lim = pg.evaluate("Math.round(document.querySelector('.banner').getBoundingClientRect().bottom + scrollY - document.querySelector('.top').offsetHeight)")
+    e0 = pg.evaluate(izq)
+    pg.mouse.move(800, 400)
+    for _ in range(5):
+        pg.mouse.wheel(0, 200); pg.wait_for_timeout(100)
+    pg.wait_for_timeout(1200)
+    e1 = pg.evaluate(izq)
+    c1 = pg.evaluate("document.querySelector('.top').classList.contains('interior')")
+    for _ in range(2):
+        pg.mouse.wheel(0, -120); pg.wait_for_timeout(100)
+    pg.wait_for_timeout(1000)
+    y_a = pg.evaluate('Math.round(scrollY)')
+    e2 = pg.evaluate(izq)
+    while pg.evaluate('scrollY') > lim + 170:
+        pg.mouse.wheel(0, -60); pg.wait_for_timeout(60)
+    pg.wait_for_timeout(900)
+    e3 = pg.evaluate(izq)
+    while pg.evaluate('scrollY') > lim - 40:
+        pg.mouse.wheel(0, -40); pg.wait_for_timeout(60)
+    pg.wait_for_timeout(1000)
+    e4, y_b = pg.evaluate(izq), pg.evaluate('Math.round(scrollY)')
+    check('barra: arriba, la marca está pegada a la esquina izquierda', e0 < 40, str(e0))
+    check('barra: al bajar, la marca se recoge a la columna de lectura', e1 > e0 + 100 and c1, '%d -> %d' % (e0, e1))
+    check('barra: al subir un poco (aún lejos del banner) sigue recogida', y_a > lim + 60 and e2 > e0 + 100, 'scrollY=%d, lim=%d, x=%d' % (y_a, lim, e2))
+    check('barra: sigue recogida mientras el borde inferior del banner no llega a la barra', e3 > e0 + 100, 'scrollY=%d, lim=%d, x=%d' % (pg.evaluate('Math.round(scrollY)'), lim, e3))
+    check('barra: al llegar al borde inferior del banner vuelve a las esquinas (sin estar arriba del todo)', e4 < 40 and y_b > 6, 'x=%d, scrollY=%d, lim=%d' % (e4, y_b, lim))
+    pg.close()
+
+    print('\n== iconos 3D del banner')
+    pg = b.new_page(viewport={'width': 1366, 'height': 800})
+    pg.goto(BASE + '/inicio'); pg.wait_for_timeout(2600)
+    check('iconos 3D: el canto es un bloque de 64 láminas por icono', pg.evaluate("document.querySelectorAll('.ico-claude .ico-s').length") == 64 and pg.evaluate("document.querySelectorAll('.ico-pplx .ico-s').length") == 64)
+    MAT = "(() => { const m = getComputedStyle(document.querySelector('.ico-claude .ico-spin')).transform; return m.startsWith('matrix3d') ? m.slice(9, -1).split(',').map(Number) : null; })()"
+
+    def entrar(desde):
+        pg.mouse.move(5, 760); pg.wait_for_timeout(1500)                        # fuera del banner: se reinicia
+        pg.wait_for_timeout(300)
+        bx = pg.locator('.ico-claude').bounding_box()
+        cx, cy = bx['x'] + bx['width'] / 2, bx['y'] + bx['height'] / 2
+        ini = {'izq': (bx['x'] - 170, cy), 'der': (bx['x'] + bx['width'] + 170, cy), 'arr': (cx, bx['y'] - 120), 'abj': (cx, bx['y'] + bx['height'] + 120)}[desde]
+        pg.mouse.move(*ini)
+        pg.wait_for_timeout(100)
+        pg.mouse.move(cx, cy, steps=14)
+        pg.wait_for_timeout(350)
+        m = pg.evaluate(MAT)
+        pg.wait_for_timeout(2600)                                               # termina el giro antes del siguiente
+        return m
+
+    mi, md, ma, mb = entrar('izq'), entrar('der'), entrar('arr'), entrar('abj')
+    check('iconos 3D: viniendo de la izquierda gira en un sentido y de la derecha en el contrario', mi and md and mi[2] * md[2] < 0 and abs(mi[2]) > .02 and abs(md[2]) > .02, '%s | %s' % (mi and round(mi[2], 3), md and round(md[2], 3)))
+    check('iconos 3D: viniendo de arriba gira en un sentido y de abajo en el contrario (eje horizontal)', ma and mb and ma[6] * mb[6] < 0 and abs(ma[6]) > .02 and abs(mb[6]) > .02, '%s | %s' % (ma and round(ma[6], 3), mb and round(mb[6], 3)))
+    check('iconos 3D: de lado el giro es sobre el eje vertical y de arriba/abajo sobre el horizontal', abs(mi[6]) < .05 and abs(ma[2]) < .05, '%s | %s' % (round(mi[6], 3), round(ma[2], 3)))
+    pg.wait_for_timeout(800)
+    check('iconos 3D: tras el giro el icono queda en reposo', pg.evaluate("getComputedStyle(document.querySelector('.ico-claude .ico-spin')).transform") in ('none', 'matrix(1, 0, 0, 1, 0, 0)') and not pg.evaluate("document.querySelector('.ico-claude').classList.contains('anim')"))
+    pg.close()
+
     print('\n== reducir movimiento')
     ctx = b.new_context(viewport={'width': 1366, 'height': 800}, reduced_motion='reduce')
     pg = ctx.new_page()
