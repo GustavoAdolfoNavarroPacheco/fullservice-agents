@@ -33,7 +33,7 @@ El diseño es el mismo para todos los clientes:
 
 ## Ejemplos de presentaciones
 
-Portadas de presentaciones generadas por el agente. Todas comparten el mismo diseño; solo cambian el cliente, el proyecto y el contenido. La pila se puede arrastrar, recorrer con las flechas o abrir en abanico al pasar el cursor.
+Portadas de las presentaciones generadas con el diseño vigente del agente, desde Globant Dojo (29 de septiembre de 2026). Todas comparten el mismo diseño; solo cambian el cliente, el proyecto y el contenido. La pila se puede arrastrar, recorrer con las flechas o abrir en abanico al pasar el cursor.
 
 ```cardstack
 ```

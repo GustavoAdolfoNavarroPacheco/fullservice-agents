@@ -441,6 +441,8 @@ footer.site{ border-top:1px solid var(--line); padding:26px var(--gut); font-siz
    ============================================================ */
 .cx{ position:relative; margin:var(--space-block) 0 0; --dx:0px; --r:0; }
 .cx-stage{ position:relative; perspective:1300px; overflow:hidden; touch-action:pan-y; user-select:none; -webkit-user-select:none; outline:none; }
+/* el escenario solo recorta a los lados: así la sombra de la tarjeta central no se corta en seco por abajo */
+@supports (overflow:clip){ .cx-stage{ overflow-x:clip; overflow-y:visible; } }
 .cx.listo .cx-stage{ cursor:grab; } .cx.listo .cx-stage.drag{ cursor:grabbing; }
 .cx-stage:focus-visible{ outline:2px solid var(--clay); outline-offset:4px; border-radius:14px; }
 .cx-card{ margin:0; position:absolute; transition:transform .75s cubic-bezier(.22,.9,.28,1), opacity .5s, box-shadow .5s; }
@@ -449,10 +451,12 @@ footer.site{ border-top:1px solid var(--line); padding:26px var(--gut); font-siz
 .cx-stage.drag .cx-card[data-pos="0"]{ transition:opacity .5s, box-shadow .5s; }
 
 /* barra inferior: flechas, texto de la tarjeta activa y contador */
-.cx-bar{ display:flex; align-items:center; gap:14px; margin-top:18px; }
+.cx-bar{ display:grid; grid-template-columns:42px minmax(0,1fr) 42px; align-items:center; column-gap:14px; margin-top:18px; }
+.cx-bar .cx-prev{ grid-column:1; grid-row:1 / span 2; } .cx-bar .cx-next{ grid-column:3; grid-row:1 / span 2; }
 .cx-cap{ flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; text-align:center; font-size:var(--t-ui); line-height:var(--lh-ui); color:var(--muted); }
 .cx-cap b{ font-family:var(--serif); font-weight:400; font-size:var(--t-body); line-height:1.25; color:var(--ink); }
-.cx-n{ font-size:var(--t-meta); line-height:1; color:var(--soft); font-variant-numeric:tabular-nums; letter-spacing:.04em; min-width:3.6em; text-align:right; }
+.cx-bar .cx-cap{ grid-column:2; grid-row:1; }
+.cx-n{ grid-column:2; grid-row:2; margin-top:8px; font-size:var(--t-meta); line-height:1; color:var(--soft); font-variant-numeric:tabular-nums; letter-spacing:.04em; text-align:center; }
 .cx-btn{ flex:none; display:inline-grid; place-items:center; width:42px; height:42px; border:0; border-radius:50%; background:var(--oat); color:var(--ink); cursor:pointer; transition:background .2s, color .2s, transform .2s, box-shadow .2s; }
 .cx-btn svg{ width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 .cx-btn:hover, .cx-btn:focus-visible{ background:var(--ink); color:#fff; transform:translateY(-2px); box-shadow:0 8px 20px rgba(20,20,19,.25); outline:none; }

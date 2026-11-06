@@ -20,28 +20,12 @@ LOGOS = RAIZ / 'resources/companies-logos'
 SALIDA = RAIZ / 'guides/assets/img'
 
 # slug de la portada -> PDF del deck (se elige la versión vigente de cada cliente)
-PORTADAS = {
-    'fullservice-campuslands-v3': 'fullservice-campuslands-v3/fullservice-campuslands-v3.pdf',
-    'ai-academy': 'ai-academy/ai-academy.pdf',
-    'avicampo': 'avicampo/avicampo.pdf',
-    'chico': 'chico/chico.pdf',
-    'colbeef-flujo-ia': 'colbeef-flujo-ia/colbeef-flujo-ia.pdf',
-    'compumax-asistente-ia': 'compumax-asistente-ia/compumax-asistente-ia.pdf',
-    'comultrasan-orbit': 'comultrasan-orbit/comultrasan-orbit.pdf',
-    'fcv': 'fcv/fcv.pdf',
-    'gaspais-chilco': 'gaspais-chilco/gaspais-chilco.pdf',
-    'giron-cc-v2': 'giron-cc-v2/giron-cc-v2.pdf',
+PORTADAS = {   # solo las del diseño vigente (sistema v4, desde Globant Dojo)
     'globant-dojo-v3': 'globant-dojo-v3/globant-dojo-v3.pdf',
-    'greenmetal-fyswap': 'greenmetal-fyswap/greenmetal-fyswap.pdf',
+    'comultrasan-orbit': 'comultrasan-orbit/comultrasan-orbit.pdf',
     'hubux-v2': 'hubux-v2/hubux-v2.pdf',
-    'land-cargo-v2': 'land-cargo-v2/land-cargo-v2.pdf',
-    'marval': 'marval/marval-escenario-a.pdf',
-    'mchaileh-crm-ia': 'mchaileh-crm-ia/mchaileh-crm-ia.pdf',
-    'miami-aqua-tours-ampliado': 'miami-aqua-tours-ampliado/miami-aqua-tours-ampliado.pdf',
-    'multinal-escenario-b': 'multinal-escenario-b/multinal-escenario-b.pdf',
+    'giron-cc-v2': 'giron-cc-v2/giron-cc-v2.pdf',
     'palmera-jr': 'palmera-jr/palmera-jr.pdf',
-    'unidrogas': 'unidrogas/unidrogas.pdf',
-    've-a-la-segura': 've-a-la-segura/ve-a-la-segura.pdf',
 }
 
 
