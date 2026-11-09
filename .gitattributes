@@ -1,0 +1,21 @@
+# Binarios: git no intenta mostrar diferencias de texto
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.ttf   binary
+*.otf   binary
+*.xlsx  binary
+*.docx  binary
+
+# Lo generado no cuenta en las estadísticas de lenguajes de GitHub ni se revisa a mano
+guides/*.html                         linguist-generated=true
+guides/*/*.html                       linguist-generated=true
+guides/assets/estilo.css              linguist-generated=true
+guides/assets/efectos.js              linguist-generated=true
+guides/assets/suave.js                linguist-generated=true
+resources/comandos/catalogo.md        linguist-generated=true
+.github/assets/*.svg                  linguist-generated=true
+guides/assets/lenis.min.js            linguist-vendored=true
+guides/assets/fonts/*                 linguist-vendored=true

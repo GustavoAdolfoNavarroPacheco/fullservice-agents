@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guias:
+    name: Guías y comandos al día
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Comandos «!» sin desfases
+        run: python -X utf8 resources/comandos/comandos.py --verificar
+
+      - name: Reconstruir la web de guías (sin PDF)
+        run: python -X utf8 guides/_src/build.py --sin-pdf
+
+      - name: Lo generado coincide con lo que se subió
+        run: |
+          cambios="$(git status --porcelain -- guides ':(exclude)*.pdf')"
+          if [ -n "$cambios" ]; then
+            echo "$cambios"
+            echo "::error::La web generada no coincide con el repositorio. Corre 'python -X utf8 guides/_src/build.py' y sube el resultado."
+            exit 1
+          fi
+
+  secretos:
+    name: Sin secretos a la vista
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Buscar credenciales con patrón conocido
+        run: |
+          patron='(AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|sk-[A-Za-z0-9]{32,}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|AIza[0-9A-Za-z_-]{35})'
+          if git grep -nIE "$patron" -- . ':(exclude)*.pdf' ':(exclude)*.lock'; then
+            echo "::error::Hay posibles credenciales en el repositorio. Revócalas y retíralas."
+            exit 1
+          fi
+          echo "Sin coincidencias."

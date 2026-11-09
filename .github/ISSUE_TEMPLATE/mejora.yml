@@ -1,0 +1,50 @@
+name: Proponer una mejora
+description: Una idea para un agente, para la web de guías o para la documentación.
+title: "[Mejora] "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: ¿Sobre qué es?
+      options:
+        - presentations-designer
+        - functional-scope
+        - quote-developer
+        - bidding-agent
+        - contract-perfectionist
+        - multifunctional-agent
+        - prospection-agent
+        - intelligence-commercial
+        - Un agente nuevo
+        - Web de guías (fullservice-agents.vercel.app)
+        - Instalación o documentación
+        - Otro
+    validations:
+      required: true
+  - type: textarea
+    id: problema
+    attributes:
+      label: ¿Qué problema resuelve?
+      description: Cuenta la situación en la que hoy se complica el trabajo.
+    validations:
+      required: true
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: ¿Qué propones?
+    validations:
+      required: true
+  - type: textarea
+    id: alternativas
+    attributes:
+      label: Alternativas que consideraste (opcional)
+  - type: checkboxes
+    id: acuerdos
+    attributes:
+      label: Antes de enviar
+      options:
+        - label: Busqué antes y no hay un issue igual.
+          required: true
+        - label: No incluí datos personales, de clientes ni credenciales.
+          required: true

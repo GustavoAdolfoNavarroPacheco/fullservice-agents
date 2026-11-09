@@ -1,0 +1,46 @@
+Copyright (c) 2026 Campuslands S.A.S. BIC. Todos los derechos reservados.
+Copyright (c) 2026 Campuslands S.A.S. BIC. All rights reserved.
+
+ESPAÑOL
+
+Este repositorio es público para que pueda consultarse, pero NO es software de código abierto: no se concede ninguna licencia de uso, copia, modificación ni
+distribución más allá de lo que se indica aquí.
+
+Se permite, sin necesidad de autorización:
+  1. Ver y leer el contenido del repositorio y de la web de guías que se publica a partir de él.
+  2. Clonarlo para consultarlo y evaluarlo de forma personal, sin fines comerciales.
+  3. Citar fragmentos breves con mención de la fuente (Campuslands — fullservice-agents).
+
+No se permite, sin autorización previa y por escrito de Campuslands S.A.S. BIC:
+  1. Copiar, modificar, adaptar, traducir ni crear obras derivadas del contenido (instrucciones y configuración de los agentes, guías, plantillas, scripts,
+     diseños, textos o imágenes).
+  2. Publicar, redistribuir o sublicenciar el contenido, en todo o en parte, ni ofrecerlo como producto o servicio.
+  3. Usar el contenido, la marca o los logotipos de Campuslands para fines comerciales o para sugerir un vínculo, aval o patrocinio.
+
+Componentes de terceros. El repositorio incluye componentes de terceros (bibliotecas, iconos y tipografías) que conservan sus propias licencias; consúltense
+THIRD_PARTY_NOTICES.md y los archivos de licencia que acompañan a cada componente. Esta licencia no limita los derechos que esas licencias otorgan sobre ellos.
+
+Marcas y logotipos. Los nombres, marcas y logotipos de Campuslands, de las empresas cliente y de las plataformas (Claude, Perplexity y otras) pertenecen a sus
+respectivos titulares y se muestran únicamente con fines ilustrativos y de identificación.
+
+Sin garantía. El contenido se ofrece «tal cual», sin garantías de ningún tipo, expresas o implícitas, incluidas las de comerciabilidad, idoneidad para un fin
+determinado o ausencia de infracción. Los titulares no serán responsables de ningún daño derivado de su uso.
+
+Para solicitar autorización, escribir a Campuslands S.A.S. BIC a través de los canales indicados en SUPPORT.md.
+
+ENGLISH
+
+This repository is public so that it can be read, but it is NOT open-source software: no license to use, copy, modify or distribute is granted beyond what is
+stated here.
+
+Permitted without prior authorization: (1) viewing and reading the repository and the guides website published from it; (2) cloning it for personal,
+non-commercial reference and evaluation; (3) quoting short excerpts with attribution (Campuslands — fullservice-agents).
+
+Not permitted without prior written authorization from Campuslands S.A.S. BIC: (1) copying, modifying, adapting, translating or creating derivative works of the
+content (agent instructions and configuration, guides, templates, scripts, designs, text or images); (2) publishing, redistributing or sublicensing the content,
+in whole or in part, or offering it as a product or service; (3) using the content, brand or logos of Campuslands for commercial purposes or to suggest an
+affiliation, endorsement or sponsorship.
+
+Third-party components keep their own licenses (see THIRD_PARTY_NOTICES.md). Names, trademarks and logos of Campuslands, of client companies and of platforms
+(Claude, Perplexity and others) belong to their respective owners and are shown for illustration and identification only. The content is provided "as is",
+without warranty of any kind.
