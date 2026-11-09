@@ -2447,3 +2447,11 @@ Se documenta y se vuelve regla del agente (sección «Repositorio aparte y publi
 * **Razón de ubicación:** mapeo L/M/N, B:K, parámetros y Y122 idéntico al de `quote-developer/wiki/plantilla-xlsx.md`; los datos de otros clientes de la plantilla original no viajan.
 * **Verificación:** archivos de ejemplo recalculados en LibreOffice: Y1 = costo del portal (2.328.353,04 con 4 perfiles; 23.883.776,01 con 150 filas, o sea 38 insertadas); descarga comprobada en el navegador del portal.
 * **Pendiente/avisos:** «Valores por defecto» quedó sin botón; Fase y Tabla de tiempos no tienen lugar en la plantilla. Sin commit ni push.
+
+## [2026-11-09] ajuste | Portal: rendimiento del Cotizador y de la ficha (sin cambios visuales ni de lógica)
+
+* **Pedido:** la web perdía fluidez en ciertas partes; optimizar sin perder animaciones, funcionalidades ni fluidez.
+* **Medido (102 filas, modo desarrollo):** escribir en una celda 162 ms → ~15 ms netos; desplazar la página 32 ms/cuadro → mediana 13 ms (el piso de la pantalla); agregar una fila ~190 ms → ~50–140 ms.
+* **Causa y arreglo:** repintado de TODAS las filas por tecla (filas memoizadas + manejadores estables + costos calculados una vez); 1.200+ campos montados aunque se vean 15 (ventana de filas a partir de 32); `background-attachment: fixed` repintando la ventana en cada cuadro de scroll (capa fija propia); la ficha pedía el catálogo dos veces y en serie con el resto, y cada guardado/parte de PDF cargaba el catálogo entero solo para validar el slug.
+* **Verificación:** 232 pruebas en verde (5 nuevas: ventana de filas, identidad de nodos), `next build` correcto, revisión a la vista de la tabla con 100 filas (fondo alterno continuo, tabla de tiempos abre bien). Ver «RENDIMIENTO DEL COTIZADOR» en `CLAUDE.md`.
+* **Aviso:** al saltar miles de píxeles de golpe (p. ej. con una ancla) puede verse un instante en blanco hasta que la ventana alcanza al scroll; es propio de cualquier lista virtualizada.
