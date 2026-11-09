@@ -1,0 +1,9 @@
+# Quien aparece aquí revisa los cambios de esa ruta. El último patrón que coincide es el que manda.
+*                       @GustavoAdolfoNavarroPacheco
+
+# Seguridad, licencia y configuración del repositorio
+/SECURITY.md            @GustavoAdolfoNavarroPacheco
+/LICENSE                @GustavoAdolfoNavarroPacheco
+/THIRD_PARTY_NOTICES.md @GustavoAdolfoNavarroPacheco
+/.github/               @GustavoAdolfoNavarroPacheco
+/vercel.json            @GustavoAdolfoNavarroPacheco

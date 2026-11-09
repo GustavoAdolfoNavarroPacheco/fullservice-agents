@@ -37,6 +37,7 @@ guides/
     ├── suave.js               activa el scroll suave (Lenis)
     ├── efectos.js             letter swap, wave text, Card Stack (portadas), Coverflow (logos) y carga de imágenes bajo demanda
     ├── preview.py             genera las imágenes de vista previa del enlace (1200 × 630) con Chrome
+    ├── readme_banner.py       genera el banner del README raíz (.github/assets/banner*.svg) a partir de la portada de la web
     ├── recursos_web.py        genera las portadas (desde los PDF de presentaciones) y los logos a color en WebP
     ├── md.py                  convertidor Markdown → HTML (sin dependencias)
     ├── build.py               genera web, PDF e índice

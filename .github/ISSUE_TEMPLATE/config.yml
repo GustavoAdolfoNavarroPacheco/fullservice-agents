@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Reportar una vulnerabilidad (privado)
+    url: https://github.com/GustavoAdolfoNavarroPacheco/fullservice-agents/security/advisories/new
+    about: Las vulnerabilidades no se reportan en un issue público. Usa el reporte privado de GitHub.
+  - name: Guías de la web
+    url: https://fullservice-agents.vercel.app/inicio
+    about: Instalación, guía de usuario y guía de desarrollador de cada agente. Quizá tu duda ya esté resuelta ahí.
