@@ -2439,3 +2439,11 @@ Se incorporan los **comandos «!»**: órdenes cortas (`!optimize`, `!notime`, `
 
 ## [2026-11-04] ajuste | Repositorio aparte: clonado, permisos y 2 minutos de publicación
 Se documenta y se vuelve regla del agente (sección «Repositorio aparte y publicación» de `CLAUDE.md`): (1) `presentaciones/` es un repositorio **privado** y propio que llega **vacío** al clonar el raíz, así que se clona aparte, en la ruta exacta; (2) para clonar y hacer `git push` hace falta permiso de escritura que concede Gustavo Navarro, y ante `403`/`Permission denied` el agente se detiene sin rodeos ni credenciales; (3) tras cada push se avisa que la web tarda aproximadamente 2 minutos. La instalación (usuario y desarrollador), el uso como Proyecto y el funcionamiento de la web quedan en las guías: pestaña «Instalación» del índice y secciones nuevas de las guías de este agente.
+
+## [2026-11-09] ajuste | Portal: «Exportar Excel» en el Cotizador (reemplaza el engranaje «Valores por defecto»)
+
+* **Pedido:** reemplazar el botón de configuración del Cotizador por «Exportar Excel» (plantilla de cotización de Campuslands, con un ejemplo en blanco y uno diligenciado), y distinguir Excel (verde) de PDF (rojo).
+* **Hecho:** `src/lib/cotizador/excel.ts` + plantilla de una sola hoja en `plantilla-xlsx.ts` (generada con `scripts/crear-plantilla-cotizacion.py`); botones en `cotizador.tsx`; 14 pruebas nuevas del exportador y 3 del botón (223 en total, todas en verde).
+* **Razón de ubicación:** mapeo L/M/N, B:K, parámetros y Y122 idéntico al de `quote-developer/wiki/plantilla-xlsx.md`; los datos de otros clientes de la plantilla original no viajan.
+* **Verificación:** archivos de ejemplo recalculados en LibreOffice: Y1 = costo del portal (2.328.353,04 con 4 perfiles; 23.883.776,01 con 150 filas, o sea 38 insertadas); descarga comprobada en el navegador del portal.
+* **Pendiente/avisos:** «Valores por defecto» quedó sin botón; Fase y Tabla de tiempos no tienen lugar en la plantilla. Sin commit ni push.
