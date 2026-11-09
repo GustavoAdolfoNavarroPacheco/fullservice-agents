@@ -1,6 +1,6 @@
 # Avisos de terceros
 
-Este repositorio es propiedad de Campuslands S.A.S. BIC (ver [`LICENSE`](LICENSE)), pero incluye componentes de terceros que conservan **sus propias licencias**.
+Los derechos de este repositorio pertenecen a Gustavo Adolfo Navarro Pacheco (ver [`LICENSE`](LICENSE)), pero incluye componentes de terceros que conservan **sus propias licencias**.
 Aquí se listan los que se distribuyen dentro del repositorio.
 
 ## Código y componentes de interfaz

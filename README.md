@@ -268,6 +268,15 @@ fullservice-agents/                                       ← remote: fullservic
 Puedes verificar que ambos repositorios están correctamente configurados con:
 
 ```bash
+# Desde la raíz del proyecto
+git remote -v
+# origin  https://github.com/GustavoAdolfoNavarroPacheco/fullservice-agents (fetch/push)
+
+# Desde agents/claude-agents/presentations-designer/presentaciones/
+cd agents/claude-agents/presentations-designer/presentaciones
+git remote -v
+# origin  https://github.com/GustavoAdolfoNavarroPacheco/Presentaciones (fetch/push)
+```
 
 ## Estructura del repositorio
 
@@ -361,7 +370,7 @@ Los ocho agentes entienden **comandos**: órdenes cortas que el usuario escribe 
 | | |
 |---|---|
 | 🔒 **[Seguridad](SECURITY.md)** | Cómo reportar una vulnerabilidad de forma privada y qué no debe subirse nunca al repositorio. |
-| 📄 **[Licencia](LICENSE)** | Repositorio público de **consulta**, sin licencia de código abierto: todos los derechos reservados por Campuslands S.A.S. BIC. |
+| 📄 **[Licencia](LICENSE)** | Repositorio público de **consulta**, sin licencia de código abierto: todos los derechos reservados por Gustavo Adolfo Navarro Pacheco. |
 | 🧾 **[Avisos de terceros](THIRD_PARTY_NOTICES.md)** | Licencias de las bibliotecas, iconos y tipografías incluidas. |
 | 🤝 **[Contribuir](CONTRIBUTING.md)** | Flujo de trabajo, convenciones de commits y cómo verificar un cambio. |
 | 🧭 **[Código de conducta](CODE_OF_CONDUCT.md)** | Cómo esperamos que sea la convivencia en el proyecto. |
@@ -371,7 +380,7 @@ Los ocho agentes entienden **comandos**: órdenes cortas que el usuario escribe 
 
 <div align="center">
 
-<sub>© 2026 **Campuslands S.A.S. BIC** · Full Service — mantiene [Gustavo Navarro](https://github.com/GustavoAdolfoNavarroPacheco)<br/>
+<sub>© 2026 **[Gustavo Adolfo Navarro Pacheco](https://github.com/GustavoAdolfoNavarroPacheco)** · Todos los derechos reservados · Hecho para el flujo comercial de Campuslands — Full Service<br/>
 El banner se genera con <code>guides/_src/readme_banner.py</code> a partir de la portada de la web.</sub>
 
 </div>

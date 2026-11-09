@@ -70,4 +70,4 @@ Cada agente lleva una `wiki/` con su bitácora (`log.md`) y su índice (`index.m
 
 ## Licencia de tus aportes
 
-Al enviar un aporte aceptas que Campuslands S.A.S. BIC pueda usarlo, modificarlo y distribuirlo como parte del repositorio bajo los términos de [`LICENSE`](LICENSE).
+Al enviar un aporte aceptas que Gustavo Adolfo Navarro Pacheco, titular del repositorio, pueda usarlo, modificarlo y distribuirlo como parte del repositorio bajo los términos de [`LICENSE`](LICENSE).

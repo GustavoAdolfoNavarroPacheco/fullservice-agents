@@ -12,5 +12,5 @@
 | Aportar un cambio | La [guía de contribución](CONTRIBUTING.md) |
 | Pedir autorización para usar el contenido más allá de lo que permite la [licencia](LICENSE) | Un mensaje privado al mantenedor en su [perfil de GitHub](https://github.com/GustavoAdolfoNavarroPacheco) o en su [LinkedIn](https://www.linkedin.com/in/gustavo-adolfo-navarro-pacheco-876b06356/) |
 
-El repositorio lo mantiene [Gustavo Navarro](https://github.com/GustavoAdolfoNavarroPacheco) para Campuslands S.A.S. BIC. No hay un acuerdo de nivel de servicio: las respuestas se dan
+El repositorio lo mantiene [Gustavo Navarro](https://github.com/GustavoAdolfoNavarroPacheco) como parte de su trabajo en Campuslands — Full Service. No hay un acuerdo de nivel de servicio: las respuestas se dan
 en el mejor esfuerzo posible, en español.
