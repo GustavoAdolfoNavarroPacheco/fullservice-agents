@@ -1,0 +1,61 @@
+name: Reportar un error
+description: Algo no funciona como dice la guía o como debería hacerlo un agente.
+title: "[Error] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por avisar. **No incluyas datos personales, de clientes ni credenciales.** Si es un problema de seguridad, no uses este formulario: lee `SECURITY.md`.
+  - type: dropdown
+    id: area
+    attributes:
+      label: ¿Dónde ocurre?
+      options:
+        - presentations-designer
+        - functional-scope
+        - quote-developer
+        - bidding-agent
+        - contract-perfectionist
+        - multifunctional-agent
+        - prospection-agent
+        - intelligence-commercial
+        - Web de guías (fullservice-agents.vercel.app)
+        - Instalación o documentación
+        - Otro
+    validations:
+      required: true
+  - type: textarea
+    id: que-pasa
+    attributes:
+      label: ¿Qué pasa?
+      description: Describe el error con tus palabras.
+    validations:
+      required: true
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Pasos para reproducirlo
+      placeholder: |
+        1. Abrí…
+        2. Le pedí al agente…
+        3. Vi…
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: ¿Qué esperabas que pasara?
+    validations:
+      required: true
+  - type: input
+    id: entorno
+    attributes:
+      label: Entorno
+      description: Plataforma (Claude Code, Claude Desktop, Perplexity), sistema operativo y navegador si es la web.
+      placeholder: Claude Code en Windows 11 · Chrome 130
+  - type: textarea
+    id: extra
+    attributes:
+      label: Capturas o registros (opcional)
+      description: Pega solo lo necesario y **borra** cualquier dato sensible.
