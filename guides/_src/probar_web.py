@@ -550,6 +550,36 @@ with sync_playwright() as p:
     check('iconos 3D: tras el giro el icono queda en reposo', pg.evaluate("getComputedStyle(document.querySelector('.ico-claude .ico-spin')).transform") in ('none', 'matrix(1, 0, 0, 1, 0, 0)') and not pg.evaluate("document.querySelector('.ico-claude').classList.contains('anim')"))
     pg.close()
 
+    print('\n== índice lateral: sección activa')
+    ACT = "(sc) => { const on = [...document.querySelectorAll(sc + ' a.on')]; const todos = [...document.querySelectorAll(sc + ' a')]; return {n: on.length, i: todos.indexOf(on[0]), total: todos.length}; }"
+    for ruta, sc in (('/inicio', '#inicio .toc'), ('/bidding-agent/guia-usuario', '.toc'), ('/presentations-designer/guia-dev', '.toc')):
+        pg = b.new_page(viewport={'width': 1366, 'height': 800})
+        pg.goto(BASE + ruta); pg.wait_for_timeout(2600)
+        a0 = pg.evaluate(ACT, sc)
+        pg.mouse.move(700, 400)
+        for _ in range(200):
+            if pg.evaluate('scrollY + innerHeight >= document.documentElement.scrollHeight - 4'):
+                break
+            pg.mouse.wheel(0, 1500); pg.wait_for_timeout(40)
+        pg.wait_for_timeout(1500)
+        a1 = pg.evaluate(ACT, sc)
+        pg.mouse.wheel(0, -300); pg.wait_for_timeout(900)
+        a2 = pg.evaluate(ACT, sc)
+        check(ruta + ' índice lateral: arriba, una sola sección marcada y es la primera', a0['n'] == 1 and a0['i'] == 0, str(a0))
+        check(ruta + ' índice lateral: al llegar al final de la página queda marcada la ÚLTIMA sección', a1['n'] == 1 and a1['i'] == a1['total'] - 1, str(a1))
+        check(ruta + ' índice lateral: al subir un poco deja de ser la última', a2['n'] == 1 and a2['i'] <= a2['total'] - 1, str(a2))
+        pg.close()
+    pg = b.new_page(viewport={'width': 1366, 'height': 800})
+    pg.goto(BASE + '/inicio'); pg.wait_for_timeout(2600)
+    total = pg.evaluate("document.querySelectorAll('#inicio .toc a').length")
+    pg.click('#inicio .toc li:nth-child(%d) a' % (total - 1)); pg.wait_for_timeout(2600)
+    c1 = pg.evaluate(ACT, '#inicio .toc')
+    pg.click('#inicio .toc li:nth-child(%d) a' % total); pg.wait_for_timeout(2600)
+    c2 = pg.evaluate(ACT, '#inicio .toc')
+    check('índice lateral: al pulsar la penúltima sección queda marcada esa', c1['n'] == 1 and c1['i'] == total - 2, str(c1))
+    check('índice lateral: al pulsar la última sección queda marcada esa', c2['n'] == 1 and c2['i'] == total - 1, str(c2))
+    pg.close()
+
     print('\n== reducir movimiento')
     ctx = b.new_context(viewport={'width': 1366, 'height': 800}, reduced_motion='reduce')
     pg = ctx.new_page()

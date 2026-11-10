@@ -193,10 +193,37 @@ git -C presentaciones status -sb         # ## main...origin/main</code></pre></d
 <script src="../assets/suave.js"></script>
 <script src="../assets/efectos.js"></script>
 <script>
-(function(){var l=[].slice.call(document.querySelectorAll('.toc a'));if(!l.length||!('IntersectionObserver'in window))return;
-var m={};l.forEach(function(a){m[a.getAttribute('href').slice(1)]=a});
-var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){l.forEach(function(a){a.classList.remove('on')});var a=m[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-80px 0px -70% 0px'});
-document.querySelectorAll('article h2').forEach(function(h){o.observe(h)})})();
+/* índice lateral: marca la sección que se está leyendo. Es la última cuyo título ya pasó la línea de lectura; al llegar al final de la página se marca la última
+   sección (suele ser tan corta que su título nunca sube hasta la línea) y, si se llegó con un clic en el índice, la que se pulsó. */
+(function(){
+  var todos = [].slice.call(document.querySelectorAll('.toc a'));
+  if(!todos.length) return;
+  var mapa = {}, forzado = null, espera = false, LINEA = 120;
+  todos.forEach(function(a){ mapa[a.getAttribute('href').slice(1)] = a; });
+  function titulos(){ return [].slice.call(document.querySelectorAll('article h2')).filter(function(h){ return h.offsetParent !== null && mapa[h.id]; }); }
+  function marcar(id){ todos.forEach(function(a){ a.classList.toggle('on', !!id && a === mapa[id]); }); }
+  function actualizar(){
+    espera = false;
+    var hs = titulos();
+    if(!hs.length) return;
+    var y = window.scrollY || 0, alFinal = y + window.innerHeight >= document.documentElement.scrollHeight - 4, id = hs[0].id;
+    if(alFinal){
+      id = hs[hs.length - 1].id;
+      if(forzado && hs.some(function(h){ return h.id === forzado; })) id = forzado;
+    } else {
+      hs.forEach(function(h){ if(h.getBoundingClientRect().top <= LINEA) id = h.id; });
+    }
+    marcar(id);
+  }
+  function pedir(){ if(!espera){ espera = true; requestAnimationFrame(actualizar); } }
+  window.addEventListener('scroll', pedir, {passive: true});
+  window.addEventListener('resize', pedir);
+  window.addEventListener('load', pedir);
+  ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function(ev){ window.addEventListener(ev, function(){ forzado = null; }, {passive: true, capture: true}); });
+  todos.forEach(function(a){ a.addEventListener('click', function(){ forzado = a.getAttribute('href').slice(1); pedir(); }); });
+  document.addEventListener('click', function(){ requestAnimationFrame(function(){ requestAnimationFrame(actualizar); }); }, true);   // cambio de pestaña o panel
+  actualizar();
+})();
 </script>
 </body>
 </html>
