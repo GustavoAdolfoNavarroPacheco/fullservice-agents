@@ -217,12 +217,13 @@ def plat(ag, rel):
 
 
 # Iconos de Claude y Perplexity flotando en 3D a la derecha del banner (decorativos; estilos en estilo.css, parallax en ART_JS)
-ICO_LAMINAS = 64      # láminas finas que forman el canto del icono: apiladas a menos de 1 px se ven como un bloque macizo, no como capas
+ICO_LAMINAS = 24      # láminas finas que forman el canto del icono: apiladas a menos de 1 px se ven como un bloque macizo, no como capas
 
 
 def _ico(clase, img):
-    canto = ''.join('<i class="ico-s" style="--k:%d"></i>' % k for k in range(1, ICO_LAMINAS + 1))
-    return ('<div class="ico %s" style="--n:' + str(ICO_LAMINAS) + '"><span class="ico-glow"></span><div class="ico-tilt"><div class="ico-spin"><div class="ico-float">%s'
+    # solo las láminas «base» (.b, 7 por icono) se dibujan en reposo: con la flotación el canto asoma apenas unos píxeles y bastan; las demás aparecen mientras el icono gira
+    canto = ''.join('<i class="ico-s%s" style="--k:%d"></i>' % (' b' if k == 1 or k % 4 == 0 else '', k) for k in range(1, ICO_LAMINAS + 1))
+    return ('<div class="ico %s" style="--n:' + str(ICO_LAMINAS) + '"><span class="ico-glow"></span><span class="ico-sombra"></span><div class="ico-tilt"><div class="ico-spin"><div class="ico-float">%s'
             '<span class="ico-face"><img src="assets/img/%s" alt="" width="160" height="160"></span></div></div></div></div>') % (clase, canto, img)
 
 
@@ -232,30 +233,66 @@ ART_JS = """<script>
 (function(){
   var ban = document.querySelector('.banner'), art = document.querySelector('.banner-art');
   if(!ban || !art || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-  var ult = null, vx = 0, vy = 0;          // movimiento reciente del cursor: de él depende hacia dónde gira el icono
-  function mover(e){
+  var icos = [].slice.call(art.querySelectorAll('.ico')), tilts = icos.map(function(i){ return i.querySelector('.ico-tilt'); });
+
+  /* ---- modo ligero: sin giros 3D en reposo, sin brillos ni pulso y con el canto reducido. Se activa solo en equipos lentos (se mide) y se recuerda en la sesión ---- */
+  function ligero(motivo){ if(art.classList.contains('ligero')) return; art.classList.add('ligero'); try{ sessionStorage.setItem('ico-ligero', motivo); }catch(e){} }
+  var conn = navigator.connection || {};
+  if((navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) || conn.saveData) ligero('equipo');
+  try{ if(sessionStorage.getItem('ico-ligero')) art.classList.add('ligero'); }catch(e){}
+  function sonda(ms, cb){                                  // mide la mediana del tiempo entre cuadros durante «ms»
+    var t = [], u = null, fin = performance.now() + ms;
+    (function f(n){ if(u !== null) t.push(n - u); u = n; if(n < fin) requestAnimationFrame(f); else { t.sort(function(a, b){ return a - b; }); cb(t.length > 8 ? t[t.length >> 1] : 0, t.length > 8 ? t[Math.floor(t.length * 0.9)] : 0); } })(performance.now());
+  }
+  if(!art.classList.contains('ligero')) setTimeout(function(){
+    sonda(1400, function(med, p90){ if(med > 28 || p90 > 55) ligero('lento'); });
+  }, 1200);
+
+  /* ---- fuera de la pantalla no se dibuja ni se anima ---- */
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){ art.classList.toggle('fuera', !es[0].isIntersecting); }, {rootMargin: '160px 0px'}).observe(art);
+
+  /* ---- seguimiento del cursor: un cálculo por cuadro y sin tocar a los descendientes (las propiedades no se heredan) ---- */
+  var ult = null, vx = 0, vy = 0, px = 0, py = 0, pend = false, ev = null;
+  function pintar(){
+    pend = false;
+    if(!ev) return;
     var r = art.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    var x = Math.max(-1, Math.min(1, (e.clientX - cx) / 420)), y = Math.max(-1, Math.min(1, (e.clientY - cy) / 260));
-    art.style.setProperty('--px', x.toFixed(3)); art.style.setProperty('--py', y.toFixed(3));
+    var x = Math.max(-1, Math.min(1, (ev.clientX - cx) / 420)), y = Math.max(-1, Math.min(1, (ev.clientY - cy) / 260));
+    px = x; py = y;
+    tilts.forEach(function(t){ t.style.setProperty('--px', x.toFixed(2)); t.style.setProperty('--py', y.toFixed(2)); });
+  }
+  function reposo(){ ev = null; px = py = 0; tilts.forEach(function(t){ t.style.setProperty('--px', 0); t.style.setProperty('--py', 0); }); }
+  function mover(e){
+    if(art.classList.contains('fuera')) return;
+    ev = e;
     if(ult){ vx = vx * 0.4 + (e.clientX - ult.x) * 0.6; vy = vy * 0.4 + (e.clientY - ult.y) * 0.6; }
     ult = {x: e.clientX, y: e.clientY};
+    if(!pend){ pend = true; requestAnimationFrame(pintar); }
   }
-  ban.addEventListener('pointermove', mover);
-  ban.addEventListener('pointerleave', function(){ art.style.setProperty('--px', 0); art.style.setProperty('--py', 0); ult = null; vx = vy = 0; });
-  // animación de hover sin interrupciones: al entrar se reproduce completa y no vuelve a empezar hasta que termina
-  [].forEach.call(art.querySelectorAll('.ico'), function(ico){
-    var spin = ico.querySelector('.ico-spin'), t = 0;
+  ban.addEventListener('pointermove', mover, {passive: true});
+  ban.addEventListener('pointerleave', function(){ reposo(); ult = null; vx = vy = 0; });
+
+  /* ---- destello: cada pocos segundos, mientras el banner se ve (en vez de una animación continua) ---- */
+  icos.forEach(function(ico, i){
+    setInterval(function(){
+      if(document.hidden || art.classList.contains('fuera') || art.classList.contains('ligero') || ico.classList.contains('anim')) return;
+      ico.classList.add('brilla'); setTimeout(function(){ ico.classList.remove('brilla'); }, 1500);
+    }, 7000 + i * 1300);
+  });
+
+  /* ---- giro al pasar el cursor: completo, hacia donde se mueve el cursor y sin interrumpirse ---- */
+  icos.forEach(function(ico){
+    var spin = ico.querySelector('.ico-spin'), t = 0, primera = true;
     function fin(){ ico.classList.remove('anim'); clearTimeout(t); }
     spin.addEventListener('animationend', function(e){ if(e.target === spin) fin(); });
     ico.addEventListener('pointerenter', function(e){
-      if(ico.classList.contains('anim')) return;
-      // el icono gira hacia donde se mueve el cursor: la cara delantera se desplaza en esa dirección (eje perpendicular al movimiento).
-      // Si el cursor casi no se movía, se toma la dirección desde donde entró hacia el centro del icono.
+      if(ico.classList.contains('anim') || art.classList.contains('fuera')) return;
       var r = ico.getBoundingClientRect(), mx = vx, my = vy;
       if(Math.hypot(mx, my) < 2){ mx = (r.left + r.width / 2) - e.clientX; my = (r.top + r.height / 2) - e.clientY; }
       var n = Math.hypot(mx, my) || 1; mx /= n; my /= n;
-      ico.style.setProperty('--ax', (-my).toFixed(3)); ico.style.setProperty('--ay', mx.toFixed(3));
+      spin.style.setProperty('--ax', (-my).toFixed(3)); spin.style.setProperty('--ay', mx.toFixed(3));      // en el propio .ico-spin: la variable no se hereda a las láminas
       ico.classList.add('anim'); t = setTimeout(fin, 2400);
+      if(primera && !art.classList.contains('ligero')){ primera = false; sonda(1500, function(med){ if(med > 34) ligero('giro lento'); }); }   // primera vuelta: ¿el giro va fluido?
     });
   });
 })();

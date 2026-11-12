@@ -262,36 +262,53 @@ td:first-child{ font-weight:500; color:var(--ink); }
 /* con los iconos a la derecha, el párrafo no pasa de su columna: deja siempre un aire de al menos 56 px hasta ellos (en pantallas estrechas los iconos bajan y el texto usa todo el ancho) */
 @media (min-width:1101px){ .banner .dek{ max-width:min(40em, calc(var(--page-w) - 360px - 56px)); } }
 /* iconos de Claude y Perplexity flotando en 3D (derecha del banner): flotan siempre, siguen el cursor, giran y brillan al pasar el cursor; contraluz tenue de cada marca */
-.banner-art{ position:absolute; top:50%; right:calc((100% - var(--page-w)) / 2 - 20px); width:360px; height:330px; transform:translateY(-50%); pointer-events:none; --px:0; --py:0; }
+.banner-art{ position:absolute; top:50%; right:calc((100% - var(--page-w)) / 2 - 20px); width:360px; height:330px; transform:translateY(-50%); pointer-events:none; contain:layout style; }
 .ico{ position:absolute; width:var(--s); height:var(--s); pointer-events:auto; perspective:700px; }
 .ico-claude{ --s:158px; --glow:rgba(217,119,87,.6); --edge:#b9532f; --edge2:#8f3f24; left:26px; top:24px; }
 .ico-pplx{ --s:132px; --glow:rgba(32,184,205,.5); --edge:#2a2a28; --edge2:#0d0d0c; left:188px; top:146px; }
-.ico-glow{ position:absolute; inset:-38%; border-radius:50%; background:radial-gradient(circle, var(--glow) 0%, transparent 62%); filter:blur(16px); opacity:.5; animation:ico-pulso 6s ease-in-out infinite; transition:opacity .8s ease, transform .8s ease; }
+.ico-glow{ position:absolute; inset:-38%; border-radius:50%; background:radial-gradient(circle, var(--glow) 0%, transparent 62%); opacity:.5; animation:ico-pulso 6s ease-in-out infinite; transition:opacity .8s ease, transform .8s ease; }
 .ico-pplx .ico-glow{ animation-delay:-2.5s; }
+@property --px{ syntax:'<number>'; inherits:false; initial-value:0; }
+@property --py{ syntax:'<number>'; inherits:false; initial-value:0; }
+@property --hs{ syntax:'<number>'; inherits:false; initial-value:1; }
+@property --ax{ syntax:'<number>'; inherits:false; initial-value:0; }
+@property --ay{ syntax:'<number>'; inherits:false; initial-value:1; }
 .ico-tilt{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transform:rotateX(calc(var(--py) * -14deg)) rotateY(calc(var(--px) * 16deg)) scale(var(--hs, 1)); transition:transform .6s cubic-bezier(.22,.7,.2,1); }
 .ico-spin{ width:100%; height:100%; transform-style:preserve-3d; }
 .ico-float{ position:relative; width:100%; height:100%; transform-style:preserve-3d; animation:ico-flota 7s ease-in-out infinite; }
 .ico-pplx .ico-float{ animation-duration:8.6s; animation-delay:-3.4s; animation-direction:reverse; }
-/* el canto: 64 láminas finas (una .ico-s por lámina) apiladas detrás de la cara y teñidas de --edge a --edge2. La cara se queda exactamente en z = 0: si se adelanta,
+/* el canto: 24 láminas finas (una .ico-s por lámina) apiladas detrás de la cara y teñidas de --edge a --edge2. La cara se queda exactamente en z = 0: si se adelanta,
    la perspectiva la reescala y se ve borrosa. La última lámina lleva la sombra. El resultado es un bloque macizo de esquinas redondeadas, no capas sueltas. */
 .ico{ --d:calc(var(--s) * .16); }
 .ico-s{ position:absolute; inset:0; border-radius:23%; background:color-mix(in srgb, var(--edge2) calc(var(--k) / var(--n) * 100%), var(--edge)); transform:translateZ(calc(var(--d) * var(--k) / var(--n) * -1)); }
-.ico-s:last-of-type{ box-shadow:0 26px 40px -10px rgba(20,20,19,.35); }
+.ico:not(.anim) .ico-s:not(.b){ visibility:hidden; }       /* en reposo solo se dibujan las láminas base; al girar aparecen todas (en el ángulo 0 quedan detrás de la cara: sin saltos) */
+/* sombra plana (no 3D): una elipse con degradado bajo el icono (fija: animarla costaba un cálculo por cuadro) */
+.ico-sombra{ position:absolute; left:6%; right:2%; bottom:-24%; height:30%; border-radius:50%; background:radial-gradient(ellipse at center, rgba(20,20,19,.24) 0%, rgba(20,20,19,.08) 48%, transparent 74%); }
 .ico-face{ position:relative; display:block; width:100%; height:100%; border-radius:23%; overflow:hidden; box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 0 0 1px rgba(255,255,255,.1); }
 .ico-face img{ display:block; width:100%; height:100%; object-fit:cover; }
-.ico-face::after{ content:""; position:absolute; inset:0; background:linear-gradient(115deg, transparent 38%, rgba(255,255,255,.4) 50%, transparent 62%); transform:translateX(-130%); animation:ico-brillo 7s ease-in-out infinite; }
-.ico-pplx .ico-face::after{ animation-delay:-3.5s; }
-.ico:hover{ --hs:1.12; }
+.ico-face::after{ content:""; position:absolute; inset:0; background:linear-gradient(115deg, transparent 38%, rgba(255,255,255,.4) 50%, transparent 62%); transform:translateX(-130%); }
+/* el destello no es una animación continua (costaba un cálculo por cuadro): el script lo dispara cada pocos segundos con .brilla, y el giro con .anim */
+.ico.brilla .ico-face::after{ animation:ico-brillo-hover 1.3s ease-in-out both; }
+.ico:hover .ico-tilt{ --hs:1.12; }
 .ico:hover .ico-glow{ opacity:.95; transform:scale(1.18); }
 /* la animación de hover (giro + destello) la dispara el script con la clase .anim y no se corta: termina siempre antes de poder repetirse */
 .ico.anim .ico-spin{ animation:ico-giro 1.7s cubic-bezier(.45,.05,.2,1) both; }
 .ico.anim .ico-face::after{ animation:ico-brillo-hover 1.3s ease-in-out .2s both; }
 @keyframes ico-flota{ 0%,100%{ transform:translateY(0) rotateX(7deg) rotateY(-12deg) rotateZ(-2deg); } 50%{ transform:translateY(-15px) rotateX(-6deg) rotateY(13deg) rotateZ(2deg); } }
 @keyframes ico-pulso{ 0%,100%{ opacity:.45; } 50%{ opacity:.78; } }
-@keyframes ico-brillo{ 0%,62%{ transform:translateX(-130%); } 82%,100%{ transform:translateX(130%); } }
 @keyframes ico-brillo-hover{ from{ transform:translateX(-130%); } to{ transform:translateX(130%); } }
 /* el eje (--ax, --ay) lo calcula el script según el movimiento del cursor; por omisión, giro horizontal */
 @keyframes ico-giro{ from{ transform:rotate3d(var(--ax, 0), var(--ay, 1), 0, 0deg); } to{ transform:rotate3d(var(--ax, 0), var(--ay, 1), 0, 360deg); } }
+/* fuera de la pantalla no se dibuja ni se anima (lo marca el script con IntersectionObserver) */
+.banner-art.fuera{ visibility:hidden; }
+.banner-art.fuera *, .banner-art.fuera *::after{ animation-play-state:paused !important; }
+/* modo ligero (equipos lentos): flotación solo vertical y sin giros 3D, sin pulso ni destello, canto reducido incluso al girar */
+@keyframes ico-flota-ligera{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } }
+.banner-art.ligero .ico-float{ animation-name:ico-flota-ligera; }
+.banner-art.ligero .ico-glow{ animation:none !important; }
+.banner-art.ligero .ico-glow{ opacity:.55; }
+.banner-art.ligero .ico.brilla .ico-face::after{ animation:none !important; }
+.banner-art.ligero .ico-s:not(.b){ visibility:hidden !important; }
 @media (prefers-reduced-motion:reduce){ .banner-art *, .banner-art *::after{ animation:none !important; } .ico-tilt{ transition:none; } }
 @media (max-width:1100px){
   .banner-in{ padding-bottom:0; }

@@ -16,7 +16,24 @@
     anchors: true                                    // el desfase de la barra superior lo da scroll-padding-top (CSS)
   });
   window.lenis = lenis;
-  (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })(performance.now());
+  /* El bucle de Lenis solo corre mientras hace falta: con la página quieta no se pide ningún cuadro (antes pedía uno por cuadro, siempre).
+     Se despierta con cualquier interacción que pueda mover el scroll y se duerme cuando Lenis termina de desplazarse (más una pequeña holgura). */
+  var corriendo = false, holgura = 0;
+  function bucle(time) {
+    lenis.raf(time);
+    if (lenis.isScrolling) holgura = time + 160;
+    if (time < holgura) requestAnimationFrame(bucle); else corriendo = false;
+  }
+  function despertar() {
+    holgura = performance.now() + 400;
+    if (!corriendo) { corriendo = true; lenis.time = 0; requestAnimationFrame(bucle); }      // time = 0: el primer cuadro avanza 0 (si no, Lenis vería un salto enorme desde el último cuadro y terminaría la animación de golpe)
+  }
+  ['wheel', 'touchstart', 'touchmove', 'keydown', 'pointerdown', 'click', 'scroll', 'hashchange', 'resize'].forEach(function (ev) {
+    window.addEventListener(ev, despertar, { passive: true, capture: true });
+  });
+  var scrollTo = lenis.scrollTo.bind(lenis);           // los desplazamientos hechos por código (enlaces del índice, window.irA…) también lo despiertan
+  lenis.scrollTo = function () { despertar(); return scrollTo.apply(null, arguments); };
+  despertar();
 
   /* Inercia en las áreas internas (p. ej. el índice lateral cuando es más alto que la pantalla). */
   var TAU = 95, estados = new WeakMap();

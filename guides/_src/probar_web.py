@@ -525,7 +525,7 @@ with sync_playwright() as p:
     print('\n== iconos 3D del banner')
     pg = b.new_page(viewport={'width': 1366, 'height': 800})
     pg.goto(BASE + '/inicio'); pg.wait_for_timeout(2600)
-    check('iconos 3D: el canto es un bloque de 64 láminas por icono', pg.evaluate("document.querySelectorAll('.ico-claude .ico-s').length") == 64 and pg.evaluate("document.querySelectorAll('.ico-pplx .ico-s').length") == 64)
+    check('iconos 3D: el canto es un bloque de %d láminas por icono' % build.ICO_LAMINAS, pg.evaluate("document.querySelectorAll('.ico-claude .ico-s').length") == build.ICO_LAMINAS and pg.evaluate("document.querySelectorAll('.ico-pplx .ico-s').length") == build.ICO_LAMINAS)
     MAT = "(() => { const m = getComputedStyle(document.querySelector('.ico-claude .ico-spin')).transform; return m.startsWith('matrix3d') ? m.slice(9, -1).split(',').map(Number) : null; })()"
 
     def entrar(desde):
@@ -548,6 +548,29 @@ with sync_playwright() as p:
     check('iconos 3D: de lado el giro es sobre el eje vertical y de arriba/abajo sobre el horizontal', abs(mi[6]) < .05 and abs(ma[2]) < .05, '%s | %s' % (round(mi[6], 3), round(ma[2], 3)))
     pg.wait_for_timeout(800)
     check('iconos 3D: tras el giro el icono queda en reposo', pg.evaluate("getComputedStyle(document.querySelector('.ico-claude .ico-spin')).transform") in ('none', 'matrix(1, 0, 0, 1, 0, 0)') and not pg.evaluate("document.querySelector('.ico-claude').classList.contains('anim')"))
+    # rendimiento: láminas base en reposo, todas al girar; fuera de vista se detiene; modo ligero
+    VIS = "(sel) => [...document.querySelectorAll(sel + ' .ico-s')].filter(e => getComputedStyle(e).visibility !== 'hidden').length"
+    base = pg.evaluate(VIS, '.ico-claude')
+    check('iconos 3D (rendimiento): en reposo solo se dibujan las láminas base', 0 < base <= build.ICO_LAMINAS // 3, '%d de %d' % (base, build.ICO_LAMINAS))
+    pg.evaluate("document.querySelector('.ico-claude').classList.add('anim')")
+    todas = pg.evaluate(VIS, '.ico-claude')
+    pg.evaluate("document.querySelector('.ico-claude').classList.remove('anim')")
+    check('iconos 3D (rendimiento): mientras gira se dibujan todas las láminas', todas == build.ICO_LAMINAS, '%d' % todas)
+    check('iconos 3D (rendimiento): el brillo ya no usa filtro de desenfoque', pg.evaluate("getComputedStyle(document.querySelector('.ico-glow')).filter") == 'none')
+    check('iconos 3D (rendimiento): --px y --py no se heredan (no recalculan el estilo de las láminas)', pg.evaluate("CSS.registerProperty ? true : false") and pg.evaluate("(() => { const e = document.querySelector('.ico-s'); const t = document.querySelector('.ico-tilt'); t.style.setProperty('--px', '0.5'); const v = getComputedStyle(e).getPropertyValue('--px'); t.style.setProperty('--px', '0'); return v === '' || v === '0'; })()"))
+    pg.evaluate("window.scrollTo(0, 1600)"); pg.wait_for_timeout(900)
+    fuera = pg.evaluate("(() => { const a = document.querySelector('.banner-art'); return [a.classList.contains('fuera'), getComputedStyle(a).visibility, getComputedStyle(document.querySelector('.ico-float')).animationPlayState]; })()")
+    check('iconos 3D (rendimiento): con el banner fuera de la vista no se dibuja y la animación se pausa', fuera[0] and fuera[1] == 'hidden' and fuera[2] == 'paused', str(fuera))
+    pg.evaluate("window.scrollTo(0, 0)"); pg.wait_for_timeout(900)
+    check('iconos 3D (rendimiento): al volver a la vista se reanuda', pg.evaluate("(() => { const a = document.querySelector('.banner-art'); return !a.classList.contains('fuera') && getComputedStyle(a).visibility === 'visible'; })()"))
+    pg.mouse.move(5, 700)
+    pg.evaluate("document.querySelectorAll('.ico').forEach(i => i.classList.remove('anim', 'brilla')); document.querySelector('.banner-art').classList.add('ligero')")
+    lig = pg.evaluate("(() => [getComputedStyle(document.querySelector('.ico-float')).animationName, getComputedStyle(document.querySelector('.ico-glow')).animationName, getComputedStyle(document.querySelector('.ico-face'), '::after').animationName])()")
+    pg.evaluate("document.querySelector('.ico-claude').classList.add('anim')")
+    lig_giro = pg.evaluate(VIS, '.ico-claude')
+    pg.evaluate("document.querySelector('.ico-claude').classList.remove('anim'); document.querySelector('.banner-art').classList.remove('ligero')")
+    check('iconos 3D (rendimiento): el modo ligero deja la flotación solo vertical y sin pulso ni destello', lig[0] == 'ico-flota-ligera' and lig[1] == 'none' and lig[2] == 'none', str(lig))
+    check('iconos 3D (rendimiento): el modo ligero mantiene el canto reducido incluso al girar', lig_giro == base, '%d vs %d' % (lig_giro, base))
     pg.close()
 
     print('\n== índice lateral: sección activa')
